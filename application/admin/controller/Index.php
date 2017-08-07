@@ -13,6 +13,7 @@ class Index extends Base
 {
     public function index()
     {
+
         $sysinfo  = new Sysinfo();
         $sys_info = [
             'lang'    => $sysinfo->getLang(),

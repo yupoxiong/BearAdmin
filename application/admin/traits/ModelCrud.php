@@ -13,7 +13,13 @@ trait ModelCrud
      * 列表
      */
     public function index(){
-        
+        $model = $this->getModel();
+        $map = $this->getMap($model);
+
+        $this->dataList($model, $map);
+
+        return $this->view->fetch();
+
 
     }
 

@@ -24,6 +24,7 @@ class AdminFile extends Base
      */
     public function index()
     {
+        dump($this->getModel());
         $files      = new AdminFiles();
         $page_param = ['query' => []];
         if (isset($this->get['keywords']) && !empty($this->get['keywords'])) {
