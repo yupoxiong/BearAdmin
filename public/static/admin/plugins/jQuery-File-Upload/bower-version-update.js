@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+"use strict";var path=require("path"),packageJSON=require(path.join(__dirname,"package.json")),bowerFile=path.join(__dirname,"bower.json"),bowerJSON=require("bower-json").parse(require(bowerFile),{normalize:!0});bowerJSON.version=packageJSON.version,require("fs").writeFileSync(bowerFile,JSON.stringify(bowerJSON,null,2)+"\n");

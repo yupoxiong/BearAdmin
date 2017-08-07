@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="pad margin no-print">
+        <div class="callout callout-info" style="margin-bottom: 0!important;">
+            <h4><i class="fa fa-info"></i> 你好,{$web_data['user_info']['nick_name']}:</h4>
+            欢迎来到后台管理系统，左侧为菜单区域，右侧为功能区。
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3>后台介绍</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <div class="content body">
+                    <section id="introduction">
+                        <p class="">
+                            <b>BearAdmin</b> 是一个基于TP5+AdminLTE开发的简单后台管理系统，目前包含以下功能（模块）：
+                        </p>
+                        <ul class="bring-up">
+                            <li>
+                                基础功能
+                                <ul class="bring-up">
+                                    <li>用户管理</li>
+                                    <li>角色管理</li>
+                                    <li>菜单管理</li>
+                                    <li>操作日志管理</li>
+                                    <li>基于菜单的权限管理</li>
+                                </ul>
+                            </li>
+                            <li>
+                                扩展功能
+                                <ul class="bring-up">
+                                    <li>Ueditor集成</li>
+                                    <li>邮件发送</li>
+                                    <li>二维码生成</li>
+                                    <li>阿里大于</li>
+                                    <li>Excel导入导出</li>
+                                    <li>文件上传下载</li>
+                                </ul>
+                            </li>
+                            <li>
+                                助手函数
+                                <ul class="bring-up">
+                                    <li>获取指定ip的地理位置信息及天气信息</li>
+                                    <li>字符串的加密解密</li>
+
+                                </ul>
+                            </li>
+                            <li>
+                                计划添加
+                                <ul class="bring-up">
+                                    <li>系统日志管理(待开发完善)</li>
+                                    <li>七牛云存储(待添加)</li>
+                                    <li>第三方登录(待添加)</li>
+                                    <li>支付插件(待添加)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h4>代码参考说明</h4>
+                        <p class="">
+                            本项目源代码使用了其他开源项目或引用了其他项目的功能，大致如下，如有遗漏，请告知更改添加：
+                        </p>
+                        <ul class="bring-up">
+                            <li>ThinkPHP5.0.9</li>
+                            <li>AdminLTE(及其插件)</li>
+                            <li>laydate</li>
+                            <li>Ueditor</li>
+                            <li>composer已下载插件</li>
+                            <li>其他等等</li>
+                        </ul>
+                        <p class="">
+                            感谢以上开源项目！
+                        </p>
+                        <p class="lead">
+                            建了个群（480018279），方便反馈BUG和提供建议
+                            <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=f8410daca4db4f6f47ec656f4a3f97bc9f403c01d79f1ce5b2f96113bf9a492f"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="BearAdmin交流群" title="BearAdmin交流群"></a>
+                        </p>
+                    </section><!-- /#introduction -->
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">访问信息</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>您的系统</td>
+                        <td>{$sys.os}</td>
+                        <td>浏览器</td>
+                        <td>{$sys.browser}</td>
+                    </tr>
+                    <tr>
+                        <td>ip地址</td>
+                        <td>{$sys.ip}</td>
+                        <td>城市</td>
+                        <td>{$sys.city}</td>
+
+                    </tr>
+                    <tr>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div id="error_message" class="alert alert-danger alert-dismissible admin-do-alert">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> 错误提示!</h4>
+    {if $Think.session.error_message}
+    {$Think.session.error_message}
+    {/if}
+</div>
+<script>
+    var msg = $('#error_message');
+    msg.delay(500).fadeIn();
+    msg.delay(3000).fadeOut();
+</script>

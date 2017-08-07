@@ -1,0 +1,230 @@
+<div class="row">
+    <div class="col-md-3">
+
+        <!-- Profile Image -->
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="__AVATAR__{$user.avatar}" alt="头像">
+
+                <h3 class="profile-username text-center">{$user.nick_name}</h3>
+
+                <p class="text-muted text-center">{$user.user_name}</p>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+        <!-- About Me Box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">详情资料</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <strong><i class="fa fa-envelope"></i> 手机</strong>
+                <p class="text-muted">{$user->profile->mobile}</p>
+                <hr>
+                <strong><i class="fa fa-envelope"></i> 邮箱</strong>
+                <p class="text-muted">{$user->profile->email}</p>
+                <hr>
+                <strong><i class="fa fa-map-marker margin-r-5"></i> 现居住地</strong>
+                <p class="text-muted">{$user->profile->city}</p>
+                <hr>
+                <strong><i class="fa fa-file-text-o margin-r-5"></i> 简介</strong>
+                <p>{$user->profile->description}</p>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
+    <div class="col-md-9">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">个人信息</a></li>
+                <li class=""><a href="#social" data-toggle="tab" aria-expanded="false">社交资料</a></li>
+                <li class=""><a href="#privacy" data-toggle="tab" aria-expanded="false">修改密码</a></li>
+                <li class=""><a href="#avatars" data-toggle="tab" aria-expanded="false">修改头像</a></li>
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+                    <form class="form-horizontal" action="" method="post">
+                        <div class="form-group" style="display: none">
+                            <label for="profile_form" class="col-sm-2 control-label">更新方式</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" value="profile" class="form-control" name="update_type"
+                                       id="profile_form" placeholder="请勿淘气修改">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nick_name" class="col-sm-2 control-label">昵称</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="{$user->nick_name}" name="nick_name"
+                                       id="nick_name" maxlength="30"
+                                       placeholder="昵称或姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">手机</label>
+                            <div class="col-sm-10">
+                                <input type="tel" class="form-control" value="{$user->profile->mobile}" name="mobile"
+                                       id="mobile" placeholder="手机号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" value="{$user->profile->email}" name="email"
+                                       id="email" placeholder="邮箱">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="col-sm-2 control-label">居住地</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="{$user->profile->city}" name="city"
+                                       id="city" placeholder="居住地">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">个人简介</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="description" id="description"
+
+                                          placeholder="个人简介">{$user->profile->description}</textarea>
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="social">
+                    <form class="form-horizontal" action="" method="post">
+                        <div class="form-group" style="display: none">
+                            <label for="social_form" class="col-sm-2 control-label">更新方式</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" value="social" class="form-control" name="update_type"
+                                       id="social_form" placeholder="请勿淘气修改">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="qq" class="col-sm-2 control-label">QQ</label>
+
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" value="{$user->profile->qq}" name="qq" id="qq"
+                                       placeholder="qq">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wechat" class="col-sm-2 control-label">微信</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="{$user->profile->wechat}" name="wechat"
+                                       id="wechat" placeholder="微信">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="weibo" class="col-sm-2 control-label">微博</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="{$user->profile->weibo}" name="weibo"
+                                       id="weibo" placeholder="微博">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zhihu" class="col-sm-2 control-label">知乎</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" value="{$user->profile->zhihu}" name="zhihu"
+                                       id="zhihu" placeholder="知乎">
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="privacy">
+                    <form class="form-horizontal" action="" method="post">
+                        <div class="form-group" style="display: none">
+                            <label for="social_form" class="col-sm-2 control-label">更新方式</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" value="password" class="form-control" name="update_type"
+                                       id="password_form" placeholder="请勿淘气修改">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wechat" class="col-sm-2 control-label">当前密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password" id="password"
+                                       placeholder="请输入当前密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wechat" class="col-sm-2 control-label">新密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="newpassword" id="newpassword"
+                                       placeholder="请输入新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wechat" class="col-sm-2 control-label">确认新密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="newpassword_do" id="newpassword_do"
+                                       placeholder="再次输入新密码">
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane" id="avatars">
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group" style="display: none">
+                            <label for="social_form" class="col-sm-2 control-label">更新方式</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" value="avatar" class="form-control" name="update_type"
+                                       id="avatar_form" placeholder="请勿淘气修改">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="avatar" class="col-sm-2 control-label">头像</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="avatar" id="avatar"
+                                       placeholder="头像可空">
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+    </div>
+</div>

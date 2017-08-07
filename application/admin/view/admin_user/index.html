@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-body">
+                <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
+
+                    <div class="form-group" >
+                        <input type="text" value="{$keywords ? $keywords : '' ;}"
+                               name="keywords" id="keywords" class="form-control" placeholder="帐号/用户名/手机号/邮箱">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="clear_form()" class="btn btn-default" type="button"><i class="fa  fa-eraser"></i> 清空查询
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <!--数据列表页头部-->
+            {include file="template/data_header" /}
+            <!-- /.box-header -->
+            <div class="box-header"><a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm margin" title="批量删除数据，请谨慎使用此功能" onclick="dels()">
+                批量删除
+            </a></div>
+
+            <div class="box-body table-responsive">
+                <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消"></th>
+                        <th>用户ID</th>
+                        <th>帐号</th>
+                        <th>用户名</th>
+                        <th>角色</th>
+                        <th>手机</th>
+                        <th>邮箱</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {foreach name="lists" item="list"}
+                    <tr>
+                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$list.user_id}" class="checkbox data-list-check" value="{$list.user_id}" placeholder="选择/取消"></td>
+                        <td>{$list.user_id}</td>
+                        <td>{$list.user_name}</td>
+                        <td>{$list.nick_name}</td>
+                        <td>
+                            {foreach  name="list.adminRoles" item="listson"}
+                            {$listson.authGroup.title}&nbsp;
+                            {/foreach}
+                        </td>
+                        <td>{$list->profile->mobile}</td>
+                        <td>{$list->profile->email}</td>
+                        <td>{$list.status}</td>
+
+                        <td>
+                            <a href="{:url($web_data['do_url'].'edit','id='.$list.user_id)}"
+                               class="btn btn-default btn-sm margin">
+                                <i class="fa fa-edit"></i>
+                                编辑
+                            </a>
+                            <a data-toggle="modal" data-target="#modal"
+                               class="btn btn-danger btn-sm margin"
+                               title="删除" onclick="del({$list.user_id})">
+                                <i class="fa fa-close"></i>
+                                删除
+                            </a>
+
+                        </td>
+                    </tr>
+                    {/foreach}
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <div>
+
+                    <div class="dataTables_paginate paging_simple_numbers">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+

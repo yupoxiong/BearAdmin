@@ -1,0 +1,41 @@
+<?php
+/**
+ * 数据统计
+ * @author yupoxiong<i@yufuping.com>
+ * @version 1.0
+ * Date: 2017/3/20
+ */
+
+namespace app\admin\controller;
+
+use app\common\model\AdminLogs;
+use app\common\model\AdminMenus;
+use app\common\model\AdminUsers;
+use app\common\model\Syslogs;
+
+class Statistics extends Base
+{
+
+    //统计概览
+    public function index(){
+
+        $admin_users = new AdminUsers();
+        $admin_user_count = $admin_users->count();
+        $syslogs = new Syslogs();
+        $syslog_count = $syslogs->count();
+        $admin_logs = new AdminLogs();
+        $admin_log_count = $admin_logs->count();
+        $admin_menus = new AdminMenus();
+        $admin_menu_count = $admin_menus->count();
+
+        $this->assign([
+
+            'adminuser_count'=>$admin_user_count,
+            'syslog_count'=>$syslog_count,
+            'admin_log_count'=>$admin_log_count,
+            'admin_menu_count' => $admin_menu_count
+        ]);
+        return $this->fetch();
+    }
+
+}

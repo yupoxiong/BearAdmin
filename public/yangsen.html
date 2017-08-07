@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Title</title>
+</head>
+<body>
+<input placeholder="输入整数试试" id="num" type="number"> <button onclick="yang_sen()">确认</button>
+
+<script>
+    var num1 = 0;
+
+    var min = 0.1;
+    var max = 0.1;
+    function yang_sen() {
+        var num = parseInt(document.getElementById('num').value);
+        console.log(num);
+        //第一次输入
+        if(min==0.1 && max==0.1){
+            console.log("第一次输入");
+            if(num!=0){
+                min=num;
+                max=num;
+
+            }else{
+                alert("第一次就输入0，骚年你可以啊");
+            }
+            return false;
+        }
+
+        if(num==0){
+            alert("最大输入："+max+",最小输入："+min);
+            max=0.1;
+            min = 0.1;
+            console.log("退出了哦");
+        }else {
+            if(max<num){
+                max=num;
+            }
+
+            if(min>num){
+                min=num;
+            }
+
+            console.log("当前最大值："+max+",当前最小值："+min);
+        }
+    }
+</script>
+</body>
+</html>

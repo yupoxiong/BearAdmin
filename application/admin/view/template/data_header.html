@@ -1,0 +1,16 @@
+<div class="box-header">
+    <h3 class="box-title">{$web_data['web_title']}</h3>
+    {if isset($total)}
+    共{$total}条记录
+    {/if}
+    <div class="box-tools">
+        <div class="input-group input-group-sm">
+            <div class="input-group-btn">
+                <a href="{$web_data['data_add_url']}" class="btn btn-default pull-right">
+                    <i class="fa fa-plus"></i>
+                    {$web_data['data_add_title']}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

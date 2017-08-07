@@ -1,0 +1,154 @@
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/dropzone/dropzone.min.css">
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-body">
+                <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
+
+                    <div class="form-group" >
+                        <input type="text" value="{$keywords ? $keywords : '' ;}"
+                               name="keywords" id="keywords" class="form-control" placeholder="文件名">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="clear_form()" class="btn btn-default" type="button"><i class="fa  fa-eraser"></i> 清空查询
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <!--数据列表页头部-->
+            <div class="box-header">
+                <h3 class="box-title">{$web_data['web_title']}</h3>
+                {if isset($total)}
+                共{$total}条记录
+                {/if}
+                <div class="box-tools">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <a class="btn btn-default pull-right" data-toggle="modal" data-target="#upload-modal">
+                                <i class="fa fa-upload"></i>
+                                上传文件
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>文件ID</th>
+                        <th>文件名称</th>
+                        <!--<th>文件预览</th>-->
+                        <th>文件大小</th>
+                        <th>文件类型</th>
+                        <th>上传时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach name="lists" item="list"}
+                    <tr>
+                        <td>{$list.file_id}</td>
+                        <td>{$list.original_name}</td>
+                        <td>{$list.size}</td>
+                        <td>{$list.mime}</td>
+                        <td>{$list.create_time}</td>
+                        <td>
+                            <a href="download.html?id={$list.file_id}" class="btn btn-default btn-sm margin">
+                                <i class="fa fa-download"></i>
+                                下载
+                            </a>
+                            <a data-toggle="modal" data-target="#modal"
+                               class="btn btn-danger btn-sm margin"
+                               title="删除" onclick="del({$list.file_id})">
+                                <i class="fa fa-close"></i>
+                                删除
+                            </a>
+
+                        </td>
+                    </tr>
+                    {/foreach}
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <div>
+                    <div class="dataTables_paginate paging_simple_numbers">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+<div class="modal" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby=updateModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">上传文件</h4>
+            </div>
+            <div class="modal-body">
+                <form class="dropzone" id="dropzone" style="border: 2px dashed #d2d6de;">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="upload-finished">确定</button>
+            </div>
+        </div>
+    </div>
+    {:token()}
+</div>
+<script type="text/javascript" src="__STATIC__/plugins/dropzone/dropzone.min.js"></script>
+<script type="text/javascript">
+    $('#upload-finished').click(function () {
+        window.location.reload();
+    });
+
+    Dropzone.options.dropzone = {
+        url: "upload.html",
+        method: "post",
+        paramName: "file",
+        headers: {
+            "__token__":$("input[name='__token__']").val()
+        },
+        maxFilesize: 3,
+        maxFiles:5,
+        acceptedFiles: ".jpg,.gif,.png,.doc,.docx,.xlsx",
+        dictMaxFilesExceeded: "您每次最多只能上传5个文件！",
+        dictFileTooBig: "上传文件太大,无法上传!",
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png*.doc,*.docx,*.xlsx。",
+        dictResponseError: "上传文件出错,请联系管理员!",
+        dictDefaultMessage: "拖动文件到此或点击上传",
+        sending: function (file, xhr,formData) {
+            console.log(xhr);
+            if(xhr.status!=200){
+
+            }
+        },
+        accept: function (file, done) {
+            done();
+        },
+        success: function (file, done) {
+            console.log(done);
+        }
+    };
+</script>

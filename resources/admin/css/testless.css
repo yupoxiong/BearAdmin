@@ -1,0 +1,11 @@
+.body {
+  background: #000;
+  color: #fff;
+}
+.body .p {
+  width: 100px;
+  height: 100px;
+}
+.body .p .a {
+  color: #eee;
+}

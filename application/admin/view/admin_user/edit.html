@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{$web_data['web_title']}</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" action="" method="post" enctype="multipart/form-data" >
+                <div class="box-body">
+
+                    <div class="form-group" style="display: none">
+                        <label for="user_id">ID</label>
+                        <input type="number" name="user_id" id="user_id" readonly value="{$info['user_id']}"
+                               class="form-control" placeholder="自动读取，请勿改动">
+                    </div>
+                    <div class="form-group">
+                        <label>角色</label>
+                        <div>
+                            {foreach name='roles' item='r'}
+                            <input style="margin: 0 0 0 10px" class="checkbox-inline" {$r.checked} type="checkbox"
+                                   name="parent_id[]" id="parent_{$r.id}" value="{$r.id}"/>
+                            <label for="parent_{$r.id}">{$r.title}</label>
+                            {/foreach}
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_name">帐号</label>
+                        <input type="text" name="user_name" id="user_name" value="{$info.user_name}"
+                               class="form-control" placeholder="请输入用户帐号">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" name="password" id="password" class="form-control" autocomplete="off"
+                               placeholder="不修改无需填写">
+                    </div>
+                    <div class="form-group">
+                        <label for="nick_name">用户姓名</label>
+                        <input type="text" id="nick_name" name="nick_name" value="{$info.nick_name}"
+                               class="form-control" placeholder="请输入用户姓名或昵称">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">手机号</label>
+                        <input type="tel" name="mobile" id="mobile" value="{$info->profile->mobile}" class="form-control"
+                               placeholder="请输入用户手机号">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" name="email" id="email" value="{$info->profile->email}" class="form-control"
+                               placeholder="请输入用户邮箱">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="avatar">头像</label>
+                        <input type="file" name="avatar" id="avatar" class="form-control" placeholder="头像可空">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status_1" value="1"
+                                       {if $info.status=='正常'}checked{/if}>
+                                启用
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status_0" value="0"
+                                       {if $info.status=='冻结'}checked{/if}>
+                                冻结
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+
+                {include file="template/action_footer" /}
+            </form>
+        </div>
+    </div>
+</div>
