@@ -7,13 +7,12 @@
 
 namespace app\admin\controller;
 
+use think\Cache;
 use think\Controller;
 use app\admin\auth\Auth;
 use app\admin\auth\Tree;
 use think\Debug;
-use think\exception\ClassNotFoundException;
 use think\exception\HttpResponseException;
-use think\Loader;
 use think\Request;
 use think\Response;
 use think\Session;
@@ -23,10 +22,6 @@ use app\common\model\AdminUsers;
 class Base extends Controller
 {
     protected $request, $request_type, $param, $post, $get, $module, $controller, $action, $url, $do_url, $id, $web_data, $api_result, $model;
-
-    /*protected $beforeActionList = [
-        'beforeBaseAction'
-    ];*/
 
     public function __construct()
     {
@@ -57,23 +52,11 @@ class Base extends Controller
         parent::__construct();
     }
 
-    public function beforeBaseAction()
-    {
-        //这里准备判断当前页面不是ajax和post的情况
-        //页面输出 del_url
-        if ($this->action == 'delete') {
-            $this->delete();
-        }
-
-    }
 
     public function _initialize()
     {
-
-        //这里加入ajax的判断2017年4月27日 23:01:10
+        $auth = new Auth();
         if ($this->request->isAjax()) {
-
-            $auth = new Auth();
             if ($auth->is_login()) {
                 $user_id = Session::get('user.user_id');
                 if ($user_id != 1) {
@@ -98,10 +81,8 @@ class Base extends Controller
                 $this->api_result['status']  = 401;
                 $this->api_result['message'] = ' Not logged in';
                 throw new HttpResponseException(json($this->api_result));
-
             }
         } else {
-            $auth = new Auth();
             if ($auth->is_login()) {
                 $user_id = Session::get('user.user_id');
                 if ($user_id != 1) {
@@ -109,6 +90,8 @@ class Base extends Controller
                         $this->do_error('无权限');
                     }
                 }
+
+                //Debug::remark('begin');
 
                 $this->web_data['do_url'] = $this->do_url;
 
@@ -126,6 +109,18 @@ class Base extends Controller
                     $this->web_data['data_edit_url']  = url($this->do_url . 'edit');
                 }
 
+
+                /*if (Cache::store('redis')->has('left_menu_' . $user_id)) {
+                    $this->web_data['left_menu'] = Cache::store('redis')->get('left_menu_' . $user_id);
+                } else {
+                    $left_menu = $this->getLeftMenu();
+                    $cache_left_menu = Cache::store('redis')->set('left_menu_' . $user_id, $left_menu);
+                    if ($cache_left_menu) {
+                        $this->web_data['left_menu'] = $left_menu;
+                    }
+                }*/
+
+
                 $this->web_data['left_menu'] = $this->getLeftMenu();
                 $menu_info                   = $this->getMenuInfo();
                 $this->web_data['web_title'] = $menu_info['title'];
@@ -133,10 +128,16 @@ class Base extends Controller
                 $user_info                   = $this->getUserInfo($user_id);
                 $this->web_data['user_info'] = $user_info;
 
+                //Debug::remark('end');
+
+                //echo Debug::getRangeTime('begin','end').'s';
+
                 $log_type = $this->web_data['log_type'];
                 if ($log_type == $this->request_type && $log_type != 0) {
                     $auth->createLog($this->web_data['web_title'], $log_type, $this->id);
                 }
+
+
             } else {
                 $this->redirect('pub/login', ['uri' => $this->url]);
             }
@@ -172,6 +173,14 @@ class Base extends Controller
         return !empty($parent_ids) ? $parent_ids : false;
     }
 
+
+    //获当前url取面包屑
+    protected function getBreadcrumb(){
+    
+        
+    }
+
+
     protected function getCurrentNav($arr, $myid, $parent_ids = array(), $current_nav = '')
     {
         $a = $newarr = array();
@@ -180,12 +189,12 @@ class Base extends Controller
                 if ($a['menu_id'] == $myid) {
                     if ($a['parent_id'] != 0) {
                         array_push($parent_ids, $a['parent_id']);
-
                         $ru          = '<li><a href="#"><i class="fa ' . $a['icon'] . '"></i> ' . $a['title'] . '</a></li>';
                         $current_nav = $ru . $current_nav;
                         $temp_result = $this->getCurrentNav($arr, $a['parent_id'], $parent_ids, $current_nav);
                         $parent_ids  = $temp_result[0];
                         $current_nav = $temp_result[1];
+                        dump($parent_ids);
                     }
                 }
             }
@@ -211,51 +220,16 @@ class Base extends Controller
     }
 
 
-    //增加数据
-    public function create()
-    {
-        $model = $this->getModel();
-        if ($model) {
-
-        }
-    }
-
-    //删除数据
-    public function delete()
-    {
-        if ($this->id) {
-            $model = $this->getModel();
-            if ($model) {
-                $pk         = $model->getPk();
-                $where[$pk] = ["in", $this->id];
-                if (false === $model->where($where)->delete()) {
-                    return $this->ajaxReturnError($model->getError());
-                } else {
-                    return $this->ajaxReturn($this->id);
-                }
-            }
-        }
-
-        return $this->ajaxReturnError();
-    }
-
-
     /**
      * 添加，修改时返回成功信息方法
      * @param string $msg
-     * @param null $url
+     * @param string $url
      * @param string $data
      */
-    protected function do_success($msg = '', $url = null, $data = '')
+    protected function do_success($msg = '操作成功！', $url = '', $data = '')
     {
-        if ($url == null) {
-            $url = url($this->do_url . 'index');
-        } else {
-            $url = url($url);
-        }
-
-        if ($msg == '') {
-            $msg = '操作成功！';
+        if ($url == '') {
+            $url = $this->do_url . 'index';
         }
 
         return $this->redirect($url, $data, 302, ['success_message' => $msg]);
@@ -271,14 +245,13 @@ class Base extends Controller
     protected function do_error($msg = '操作失败', $url = null, $data = '')
     {
         $server = $this->request->server();
-
         if ($url == null && isset($server['HTTP_REFERER'])) {
             $url = $server['HTTP_REFERER'];
         }
         $current_url = $server['REQUEST_SCHEME'] . $server['SERVER_NAME'] . $server['REQUEST_URI'];
         if ($url == $current_url || $this->url == '' || $url == null) {
             $msg = '页面不存在！';
-            $url = url('admin/index');
+            $url = 'admin/index/index';
         }
 
         return $this->redirect($url, $data, 302, ['error_message' => $msg]);
@@ -425,33 +398,12 @@ class Base extends Controller
         }
     }
 
-    //重写assign
-    protected function assign($name=null, $value = '')
-    {
-        $data = [
-            'web_data'=>$this->web_data
-        ];
-        if (is_array($name)) {
-            $data = array_merge($data,$name);
-        } elseif(null!==$name) {
-            $data[$name] = $value;
-        }
-        parent::assign($data);
-    }
+
 
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
-        parent::assign( ['web_data'=>$this->web_data]);
-        return parent::fetch($template, $vars, $replace, $config); // TODO: Change the autogenerated stub
+        parent::assign(['web_data' => $this->web_data]);
+        return parent::fetch($template, $vars, $replace, $config);
     }
 
-    protected function getModel(){
-
-        $class = 'app\\common\\model\\'.$this->request->controller().'s';
-        if (class_exists($class)) {
-            return new $class();
-        }
-        throw new ClassNotFoundException('class not exists:' . $class, $class);
-
-    }
 }

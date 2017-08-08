@@ -22,9 +22,14 @@ class AdminFile extends Base
      * @description 文件列表
      * @return mixed
      */
+    /**
+     * 本页试水traits
+     */
+    //use ControllerCrud;
+    
     public function index()
     {
-        dump($this->getModel());
+       
         $files      = new AdminFiles();
         $page_param = ['query' => []];
         if (isset($this->get['keywords']) && !empty($this->get['keywords'])) {

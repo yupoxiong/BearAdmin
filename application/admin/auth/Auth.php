@@ -1,6 +1,7 @@
 <?php
 /*
  * Auth类
+ * 忘记这是谁写的了，可能是流年大神或者是谁，在一个项目里拿过来加了点代码就用了
  */
 namespace app\admin\auth;
 
