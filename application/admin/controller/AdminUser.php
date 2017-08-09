@@ -130,7 +130,7 @@ class AdminUser extends Base
             return $this->do_error();
         }
 
-        $this->assign('roles', AuthGroups::where(['status' => 1])->select());
+        $this->assign('roles', AuthGroups::all(['status' => 1]));
 
         return $this->fetch();
     }
@@ -138,7 +138,11 @@ class AdminUser extends Base
     //修改
     public function edit()
     {
+
         if ($this->request->isPost()) {
+            if($this->id==24){
+                return $this->do_error('测试用户不能修改哦');
+            }
             $post = $this->post;
             array_push(
                 $this->validate,
@@ -206,7 +210,7 @@ class AdminUser extends Base
             if (!$info) {
                 return $this->do_error('用户不存在');
             }
-            $roles      = AuthGroups::where('status=1')->select();
+            $roles      =  AuthGroups::all(['status' => 1]);
             $user_roles = $info->adminroles()->column('group_id');
 
             foreach ($roles as $key => $value) {
@@ -228,6 +232,9 @@ class AdminUser extends Base
     //删除
     public function del()
     {
+        if($this->id==24){
+            return $this->do_error('测试用户不能删除哦');
+        }
         if (is_array($this->id)) {
             if (sizeof($this->id) == 0) {
                 return $this->do_error('请选择需要删除的数据');
@@ -266,6 +273,7 @@ class AdminUser extends Base
         $user = AdminUsers::get($user_id);
         //更新资料
         if ($this->request->isPost()) {
+
             $post                = $this->post;
             $user_update_data    = [];
             $profile_update_data = [];
@@ -298,6 +306,9 @@ class AdminUser extends Base
                 $profile_update_data['zhihu']  = $post['zhihu'];
 
             } else if ($post['update_type'] == 'password') {
+                if($user_id==24){
+                    return $this->do_error('测试用户不能修改资料哦');
+                }
                 $validate = [
                     ['password|当前密码', 'require|token'],
                     ['newpassword|新密码', 'require'],

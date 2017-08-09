@@ -1,6 +1,6 @@
 <?php
 /**
- * 网站新闻类型
+ * 网站新闻类型 未完善
  * @author yupoxiong <i@yufuping.com>
  * @version 1.0
  */

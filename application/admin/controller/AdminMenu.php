@@ -34,7 +34,7 @@ class AdminMenu extends Base
      */
     public function __construct()
     {
-        $this->protected_menu = range(1,60);
+        $this->protected_menu = range(1, 60);
         parent::__construct();
     }
 
@@ -131,17 +131,16 @@ class AdminMenu extends Base
             }
             return $this->do_error('菜单添加失败');
 
-        } else {
-            $parent_id = isset($this->param['parent_id']) ? $this->param['parent_id'] : 0;
-            $selects   = $this->menu($parent_id);
-            $requests  = Db::name('request_type')->order('id asc')->select();
-            $this->assign([
-                'requests' => $requests,
-                'selects'  => $selects
-            ]);
-
-            return $this->fetch();
         }
+        $parent_id = isset($this->param['parent_id']) ? $this->param['parent_id'] : 0;
+        $selects   = $this->menu($parent_id);
+        $requests  = Db::name('request_type')->order('id asc')->select();
+        $this->assign([
+            'requests' => $requests,
+            'selects'  => $selects
+        ]);
+
+        return $this->fetch();
     }
 
     /**
@@ -151,7 +150,7 @@ class AdminMenu extends Base
     public function edit()
     {
         //不允许修改的菜单，首页和个人资料页，还是多加点吧
-        if (in_array($this->id, $this->protected_menu) && $this->web_data['user_info']['user_id']!=1){
+        if (in_array($this->id, $this->protected_menu) && $this->web_data['user_info']['user_id'] != 1) {
             return $this->do_error('此菜单不允许修改');
         }
         if ($this->request->isPost()) {
@@ -191,19 +190,18 @@ class AdminMenu extends Base
             }
             return $this->do_error('菜单修改失败');
 
-        } else {
-            $info      = AdminMenus::get($this->id);
-            $parent_id = $info['parent_id'];
-            $requests  = Db::name('request_type')->order('id asc')->select();
-            $selects   = $this->menu($parent_id);
-            $this->assign([
-                'requests' => $requests,
-                'selects'  => $selects,
-                'info'     => $info
-            ]);
-
-            return $this->fetch();
         }
+        $info      = AdminMenus::get($this->id);
+        $parent_id = $info['parent_id'];
+        $requests  = Db::name('request_type')->order('id asc')->select();
+        $selects   = $this->menu($parent_id);
+        $this->assign([
+            'requests' => $requests,
+            'selects'  => $selects,
+            'info'     => $info
+        ]);
+
+        return $this->fetch();
     }
 
 
@@ -213,7 +211,7 @@ class AdminMenu extends Base
     public function del()
     {
 
-        if (in_array($this->id, $this->protected_menu) && $this->web_data['user_info']['user_id']!=1) {
+        if (in_array($this->id, $this->protected_menu) && $this->web_data['user_info']['user_id'] != 1) {
             return $this->do_error('此菜单不允许删除');
         }
         $map_son        = ['parent_id' => $this->id];

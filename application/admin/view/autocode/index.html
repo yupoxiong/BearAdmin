@@ -1,0 +1,113 @@
+<style>
+    #datalist td{
+        min-width: 150px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+
+            <div class="box-header">
+
+            </div>
+            <div class="box-body table-responsive">
+                <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>操作</th>
+                        <th>名称</th>
+                        <th>字段</th>
+                        <th>类型</th>
+                        <th>长度</th>
+                        <th>小数点</th>
+                        <th>不是null</th>
+                        <th>默认值</th>
+                        <th>无符号</th>
+                        <th>自增长</th>
+                        <th>验证规则</th>
+                        <th>排序</th>
+                        <th>搜索</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary margin">添加一行</button>
+                            <button class="btn btn-danger margin">删除本行</button>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" maxlength="50" placeholder="中文名称，表单使用" >
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" maxlength="50" placeholder="字段名称，字母或下划线开头" >
+                        </td>
+                        <td>
+                            <select class="form-control">
+                                <option value="varchar">varchar</option>
+                                <option value="char">char</option>
+                                <option value="text">text</option>
+                                <option value="longtext">longtext</option>
+                                <option value="tinyint">tinyint</option>
+                                <option value="smallint">smallint</option>
+                                <option value="int">int</option>
+                                <option value="mediumint">mediumint</option>
+                                <option value="bigint">bigint</option>
+                                <option value="decimal">decimal</option>
+                                <option value="float">float</option>
+                                <option value="double">double</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control" type="number"  min="0" placeholder="字段长度" >
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" value="0" min="0" placeholder="小数点长度" >
+                        </td>
+                        <td>
+                            <label>
+                                <input type="checkbox" placeholder="默认不选择不是null" >是否不为null
+                            </label>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" placeholder="默认值不填为空" >
+                        </td>
+                        <td>
+                            <label>
+                                <input type="checkbox" placeholder="默认不选择无符号" >是否无符号
+                            </label>
+                        </td>
+                        <td>
+                            <input class="" type="checkbox" placeholder="" >
+                            <label>
+                                <input type="checkbox" placeholder="默认不自动增长" >是否自动增长
+                            </label>
+
+                        </td>
+                        <td>
+                            <input class="form-control" type="text"  placeholder="验证规则" >
+                        </td>
+                        <td>
+                            <label>
+                                <input type="checkbox" placeholder="默认不参与排序" >是否参与排序
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="checkbox" placeholder="默认不参与搜索" >是否参与搜索
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer">
+                <div>
+                    <div class="dataTables_paginate paging_simple_numbers">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

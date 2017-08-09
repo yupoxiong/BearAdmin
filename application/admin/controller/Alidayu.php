@@ -29,7 +29,7 @@ class Alidayu extends Base
             }
 
             $config = [
-                'app_key'    => '23638400',
+                'app_key'    => '236384',
                 'app_secret' => '96c201d52ebfce2123f430569d8918d2',
                 // 'sandbox'    => true,  // 是否为沙箱环境，默认false
             ];
@@ -40,10 +40,9 @@ class Alidayu extends Base
             $req->setRecNum($mobile)
                 ->setSmsParam([
                     'code' => rand(100000, 999999),
-                    //'product'=>'汇泽商城'
                 ])
-                ->setSmsFreeSignName('汇泽天下')
-                ->setSmsTemplateCode('SMS_47075011');
+                ->setSmsFreeSignName('签名')
+                ->setSmsTemplateCode('这里填写模版');
 
             $resp = $client->execute($req);
             if (isset($resp->result) && $resp->result->success) {

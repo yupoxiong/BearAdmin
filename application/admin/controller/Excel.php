@@ -59,21 +59,19 @@ class Excel extends Base
                 throw new Exception($error);
             }
             return true;
-        } else {
-            $excel_examples = new ExcelExamples();
-
-            $lists = $excel_examples
-                ->order('id desc')
-                ->paginate(10);
-
-            $this->assign([
-                'lists' => $lists,
-                'page'  => $lists->render()
-            ]);
-
-            return $this->fetch();
         }
+        $excel_examples = new ExcelExamples();
 
+        $lists = $excel_examples
+            ->order('id desc')
+            ->paginate(10);
+
+        $this->assign([
+            'lists' => $lists,
+            'page'  => $lists->render()
+        ]);
+
+        return $this->fetch();
     }
 
 

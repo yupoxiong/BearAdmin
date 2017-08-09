@@ -7,11 +7,9 @@
 
 namespace app\admin\controller;
 
-use think\Cache;
 use think\Controller;
 use app\admin\auth\Auth;
 use app\admin\auth\Tree;
-use think\Debug;
 use think\exception\HttpResponseException;
 use think\Request;
 use think\Response;
@@ -176,8 +174,7 @@ class Base extends Controller
 
     //获当前url取面包屑
     protected function getBreadcrumb(){
-    
-        
+        $menus = Db::name('admin_menus')->where('is_show=1')->select();
     }
 
 
@@ -194,7 +191,6 @@ class Base extends Controller
                         $temp_result = $this->getCurrentNav($arr, $a['parent_id'], $parent_ids, $current_nav);
                         $parent_ids  = $temp_result[0];
                         $current_nav = $temp_result[1];
-                        dump($parent_ids);
                     }
                 }
             }
@@ -333,12 +329,13 @@ class Base extends Controller
         $this->web_data['current_nav'] = $current_nav[1];
 
         $tree = new Tree();
+
         foreach ($menu as $k => $v) {
-            $url               = url($v['url']);
-            $menu[$k]['icon']  = !empty($v['icon']) ? $v['icon'] : 'fa fa-list';
-            $menu[$k]['level'] = $tree->get_level($v['menu_id'], $menu);
-            $max_level         = $max_level <= $menu[$k]['level'] ? $menu[$k]['level'] : $max_level;
-            $menu[$k]['url']   = $url;
+                $url               = url($v['url']);
+                $menu[$k]['icon']  = !empty($v['icon']) ? $v['icon'] : 'fa fa-list';
+                $menu[$k]['level'] = $tree->get_level($v['menu_id'], $menu);
+                $max_level         = $max_level <= $menu[$k]['level'] ? $menu[$k]['level'] : $max_level;
+                $menu[$k]['url']   = $url;
         }
 
         $tree->init($menu);
@@ -399,11 +396,9 @@ class Base extends Controller
     }
 
 
-
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
         parent::assign(['web_data' => $this->web_data]);
         return parent::fetch($template, $vars, $replace, $config);
     }
-
 }

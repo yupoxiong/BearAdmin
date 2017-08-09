@@ -68,6 +68,7 @@ class Role extends Base
     public function edit()
     {
         if ($this->request->isPost()) {
+
             $post   = $this->post;
             $result = $this->validate($post, $this->validate);
             if (true !== $result) {
@@ -95,6 +96,10 @@ class Role extends Base
      */
     public function del()
     {
+
+        if($this->id==1){
+            return $this->do_error('此角色无法删除');
+        }
         $result = AuthGroups::get($this->id);
         if ($result) {
 
@@ -123,6 +128,10 @@ class Role extends Base
     {
         if (!$this->id) {
             return $this->do_error('角色不存在');
+        }
+
+        if($this->id==1){
+            return $this->do_error('此角色无法修改授权');
         }
 
         if ($this->request->isPost()) {

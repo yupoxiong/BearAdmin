@@ -7,17 +7,19 @@
 
 namespace app\api\controller;
 
+use think\Response;
+
 class Error extends Api
 {
     public function index()
     {
-        $this->default_404();
-        return $this->api_result;
+        return $this->api_error('',404);
+        //return Response::create($this->api_result, 'json',404);
     }
 
     public function _empty()
     {
-        $this->default_404();
-        return $this->api_result;
+        return $this->api_error('',404);
+        //return Response::create($this->api_result, 'json',404);
     }
 }

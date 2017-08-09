@@ -40,7 +40,6 @@ class Syslog extends Base
 
     public function statistics(){
         
-        $this->assign();
         return $this->fetch();
     }
 

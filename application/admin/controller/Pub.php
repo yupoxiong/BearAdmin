@@ -68,20 +68,19 @@ class Pub extends Controller
                 $redirect_uri = isset($this->get['uri']) ? $this->get['uri'] : 'admin/index/index';
 
                 return $this->do_success('登录成功', $redirect_uri);
-            } else {
-                return $this->do_error('账户或密码错误');
             }
-        } else {
-            $bg_all = [1,2,3,4,5];
-
-            $bg = array_rand($bg_all,1);
-
-            $this->assign([
-                'title'  => "登录",
-                'bg_num' => $bg_all[$bg]
-            ]);
-            return $this->fetch('pub/login');
+            return $this->do_error('账户或密码错误');
         }
+
+
+        $bg_all = range(1, 5);
+        $bg     = array_rand($bg_all, 1);
+
+        $this->assign([
+            'title'  => "登录",
+            'bg_num' => $bg_all[$bg]
+        ]);
+        return $this->fetch('pub/login');
     }
 
     //退出

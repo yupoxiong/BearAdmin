@@ -3,7 +3,6 @@
  * Ueditor
  * @author yupoxiong<i@yufuping.com>
  * @version 1.0
- * Date: 2017/6/5
  */
 namespace app\admin\controller;
 

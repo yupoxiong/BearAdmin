@@ -1,6 +1,7 @@
 <?php
 /**
- *
+ * 用作封装index add edit del方法，其中index已经测试完成，
+ * 但是感觉怪怪的，所以没有继续做下去，后期可能会增加代码自动生成功能 
  * @author yupoxiong<i@yufuping.com>
  * @version 1.0
  * Date: 2017/8/7

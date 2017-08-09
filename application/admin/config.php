@@ -74,13 +74,13 @@ return [
     //后台邮件相关参数设置
     'email_from_name'            => '于破熊', // 发件人
     'email_smtp'                 => 'smtp.163.com', // SMTP服务器
-    'email_username'             => '18363083110@163.com', // 账号
-    'email_password'             => 'taoqi521', // 密码
+    'email_username'             => '邮箱帐号', // 账号
+    'email_password'             => '邮箱密码', // 密码
 
     'alidayu_' => [
-        'app_key'    => '23638400',
-        'app_secret' => '96c201d52ebfce2123f430569d8918d2',
-        'sign_name'  =>'汇泽天下',
+        'app_key'    => '阿里大于key',
+        'app_secret' => '阿里大于secret',
+        'sign_name'  =>'短信签名',
         'tpl' =>'SMS_47075011'
     ],
 

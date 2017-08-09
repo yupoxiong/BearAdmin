@@ -10,6 +10,6 @@
 // +----------------------------------------------------------------------
 
 return [
-    'app\admin\command\CreateKey',
+    'app\common\command\CreateKey',
     
 ];

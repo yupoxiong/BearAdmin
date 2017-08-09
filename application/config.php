@@ -261,7 +261,11 @@ return [
         'version' => '1.0',
     ],
 
-    //应用加密字符串
+    /**
+     * 应用加密字符串
+     * 生成api token和加密cookie的时候使用
+     * 可以用php think createkey命令生成
+     */
     'app_key'  => '6757a9f87f0b5d65de33f8b55ac5d381',
 
     'helper_config' => [
@@ -273,5 +277,9 @@ return [
         'env'  => 'dev',//开发环境
         'path' => ROOT_PATH . 'app_logs/bear_log-' . date("Y-m-d") . '.log',
     ],
+
+    'api_source_prefix' => 'https://bearadmin.yufuping.com',
+    'slide_path'        => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'slides' . DS,
+    'slide_url'         => DS . 'uploads' . DS . 'slides' . DS,
 
 ];
