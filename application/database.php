@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => 'yufuping.com',
+    'hostname'        => 'demo',
     // 数据库名
-    'database'        => 'bearadmin_yufup',
+    'database'        => 'demo',
     // 用户名
-    'username'        => 'bearadmin_yufup',
+    'username'        => 'demo',
     // 密码
-    'password'        => 'Wndh2EzxMY',
+    'password'        => 'demo',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
