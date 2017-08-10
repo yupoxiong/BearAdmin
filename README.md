@@ -3,6 +3,8 @@
 
  ## 演示地址
  * <https://bearadmin.yufuping.com/admin>
+ * 帐号：demo
+ * 密码：demo
 
  ## 开源地址
  * github:<https://github.com/yupoxiong/BearAdmin>
