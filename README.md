@@ -6,7 +6,21 @@
  * 码云:<https://git.oschina.net/yupoxiong/BearAdmin>
 
  ## 项目安装
-
+ #### 第一步
+ ```
+ git clone https://github.com/yupoxiong/BearAdmin
+ ```
+ 或
+```
+ git clone https://git.oschina.net/yupoxiong/BearAdmin
+```
+ #### 第二步
+ ```
+ composer update
+ ```
+ ### 第三步
+ 数据库导入项目目录下的bearadmin.sql文件
+ **注意本项目表数据都是使用`utf8mb4`的**
 
  ## 功能简介
 
