@@ -7,13 +7,13 @@
 
 namespace app\admin\controller;
 
+use app\api\controller\Api;
 use tools\Sysinfo;
 
 class Index extends Base
 {
     public function index()
     {
-
         $sysinfo  = new Sysinfo();
         $sys_info = [
             'lang'    => $sysinfo->getLang(),

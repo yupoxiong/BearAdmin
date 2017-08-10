@@ -236,6 +236,10 @@ class AdminUser extends Base
             return $this->do_error('测试用户不能删除哦');
         }
         if (is_array($this->id)) {
+            if(in_array(24,$this->id)){
+                return $this->do_error('当前包含测试用户，无法删除');
+            }
+
             if (sizeof($this->id) == 0) {
                 return $this->do_error('请选择需要删除的数据');
             }

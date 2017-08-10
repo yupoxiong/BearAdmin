@@ -52,6 +52,14 @@ class AdminMenu extends Base
         $tree       = new Tree();
         $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
 
+        $log_types = [
+            0=>'不记录',
+            1=>'GET',
+            2=>'POST',
+            3=>'PUT',
+            4=>'DELETE'
+        ];
+
         foreach ($result as $n => $r) {
 
             $result[$n]['level']          = $tree->get_level($r['menu_id'], $result);
@@ -71,6 +79,7 @@ class AdminMenu extends Base
             $result[$n]['is_show'] = $r['is_show'] == 1
                 ? '显示'
                 : '隐藏';
+            $result[$n]['log_type'] = $log_types[$r['log_type']];
         }
         $str = "<tr id='node-\$menu_id' data-level='\$level' \$parent_id_node>
                     <td>\$menu_id</td>
@@ -81,6 +90,7 @@ class AdminMenu extends Base
                     </td>
                     <td>\$sort_id</td>
                    <td>\$is_show</td>
+                   <td>\$log_type</td>
                     <td>\$str_manage</td>
                 </tr>";
 
