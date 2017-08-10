@@ -1,6 +1,9 @@
  # BearAdmin
 基于ThinkPHP5+AdminLTE的后台管理系统
 
+ ## 演示地址
+ * <https://bearadmin.yufuping.com/admin>
+
  ## 开源地址
  * github:<https://github.com/yupoxiong/BearAdmin>
  * 码云:<https://git.oschina.net/yupoxiong/BearAdmin>
