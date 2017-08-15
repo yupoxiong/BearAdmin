@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+
+            <a href="{:url($web_data['do_url'].'index',['type'=>'backup'])}"
+               class="btn btn-default btn-sm margin">
+                <i class="fa fa-edit"></i>
+                备份
+            </a>
+
+            <div class="box-body table-responsive">
+                <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>代码</th>
+                        <th>参数</th>
+                        <th>说明</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach name="list" item="l"}
+                    <tr>
+                        <td>{$l.name}</td>
+                        <td>{$l.time}</td>
+                        <td>{$l.size}</td>
+                        <td>
+                            <a target="_blank" href="{:url($web_data['do_url'].'index',['type'=>'dowonload','name'=>$l.name])}"
+                               class="btn btn-default btn-sm margin">
+                                <i class="fa fa-download"></i>
+                                下载
+                            </a>
+
+                            <!--<a href="{:url($web_data['do_url'].'index',['type'=>'restore','name'=>$l.name])}"
+                               class="btn btn-default btn-sm margin">
+                                <i class="fa fa-edit"></i>
+                                还原
+                            </a>-->
+
+                            <a href="{:url($web_data['do_url'].'index',['type'=>'del','name'=>$l.name])}"
+                               class="btn btn-danger btn-sm margin">
+                                <i class="fa fa-close"></i>
+                                删除
+                            </a>
+
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer">
+                <div>
+                    <div class="dataTables_paginate paging_simple_numbers">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
