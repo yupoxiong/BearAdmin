@@ -90,9 +90,12 @@ class Sysinfo
     //2017年6月9日 23:21:20 新浪没有高德准，现在换成高德
     private function getIpinfo() {
         $ip = $this->getIp();
-        $ipinfo_str = file_get_contents('http://restapi.amap.com/v3/ip?key=cb241360e2b73b5951371c60a1b095ef&ip='.$ip);
-        $ipinfo = json_decode($ipinfo_str,true);
-        return $ipinfo['status']==1 ? $ipinfo : false;
+        $ipinfo_str = @file_get_contents('http://restapi.amap.com/v3/ip?key=cb241360e2b73b5951371c60a1b095ef&ip='.$ip);
+        if($ipinfo_str){
+            $ipinfo = json_decode($ipinfo_str,true);
+            return $ipinfo['status']==1 ? $ipinfo : false;
+        }
+        return false;
     }
 
 
