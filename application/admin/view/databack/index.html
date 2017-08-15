@@ -1,23 +1,26 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-
-            <a href="{:url($web_data['do_url'].'index',['type'=>'backup'])}"
-               class="btn btn-default btn-sm margin">
-                <i class="fa fa-edit"></i>
-                备份
-            </a>
-
+            <div class="box-header">
+                <h3 class="box-title">{$web_data['web_title']}</h3>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <a href="{:url($web_data['do_url'].'index',['type'=>'backup'])}" class="btn btn-default pull-right">
+                                <i class="fa fa-plus"></i>
+                                创建新备份
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>名称</th>
-                        <th>代码</th>
-                        <th>参数</th>
-                        <th>说明</th>
-                        <th>状态</th>
+                        <th>文件名</th>
+                        <th>备份时间</th>
+                        <th>大小</th>
                         <th>操作</th>
                     </tr>
                     </thead>

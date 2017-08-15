@@ -23,7 +23,11 @@ class Databack extends Base
         switch ($type)
         {
             case "backup": //备份
-                return $sql->backup();
+                $result =  $sql->backup();
+                if($result['status']==200) {
+                     return $this->do_success($result['message']);
+                }
+                return $this->do_error($result['message']);
                 break;
             case "dowonload": //下载
                 return $sql->downloadFile($name);
@@ -32,8 +36,11 @@ class Databack extends Base
                 return $sql->restore($name);
                 break;
             case "del": //删除
-                return $sql->delfilename($name);
-                break;
+                $result =  $sql->delfilename($name);
+                if($result['status']==200) {
+                    return $this->do_success($result['message']);
+                }
+                return $this->do_error($result['message']);
             default: //获取备份文件列表
                 return $this->fetch("index",["list"=>$sql->get_filelist()]);
         }
@@ -41,28 +48,6 @@ class Databack extends Base
 
     public function add()
     {
-        $type=("tp");
-        $name=input("name");
-        $sql=new DataBackup(Config::get("database"));
-        switch ($type)
-        {
-            case "backup": //备份
-                return $sql->backup();
-                break;
-            case "dowonload": //下载
-                $sql->downloadFile($name);
-                break;
-            case "restore": //还原
-                return $sql->restore($name);
-                break;
-            case "del": //删除
-                return $sql->delfilename($name);
-                break;
-            default: //获取备份文件列表
-                return $this->fetch("db_bak",["list"=>$sql->get_filelist()]);
-
-        }
-
     }
 
     

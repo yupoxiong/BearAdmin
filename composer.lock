@@ -50,16 +50,16 @@
         },
         {
             "name": "endroid/qrcode",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/QrCode.git",
-                "reference": "2974f1c1fd020eb323c3c97179a40dd1d7795627"
+                "reference": "bd143051302aa4ff506be7342bda8b6145fba766"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/endroid/QrCode/2974f1c1fd020eb323c3c97179a40dd1d7795627.zip",
-                "reference": "2974f1c1fd020eb323c3c97179a40dd1d7795627",
+                "url": "https://files.phpcomposer.com/files/endroid/QrCode/bd143051302aa4ff506be7342bda8b6145fba766.zip",
+                "reference": "bd143051302aa4ff506be7342bda8b6145fba766",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                 "symfony/twig-bundle": "^2.7|^3.0",
                 "symfony/yaml": "^2.7|^3.0"
             },
-            "type": "library",
+            "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.x-dev"
@@ -115,7 +115,7 @@
                 "qrcode",
                 "symfony"
             ],
-            "time": "2017-07-23T14:07:09+00:00"
+            "time": "2017-08-05T21:43:15+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -578,7 +578,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -635,7 +635,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -748,7 +748,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",

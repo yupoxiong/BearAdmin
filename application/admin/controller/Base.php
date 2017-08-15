@@ -16,6 +16,7 @@ use think\Response;
 use think\Session;
 use think\Db;
 use app\common\model\AdminUsers;
+use think\Url;
 
 class Base extends Controller
 {
@@ -186,7 +187,7 @@ class Base extends Controller
                 if ($a['menu_id'] == $myid) {
                     if ($a['parent_id'] != 0) {
                         array_push($parent_ids, $a['parent_id']);
-                        $ru          = '<li><a href="#"><i class="fa ' . $a['icon'] . '"></i> ' . $a['title'] . '</a></li>';
+                        $ru          = '<li><a href="'.Url::build('admin/index/index').'"><i class="fa fa-dashboard"></i> 主页</a></li><li><a><i class="fa ' . $a['icon'] . '"></i> ' . $a['title'] . '</a></li>';
                         $current_nav = $ru . $current_nav;
                         $temp_result = $this->getCurrentNav($arr, $a['parent_id'], $parent_ids, $current_nav);
                         $parent_ids  = $temp_result[0];
