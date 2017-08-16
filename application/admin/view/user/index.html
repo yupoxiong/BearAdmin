@@ -35,10 +35,7 @@
                     <tr>
                         <th>用户ID</th>
                         <th>帐号</th>
-                        <th>用户名</th>
-                        <th>手机</th>
-                        <th>邮箱</th>
-                        <th>状态</th>
+                        <th>密码</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -46,22 +43,18 @@
 
                     {foreach name="lists" item="list"}
                     <tr>
-                        <td>{$list.user_id}</td>
+                        <td>{$list.id}</td>
                         <td>{$list.user_name}</td>
-                        <td>{$list.nick_name}</td>
-                        <td>{$list->mobile}</td>
-                        <td>{$list->email}</td>
-                        <td>{$list.status}</td>
-
+                        <td>{$list.password}</td>
                         <td>
-                            <a href="{:url($web_data['do_url'].'edit','id='.$list.user_id)}"
+                            <a href="{:url($web_data['do_url'].'edit','id='.$list.id)}"
                                class="btn btn-default btn-sm margin">
                                 <i class="fa fa-edit"></i>
                                 编辑
                             </a>
                             <a data-toggle="modal" data-target="#modal"
                                class="btn btn-danger btn-sm margin"
-                               title="删除" onclick="del({$list.user_id})">
+                               title="删除" onclick="del({$list.id})">
                                 <i class="fa fa-close"></i>
                                 删除
                             </a>
@@ -76,7 +69,6 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div>
-
                     <div class="dataTables_paginate paging_simple_numbers">
                         {$page}
                     </div>

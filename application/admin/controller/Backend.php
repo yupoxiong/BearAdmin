@@ -126,4 +126,5 @@ class Backend extends Controller
         return $model::destroy($data_id);
     }
     
+    
 }

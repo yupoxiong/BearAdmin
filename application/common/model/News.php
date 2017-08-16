@@ -20,5 +20,9 @@ class News extends Model
     public function newstype(){
         return $this->belongsTo('NewsTypes')->field('id,title');
     }
+    
+    public function user(){
+        return $this->belongsTo('Users','user_id','id');
+    }
 
 }

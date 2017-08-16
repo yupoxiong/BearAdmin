@@ -219,7 +219,10 @@
                 {$web_data['web_title']}
             </h1>
             <ol class="breadcrumb">
+                {if isset($web_data['current_nav']) && !empty($web_data['current_nav'])}
+                <li><a href="{:url('admin/index/index')}"><i class="fa fa-home"></i> 主页</a></li>
                 {$web_data['current_nav']}
+                {/if}
             </ol>
         </section>
 

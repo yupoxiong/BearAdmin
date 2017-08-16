@@ -187,7 +187,7 @@ class Base extends Controller
                 if ($a['menu_id'] == $myid) {
                     if ($a['parent_id'] != 0) {
                         array_push($parent_ids, $a['parent_id']);
-                        $ru          = '<li><a href="'.Url::build('admin/index/index').'"><i class="fa fa-dashboard"></i> 主页</a></li><li><a><i class="fa ' . $a['icon'] . '"></i> ' . $a['title'] . '</a></li>';
+                        $ru          = '<li><a><i class="fa ' . $a['icon'] . '"></i> ' . $a['title'] . '</a></li>';
                         $current_nav = $ru . $current_nav;
                         $temp_result = $this->getCurrentNav($arr, $a['parent_id'], $parent_ids, $current_nav);
                         $parent_ids  = $temp_result[0];
@@ -401,5 +401,115 @@ class Base extends Controller
     {
         parent::assign(['web_data' => $this->web_data]);
         return parent::fetch($template, $vars, $replace, $config);
+    }
+
+
+    /**
+     * 获取当前控制器对应模型
+     * 名称为控制器名称+"s"
+     */
+    protected function getModel()
+    {
+        $class = 'app\\common\\model\\' . $this->request->controller() . 's';
+        if (class_exists($class)) {
+            return new $class();
+        }
+
+        throw new ClassNotFoundException('class not exists:' . $class, $class);
+    }
+
+    /**
+     * 条件筛选
+     * @param $model
+     * @return array
+     */
+    protected function getMap($model)
+    {
+        $map   = [];
+        $table = $model->getTableInfo();
+        $param = $this->request->param();
+
+        foreach ($param as $key => $val) {
+            if ($val !== "" && in_array($key, $table['fields'])) {
+                if(false!==stripos($table['type'][$key],'text') || false!==stripos($table['type'][$key],'char')) {
+                    $map['like'][$key] = "%".$val."%";
+                }else{
+                    $map['where'][$key] = $val;
+                }
+            }
+        }
+        return $map;
+    }
+
+
+    /**
+     * 获取排序字段
+     * @param $model
+     * @return string
+     */
+    protected function getOrder($model)
+    {
+        $order = $model->getPk().' desc';
+        $param = $this->request->param();
+        if (isset($param['_order_name_']) && isset($param['_order_by_'])) {
+            $order = $param['_order_name_'].' '.$param['_order_by_'];
+        }
+
+        return $order;
+    }
+
+
+    protected function getLinage(){
+        return $this->request->param('_linage_') ?: 10;
+    }
+
+
+    /*
+     * 获取数据列表
+     */
+    protected function getList($model, $map, $order = '',$paginate = 10, $field = null, $json = false )
+    {
+        if ($field) {
+            $model->field($field);
+        }
+        if (sizeof($map) > 0) {
+            if(isset($map['like'])){
+                foreach ($map['like'] as $key=>$value){
+                    $model->whereLike($key,$value);
+                }
+            }
+
+            if(isset($map['where'])){
+                $model->where($map['where']);
+            }
+        }
+
+        if ($order) {
+            $model->order($order);
+        }
+
+
+        $list = $model->paginate($paginate, false, ['query' => $this->request->get()]);
+        $this->assign( $this->request->get());
+        $this->assign([
+            'lists'    => $list,
+            'total'=>$list->total(),
+            'page'     => $list->render(),
+            'linage'=>$list->listRows()
+        ]);
+
+
+        return $this->fetch();
+
+    }
+
+    protected function getDataId(){
+        return $this->request->param('id');
+    }
+
+    protected function deleteData($model,$data_id){
+        
+        return $model::destroy($data_id);
+       
     }
 }
