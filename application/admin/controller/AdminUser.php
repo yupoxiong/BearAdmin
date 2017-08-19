@@ -345,7 +345,7 @@ class AdminUser extends Base
             }
             if (false !== $user->save($user_update_data)) {
                 if (false !== $user->profile->save($profile_update_data)) {
-                    return $this->do_success('', 'admin/admin_user/profile');
+                    return $this->do_success('修改成功', 'admin/admin_user/profile');
                 }
                 return $this->do_error('修改资料失败');
             }

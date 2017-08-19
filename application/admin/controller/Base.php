@@ -10,6 +10,7 @@ namespace app\admin\controller;
 use think\Controller;
 use app\admin\auth\Auth;
 use app\admin\auth\Tree;
+use think\exception\ClassNotFoundException;
 use think\exception\HttpResponseException;
 use think\Request;
 use think\Response;

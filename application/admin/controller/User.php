@@ -11,12 +11,7 @@ namespace app\admin\controller;
 class User extends Base
 {
     use CrudBase;
-
-    public function user(){
-        $model = $this->getModel();
-        dump($model);
-        dump($model->getRelation()) ;
-        return;
-    }
+    
+    
     
 }
