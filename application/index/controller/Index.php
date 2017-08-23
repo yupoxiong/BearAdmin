@@ -13,8 +13,7 @@ class Index
     }
 
     public function hello(){
-
-        
+        return 'hello';
     }
     
 }
