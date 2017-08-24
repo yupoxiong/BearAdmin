@@ -21,25 +21,25 @@ class Dolog extends Base
     {
         $logs       = new AdminLogs();
         $page_param = ['query' => []];
-        if (isset($this->get['title']) && !empty($this->get['title'])) {
-            $page_param['query']['title'] = $this->get['title'];
-            $keywords                     = "%" . $this->get['title'] . "%";
+        if (isset($this->param['title']) && !empty($this->param['title'])) {
+            $page_param['query']['title'] = $this->param['title'];
+            $keywords                     = "%" . $this->param['title'] . "%";
             $logs->whereLike('title', $keywords);
-            $this->assign('title', $this->get['title']);
+            $this->assign('title', $this->param['title']);
         }
 
-        if (isset($this->get['start_date']) && !empty($this->get['start_date'])) {
-            $page_param['query']['start_date'] = $this->get['start_date'];
-            $start_date                        = $this->get['start_date'];
+        if (isset($this->param['start_date']) && !empty($this->param['start_date'])) {
+            $page_param['query']['start_date'] = $this->param['start_date'];
+            $start_date                        = $this->param['start_date'];
             $logs->whereTime('create_time', '>=', $start_date);
-            $this->assign('start_date', $this->get['start_date']);
+            $this->assign('start_date', $this->param['start_date']);
         }
 
-        if (isset($this->get['end_date']) && !empty($this->get['end_date'])) {
-            $page_param['query']['end_date'] = $this->get['end_date'];
-            $end_date                        = $this->get['end_date'];
+        if (isset($this->param['end_date']) && !empty($this->param['end_date'])) {
+            $page_param['query']['end_date'] = $this->param['end_date'];
+            $end_date                        = $this->param['end_date'];
             $logs->whereTime('create_time', '<=', strtotime($end_date . '+1 day'));
-            $this->assign('end_date', $this->get['end_date']);
+            $this->assign('end_date', $this->param['end_date']);
         }
 
         $log_list = $logs->field('id,user_id,title,log_url,log_type,log_ip,create_time')
@@ -83,7 +83,7 @@ class Dolog extends Base
 
         if ($pre_log_info) {
             $pre_log_data = unserialize(Crypt::decrypt($pre_log_info->adminLogData->data, $key));
-            if (!isset($this->get['show_password'])) {
+            if (!isset($this->param['show_password'])) {
                 if (array_key_exists('password', $pre_log_data)) {
                     $pre_log_data['password'] = '******';
                 }
@@ -125,7 +125,7 @@ class Dolog extends Base
             }
         }
 
-        if (!isset($this->get['show_password'])) {
+        if (!isset($this->param['show_password'])) {
             if (array_key_exists('password', $log_data)) {
                 $log_data['password'] = '******';
             }

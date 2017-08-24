@@ -68,8 +68,10 @@ class Role extends Base
     public function edit()
     {
         if ($this->request->isPost()) {
-
             $post   = $this->post;
+            if($post['id']==1){
+                return $this->do_error('不允许修改管理员角色权限');
+            }
             $result = $this->validate($post, $this->validate);
             if (true !== $result) {
                 return $this->do_error($result);

@@ -36,7 +36,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">{$web_data['web_title']}</h3>
+                <h3 class="box-title" onclick="getLogList()">{$web_data['web_title']}</h3>
                 共{$total}条记录
             </div>
             <!-- /.box-header -->
@@ -106,4 +106,16 @@
     laydate(start);
     laydate(end);
 
+
+   /* function getLogList() {
+        var searchForm = $("#searchForm");
+        var searchData = searchForm.serialize();
+
+        $.ajax({
+            url:'index.html?'+ searchData,
+            type:'post'
+        });
+
+    }
+*/
 </script>

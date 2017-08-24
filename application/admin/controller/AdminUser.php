@@ -72,6 +72,7 @@ class AdminUser extends Base
     {
         if ($this->request->isPost()) {
             $post = $this->post;
+
             array_push(
                 $this->validate,
                 ['user_name|用户名', 'unique:AdminUsers,user_name'],

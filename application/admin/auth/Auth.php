@@ -362,13 +362,16 @@ class Auth
      */
     public function getMenuList($uid, $type)
     {
+
         static $_authList = []; //保存用户验证通过的权限列表
         $t = implode(',', (array)$type);
         if (isset($_authList[$uid . $t])) {
+
             return $_authList[$uid . $t];
         }
 
         if (2 == $this->config['auth_type'] && Session::has('_auth_list_' . $uid . $t)) {
+
             return Session::get('_auth_list_' . $uid . $t);
         }
         //读取用户所属用户组
@@ -376,10 +379,12 @@ class Auth
         $ids = []; //保存用户所属用户组设置的所有权限规则id
         foreach ($groups as $g) {
             $ids = array_merge($ids, explode(',', trim($g['rules'], ',')));
+
         }
 
         $ids = array_unique($ids);
         if (empty($ids)) {
+
             $_authList[$uid . $t] = [];
             return [];
         }
@@ -424,6 +429,7 @@ class Auth
         );
 
         $user_id = Session::get('user.user_id');
+
         if ($user_id == 1) {
             $menus = Db::name('admin_menus')->where('is_show=1')->order(["sort_id" => "asc", 'menu_id' => 'asc'])->field('menu_id,title,url,icon,is_show,parent_id')->column('*', 'menu_id');
         } else {

@@ -312,6 +312,7 @@ class Base extends Controller
     {
         $auth       = new Auth();
         $menu       = $auth->getMenuList(Session::get('user.user_id'), 1);
+
         $max_level  = 0;
         $current_id = 1;
         $parent_ids = array(0 => 0);
