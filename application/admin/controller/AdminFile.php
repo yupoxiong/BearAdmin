@@ -1,12 +1,8 @@
 <?php
 
 /**
- * @category Class
- * @package AdminFile
+ * 后台文件管理控制器
  * @author yupoxiong <i@yufuping.com>
- * @license Apche2.0 http://www.apache.org/licenses/LICENSE-2.0
- * @link https://bearadmin.yufuping.com
- * @description 后台文档管理控制器
  */
 
 namespace app\admin\controller;
@@ -19,29 +15,23 @@ use think\Session;
 class AdminFile extends Base
 {
     /**
-     * @description 文件列表
-     * @return mixed
+     * 文件列表
      */
-    /**
-     * 本页试水traits
-     */
-    //use ControllerCrud;
-    
     public function index()
     {
-       
+
         $files      = new AdminFiles();
         $page_param = ['query' => []];
-        if (isset($this->get['keywords']) && !empty($this->get['keywords'])) {
-            $page_param['query']['keywords'] = $this->get['keywords'];
-            $keywords                        = "%" . $this->get['keywords'] . "%";
+        if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
+            $page_param['query']['keywords'] = $this->param['keywords'];
+            $keywords                        = "%" . $this->param['keywords'] . "%";
             $files->whereLike('original_name', $keywords);
-            $this->assign('keywords', $this->get['keywords']);
+            $this->assign('keywords', $this->param['keywords']);
         }
 
-        $lists = $files->order('file_id desc')
+        $lists = $files->order('id desc')
             ->paginate(10, false, $page_param);
-        
+
         $this->assign([
                 'lists'    => $lists,
                 'page'     => $lists->render()
@@ -50,21 +40,19 @@ class AdminFile extends Base
     }
 
     /**
-     * @description 删除文件
-     * @return mixed
+     * 删除文件
      */
     public function del()
     {
-        $admin_files = AdminFiles::get($this->id);
-        if ($admin_files && $admin_files->delete()) {
+        $result = AdminFiles::destroy($this->id);
+        if ($result) {
             return $this->do_success();
         }
         return $this->do_error();
     }
 
     /**
-     * @description 上传文件
-     * @return \think\Response|\think\response\Json|\think\response\Jsonp|\think\response\Redirect|\think\response\View|\think\response\Xml
+     * 上传文件
      */
     public function upload()
     {
@@ -84,10 +72,7 @@ class AdminFile extends Base
 
                     $file_info['original_name'] = $info->getInfo('name');
                     $file_info['save_name']     = $info->getFilename();
-                    $file_info['save_path']     = config('file_upload_path')
-                        . $user_id
-                        . DS
-                        . $info->getSaveName();
+                    $file_info['save_path']     = config('file_upload_path') . $user_id . DS . $info->getSaveName();
                     $file_info['extension']     = $info->getExtension();
                     $file_info['mime']          = $info->getInfo('type');
                     $file_info['size']          = $info->getSize();
@@ -111,19 +96,17 @@ class AdminFile extends Base
     }
 
     /**
-     * @description 下载文件
-     * @return string|void
+     * 下载文件
      */
     public function download()
     {
-        $file_id    = $this->id;
-        $admin_file = AdminFiles::get($file_id);
+        $admin_file = AdminFiles::get($this->id);
         if ($admin_file) {
-            $url  = $admin_file->url;
+            $path  = $admin_file->save_path;
             $name = $admin_file->original_name;
-            if (file_exists($url)) {
-                Http::download($url, $name);
-                return '';
+
+            if (file_exists($path)) {
+                return   Http::download($path, $name);
             }
             return $this->do_error('文件不存在');
         }

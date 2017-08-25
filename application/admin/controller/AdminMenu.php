@@ -204,7 +204,7 @@ class AdminMenu extends Base
         $info      = AdminMenus::get($this->id);
         $parent_id = $info['parent_id'];
         $requests  = Db::name('request_type')->order('id asc')->select();
-        $selects   = $this->menu($parent_id);
+        $selects   = $this->menu($parent_id,$this->id);
         $this->assign([
             'requests' => $requests,
             'selects'  => $selects,
@@ -245,10 +245,10 @@ class AdminMenu extends Base
     }
 
 
-    function menu($selected = 1)
+    function menu($selected = 1,$current_id=0)
     {
         $array  = [];  //未定义会报错
-        $result = Db::name('AdminMenus')->order(["sort_id" => "asc", 'menu_id' => 'asc'])->column('*', 'menu_id');
+        $result = Db::name('AdminMenus')->whereNotIn('menu_id',$current_id)->order(["sort_id" => "asc", 'menu_id' => 'asc'])->column('*', 'menu_id');
 
         $tree = new Tree();
 

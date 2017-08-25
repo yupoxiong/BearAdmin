@@ -6,8 +6,8 @@
                 <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
 
                     <div class="form-group" >
-                        <input type="text" value="{$file_id ? $file_id : '' ;}"
-                               name="file_id" id="original_name" class="form-control" placeholder="文件名">
+                        <input type="text" value="{$id ? $id : '' ;}"
+                               name="id" id="original_name" class="form-control" placeholder="文件名">
                     </div>
 
                     <div class="form-group">
@@ -33,6 +33,9 @@
                 {if isset($total)}
                 共{$total}条记录
                 {/if}
+                <div class="box-header"><a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm margin" title="批量删除数据，请谨慎使用此功能" onclick="dels()">
+                    批量删除
+                </a></div>
                 <div class="box-tools">
                     <div class="input-group input-group-sm">
                         <div class="input-group-btn">
@@ -49,6 +52,7 @@
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
                     <tr>
+                        <th><input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消"></th>
                         <th>文件ID</th>
                         <th>文件名称</th>
                         <!--<th>文件预览</th>-->
@@ -61,19 +65,20 @@
                     <tbody>
                     {foreach name="lists" item="list"}
                     <tr>
-                        <td>{$list.file_id}</td>
+                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$list.id}" class="checkbox data-list-check" value="{$list.id}" placeholder="选择/取消"></td>
+                        <td>{$list.id}</td>
                         <td>{$list.original_name}</td>
                         <td>{$list.size}</td>
                         <td>{$list.mime}</td>
                         <td>{$list.create_time}</td>
                         <td>
-                            <a href="download.html?id={$list.file_id}" class="btn btn-default btn-sm margin">
+                            <a href="download.html?id={$list.id}" class="btn btn-default btn-sm margin">
                                 <i class="fa fa-download"></i>
                                 下载
                             </a>
                             <a data-toggle="modal" data-target="#modal"
                                class="btn btn-danger btn-sm margin"
-                               title="删除" onclick="del({$list.file_id})">
+                               title="删除" onclick="del({$list.id})">
                                 <i class="fa fa-close"></i>
                                 删除
                             </a>
