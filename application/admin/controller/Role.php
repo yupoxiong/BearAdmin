@@ -99,7 +99,7 @@ class Role extends Base
     public function del()
     {
 
-        if($this->id==1){
+        if($this->id==1 && $this->web_data['user_info']['user_id'] != 1){
             return $this->do_error('此角色无法删除');
         }
         $result = AuthGroups::get($this->id);
@@ -132,7 +132,7 @@ class Role extends Base
             return $this->do_error('角色不存在');
         }
 
-        if($this->id==1){
+        if($this->id==1 && $this->web_data['user_info']['user_id'] != 1){
             return $this->do_error('此角色无法修改授权');
         }
 
