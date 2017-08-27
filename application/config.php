@@ -281,5 +281,14 @@ return [
     'api_source_prefix' => 'https://bearadmin.yufuping.com',
     'slide_path'        => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'slides' . DS,
     'slide_url'         => DS . 'uploads' . DS . 'slides' . DS,
+    'qq_login'=>[
+        'app_key'    => '你的key',
+        'app_secret' => '你的secret',
+        'scope'      => 'get_user_info',
+        'callback'   => [
+            'default' => 'https://bearadmin.yufuping.com/admin/third_login/qq_callback.html',
+            'mobile'  => 'https://bearadmin.yufuping.com/admin/third_login/qq_callback.html',
+        ]
+    ]
 
 ];

@@ -69,7 +69,7 @@ class Role extends Base
     {
         if ($this->request->isPost()) {
             $post   = $this->post;
-            if($post['id']==1){
+            if($post['id']==1 && $this->web_data['user_info']['user_id'] != 1){
                 return $this->do_error('不允许修改管理员角色权限');
             }
             $result = $this->validate($post, $this->validate);
