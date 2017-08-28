@@ -1,4 +1,2 @@
 .idea
-*.log
-app_logs/
-thinkphp
+runtime
