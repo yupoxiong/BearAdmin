@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * 数据库备份
  * @author yupoxiong<i@yufuping.com>
  * @version 1.0
- * Date: 2017/8/15
  */
 
 namespace app\admin\controller;
