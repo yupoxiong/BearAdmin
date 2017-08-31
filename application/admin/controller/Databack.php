@@ -12,54 +12,76 @@ use tools\DataBackup;
 
 class Databack extends Base
 {
+    protected $config = [], $back, $filename;
+
+    public function __construct()
+    {
+        $this->config = Config::get("database");
+
+        $this->config['savepath'] = ROOT_PATH . 'backup/';
+        $this->config['filename'] = "database-backup-" . date("Y-m-d-H-i-s", time()) . ".sql";
+
+        $this->back     = new DataBackup($this->config);
+        $this->filename = $this->param['filename'] ? $this->param['filename'] : '';
+
+        parent::__construct();
+    }
+
+    //列表
     public function index()
     {
+        $list   = [];
+        $result = $this->back->get_filelist();
 
-        $type = isset($this->get['type'])?$this->get['type']:'';
-        $name = isset($this->get['name'])?$this->get['name']:'';
-
-        $sql=new DataBackup(Config::get("database"));
-        switch ($type)
-        {
-            case "backup": //备份
-                $result =  $sql->backup();
-                if($result['status']==200) {
-                     return $this->do_success($result['message']);
-                }
-                return $this->do_error($result['message']);
-                break;
-            case "dowonload": //下载
-                return $sql->downloadFile($name);
-                break;
-            case "restore": //还原
-                return $sql->restore($name);
-                break;
-            case "del": //删除
-                $result =  $sql->delfilename($name);
-                if($result['status']==200) {
-                    return $this->do_success($result['message']);
-                }
-                return $this->do_error($result['message']);
-            default: //获取备份文件列表
-                return $this->fetch("index",["list"=>$sql->get_filelist()]);
+        if ($result['status'] == 200) {
+            $list = $result['result'];
         }
+
+        $this->assign([
+            "list"  => $list,
+            'total' => sizeof($list)
+        ]);
+
+        return $this->fetch();
     }
 
+    //添加备份
     public function add()
     {
+        $result = $this->back->backup();
+        if ($result['status'] == 200) {
+            return $this->do_success($result['message']);
+        }
+        return $this->do_error($result['message']);
     }
 
-    
-    public function reduction()
+    //下载备份
+    public function download()
     {
-
+        $this->back->downloadFile($this->filename);
 
     }
 
+
+    //还原
+    public function restore()
+    {
+        $result = $this->back->restore($this->filename);
+        if ($result['status'] == 200) {
+            return $this->do_success($result['message']);
+        }
+        return $this->do_error($result['message']);
+    }
+
+
+    //删除
     public function del()
     {
-
-
+        $result = $this->back->delfilename($this->filename);
+        if ($result['status'] == 200) {
+            return $this->do_success($result['message']);
+        }
+        return $this->do_error($result['message']);
     }
 
 }

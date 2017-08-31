@@ -1,19 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">{$web_data['web_title']}</h3>
-                <div class="box-tools">
-                    <div class="input-group input-group-sm">
-                        <div class="input-group-btn">
-                            <a href="{:url($web_data['do_url'].'index',['type'=>'backup'])}" class="btn btn-default pull-right">
-                                <i class="fa fa-plus"></i>
-                                创建新备份
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           {include file="template/data_header" /}
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
@@ -31,24 +19,21 @@
                         <td>{$l.time}</td>
                         <td>{$l.size}</td>
                         <td>
-                            <a target="_blank" href="{:url($web_data['do_url'].'index',['type'=>'dowonload','name'=>$l.name])}"
+                            <a href="{:url($web_data['do_url'].'restore',['filename'=>$l.name])}"
+                               class="btn btn-warning btn-sm margin">
+                                <i class="fa fa-mail-reply"></i>
+                                还原
+                            </a>
+                            <a target="_blank" href="{:url($web_data['do_url'].'download',['filename'=>$l.name])}"
                                class="btn btn-default btn-sm margin">
                                 <i class="fa fa-download"></i>
                                 下载
                             </a>
-
-                            <!--<a href="{:url($web_data['do_url'].'index',['type'=>'restore','name'=>$l.name])}"
-                               class="btn btn-default btn-sm margin">
-                                <i class="fa fa-edit"></i>
-                                还原
-                            </a>-->
-
-                            <a href="{:url($web_data['do_url'].'index',['type'=>'del','name'=>$l.name])}"
+                            <a href="{:url($web_data['do_url'].'del',['filename'=>$l.name])}"
                                class="btn btn-danger btn-sm margin">
                                 <i class="fa fa-close"></i>
                                 删除
                             </a>
-
                         </td>
                     </tr>
                     {/foreach}
