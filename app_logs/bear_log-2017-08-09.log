@@ -1,0 +1,2 @@
+{"message":"Undefined index: level in D:\\php\\website\\BearAdmin\\application\\admin\\auth\\Tree.php:102","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-08-09 09:37:21.045297","timezone_type":3,"timezone":"PRC"},"extra":[]}
+{"message":"Undefined variable: page in D:\\php\\website\\BearAdmin\\runtime\\temp\\110e95c65892a71ddd519a6c9e99a36b.php:335","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-08-09 15:25:54.048932","timezone_type":3,"timezone":"PRC"},"extra":[]}

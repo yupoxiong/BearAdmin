@@ -1,0 +1,1 @@
+{"message":"class not exists:app\\common\\validate\\AdminUser in D:\\php\\website\\BearAdmin\\thinkphp\\library\\think\\Loader.php:463","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-08-24 19:09:51.880684","timezone_type":3,"timezone":"PRC"},"extra":[]}

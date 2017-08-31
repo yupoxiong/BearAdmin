@@ -1,0 +1,1 @@
+{"message":"Cannot declare class app\\backend\\controller\\Controller because the name is already in use in D:\\php\\website\\BearAdmin\\application\\backend\\controller\\Controller.php:12","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-08-21 15:38:04.848490","timezone_type":3,"timezone":"PRC"},"extra":[]}
