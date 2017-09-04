@@ -20,6 +20,7 @@ class Dolog extends Base
     public function index()
     {
         $logs       = new AdminLogs();
+
         $page_param = ['query' => []];
         if (isset($this->param['title']) && !empty($this->param['title'])) {
             $page_param['query']['title'] = $this->param['title'];

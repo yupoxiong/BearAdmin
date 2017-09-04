@@ -1,0 +1,1 @@
+{"message":"Call to a member function find() on null in D:\\php\\website\\BearAdmin\\application\\admin\\controller\\Dolog.php:23","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-09-04 18:12:25.337456","timezone_type":3,"timezone":"PRC"},"extra":[]}

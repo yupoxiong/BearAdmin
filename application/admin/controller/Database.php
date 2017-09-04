@@ -6,6 +6,7 @@
 
 namespace app\admin\controller;
 
+
 class Database extends Base
 {
     /**
@@ -16,6 +17,7 @@ class Database extends Base
         $list  = db()->query('SHOW TABLE STATUS');
         $list  = array_map('array_change_key_case', $list);//全部小写
         $this->assign('lists', $list);
+        
         return $this->fetch();
     }
 
