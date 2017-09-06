@@ -1,2 +1,5 @@
 .idea
 runtime
+app_logs/
+thinkphp/
+vendor/

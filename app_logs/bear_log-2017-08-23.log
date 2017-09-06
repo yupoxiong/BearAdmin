@@ -1,2 +1,0 @@
-{"message":"module not exists:hello in D:\\php\\website\\BearAdmin\\thinkphp\\library\\think\\App.php:360","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-08-23 15:20:12.158222","timezone_type":3,"timezone":"PRC"},"extra":[]}
-{"message":"module not exists:hello in D:\\php\\website\\BearAdmin\\thinkphp\\library\\think\\App.php:360","context":[],"level":400,"level_name":"ERROR","channel":"bear_log","datetime":{"date":"2017-08-23 15:20:45.704117","timezone_type":3,"timezone":"PRC"},"extra":[]}
