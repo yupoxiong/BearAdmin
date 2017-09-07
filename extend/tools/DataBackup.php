@@ -75,8 +75,12 @@ class DataBackup
         } else {
             $sql = $this->parseSQL($savepath);
             try {
-                $this->handler->exec($sql);
-                return $this->success('还原成功!耗时', round(microtime(true) - $this->begin, 4) . 's');
+
+                $PDOStatement = $this->handler->prepare($sql);
+                $affected = $PDOStatement->execute();
+
+                return $this->success($affected.'还原成功!耗时'.round(microtime(true) - $this->begin, 4) . 's');
+
             } catch (PDOException $e) {
                 return $this->error($e->getMessage());
             }
@@ -162,7 +166,7 @@ class DataBackup
 
 
     //删除备份
-    public function delfilename($filename)
+    public function deleteFile($filename)
     {
         $savepath = $this->config['savepath'] . $filename;
         if (@unlink($savepath)) {
@@ -304,7 +308,12 @@ class DataBackup
         foreach ($data as $value) {
             $dataSql = '';
             foreach ($value as $v) {
-                $dataSql .= "'{$v}',";
+                if(null!==$v){
+                    $dataSql .= "'{$v}',";
+                }else{
+                    $dataSql .= "null,";
+                }
+
             }
             $dataSql = substr($dataSql, 0, -1);
             $query .= "INSERT INTO `{$table}` ({$columns}) VALUES ({$dataSql});\r\n";

@@ -34,7 +34,7 @@ class AdminMenu extends Base
      */
     public function __construct()
     {
-        $this->protected_menu = range(1, 60);
+        $this->protected_menu = range(1, 80);
         parent::__construct();
     }
 

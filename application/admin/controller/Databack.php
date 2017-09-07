@@ -16,15 +16,14 @@ class Databack extends Base
 
     public function __construct()
     {
+        parent::__construct();
         $this->config = Config::get("database");
 
         $this->config['savepath'] = ROOT_PATH . 'backup/';
         $this->config['filename'] = "database-backup-" . date("Y-m-d-H-i-s", time()) . ".sql";
 
         $this->back     = new DataBackup($this->config);
-        $this->filename = $this->param['filename'] ? $this->param['filename'] : '';
-
-        parent::__construct();
+        $this->filename = isset($this->param['filename']) ? $this->param['filename'] : '';
     }
 
     //列表
@@ -77,7 +76,8 @@ class Databack extends Base
     //删除
     public function del()
     {
-        $result = $this->back->delfilename($this->filename);
+       
+        $result = $this->back->deleteFile($this->filename);
         if ($result['status'] == 200) {
             return $this->do_success($result['message']);
         }
