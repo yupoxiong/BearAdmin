@@ -301,7 +301,7 @@ class Base extends Controller
         $this->api_result['status']        = $status;
         $this->api_result['extend']['url'] = $url;
 
-        return Response::create($this->api_result, 'json', $status);
+        return Response::create($this->api_result, 'json', 200);
     }
 
     /**

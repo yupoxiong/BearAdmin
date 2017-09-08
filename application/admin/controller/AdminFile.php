@@ -64,9 +64,11 @@ class AdminFile extends Base
             )->move(config('file_upload_path') . $user_id);
 
             if ($info) {
+                
                 $file_info = [
+                    'user_id'       => $user_id,
                     'original_name' => $info->getInfo('name'),
-                    'save_name'     => $info->$info->getFilename(),
+                    'save_name'     => $info->getFilename(),
                     'save_path'     => config('file_upload_path') . $user_id . DS . $info->getSaveName(),
                     'extension'     => $info->getExtension(),
                     'mime'          => $info->getInfo('type'),
@@ -75,12 +77,16 @@ class AdminFile extends Base
                     'sha1'          => $info->hash(),
                     'url'           => config('file_upload_url') . $user_id . DS . $info->getSaveName()
                 ];
+
                 AdminFiles::create($file_info);
+
                 $this->api_result['status']  = 200;
                 $this->api_result['message'] = '上传成功';
                 $this->api_result['result']  = $file_info;
                 return $this->ajaxReturnData($this->api_result);
             }
+
+
             return $this->ajaxReturnError($file->getError());
         }
         return $this->ajaxReturnError('未登录或登录失效');
