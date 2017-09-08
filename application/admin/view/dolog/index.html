@@ -11,12 +11,12 @@
                         <input id="end_date" name="end_date" value="{$end_date ? $end_date : '' ;}" class="laydate-icon form-control " placeholder="截止日期">
                     </div>
                     <div class="form-group" >
-                        <input type="text" value="{$user_name ? $user_name : '' ;}"
-                               name="user_name" id="user_name" class="form-control" placeholder="用户名">
-                    </div>
-                    <div class="form-group" >
-                        <input type="text" value="{$title ? $title : '' ;}"
-                               name="title" id="title" class="form-control" placeholder="操作名称">
+                        <select name="s_user_id" class="form-control">
+                            <option value="-1">选择用户</option>
+                            {foreach name="user_list" item="user"}
+                            <option value="{$user.user_id}" {if isset($s_user_id)&& $s_user_id==$user.user_id}selected{/if}>{$user.nick_name}({$user.user_name})</option>
+                            {/foreach}
+                        </select>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询

@@ -29,6 +29,13 @@ class Dolog extends Base
             $this->assign('title', $this->param['title']);
         }
 
+        if (isset($this->param['s_user_id']) && ($this->param['s_user_id'])>0) {
+            $page_param['query']['s_user_id'] = $this->param['s_user_id'];
+            $where_user = $this->param['s_user_id'];
+            $logs->where('user_id='.$where_user);
+            $this->assign('s_user_id', $this->param['s_user_id']);
+        }
+
         if (isset($this->param['start_date']) && !empty($this->param['start_date'])) {
             $page_param['query']['start_date'] = $this->param['start_date'];
             $start_date                        = $this->param['start_date'];
@@ -51,7 +58,8 @@ class Dolog extends Base
         $this->assign([
             'list'     => $log_list,
             'page'     => $log_list->render(),
-            'total'    => $log_list->total()
+            'total'    => $log_list->total(),
+            'user_list'=>AdminUsers::all()
         ]);
 
         return $this->fetch();
