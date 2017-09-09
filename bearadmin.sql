@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 50540
 Source Host           : localhost:3306
-Source Database       : bearadmin
+Source Database       : bearadmin_yufup
 
 Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2017-08-31 15:54:52
+Date: 2017-09-09 10:12:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,27 +36,11 @@ CREATE TABLE `bear_admin_files` (
   `update_time` int(11) unsigned NOT NULL,
   `delete_time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台用户文件表';
 
 -- ----------------------------
 -- Records of bear_admin_files
 -- ----------------------------
-INSERT INTO `bear_admin_files` VALUES ('1', '0', 'startup.png', 'd24cb5b0018c34f668341590247f7f98.png', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170601\\d24cb5b0018c34f668341590247f7f98.png', 'png', 'image/png', '107980', '4c4264c07a5ff0f5255397d76d5f5676', 'de4d2bf7b036003a21a15d47369ee223cbd646a1', '\\uploads\\admin\\admin_file\\1\\20170601\\d24cb5b0018c34f668341590247f7f98.png', '0', '1496332197', '1503622815', '1503622815');
-INSERT INTO `bear_admin_files` VALUES ('2', '0', 'bear_logo.jpg', '754210e38594a8a7475af8ab7d9fb2d7.jpg', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170602\\754210e38594a8a7475af8ab7d9fb2d7.jpg', 'jpg', 'image/jpeg', '168531', '01b139c08ad1a16fac06971eb8893a7b', 'e0459dc6ba54fd3b731401fd7b9098d4c856e0dc', '\\uploads\\admin\\admin_file\\1\\20170602\\754210e38594a8a7475af8ab7d9fb2d7.jpg', '0', '1496333211', '1503622820', '1503622820');
-INSERT INTO `bear_admin_files` VALUES ('3', '0', '略略略.png', '7f6b83b858ba90bc6ee7ae4489ecf7ab.png', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170602\\7f6b83b858ba90bc6ee7ae4489ecf7ab.png', 'png', 'image/png', '297582', 'b908a1c3a5e291b4e05532ca0de64e22', '8aabb398fa5d5fb50a1aa1ad5ffd3aaf54eff84e', '\\uploads\\admin\\admin_file\\1\\20170602\\7f6b83b858ba90bc6ee7ae4489ecf7ab.png', '0', '1496364034', '1503622824', '1503622824');
-INSERT INTO `bear_admin_files` VALUES ('4', '0', '略略略.png', '94d2eb63adb8f7a1f059ce28932aaa7c.png', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170602\\94d2eb63adb8f7a1f059ce28932aaa7c.png', 'png', 'image/png', '297582', 'b908a1c3a5e291b4e05532ca0de64e22', '8aabb398fa5d5fb50a1aa1ad5ffd3aaf54eff84e', '\\uploads\\admin\\admin_file\\1\\20170602\\94d2eb63adb8f7a1f059ce28932aaa7c.png', '0', '1496364056', '1503627677', '1503627677');
-INSERT INTO `bear_admin_files` VALUES ('5', '0', '2017.5.18.7z', '32e8a4365d61a64288fdd834ebb9cb4c.7z', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170602\\32e8a4365d61a64288fdd834ebb9cb4c.7z', '7z', 'application/octet-stream', '25249', 'c309e5d43ccbec7c92a9d9065646d20f', '7853628c50c180c9b8913a8f1c5933b227e4a5b5', '\\uploads\\admin\\admin_file\\1\\20170602\\32e8a4365d61a64288fdd834ebb9cb4c.7z', '0', '1496365008', '1496365255', '1496365255');
-INSERT INTO `bear_admin_files` VALUES ('6', '0', 'B-JUI.1.31 (1).zip', '3e9d71b7d25caa08713985b2699f0330.zip', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170602\\3e9d71b7d25caa08713985b2699f0330.zip', 'zip', 'application/octet-stream', '3850264', '6ab4032d971234cf36e4f8fdbe3e04c2', 'aeccb8fc930cec2e1a04f6949d47f39c73c4ea09', '\\uploads\\admin\\admin_file\\1\\20170602\\3e9d71b7d25caa08713985b2699f0330.zip', '0', '1496373412', '1496374268', '1496374268');
-INSERT INTO `bear_admin_files` VALUES ('7', '0', 'yupoxiong_gmail_com149544710417286591.jpeg', '3d7aae7d3a5d6c774c1fdd37e524eb45.jpeg', '/www/wwwroot/bearadmin.aiqingxiaoji.com/public/uploads/admin/admin_file/1/20170602/3d7aae7d3a5d6c774c1fdd37e524eb45.jpeg', 'jpeg', 'image/jpeg', '30636', '26a912571dfe704440158398aa9a2e9c', '1d246f3678d6b5e338f7d5ece5f1537360003414', '/uploads/admin/admin_file/1/20170602/3d7aae7d3a5d6c774c1fdd37e524eb45.jpeg', '0', '1496374180', '1503627677', '1503627677');
-INSERT INTO `bear_admin_files` VALUES ('8', '0', '直营店铺后台.png', 'eb52343fd6cbe5792e65953a7bc9c5e7.png', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170604\\eb52343fd6cbe5792e65953a7bc9c5e7.png', 'png', 'image/png', '101069', 'be1e1ed6fb33321ee4732050724cff7f', 'a1d70f2fcf9f989172e22b21e41a5ada93c70283', '\\uploads\\admin\\admin_file\\1\\20170604\\eb52343fd6cbe5792e65953a7bc9c5e7.png', '0', '1496588182', '1503627677', '1503627677');
-INSERT INTO `bear_admin_files` VALUES ('9', '0', '直营店铺后台.png', 'ff2df01292bfc88b257216b02175e3ad.png', 'D:\\php\\website\\demi\\public\\uploads\\admin\\admin_file\\1\\20170604\\ff2df01292bfc88b257216b02175e3ad.png', 'png', 'image/png', '101069', 'be1e1ed6fb33321ee4732050724cff7f', 'a1d70f2fcf9f989172e22b21e41a5ada93c70283', '\\uploads\\admin\\admin_file\\1\\20170604\\ff2df01292bfc88b257216b02175e3ad.png', '0', '1496588427', '1503627677', '1503627677');
-INSERT INTO `bear_admin_files` VALUES ('10', '0', 'web.png', 'ba8c0cd2b49077e437dc5768413d5a33.png', '/www/wwwroot/bearadmin.aiqingxiaoji.com/public/uploads/admin/admin_file/24/20170610/ba8c0cd2b49077e437dc5768413d5a33.png', 'png', 'image/png', '10587', 'f9b42310d23fa0ac383937f066c64ece', '462ae0819c26cb4c7853ee58aa3031640f7d408e', '/uploads/admin/admin_file/24/20170610/ba8c0cd2b49077e437dc5768413d5a33.png', '0', '1497073252', '1503627677', '1503627677');
-INSERT INTO `bear_admin_files` VALUES ('11', '0', '130815234706081888.jpg', '727aa7f732f06f46411cbb345d1099c7.jpg', '/www/wwwroot/bearadmin.yufuping.com/public/uploads/admin/admin_file/24/20170824/727aa7f732f06f46411cbb345d1099c7.jpg', 'jpg', 'image/jpeg', '10879', '953ff7c7392eabcd5c271c7a03d885ce', '7c1b73d2d62d0dc1f5e56fd85118e8f85173cdbf', '/uploads/admin/admin_file/24/20170824/727aa7f732f06f46411cbb345d1099c7.jpg', '0', '1503556040', '1503627677', '1503627677');
-INSERT INTO `bear_admin_files` VALUES ('12', '0', 'drunk.jpg', '1ac9d56ab25381377b5c89d6307db92a.jpg', 'D:\\php\\website\\BearAdmin\\public\\uploads\\admin\\admin_file\\1\\20170825\\1ac9d56ab25381377b5c89d6307db92a.jpg', 'jpg', 'image/jpeg', '5012', '06da5f2db144446ea3218272a44c0f83', 'de16e2f7aa2e7f0bde459aee390beac8b517e4dc', '\\uploads\\admin\\admin_file\\1\\20170825\\1ac9d56ab25381377b5c89d6307db92a.jpg', '0', '1503622600', '1503627515', '1503627515');
-INSERT INTO `bear_admin_files` VALUES ('13', '0', 'drunk.jpg', '8eed15e7564618f928d8d06fc219e13d.jpg', 'D:\\php\\website\\BearAdmin\\public\\uploads\\admin\\admin_file\\1\\20170825\\8eed15e7564618f928d8d06fc219e13d.jpg', 'jpg', 'image/jpeg', '5012', '06da5f2db144446ea3218272a44c0f83', 'de16e2f7aa2e7f0bde459aee390beac8b517e4dc', '\\uploads\\admin\\admin_file\\1\\20170825\\8eed15e7564618f928d8d06fc219e13d.jpg', '0', '1503622767', '1503627515', '1503627515');
-INSERT INTO `bear_admin_files` VALUES ('14', '0', 'drunk.jpg', 'e6541955cd6de19fcef6b549fdc3a65b.jpg', '/www/wwwroot/bearadmin.yufuping.com/public/uploads/admin/admin_file/1/20170825/e6541955cd6de19fcef6b549fdc3a65b.jpg', 'jpg', 'image/jpeg', '5012', '06da5f2db144446ea3218272a44c0f83', 'de16e2f7aa2e7f0bde459aee390beac8b517e4dc', '/uploads/admin/admin_file/1/20170825/e6541955cd6de19fcef6b549fdc3a65b.jpg', '0', '1503627709', '1503627709', null);
-INSERT INTO `bear_admin_files` VALUES ('15', '0', '2.jpg', '78ec2727b340338e7045f427f51d33c3.jpg', '/www/wwwroot/bearadmin.yufuping.com/public/uploads/admin/admin_file/24/20170825/78ec2727b340338e7045f427f51d33c3.jpg', 'jpg', 'image/jpeg', '19610', 'a7f5557f5000af32a04c649eb890bbce', '51ab04d5bb0668773f09e759d58e14e855320296', '/uploads/admin/admin_file/24/20170825/78ec2727b340338e7045f427f51d33c3.jpg', '0', '1503633430', '1503633430', null);
-INSERT INTO `bear_admin_files` VALUES ('16', '0', '00000117_1502777287.png', '59ee56a7b8ef1e72e04ae13a01b44db4.png', '/www/wwwroot/bearadmin.yufuping.com/public/uploads/admin/admin_file/24/20170826/59ee56a7b8ef1e72e04ae13a01b44db4.png', 'png', 'image/png', '266', 'cbd4bc7aee57c26df688f207d3b69578', 'd172d2c3758d073fbc7ae71821c7b2273ab9063d', '/uploads/admin/admin_file/24/20170826/59ee56a7b8ef1e72e04ae13a01b44db4.png', '0', '1503731825', '1503731825', null);
 
 -- ----------------------------
 -- Table structure for bear_admin_logs
@@ -74,11 +58,15 @@ CREATE TABLE `bear_admin_logs` (
   `delete_time` int(10) unsigned DEFAULT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2285 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='后台用户操作日志表';
 
 -- ----------------------------
 -- Records of bear_admin_logs
 -- ----------------------------
+INSERT INTO `bear_admin_logs` VALUES ('1', '1', '70', '删除菜单', '1', 'admin/admin_menu/del.html', '-1062723687', '1504922314', null, '1');
+INSERT INTO `bear_admin_logs` VALUES ('2', '1', '24', '修改用户', '2', 'admin/admin_user/edit.html', '-1062723687', '1504923044', null, '1');
+INSERT INTO `bear_admin_logs` VALUES ('3', '1', '1', '修改角色', '2', 'admin/role/edit.html', '-1062723687', '1504923131', null, '1');
+INSERT INTO `bear_admin_logs` VALUES ('4', '1', '13', '修改角色', '2', 'admin/role/edit.html', '-1062723687', '1504923151', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_logs_datas
@@ -93,11 +81,15 @@ CREATE TABLE `bear_admin_logs_datas` (
   `delete_time` int(10) unsigned DEFAULT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`data_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2285 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户操作日志数据表';
 
 -- ----------------------------
 -- Records of bear_admin_logs_datas
 -- ----------------------------
+INSERT INTO `bear_admin_logs_datas` VALUES ('1', '1', '601ccce6EHmjJWFW1GbV9RjbCAgf0KCLuqp8tLiLtB6oN6/8RbXMmDql+/38x76Ies7hW0yTh44', '1504922314', '1504922314', null, '1');
+INSERT INTO `bear_admin_logs_datas` VALUES ('2', '2', '0ac48fdeuWHhgj3KUxCWImxmE4GAYE9wTPJfFSpXFiaqq9UyBrfXZAU0YXNPwwuxFV8k9PZ4O7VhTbvU2Ok3rJPVuVsYj4+fZgpLKWbMQhvasxRd081be20n1D3DGCSheWnbC6d+F92NUFOp0PB8utNJx/GsLOm8gilGG7PIzW+waF68eY3YikdYpI30VHpNi6zfFb/iNcE7uNLkQ1/BfluPWIGvMHHlRLduaZmNNvEdNGVRedyE0t2fpFoqoADPtMHJhlSLrVdfDW9O+3B8Crz8w2VuGebq0xIcRpN2J7XiSKqnIUxSSR6vq19HAN6kDNYDiTW0kfUeLY7XafiydsK4aTDnEVXwQbkMTdP2IYXvq4qmneYrz4ytohkf1cjo503sCxS/iavTdpgHxD2HmLumm+vvJICRYA4RlfYOjoXv4oMOsyozkrLwX4Ezbj16fXUBqXWa0QSajpqZmiI', '1504923044', '1504923044', null, '1');
+INSERT INTO `bear_admin_logs_datas` VALUES ('3', '3', 'f1a83508qqI/S7ne3T0cQoOypPQNeRUVmVZM7c35OC9HcbuozVUZrInax2VvRLwSfb62sqkjYe25HpZk+6btLr10qQqnRQTEcwATnFGIHWgXSK8X3GTOCQNssa5lPfEf+XROU0DwwORQEAQc3AXlDAfx6+F4a/lSyV00NJ80Ak/lk45G2no1zIWhi/Xhjp7l/0/spckJCqxNn+HAXvegEtzJbuNrWxPuI7w05JVgvv1y5y9QeCkLitm9i7wrmNDZeb6nUuSF2YV+yNWmk9IrgCeozjruC0/adReYcg', '1504923131', '1504923131', null, '1');
+INSERT INTO `bear_admin_logs_datas` VALUES ('4', '4', 'cece9709zz/+zpbH0xeOkN8VvKqwIWZOxoYye55iwjdRmVIQSYKBJH9hm2lf2Lkjo3n6g3antqdmuxwYVa3L12j34JngsCZ2kWnb/EMtZf4m0f/3EQcgC1fcxc3swM0PORLH2XHlVc7+36iWuVSGX1kZTZpBgmAYFx9oJdK5uSpGjhwJLQpzz0h+RvP3ff5SsF0yd2Tj9mbeQ69xwvInz+DUKqmKUE+epAfMOOvEaHsy/5miwjnEUzOteNYpkoc0JX3Om1IdS3s5pyEqjSl+m3NxZJPifBG5zvE04O8r', '1504923151', '1504923151', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_mail_logs
@@ -118,14 +110,11 @@ CREATE TABLE `bear_admin_mail_logs` (
   `delete_time` int(10) unsigned DEFAULT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='邮件发送记录表';
 
 -- ----------------------------
 -- Records of bear_admin_mail_logs
 -- ----------------------------
-INSERT INTO `bear_admin_mail_logs` VALUES ('1', '1', '8553151@qq.com', '测试主题111', '<p>这次发附件试试撒</p><p>嘻嘻</p>', 'lueluelue.png', 'D:\\php\\website\\demi\\public\\uploads\\admin\\email_file\\1\\20170605\\7029fa2c5736662de3f0d332a1ae611b.png', '\\uploads\\admin\\email_file\\1\\20170605\\7029fa2c5736662de3f0d332a1ae611b.png', '1', '', '1496649705', null, '1');
-INSERT INTO `bear_admin_mail_logs` VALUES ('2', '1', '8553151@qq.com,yupoxiong@gmail.com', '测试发送到多个邮箱', '<p>测试正文</p>', '', '', '', '1', '', '1496651117', null, '1');
-INSERT INTO `bear_admin_mail_logs` VALUES ('3', '1', '1113926746@qq.com', '王兴成你好啊', '<p>这是测试邮件，收到请勿回复</p>', '', '', '', '1', '', '1501062750', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_menus
@@ -145,7 +134,7 @@ CREATE TABLE `bear_admin_menus` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1默认正常，2禁用',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of bear_admin_menus
@@ -195,7 +184,7 @@ INSERT INTO `bear_admin_menus` VALUES ('51', '25', '0', 'github登录', 'admin/t
 INSERT INTO `bear_admin_menus` VALUES ('57', '35', '0', '查看日志', 'admin/dologs/view', '', 'fa-search-plus', '0', '100', '1495382629', '1495552300', '1');
 INSERT INTO `bear_admin_menus` VALUES ('58', '17', '0', '文件下载', 'admin/admin_file/download', '', 'fa-download', '1', '100', '1495536279', '1497262778', '1');
 INSERT INTO `bear_admin_menus` VALUES ('59', '34', '0', '后台说明', 'admin/sys/about', '', 'fa-hand-o-right', '0', '123', '1496885512', '1496903189', '1');
-INSERT INTO `bear_admin_menus` VALUES ('60', '34', '1', '数据维护', 'admin/databack/index', '', 'fa-database', '0', '100', '1502788380', '1503018106', '1');
+INSERT INTO `bear_admin_menus` VALUES ('60', '74', '1', '数据库备份', 'admin/databack/index', '', 'fa-database', '0', '100', '1502788380', '1504764342', '1');
 INSERT INTO `bear_admin_menus` VALUES ('61', '60', '0', '添加备份', 'admin/databack/add', '', 'fa-plus', '0', '100', '1502789144', '1502789144', '1');
 INSERT INTO `bear_admin_menus` VALUES ('62', '60', '0', '还原备份', 'admin/databack/reduction', '', 'fa-circle-o', '0', '100', '1502789201', '1502789201', '1');
 INSERT INTO `bear_admin_menus` VALUES ('63', '60', '0', '删除备份', 'admin/databack/del', '', 'fa-close', '1', '100', '1502789239', '1502789239', '1');
@@ -203,9 +192,12 @@ INSERT INTO `bear_admin_menus` VALUES ('64', '0', '1', '用户测试', 'admin/us
 INSERT INTO `bear_admin_menus` VALUES ('65', '64', '0', '添加用户', 'admin/user/add', '', 'fa-circle-o', '0', '100', '1502864686', '1502864702', '1');
 INSERT INTO `bear_admin_menus` VALUES ('66', '64', '0', '编辑用户', 'admin/user/edit', '', 'fa-circle-o', '0', '100', '1502864733', '1502864733', '1');
 INSERT INTO `bear_admin_menus` VALUES ('67', '64', '0', '删除用户', 'admin/user/del', '', 'fa-circle-o', '0', '100', '1502864755', '1502864755', '1');
-INSERT INTO `bear_admin_menus` VALUES ('68', '0', '1', '啊啊粉嘟嘟', '/admin/test/test', '', 'fa-circle-o', '0', '100', '1503535735', '1503994083', '1');
-INSERT INTO `bear_admin_menus` VALUES ('70', '0', '1', 'asdasdasd', '/vasdad', '', 'fa-circle-o', '0', '100', '1503556341', '1503556341', '1');
-INSERT INTO `bear_admin_menus` VALUES ('72', '0', '1', '这个菜单', '/', '', 'fa-circle-o', '0', '100', '1503993668', '1503993668', '1');
+INSERT INTO `bear_admin_menus` VALUES ('68', '23', '0', '编辑器上传', 'admin/ueditor/server', '', 'fa-server', '2', '100', '1503535735', '1504921345', '1');
+INSERT INTO `bear_admin_menus` VALUES ('73', '74', '1', '数据表管理', 'admin/database/index', '', 'fa-list', '0', '100', '1504764209', '1504764438', '1');
+INSERT INTO `bear_admin_menus` VALUES ('74', '34', '1', '数据维护', 'admin/database', '', 'fa-database', '0', '100', '1504764318', '1504764318', '1');
+INSERT INTO `bear_admin_menus` VALUES ('75', '73', '0', '优化表', 'admin/database/optimize', '', 'fa-refresh', '1', '100', '1504764525', '1504764525', '1');
+INSERT INTO `bear_admin_menus` VALUES ('76', '73', '0', '修复表', 'admin/database/repair', '', 'fa-circle-o-notch', '1', '100', '1504764592', '1504764592', '1');
+INSERT INTO `bear_admin_menus` VALUES ('77', '73', '0', '查看表详情', 'admin/database/view', '', 'fa-info-circle', '1', '100', '1504764664', '1504764664', '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_users
@@ -222,14 +214,14 @@ CREATE TABLE `bear_admin_users` (
   `delete_time` int(10) unsigned DEFAULT NULL COMMENT '是否被删除',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态1启用，2禁用',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
 
 -- ----------------------------
 -- Records of bear_admin_users
 -- ----------------------------
-INSERT INTO `bear_admin_users` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员', '1/20170524/aa579d638a236fd9ac06ff419ca88cb1.jpg', '1488189586', '1504165739', null, '1');
-INSERT INTO `bear_admin_users` VALUES ('2', 'admin', '21232f297a57a5a743894a0e4a801fc3', '管理员2', 'avatar.png', '1488189586', '1502342521', '1502342521', '1');
-INSERT INTO `bear_admin_users` VALUES ('3', 'admin2', 'e10adc3949ba59abbe56e057f20f883e', '管理员2', 'avatar.png', '1488189586', '1488246666', '1495183263', '1');
+INSERT INTO `bear_admin_users` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员', '1/20170524/aa579d638a236fd9ac06ff419ca88cb1.jpg', '1488189586', '1504170129', null, '1');
+INSERT INTO `bear_admin_users` VALUES ('2', 'admin22', '21232f297a57a5a743894a0e4a801fc3', '管理员2', 'avatar.png', '1488189586', '1502342521', '1502342521', '1');
+INSERT INTO `bear_admin_users` VALUES ('3', 'admin3', 'e10adc3949ba59abbe56e057f20f883e', '管理员3', 'avatar.png', '1488189586', '1488246666', '1495183263', '1');
 INSERT INTO `bear_admin_users` VALUES ('11', 'admin55', 'd41d8cd98f00b204e9800998ecf8427e', '用户姓名测试', 'avatar.png', '1493955256', '1495183263', '1495183263', '1');
 INSERT INTO `bear_admin_users` VALUES ('18', 'admin545', '5abd06d6f6ef0e022e11b8a41f57ebda', '435435', '18/20170523/69b5600769b1d4e7a97cd0d8e8962fff.png', '1495448379', '1502330153', '1502330153', '1');
 INSERT INTO `bear_admin_users` VALUES ('19', 'bear', '03e0704b5690a2dee1861dc3ad3316c9', 'bear', 'avatar.png', '1495603226', '1502330153', '1502330153', '1');
@@ -237,7 +229,7 @@ INSERT INTO `bear_admin_users` VALUES ('20', 'laipixiong', 'e10adc3949ba59abbe56
 INSERT INTO `bear_admin_users` VALUES ('21', 'taoqixiong', '5abd06d6f6ef0e022e11b8a41f57ebda', '淘气熊', 'avatar.png', '1495643747', '1502330153', '1502330153', '1');
 INSERT INTO `bear_admin_users` VALUES ('22', 'poxiong', 'd41d8cd98f00b204e9800998ecf8427e', '破熊', 'avatar.png', '1495688185', '1502330153', '1502330153', '1');
 INSERT INTO `bear_admin_users` VALUES ('23', 'qqq111', 'd41d8cd98f00b204e9800998ecf8427e', 'qqq11', 'avatar.png', '1495716820', '1502330153', '1502330153', '1');
-INSERT INTO `bear_admin_users` VALUES ('24', 'demo', 'fe01ce2a7fbac8fafaed7c982a04e229', 'Demo1', '24/20170831/ff2fbeccbab4661ba1ebfb47e33d2584.jpg', '1496904301', '1504164854', null, '1');
+INSERT INTO `bear_admin_users` VALUES ('24', 'demo', 'fe01ce2a7fbac8fafaed7c982a04e229', 'Demo', '24/20170907/a7d56c91fe121d80d302e231d42e36c1.jpg', '1496904301', '1504792768', null, '1');
 INSERT INTO `bear_admin_users` VALUES ('28', 'jiejie', '5abd06d6f6ef0e022e11b8a41f57ebda', '姐姐', 'avatar.png', '1498196749', '1502330153', '1502330153', '1');
 INSERT INTO `bear_admin_users` VALUES ('29', 'test', '098f6bcd4621d373cade4e832627b4f6', '测试用户', 'avatar.png', '1502337568', '1502342171', '1502342171', '1');
 INSERT INTO `bear_admin_users` VALUES ('30', 'root', '63a9f0ea7bb98050796b649e85481845', 'cozy', 'avatar.png', '1502342476', '1502342496', '1502342496', '1');
@@ -247,8 +239,9 @@ INSERT INTO `bear_admin_users` VALUES ('33', 'ceshi', '5abd06d6f6ef0e022e11b8a41
 INSERT INTO `bear_admin_users` VALUES ('34', '1111', 'b59c67bf196a4758191e42f76670ceba', '1111', 'avatar.png', '1503394314', '1503534875', '1503534875', '1');
 INSERT INTO `bear_admin_users` VALUES ('35', 'demo13', 'fe01ce2a7fbac8fafaed7c982a04e229', 'qweqwe', 'avatar.png', '1503544350', '1503579033', '1503579033', '1');
 INSERT INTO `bear_admin_users` VALUES ('36', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'avatar.png', '1503837089', '1503841748', '1503841748', '1');
-INSERT INTO `bear_admin_users` VALUES ('37', '1556', 'e10adc3949ba59abbe56e057f20f883e', '123456', 'avatar.png', '1503910453', '1503910453', null, '1');
-INSERT INTO `bear_admin_users` VALUES ('38', 'demo1', 'e368b9938746fa090d6afd3628355133', 'demo1', '3820170831/2b79a74e91bb0eaf281d116eebbb4ed1.jpg', '1504032913', '1504160587', null, '1');
+INSERT INTO `bear_admin_users` VALUES ('37', '1556', 'e10adc3949ba59abbe56e057f20f883e', '123456', 'avatar.png', '1503910453', '1504348114', '1504348114', '1');
+INSERT INTO `bear_admin_users` VALUES ('38', 'demo11', 'e368b9938746fa090d6afd3628355133', 'demo1', '3820170831/2b79a74e91bb0eaf281d116eebbb4ed1.jpg', '1504032913', '1504182938', '1504182938', '1');
+INSERT INTO `bear_admin_users` VALUES ('39', 'ccc', '5abd06d6f6ef0e022e11b8a41f57ebda', 'qq777', 'avatar.png', '1504769177', '1504770132', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_user_profiles
@@ -274,7 +267,7 @@ CREATE TABLE `bear_admin_user_profiles` (
   `delete_time` int(10) unsigned DEFAULT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户扩展资料表';
 
 -- ----------------------------
 -- Records of bear_admin_user_profiles
@@ -310,6 +303,7 @@ INSERT INTO `bear_admin_user_profiles` VALUES ('34', '35', '15354451651', '32156
 INSERT INTO `bear_admin_user_profiles` VALUES ('35', '36', '0', '', '', '1', '', '', '', '', '', '', '', '', '1503837089', '1503837697', null, '1');
 INSERT INTO `bear_admin_user_profiles` VALUES ('36', '37', '18566986567', '145525@qq.com', '', '1', '', '', '', '', '', '', '', '', '1503910453', '1503910453', null, '1');
 INSERT INTO `bear_admin_user_profiles` VALUES ('37', '38', '', '', '', '1', '', '', '', '', '', '', '', '', '1504032913', '1504032913', null, '1');
+INSERT INTO `bear_admin_user_profiles` VALUES ('38', '39', '18899966655', '', '', '1', '', '', '', '', '', '', '', '', '1504769177', '1504769177', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_auth_groups
@@ -322,15 +316,14 @@ CREATE TABLE `bear_auth_groups` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `rules` varchar(350) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of bear_auth_groups
 -- ----------------------------
-INSERT INTO `bear_auth_groups` VALUES ('1', '管理员', '卧草', '1', '1,2,3,4,5,6,7,8,9,10,11,15,14,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,49,50,51,52,57,58,59,60,64,65,66,67,68,70');
-INSERT INTO `bear_auth_groups` VALUES ('2', '客服', '你是睡', '1', '1,2,3,4,5,6,7,8,9,10,11,15,14,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,49,50,51,52,57,58,59,60,61,62,63,64,65,66,67,68,70');
+INSERT INTO `bear_auth_groups` VALUES ('1', '管理员', '后台管理员', '1', '1,2,3,4,5,6,7,8,9,10,11,15,14,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,49,50,51,52,57,58,59,60,61,62,63,64,65,66,67,68,70,73,74,75,76,77');
 INSERT INTO `bear_auth_groups` VALUES ('3', '财务', '测试描述', '1', '2,3,4,5,6,7,8,9,10,11,15,14,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,49,50,51,52,57,58,59,60,61,62,63');
-INSERT INTO `bear_auth_groups` VALUES ('13', '演示账号', '牧草', '1', '1,35,37');
+INSERT INTO `bear_auth_groups` VALUES ('13', '演示角色', '演示角色', '1', '1,3,4,5,7,8,9,10,11,14,17,29,30,35,37,38,40,41');
 
 -- ----------------------------
 -- Table structure for bear_auth_group_access
@@ -342,7 +335,7 @@ CREATE TABLE `bear_auth_group_access` (
   UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
   KEY `uid` (`uid`),
   KEY `group_id` (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色用户关联表';
 
 -- ----------------------------
 -- Records of bear_auth_group_access
@@ -350,17 +343,13 @@ CREATE TABLE `bear_auth_group_access` (
 INSERT INTO `bear_auth_group_access` VALUES ('1', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('2', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('4', '1');
-INSERT INTO `bear_auth_group_access` VALUES ('6', '2');
-INSERT INTO `bear_auth_group_access` VALUES ('8', '2');
 INSERT INTO `bear_auth_group_access` VALUES ('8', '3');
 INSERT INTO `bear_auth_group_access` VALUES ('9', '3');
 INSERT INTO `bear_auth_group_access` VALUES ('10', '1');
-INSERT INTO `bear_auth_group_access` VALUES ('10', '2');
 INSERT INTO `bear_auth_group_access` VALUES ('10', '3');
 INSERT INTO `bear_auth_group_access` VALUES ('11', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('11', '3');
 INSERT INTO `bear_auth_group_access` VALUES ('15', '3');
-INSERT INTO `bear_auth_group_access` VALUES ('16', '2');
 INSERT INTO `bear_auth_group_access` VALUES ('17', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('19', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('20', '1');
@@ -374,11 +363,11 @@ INSERT INTO `bear_auth_group_access` VALUES ('31', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('31', '3');
 INSERT INTO `bear_auth_group_access` VALUES ('32', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('35', '1');
-INSERT INTO `bear_auth_group_access` VALUES ('35', '2');
 INSERT INTO `bear_auth_group_access` VALUES ('35', '3');
 INSERT INTO `bear_auth_group_access` VALUES ('36', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('37', '1');
 INSERT INTO `bear_auth_group_access` VALUES ('38', '1');
+INSERT INTO `bear_auth_group_access` VALUES ('39', '1');
 
 -- ----------------------------
 -- Table structure for bear_auth_rules
@@ -394,7 +383,7 @@ CREATE TABLE `bear_auth_rules` (
   `menu_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '关联菜单id',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COMMENT='权限规则表';
 
 -- ----------------------------
 -- Records of bear_auth_rules
@@ -450,7 +439,7 @@ INSERT INTO `bear_auth_rules` VALUES ('52', 'admin/thirdlogin/github', 'github�
 INSERT INTO `bear_auth_rules` VALUES ('57', 'admin/dologs/view', '查看日志', '1', '1', '', '57');
 INSERT INTO `bear_auth_rules` VALUES ('58', 'admin/admin_file/download', '文件下载', '1', '1', '', '58');
 INSERT INTO `bear_auth_rules` VALUES ('59', 'admin/sys/about', '后台说明', '1', '1', '', '59');
-INSERT INTO `bear_auth_rules` VALUES ('60', 'admin/databack/index', '数据维护', '1', '1', '', '60');
+INSERT INTO `bear_auth_rules` VALUES ('60', 'admin/databack/index', '数据库备份', '1', '1', '', '60');
 INSERT INTO `bear_auth_rules` VALUES ('61', 'admin/databack/add', '添加备份', '1', '1', '', '61');
 INSERT INTO `bear_auth_rules` VALUES ('62', 'admin/databack/reduction', '还原备份', '1', '1', '', '62');
 INSERT INTO `bear_auth_rules` VALUES ('63', 'admin/databack/del', '删除备份', '1', '1', '', '63');
@@ -458,9 +447,12 @@ INSERT INTO `bear_auth_rules` VALUES ('64', 'admin/user/index', '用户测试', 
 INSERT INTO `bear_auth_rules` VALUES ('65', 'admin/user/add', '添加用户', '1', '1', '', '65');
 INSERT INTO `bear_auth_rules` VALUES ('66', 'admin/user/edit', '编辑用户', '1', '1', '', '66');
 INSERT INTO `bear_auth_rules` VALUES ('67', 'admin/user/del', '删除用户', '1', '1', '', '67');
-INSERT INTO `bear_auth_rules` VALUES ('68', '/admin/test/test', '啊啊粉嘟嘟', '1', '1', '', '68');
-INSERT INTO `bear_auth_rules` VALUES ('70', '/vasdad', 'asdasdasd', '1', '1', '', '70');
-INSERT INTO `bear_auth_rules` VALUES ('72', '/', '这个菜单', '1', '1', '', '72');
+INSERT INTO `bear_auth_rules` VALUES ('68', 'admin/ueditor/server', '编辑器上传', '1', '1', '', '68');
+INSERT INTO `bear_auth_rules` VALUES ('73', 'admin/database/index', '数据表管理', '1', '1', '', '73');
+INSERT INTO `bear_auth_rules` VALUES ('74', 'admin/database', '数据维护', '1', '1', '', '74');
+INSERT INTO `bear_auth_rules` VALUES ('75', 'admin/database/optimize', '优化表', '1', '1', '', '75');
+INSERT INTO `bear_auth_rules` VALUES ('76', 'admin/database/repair', '修复表', '1', '1', '', '76');
+INSERT INTO `bear_auth_rules` VALUES ('77', 'admin/database/view', '查看表详情', '1', '1', '', '77');
 
 -- ----------------------------
 -- Table structure for bear_excel_examples
@@ -473,7 +465,7 @@ CREATE TABLE `bear_excel_examples` (
   `sex` varchar(8) NOT NULL,
   `city` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=438 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COMMENT='Excel示例表';
 
 -- ----------------------------
 -- Records of bear_excel_examples
@@ -493,111 +485,6 @@ INSERT INTO `bear_excel_examples` VALUES ('12', '小狗', '2', '母', '汪星');
 INSERT INTO `bear_excel_examples` VALUES ('13', '小花', '24', '女', '上海');
 INSERT INTO `bear_excel_examples` VALUES ('14', '小张', '39', '男', '重庆');
 INSERT INTO `bear_excel_examples` VALUES ('15', '小丽', '24', '女', '广州');
-INSERT INTO `bear_excel_examples` VALUES ('16', '15', '1', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('17', '14', '2', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('18', '13', '3', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('19', '12', '4', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('20', '11', '5', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('21', '10', '6', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('22', '9', '7', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('23', '8', '8', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('24', '7', '9', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('25', '6', '10', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('26', '5', '11', '74', '男');
-INSERT INTO `bear_excel_examples` VALUES ('27', '4', '12', '29', '男');
-INSERT INTO `bear_excel_examples` VALUES ('28', '3', '13', '18', '男');
-INSERT INTO `bear_excel_examples` VALUES ('29', '2', '14', '23', '女');
-INSERT INTO `bear_excel_examples` VALUES ('30', '1', '15', '25', '男');
-INSERT INTO `bear_excel_examples` VALUES ('31', '15', '1', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('32', '14', '2', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('33', '13', '3', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('34', '12', '4', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('35', '11', '5', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('36', '10', '6', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('37', '9', '7', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('38', '8', '8', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('39', '7', '9', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('40', '6', '10', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('41', '5', '11', '74', '男');
-INSERT INTO `bear_excel_examples` VALUES ('42', '4', '12', '29', '男');
-INSERT INTO `bear_excel_examples` VALUES ('43', '3', '13', '18', '男');
-INSERT INTO `bear_excel_examples` VALUES ('44', '2', '14', '23', '女');
-INSERT INTO `bear_excel_examples` VALUES ('45', '1', '15', '25', '男');
-INSERT INTO `bear_excel_examples` VALUES ('46', '15', '1', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('47', '14', '2', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('48', '13', '3', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('49', '12', '4', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('50', '11', '5', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('51', '10', '6', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('52', '9', '7', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('53', '8', '8', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('54', '7', '9', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('55', '6', '10', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('56', '5', '11', '74', '男');
-INSERT INTO `bear_excel_examples` VALUES ('57', '4', '12', '29', '男');
-INSERT INTO `bear_excel_examples` VALUES ('58', '3', '13', '18', '男');
-INSERT INTO `bear_excel_examples` VALUES ('59', '2', '14', '23', '女');
-INSERT INTO `bear_excel_examples` VALUES ('60', '1', '15', '25', '男');
-INSERT INTO `bear_excel_examples` VALUES ('378', '60', '1', '15', '25');
-INSERT INTO `bear_excel_examples` VALUES ('379', '59', '2', '14', '23');
-INSERT INTO `bear_excel_examples` VALUES ('380', '58', '3', '13', '18');
-INSERT INTO `bear_excel_examples` VALUES ('381', '57', '4', '12', '29');
-INSERT INTO `bear_excel_examples` VALUES ('382', '56', '5', '11', '74');
-INSERT INTO `bear_excel_examples` VALUES ('383', '55', '6', '10', '1');
-INSERT INTO `bear_excel_examples` VALUES ('384', '54', '7', '9', '2');
-INSERT INTO `bear_excel_examples` VALUES ('385', '53', '8', '8', '24');
-INSERT INTO `bear_excel_examples` VALUES ('386', '52', '9', '7', '39');
-INSERT INTO `bear_excel_examples` VALUES ('387', '51', '10', '6', '24');
-INSERT INTO `bear_excel_examples` VALUES ('388', '50', '11', '5', '1');
-INSERT INTO `bear_excel_examples` VALUES ('389', '49', '12', '4', '2');
-INSERT INTO `bear_excel_examples` VALUES ('390', '48', '13', '3', '24');
-INSERT INTO `bear_excel_examples` VALUES ('391', '47', '14', '2', '39');
-INSERT INTO `bear_excel_examples` VALUES ('392', '46', '15', '1', '24');
-INSERT INTO `bear_excel_examples` VALUES ('393', '45', '1', '15', '25');
-INSERT INTO `bear_excel_examples` VALUES ('394', '44', '2', '14', '23');
-INSERT INTO `bear_excel_examples` VALUES ('395', '43', '3', '13', '18');
-INSERT INTO `bear_excel_examples` VALUES ('396', '42', '4', '12', '29');
-INSERT INTO `bear_excel_examples` VALUES ('397', '41', '5', '11', '74');
-INSERT INTO `bear_excel_examples` VALUES ('398', '40', '6', '10', '1');
-INSERT INTO `bear_excel_examples` VALUES ('399', '39', '7', '9', '2');
-INSERT INTO `bear_excel_examples` VALUES ('400', '38', '8', '8', '24');
-INSERT INTO `bear_excel_examples` VALUES ('401', '37', '9', '7', '39');
-INSERT INTO `bear_excel_examples` VALUES ('402', '36', '10', '6', '24');
-INSERT INTO `bear_excel_examples` VALUES ('403', '35', '11', '5', '1');
-INSERT INTO `bear_excel_examples` VALUES ('404', '34', '12', '4', '2');
-INSERT INTO `bear_excel_examples` VALUES ('405', '33', '13', '3', '24');
-INSERT INTO `bear_excel_examples` VALUES ('406', '32', '14', '2', '39');
-INSERT INTO `bear_excel_examples` VALUES ('407', '31', '15', '1', '24');
-INSERT INTO `bear_excel_examples` VALUES ('408', '30', '1', '15', '25');
-INSERT INTO `bear_excel_examples` VALUES ('409', '29', '2', '14', '23');
-INSERT INTO `bear_excel_examples` VALUES ('410', '28', '3', '13', '18');
-INSERT INTO `bear_excel_examples` VALUES ('411', '27', '4', '12', '29');
-INSERT INTO `bear_excel_examples` VALUES ('412', '26', '5', '11', '74');
-INSERT INTO `bear_excel_examples` VALUES ('413', '25', '6', '10', '1');
-INSERT INTO `bear_excel_examples` VALUES ('414', '24', '7', '9', '2');
-INSERT INTO `bear_excel_examples` VALUES ('415', '23', '8', '8', '24');
-INSERT INTO `bear_excel_examples` VALUES ('416', '22', '9', '7', '39');
-INSERT INTO `bear_excel_examples` VALUES ('417', '21', '10', '6', '24');
-INSERT INTO `bear_excel_examples` VALUES ('418', '20', '11', '5', '1');
-INSERT INTO `bear_excel_examples` VALUES ('419', '19', '12', '4', '2');
-INSERT INTO `bear_excel_examples` VALUES ('420', '18', '13', '3', '24');
-INSERT INTO `bear_excel_examples` VALUES ('421', '17', '14', '2', '39');
-INSERT INTO `bear_excel_examples` VALUES ('422', '16', '15', '1', '24');
-INSERT INTO `bear_excel_examples` VALUES ('423', '15', '1', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('424', '14', '2', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('425', '13', '3', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('426', '12', '4', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('427', '11', '5', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('428', '10', '6', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('429', '9', '7', '39', '男');
-INSERT INTO `bear_excel_examples` VALUES ('430', '8', '8', '24', '女');
-INSERT INTO `bear_excel_examples` VALUES ('431', '7', '9', '2', '母');
-INSERT INTO `bear_excel_examples` VALUES ('432', '6', '10', '1', '公');
-INSERT INTO `bear_excel_examples` VALUES ('433', '5', '11', '74', '男');
-INSERT INTO `bear_excel_examples` VALUES ('434', '4', '12', '29', '男');
-INSERT INTO `bear_excel_examples` VALUES ('435', '3', '13', '18', '男');
-INSERT INTO `bear_excel_examples` VALUES ('436', '2', '14', '23', '女');
-INSERT INTO `bear_excel_examples` VALUES ('437', '1', '15', '25', '男');
 
 -- ----------------------------
 -- Table structure for bear_news
@@ -617,7 +504,7 @@ CREATE TABLE `bear_news` (
   `delete_time` int(10) unsigned DEFAULT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='新闻表';
 
 -- ----------------------------
 -- Records of bear_news
@@ -639,7 +526,7 @@ CREATE TABLE `bear_news_types` (
   `delete_time` int(10) unsigned DEFAULT NULL,
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='新闻类别表';
 
 -- ----------------------------
 -- Records of bear_news_types
@@ -655,7 +542,7 @@ CREATE TABLE `bear_request_type` (
   `title` varchar(20) NOT NULL COMMENT '请求代码',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='请求类型表';
 
 -- ----------------------------
 -- Records of bear_request_type
@@ -680,7 +567,7 @@ CREATE TABLE `bear_sysconfigs` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `delete_time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`sysconfig_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数表';
 
 -- ----------------------------
 -- Records of bear_sysconfigs
@@ -694,12 +581,12 @@ DROP TABLE IF EXISTS `bear_syslogs`;
 CREATE TABLE `bear_syslogs` (
   `log_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `level` int(8) unsigned NOT NULL DEFAULT '0' COMMENT '错误等级',
-  `message` varchar(500) NOT NULL COMMENT '错误信息',
+  `message` varchar(255) NOT NULL COMMENT '错误信息',
   `file` varchar(255) NOT NULL COMMENT '文件',
   `line` int(10) unsigned NOT NULL COMMENT '所在行数',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2270 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统错误日志表';
 
 -- ----------------------------
 -- Records of bear_syslogs
@@ -714,7 +601,7 @@ CREATE TABLE `bear_syslog_trace` (
   `log_id` int(11) unsigned NOT NULL COMMENT 'log id',
   `trace` text,
   PRIMARY KEY (`trace_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2270 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志trace表';
 
 -- ----------------------------
 -- Records of bear_syslog_trace
@@ -732,7 +619,7 @@ CREATE TABLE `bear_users` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `delete_time` int(10) unsigned DEFAULT NULL COMMENT '软删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='前台用户表';
 
 -- ----------------------------
 -- Records of bear_users

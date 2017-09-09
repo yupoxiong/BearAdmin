@@ -20,7 +20,6 @@
         "topthink/framework": "^5.0",
         "phpoffice/phpexcel": "^1.8",
         "firebase/php-jwt": "^4.0",
-        "lcobucci/jwt": "^3.2",
         "monolog/monolog": "^1.22",
         "endroid/qrcode": "^2.2",
         "flc/alidayu": "^2.0",
