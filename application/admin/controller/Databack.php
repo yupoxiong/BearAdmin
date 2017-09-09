@@ -20,6 +20,9 @@ class Databack extends Base
         $this->config = Config::get("database");
 
         $this->config['savepath'] = ROOT_PATH . 'backup/';
+        if(!is_dir($this->config['savepath'])){
+            @mkdir($this->config['savepath']);
+        }
         $this->config['filename'] = "database-backup-" . date("Y-m-d-H-i-s", time()) . ".sql";
 
         $this->back     = new DataBackup($this->config);
