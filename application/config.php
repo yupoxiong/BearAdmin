@@ -289,6 +289,8 @@ return [
             'default' => 'https://bearadmin.yufuping.com/admin/third_login/qq_callback.html',
             'mobile'  => 'https://bearadmin.yufuping.com/admin/third_login/qq_callback.html',
         ]
-    ]
+    ],
 
+    // 设置空模块名为admin
+    'empty_module'	=>	'admin',
 ];
