@@ -75,7 +75,7 @@ class Database extends Base
             }
             return $this->do_error("数据表修复失败");
         }
-        return $this->error("请指定要修复的表");
+        return $this->do_error("请指定要修复的表");
     }
 
 }
