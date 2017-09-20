@@ -293,4 +293,16 @@ return [
 
     // 设置空模块名为admin
     'empty_module'	=>	'admin',
+
+    //极验id和key
+    'geetest'=>[
+        'id'=>'填写你的id',
+        'key'=>'填写你的key'
+    ],
+
+    'http_exception_template'    =>  [
+        // 定义404错误的重定向页面地址
+        404 =>  APP_PATH.'public/404.html',
+        // 还可以定义其它的HTTP status
+    ]
 ];
