@@ -25,6 +25,9 @@ class Excel extends Base
         if ($this->request->isPost()) {
 
             $file = request()->file('export');
+            if(!$file){
+                return $this->do_error('请上传文件');
+            }
             $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'uploads' . DS . 'excel');
             if ($info) {
 
@@ -52,13 +55,10 @@ class Excel extends Base
 
         }
 
-        if (isset($this->get['act']) && $this->get['act'] == 'download') {
+        if (isset($this->param['act']) && $this->param['act'] == 'download') {
             $header = ['ID', '姓名', '年龄', '性别', '城市'];
             $data   = Db::name("ExcelExamples")->order("id desc")->select();
-            if ($error = $this->export($header, $data, "Excel导出例子", '2007')) {
-                throw new Exception($error);
-            }
-            return true;
+            return  $this->export($header, $data, "Excel导出例子", '2007');
         }
         $excel_examples = new ExcelExamples();
 
