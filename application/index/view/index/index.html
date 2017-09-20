@@ -5,153 +5,39 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="/favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
     <style>
-        html, body {
-            overflow: hidden;
-            margin: 0;
-        }
-        body {
-            font-family: 'Roboto Mono', 'monospace';
-            color: #333;
-        }
-        #wrapper {
-            position: absolute;
-            width: 320px;
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            margin-left: -160px;
-            margin-top: -160px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-        h1 {
-            font-weight: 700;
-            font-size: 30px;
-            letter-spacing: 9px;
-            margin: 12px 0;
-            left: 4px;
-        }
-        h2 {
-            color: #000000;
-            font-weight: normal;
-            font-size: 15px;
-            letter-spacing: .12em;
-            margin-bottom: 30px;
-            left: 3px;
-        }
-        h1, h2 {
-            position: relative;
-        }
-        p {
-            font-size: 14px;
-            line-height: 2em;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        a {
-            color: #54565d;
-            text-decoration: none;
-            transition: color .2s ease;
-        }
-        a:hover {
-            color: #f33;
-        }
-
-        .from{
-            position:fixed;
-            bottom:5px;
-            right:5px;
-        }
-
-
+        body,html{overflow:hidden;margin:0}body{font-family:'Roboto Mono',monospace,'Microsoft Yahei';color:#333}#wrapper{position:absolute;width:320px;text-align:center;top:50%;left:50%;margin-left:-160px;margin-top:-160px;-webkit-user-select:none;-moz-user-select:none;user-select:none}h1{font-weight:700;font-size:30px;letter-spacing:9px;margin:12px 0;left:4px}h2{color:#000;font-weight:400;font-size:15px;letter-spacing:.12em;margin-bottom:30px;left:3px}h1,h2{position:relative}p{font-size:14px;line-height:2em;margin:0;letter-spacing:2px}canvas{position:absolute;top:0;left:0;z-index:0;width:100%;height:100%;pointer-events:none}a{color:#54565d;text-decoration:none;transition:color .2s ease}a:hover{color:#f33}
     </style>
-    <script type="text/javascript">
-
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-106757659-1']);
-        _gaq.push(['_setDomainName', 'yufuping.com']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106757659-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments)}
+        gtag('js', new Date());
+        gtag('config', 'UA-106757659-1');
     </script>
+
 </head>
 <body>
 <div id="wrapper">
     <h1>BearAdmin</h1>
     <h2>&amp;一款基于ThinkPHP5+AdminLTE的后台快速开发管理系统&nbsp;</h2>
-    <p><a href="https://github.com/yupoxiong/BearAdmin" target="_blank">Github</a></p>
+    <p><a href="/admin" title="点击体验" target="_blank">Go→</a></p>
+    <p><a href="https://github.com/yupoxiong/BearAdmin" target="_blank" title="去Github查看">Github</a></p>
     <p>
-        <a href="https://git.oschina.net/yupoxiong/BearAdmin" target="_blank">Gitee</a>
-        <script src='https://gitee.com/yupoxiong/BearAdmin/star_widget_preview'></script>
+        <a href="https://git.oschina.net/yupoxiong/BearAdmin" target="_blank" title="去Gitee查看">Gitee</a>
     </p>
-    <div class="from">
-        <p><a href="http://evanyou.me/" target="_blank">本页面源代码来自EvanYou</a></p>
-    </div>
 </div>
-<canvas></canvas>
-<script>
-    document.addEventListener('touchmove', function (e) {
-        e.preventDefault()
-    });
-    var c = document.getElementsByTagName('canvas')[0],
-            x = c.getContext('2d'),
-            pr = window.devicePixelRatio || 1,
-            w = window.innerWidth,
-            h = window.innerHeight,
-            f = 90,
-            q,
-            m = Math,
-            r = 0,
-            u = m.PI*2,
-            v = m.cos,
-            z = m.random;
-    c.width = w*pr;
-    c.height = h*pr;
-    x.scale(pr, pr);
-    x.globalAlpha = 0.6;
-    function i(){
-        x.clearRect(0,0,w,h);
-        q=[{x:0,y:h*.5+f},{x:0,y:h*.8-f}];
-        while(q[1].x<w+f) d(q[0], q[1])
-    }
-    function d(i,j){
-        x.beginPath();
-        x.moveTo(i.x, i.y);
-        x.lineTo(j.x, j.y);
-        var k = j.x + (z()*2-0.25)*f,
-                n = y(j.y);
-        x.lineTo(k, n);
-        x.closePath();
-        r-=u/-10;
-        x.fillStyle = '#'+(v(r)*100+200<<16 | v(r+u/3)*100+200<<8 | v(r+u/3*2)*100+200).toString(16);
-        x.fill();
-        q[0] = q[1];
-        q[1] = {x:k,y:n}
-    }
-    function y(p){
-        var t = p + (z()*2-1.1)*f;
-        return (t>h||t<0) ? y(p) : t
-    }
-    document.onclick = i;
-    document.ontouchstart = i;
-    i()
-</script>
 </body>
 </html>
+<script color="25,125,225" opacity='0.5' zIndex="-2" count="99"  src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d740981d25ee4b445e195a1e4a37630b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
