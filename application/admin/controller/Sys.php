@@ -7,8 +7,17 @@
 
 namespace app\admin\controller;
 
+use think\Cache;
+
 class Sys extends Base
 {
+
+
+    //清空缓存
+    public function cache_clear()
+    {
+        Cache::clear();
+    }
     
     public function about(){
         $this->assign('web_data',$this->web_data);
