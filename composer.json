@@ -24,7 +24,8 @@
         "endroid/qrcode": "^2.2",
         "flc/alidayu": "^2.0",
         "topthink/think-image": "^1.0",
-        "anerg2046/sns_auth": "^1.1"
+        "anerg2046/sns_auth": "^1.1",
+        "erusev/parsedown": "^1.6"
     },
     "extra": {
         "think-path": "thinkphp"

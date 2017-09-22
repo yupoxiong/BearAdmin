@@ -31,7 +31,8 @@ class AdminFile extends Base
 
         $this->assign([
             'lists' => $lists,
-            'page'  => $lists->render()
+            'page'  => $lists->render(),
+            'total'=>$lists->total()
         ]);
         return $this->fetch();
     }

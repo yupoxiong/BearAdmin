@@ -6,7 +6,7 @@
 return [
     'default_return_type'    => 'json',
     // 应用调试模式
-    'app_trace' => true,
+    'app_trace' => false,
 
     'log' =>  [
         'type'                => 'socket',

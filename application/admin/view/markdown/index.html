@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{$web_data['web_title']}</h3>
+            </div>
+            <form role="form" action="" method="post" style="z-index: 99991;position: inherit;">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="content">MarkDown来一发</label>
+                        <textarea name="content" id="content" class="form-control"></textarea>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                {include file="template/action_footer" /}
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var simplemde = new SimpleMDE({
+        spellChecker: false,
+        autosave: {
+            enabled: true,
+            delay: 5000,
+            unique_id: "content"
+        },
+        forceSync: true,
+        toolbar: [
+            "bold", "italic", "heading", "|", "quote", "code", "table",
+            "horizontal-rule", "unordered-list", "ordered-list", "|",
+            "link", "image", "|",  "side-by-side", 'fullscreen', "|",
+            {
+                name: "publish",
+                action: function customFunction(editor){
+                    $('#save').click();
+                },
+                className: "fa fa-paper-plane",
+                title: "预览"
+            }
+        ]
+    });
+</script>
