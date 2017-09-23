@@ -2,22 +2,28 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
+                <h3 class="box-title">表名：<span class="text-blue">{$table}</span>&nbsp;主键：<span class="text-yellow">{$pk}</span></h3>
 
             </div>
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
-                    <!--<tr>
-                        <th>表名</th>
-                        <th>记录数</th>
-                        <th>表大小</th>
-                        <th>创建时间</th>
-                        <th>说明</th>
-                        <th>操作</th>
-                    </tr>-->
+                    <tr>
+                        <th>字段名</th>
+                        <th>类型</th>
+                    </tr>
                     </thead>
                     <tbody>
-                    敬请期待
+                    {foreach name='fields' item='l'}
+                    <tr>
+                        <td>
+                            {$l.name}
+                        </td>
+                        <td>
+                            {$l.type}
+                        </td>
+                    </tr>
+                    {/foreach}
                     </tbody>
                 </table>
             </div>

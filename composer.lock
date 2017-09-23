@@ -126,16 +126,16 @@
         },
         {
             "name": "endroid/qrcode",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/QrCode.git",
-                "reference": "bd143051302aa4ff506be7342bda8b6145fba766"
+                "reference": "5f7bdac4aa1e0cd7296c325ffa499de9b960cc42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/endroid/QrCode/bd143051302aa4ff506be7342bda8b6145fba766.zip",
-                "reference": "bd143051302aa4ff506be7342bda8b6145fba766",
+                "url": "https://files.phpcomposer.com/files/endroid/QrCode/5f7bdac4aa1e0cd7296c325ffa499de9b960cc42.zip",
+                "reference": "5f7bdac4aa1e0cd7296c325ffa499de9b960cc42",
                 "shasum": ""
             },
             "require": {
@@ -187,11 +187,12 @@
                 "bundle",
                 "code",
                 "endroid",
+                "flex",
                 "qr",
                 "qrcode",
                 "symfony"
             ],
-            "time": "2017-08-05T21:43:15+00:00"
+            "time": "2017-09-12T14:37:06+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -638,7 +639,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -695,7 +696,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -808,16 +809,16 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "c2d054b8040fae9e4a52ffd6755497e254d89ce6"
+                "reference": "0f25f903442b33c4939fb1d36d7b0a187aa89d82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/property-access/c2d054b8040fae9e4a52ffd6755497e254d89ce6.zip",
-                "reference": "c2d054b8040fae9e4a52ffd6755497e254d89ce6",
+                "url": "https://files.phpcomposer.com/files/symfony/property-access/0f25f903442b33c4939fb1d36d7b0a187aa89d82.zip",
+                "reference": "0f25f903442b33c4939fb1d36d7b0a187aa89d82",
                 "shasum": ""
             },
             "require": {
@@ -872,7 +873,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2017-07-29T21:54:42+00:00"
+            "time": "2017-08-30T14:49:16+00:00"
         },
         {
             "name": "topthink/framework",

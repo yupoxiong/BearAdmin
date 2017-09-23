@@ -8,7 +8,7 @@
 
  ## 开源地址
  * github:<https://github.com/yupoxiong/BearAdmin>
- * 码云:<https://git.oschina.net/yupoxiong/BearAdmin>
+ * 码云:<https://gitee.com/yupoxiong/BearAdmin>
 
  ## 项目安装
  #### 第一步

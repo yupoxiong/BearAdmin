@@ -6,6 +6,9 @@
 
 namespace app\admin\controller;
 
+use app\common\model\AdminUsers;
+use app\common\model\Users;
+use think\Config;
 use think\Db;
 
 class Database extends Base
@@ -28,10 +31,22 @@ class Database extends Base
     public function view($name = null)
     {
         if ($name) {
-            $table = db($name);
-            $info  = $table->getTableInfo($name);
+
+            $db = new Db();
+
+            $info  = Db::table($name)->getTableInfo($name);
+            $fields = [];
+            $datas = [];
+            foreach ($info['fields'] as $field){
+                $datas['name']=$field;
+
+                $datas['type'] = str_replace('unsigned','<span class="badge">无符号</span>',$info['type'][$field]);
+                $fields[] = $datas;
+            }
             $this->assign([
-                'info'=>$info
+                'fields'=>$fields,
+                'table'=>$name,
+                'pk' => $info['pk']
             ]);
             return $this->fetch();
         }
@@ -45,7 +60,7 @@ class Database extends Base
         if ($name) {
             $Db = db();
             if (is_array($name)) {
-                $tables = implode('`,`', $name);
+                $name = implode('`,`', $name);
             }
             $list = $Db->query("OPTIMIZE TABLE `{$name}`");
 
@@ -66,7 +81,7 @@ class Database extends Base
         if ($name) {
             $Db = db();
             if (is_array($name)) {
-                $tables = implode('`,`', $name);
+                $name = implode('`,`', $name);
             }
             $list = $Db->query("REPAIR TABLE `{$name}`");
 
