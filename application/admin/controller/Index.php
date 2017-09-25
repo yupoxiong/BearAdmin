@@ -8,6 +8,8 @@
 namespace app\admin\controller;
 
 use app\api\controller\Api;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\QrCode;
 use Parsedown;
 use tools\Sysinfo;
 
@@ -38,10 +40,18 @@ class Index extends Base
     //萌萌哒的打赏功能
     public function reward()
     {
+        $domain = $this->request->domain();
+        $url = $domain.'/index/index/reward';
+        $qrcode  = new QrCode($url);
+        $qrcode
+            ->setWriterByName('png')
+            ->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH)
+            ->setLogoPath(ROOT_PATH.'public'.'/favicon-96x96.png');
 
-        
-
-        if(get_browser_type($this->request->header('user-agent')));
-
+        $qrcode->writeFile(ROOT_PATH.'public'.'/reward.png');
+        $this->assign([
+            'reward_qrcode'=>$domain.'/reward.png',
+        ]);
+        return $this->fetch();
     }
 }

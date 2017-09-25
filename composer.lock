@@ -881,12 +881,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "45268eeba3da7eedaead09a524e2bc20a0132e29"
+                "reference": "926c9edb0c2682b14f563cac2c8a93f42f729016"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/top-think/framework/45268eeba3da7eedaead09a524e2bc20a0132e29.zip",
-                "reference": "45268eeba3da7eedaead09a524e2bc20a0132e29",
+                "url": "https://files.phpcomposer.com/files/top-think/framework/926c9edb0c2682b14f563cac2c8a93f42f729016.zip",
+                "reference": "926c9edb0c2682b14f563cac2c8a93f42f729016",
                 "shasum": ""
             },
             "require": {
@@ -924,7 +924,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2017-09-07T10:37:47+00:00"
+            "time": "2017-09-13T03:30:29+00:00"
         },
         {
             "name": "topthink/think-image",

@@ -310,7 +310,7 @@ return [
         'wechat'=>'wxp://f2f0nlKFenUs_W0F4TfvABAjAigvkbphDKjV',
         'alipay'=>'HTTPS://QR.ALIPAY.COM/FKX02237XBDM3VGBVXTNC9',
         'jd'=>'https://h5pay.jd.com/c2cIndex?t=70b4c1a48b1a923eb1ecc283ba122f8567c7cda70c18f6bd38fc02a0064b8b03e0b33641d759bf770a4ef43a3344ef1e',
-        'qq'=>'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&a=1&u=8553151&ac=6D2749B0B382D8CEC95BA10C6C613B708AC3774BA0941982BAC5211BF3BB9E15&n=于破熊&f=wallet',
+        'qq'=>'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&a=1&u=8553151',
         'unkown'=>'/',
     ]
 
