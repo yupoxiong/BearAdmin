@@ -129,6 +129,32 @@ if (!function_exists('format_size')) {
 }
 
 
+if (!function_exists('get_browser_type')) {
+
+    /**
+     * 获取浏览器类型（扫码）京东金融，手机QQ，微信，支付宝
+     * @param $user_agent
+     * @return string
+     */
+    function get_browser_type($user_agent)
+    {
+        $match_qq     = '/.*MQQBrowser.*QQ.*/';
+        $match_wechat = '/.*MQQBrowser.*MicroMessenger.*/';
+        $match_alipay = '/.*UCBrowser.*AlipayClient.*/';
+        $match_jd     = '/.*MQQBrowser.*jdFinance.*/';
+
+        $result = preg_match($match_wechat, $user_agent) ? 'wechat' : (
+        preg_match($match_alipay, $user_agent) ? 'alipay' : (
+        preg_match($match_jd, $user_agent) ? 'jd' : (
+        preg_match($match_qq, $user_agent) ? 'qq' : 'unkown'
+        )
+        )
+        );
+        return $result;
+    }
+}
+
+
 
 
 

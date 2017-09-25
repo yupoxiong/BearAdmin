@@ -510,8 +510,7 @@ class Base extends Controller
     }
 
     protected function deleteData($model,$data_id){
-        
         return $model::destroy($data_id);
-       
     }
+    
 }

@@ -33,4 +33,15 @@ class Index extends Base
         ]);
         return $this->fetch();
     }
+
+
+    //萌萌哒的打赏功能
+    public function reward()
+    {
+
+        
+
+        if(get_browser_type($this->request->header('user-agent')));
+
+    }
 }
