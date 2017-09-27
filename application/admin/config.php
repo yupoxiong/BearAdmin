@@ -74,8 +74,8 @@ return [
     //后台邮件相关参数设置
     'email_from_name'            => '于破熊', // 发件人
     'email_smtp'                 => 'smtp.163.com', // SMTP服务器
-    'email_username'             => '邮箱帐号', // 账号
-    'email_password'             => '邮箱密码', // 密码
+    'email_username'             => '', // 账号
+    'email_password'             => '', // 密码
 
     'alidayu_' => [
         'app_key'    => '阿里大于key',

@@ -13,49 +13,49 @@
                         <div>
                             {foreach name='roles' item='r'}
                             <input style="margin: 0 0 0 10px" class="checkbox-inline" type="checkbox" name="parent_id[]"
-                                   id="parent_{$r.id}" value="{$r.id}"/>
+                                   id="parent_{$r.id}" value="{$r.id}" {if null!=$Think.session.form_info.parent_id && in_array($r.id,$Think.session.form_info.parent_id)}checked{/if}  />
                             <label for="parent_{$r.id}">{$r.title}</label>
                             {/foreach}
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="user_name">帐号</label>
-                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="请输入用户帐号">
+                        <input type="text" name="user_name" id="user_name" value="{$Think.session.form_info.user_name|default=''}" class="form-control" placeholder="请输入用户帐号">
                     </div>
                     <div class="form-group">
                         <label for="password">密码</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="请输入登录密码">
+                        <input type="password" name="password" id="password" value="{$Think.session.form_info.password|default=''}"  class="form-control" placeholder="请输入登录密码">
                     </div>
                     <div class="form-group">
                         <label for="nick_name">用户姓名</label>
-                        <input type="text" id="nick_name" name="nick_name" class="form-control"
+                        <input type="text" id="nick_name" name="nick_name"  value="{$Think.session.form_info.nick_name|default=''}"  class="form-control"
                                placeholder="请输入用户姓名或昵称">
                     </div>
                     <div class="form-group">
                         <label for="mobile">手机号</label>
-                        <input type="tel" name="mobile" id="mobile" class="form-control" placeholder="请输入用户手机号">
+                        <input type="tel" name="mobile" id="mobile" value="{$Think.session.form_info.mobile|default=''}"  class="form-control" placeholder="请输入用户手机号">
                     </div>
 
                     <div class="form-group">
                         <label for="email">邮箱</label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="请输入用户邮箱">
+                        <input type="email" name="email" id="email"  value="{$Think.session.form_info.email|default=''}"  class="form-control" placeholder="请输入用户邮箱">
                     </div>
 
                     <div class="form-group">
                         <label for="avatar">头像</label>
-                        <input type="file" name="avatar" id="avatar" class="form-control" placeholder="头像可空">
+                        <input type="file" name="avatar" id="avatar" value="{$Think.session.form_info.avatar|default=''}" class="form-control" placeholder="头像可空">
                     </div>
 
                     <div class="form-group">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="status" id="status_1" value="1" checked="">
+                                <input type="radio" name="status" id="status_1" {if (null!=$Think.session.form_info.status && $Think.session.form_info.status==1) || null==$Think.session.form_info.status}checked{/if} value="1">
                                 启用
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="status" id="status_0" value="0">
+                                <input type="radio" name="status" id="status_0" {if null!=$Think.session.form_info.status && $Think.session.form_info.status==0}checked{/if} value="0">
                                 冻结
                             </label>
                         </div>

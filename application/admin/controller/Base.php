@@ -12,6 +12,7 @@ use app\admin\auth\Auth;
 use app\admin\auth\Tree;
 use think\exception\ClassNotFoundException;
 use think\exception\HttpResponseException;
+use think\Log;
 use think\Request;
 use think\Response;
 use think\Session;
@@ -251,8 +252,8 @@ class Base extends Controller
             $msg = '页面不存在！';
             $url = 'admin/index/index';
         }
-
-        return $this->redirect($url, $data, 302, ['error_message' => $msg]);
+        Log::write($this->param,'error');
+        return $this->redirect($url, $data, 302, ['error_message' => $msg,'form_info'=>$this->param]);
     }
 
     /**

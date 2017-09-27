@@ -109,6 +109,7 @@ class AdminMenu extends Base
      */
     public function add()
     {
+
         if ($this->request->isPost()) {
             $post = $this->post;
 

@@ -17,7 +17,7 @@ class AdminMail extends Base
     public function index()
     {
         if ($this->request->isPost()) {
-
+            
             $post    = $this->request->post(false);
             $user_id = Session::get('user.user_id');
 
@@ -96,6 +96,7 @@ class AdminMail extends Base
         $email_password  = config('email_password');
         $email_from_name = config('email_from_name');
 
+
         if (empty($email_smtp) || empty($email_username) || empty($email_password) || empty($email_from_name)) {
             return array("error" => 1, "message" => '邮箱配置不完整');
         }
@@ -119,6 +120,11 @@ class AdminMail extends Base
         $phpmailer->From = $email_username;
         // 设置发件人名字
         $phpmailer->FromName = $email_from_name;
+        
+        $phpmailer->Port = 465;
+        
+        $phpmailer->SMTPSecure = 'ssl';
+  
         // 添加收件人地址，可以多次使用来添加多个收件人
         if (is_array($address)) {
             foreach ($address as $addressv) {

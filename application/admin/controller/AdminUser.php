@@ -70,6 +70,7 @@ class AdminUser extends Base
     //增加
     public function add()
     {
+        
         if ($this->request->isPost()) {
             $post = $this->post;
 

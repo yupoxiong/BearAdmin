@@ -33,16 +33,8 @@ class AdminQrcode extends Base
                 $qrcode->setSize(300);
                 $qrcode
                     ->setWriterByName('png')
-                    ->setMargin(10)
-                    ->setEncoding('UTF-8')
                     ->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH)
-                    ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0])
-                    ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255])
-                    /*->setLabel('Scan the code', 16, ROOT_PATH.'vendor/endroid/qrcode/assets/noto_sans.otf', LabelAlignment::CENTER)*/
-                    ->setLogoPath(config('qrcode_path').'lueluelue.png')
-                    ->setLogoWidth(100)
-                    ->setValidateResult(false)
-                ;
+                    ->setLogoPath(config('qrcode_path').'lueluelue.png');
 
                 $qrcode->writeFile(config('qrcode_path').$user_id.'-qrcode.png');
 

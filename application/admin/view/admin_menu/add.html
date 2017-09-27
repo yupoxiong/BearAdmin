@@ -17,34 +17,34 @@
                     </div>
                     <div class="form-group">
                         <label for="title">菜单名称</label>
-                        <input type="text" name="title" id="title" class="form-control" placeholder="请输入菜单名称">
+                        <input type="text" name="title" value="{$Think.session.form_info.title|default=''}" id="title" class="form-control" placeholder="请输入菜单名称">
                     </div>
                     <div class="form-group">
                         <label for="url">url</label>
-                        <input type="text" id="url" name="url" class="form-control" placeholder="菜单url">
+                        <input type="text" id="url" name="url" value="{$Think.session.form_info.url|default=''}"  class="form-control" placeholder="菜单url">
                     </div>
                     <div class="form-group">
                         <label for="icon">菜单图标</label>
-                        <input type="text" name="icon" id="icon" class="form-control" value="fa-circle-o"
-                               placeholder="请输入图标class">
+                        <input type="text" name="icon"  id="icon" class="form-control"
+                               value="{$Think.session.form_info.icon|default='fa-circle-o'}"    placeholder="请输入图标class">
                     </div>
 
                     <div class="form-group">
                         <label for="sort_id">排序</label>
-                        <input type="text" name="sort_id" id="sort_id" value="100" class="form-control"
+                        <input type="text" name="sort_id" id="sort_id" value="{$Think.session.form_info.sort_id|default='100'}" class="form-control"
                                placeholder="默认100">
                     </div>
 
                     <div class="form-group">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="is_show" id="is_show_1" value="1" checked="">
+                                <input type="radio" name="is_show" id="is_show_1" value="1" {if (null!=$Think.session.form_info.is_show && $Think.session.form_info.is_show==1) || null==$Think.session.form_info.is_show}checked{/if}  >
                                 显示菜单
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="is_show" id="is_show_0" value="0">
+                                <input type="radio" name="is_show" id="is_show_0" value="0" {if (null!=$Think.session.form_info.is_show && $Think.session.form_info.is_show==0)}checked{/if}>
                                 隐藏菜单
                             </label>
                         </div>
@@ -55,7 +55,7 @@
                         <select name="log_type" id="log_type" class="form-control">
                             <option value="0">不记录日志</option>
                             {foreach name='requests' item='r'}
-                            <option value="{$r.id}">{$r.title}</option>
+                            <option value="{$r.id}"  {if null!==$Think.session.form_info.log_type && $r.id==$Think.session.form_info.log_type}selected{/if}>{$r.title}</option>
                             {/foreach}
                         </select>
                     </div>
