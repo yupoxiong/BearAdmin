@@ -37,4 +37,11 @@ class Statistics extends Base
         return $this->fetch();
     }
 
+    //展示数据
+    public function showdata()
+    {
+        
+
+    }
+
 }

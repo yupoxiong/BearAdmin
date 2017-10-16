@@ -18,6 +18,10 @@
                             {/foreach}
                         </select>
                     </div>
+                    <div class="form-group" >
+                        <input type="text" value="{$title ? $title : '' ;}"
+                               name="title" id="title" class="form-control" placeholder="操作名称">
+                    </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询
                         </button>
