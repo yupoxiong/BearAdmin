@@ -155,6 +155,17 @@ if (!function_exists('get_browser_type')) {
 }
 
 
+if(!function_exists('get_list_rows'))
+{
+    /**
+     * 获取分页配置
+     */
+    function get_list_rows()
+    {
+        
+    }
+}
+
 
 
 

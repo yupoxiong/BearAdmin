@@ -66,3 +66,7 @@ html,body{height:100%}.layout-boxed html,.layout-boxed body{height:100%}body{fon
     width:98%;
     margin:1%;
 }
+
+.pagination{
+    margin: 0;
+}

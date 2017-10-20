@@ -5,20 +5,24 @@
             <div class="box-body">
                 <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
                     <div class="form-group">
-                        <input id="start_date" name="start_date" value="{$start_date ? $start_date : '' ;}" class="laydate-icon form-control" placeholder="起始日期">
+                        <input id="start_date" name="start_date" value="{$start_date ? $start_date : '' ;}"
+                               class="laydate-icon form-control" placeholder="起始日期">
                     </div>
                     <div class="form-group">
-                        <input id="end_date" name="end_date" value="{$end_date ? $end_date : '' ;}" class="laydate-icon form-control " placeholder="截止日期">
+                        <input id="end_date" name="end_date" value="{$end_date ? $end_date : '' ;}"
+                               class="laydate-icon form-control " placeholder="截止日期">
                     </div>
-                    <div class="form-group" >
+                    <div class="form-group">
                         <select name="s_user_id" class="form-control">
                             <option value="-1">选择用户</option>
                             {foreach name="user_list" item="user"}
-                            <option value="{$user.user_id}" {if isset($s_user_id)&& $s_user_id==$user.user_id}selected{/if}>{$user.nick_name}({$user.user_name})</option>
+                            <option value="{$user.user_id}" {if isset($s_user_id)&&
+                                    $s_user_id==$user.user_id}selected{/if}>{$user.nick_name}({$user.user_name})
+                            </option>
                             {/foreach}
                         </select>
                     </div>
-                    <div class="form-group" >
+                    <div class="form-group">
                         <input type="text" value="{$title ? $title : '' ;}"
                                name="title" id="title" class="form-control" placeholder="操作名称">
                     </div>
@@ -27,9 +31,10 @@
                         </button>
                     </div>
                     <div class="form-group">
-                    <button onclick="clear_form()" class="btn btn-default" type="button"><i class="fa  fa-eraser"></i> 清空查询
-                    </button>
-                </div>
+                        <button onclick="clear_form()" class="btn btn-default" type="button"><i
+                                class="fa  fa-eraser"></i> 清空查询
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -78,8 +83,30 @@
                     </tbody>
                 </table>
             </div>
-            <div class="box-footer clearfix">
-                {$page}
+            <div class="box-footer">
+               {$page}
+
+                <!--<div class="fixed-table-pagination" style="display: block;">
+                    <div class="pull-left pagination-detail"><span
+                            class="pagination-info">总共 {$total} 条记录</span>
+                        <span class="page-list">
+                            每页显示
+                            <span class="btn-group dropup">
+                            <button type="button"  class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="page-size">25</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="menuitem"><a href="#">10</a></li>
+                                <li role="menuitem" class="active"><a href="#">25</a></li>
+                                <li role="menuitem"><a href="#">50</a></li>
+                            </ul>
+                        </span> 条记录</span>
+                    </div>
+                    <div class="pull-right pagination">
+                        {$page}
+                    </div>
+                </div>-->
             </div>
             <!-- /.box-body -->
         </div>
@@ -95,7 +122,7 @@
         max: laydate.now(),
 
         istoday: false,
-        choose: function(datas){
+        choose: function (datas) {
             end.min = datas; //开始日选好后，重置结束日的最小日期
             end.start = datas; //将结束日的初始值设定为开始日
         }
@@ -103,7 +130,7 @@
     var end = {
         elem: '#end_date',
         max: laydate.now(),
-        choose: function(datas){
+        choose: function (datas) {
             start.max = datas; //结束日选好后，重置开始日的最大日期
         }
     };
@@ -111,15 +138,15 @@
     laydate(end);
 
 
-   /* function getLogList() {
-        var searchForm = $("#searchForm");
-        var searchData = searchForm.serialize();
+    /* function getLogList() {
+     var searchForm = $("#searchForm");
+     var searchData = searchForm.serialize();
 
-        $.ajax({
-            url:'index.html?'+ searchData,
-            type:'post'
-        });
+     $.ajax({
+     url:'index.html?'+ searchData,
+     type:'post'
+     });
 
-    }
-*/
+     }
+     */
 </script>
