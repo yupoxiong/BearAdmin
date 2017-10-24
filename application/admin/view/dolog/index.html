@@ -85,28 +85,17 @@
             </div>
             <div class="box-footer">
                {$page}
-
-                <!--<div class="fixed-table-pagination" style="display: block;">
-                    <div class="pull-left pagination-detail"><span
-                            class="pagination-info">总共 {$total} 条记录</span>
-                        <span class="page-list">
-                            每页显示
-                            <span class="btn-group dropup">
-                            <button type="button"  class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="page-size">25</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="menuitem"><a href="#">10</a></li>
-                                <li role="menuitem" class="active"><a href="#">25</a></li>
-                                <li role="menuitem"><a href="#">50</a></li>
-                            </ul>
-                        </span> 条记录</span>
-                    </div>
-                    <div class="pull-right pagination">
-                        {$page}
-                    </div>
-                </div>-->
+                <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
+                    <small>每页显示</small>&nbsp;
+                    <select class="input-sm grid-per-pager select-page-rows" onchange="change_page_rows(this)">
+                        <option value="10">10</option>
+                        <option value="20" selected="">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    &nbsp;<small>条记录</small>
+                </label>
             </div>
             <!-- /.box-body -->
         </div>

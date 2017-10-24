@@ -7,6 +7,7 @@
 
 namespace app\admin\controller;
 
+use think\Config;
 use think\Controller;
 use app\admin\auth\Auth;
 use app\admin\auth\Tree;
@@ -18,7 +19,6 @@ use think\Response;
 use think\Session;
 use think\Db;
 use app\common\model\AdminUsers;
-use think\Url;
 
 class Base extends Controller
 {
@@ -108,6 +108,16 @@ class Base extends Controller
                     $this->web_data['data_add_title'] = Db::name('admin_menus')->where("url='" . $this->do_url . "add'")->value('title');
                     $this->web_data['data_del_url']   = url($this->do_url . 'del');
                     $this->web_data['data_edit_url']  = url($this->do_url . 'edit');
+                }
+
+                //分页记录数处理
+                if(isset($_COOKIE['backend_list_rows'])){
+                    $this->web_data['list_rows'] = Config::get('list_rows');
+                    
+                    $rows = $_COOKIE['backend_list_rows'];
+                    if(0<$rows && 100>=$rows){
+                        $this->web_data['list_rows'] = $rows;
+                    }
                 }
 
 

@@ -12,6 +12,7 @@ use app\common\model\AdminLogs;
 use app\common\model\AdminUsers;
 use crypt\Crypt;
 use think\Config;
+use think\Cookie;
 
 class Dolog extends Base
 {
@@ -53,8 +54,8 @@ class Dolog extends Base
         $log_list = $logs->field('id,user_id,title,log_url,log_type,log_ip,create_time')
             ->with('adminUser')
             ->order('id desc')
-            ->paginate(10, false, $page_param);
-
+            ->paginate(2, false, $page_param);
+      
         $this->assign([
             'list'     => $log_list,
             'page'     => $log_list->render(),

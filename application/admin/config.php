@@ -41,7 +41,7 @@ return [
     ],
     //分页配置
     'paginate'                   => [
-        'type'      => 'bootstrap',
+        'type'      => '\util\page\Bearpage',
         'var_page'  => 'page',
         'list_rows' => 10,
     ],
