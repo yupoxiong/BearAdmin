@@ -68,6 +68,10 @@ class Base extends Controller
                         throw new HttpResponseException(json($this->api_result));
                     }
                 }
+                
+                //分页记录数处理
+                $this->web_data['list_rows'] =get_list_rows();
+                
                 $menu_info = $this->getMenuInfo();
                 $log_type  = $menu_info['log_type'];
                 if ($log_type == $this->request_type && $log_type != 0) {
@@ -109,18 +113,10 @@ class Base extends Controller
                     $this->web_data['data_del_url']   = url($this->do_url . 'del');
                     $this->web_data['data_edit_url']  = url($this->do_url . 'edit');
                 }
-
+                
                 //分页记录数处理
-                if(isset($_COOKIE['backend_list_rows'])){
-                    $this->web_data['list_rows'] = Config::get('list_rows');
-                    
-                    $rows = $_COOKIE['backend_list_rows'];
-                    if(0<$rows && 100>=$rows){
-                        $this->web_data['list_rows'] = $rows;
-                    }
-                }
-
-
+                $this->web_data['list_rows'] =get_list_rows();
+                
                 /*if (Cache::store('redis')->has('left_menu_' . $user_id)) {
                     $this->web_data['left_menu'] = Cache::store('redis')->get('left_menu_' . $user_id);
                 } else {

@@ -54,7 +54,7 @@ class Dolog extends Base
         $log_list = $logs->field('id,user_id,title,log_url,log_type,log_ip,create_time')
             ->with('adminUser')
             ->order('id desc')
-            ->paginate(2, false, $page_param);
+            ->paginate($this->web_data['list_rows'], false, $page_param);
       
         $this->assign([
             'list'     => $log_list,

@@ -19,7 +19,7 @@ class Sysconfig extends Base
 
         $sysconfigs = new Sysconfigs();
 
-        $configs = $sysconfigs->paginate(10);
+        $configs = $sysconfigs->paginate($this->web_data['list_rows']);
 
         $this->assign([
             'lists' => $configs,

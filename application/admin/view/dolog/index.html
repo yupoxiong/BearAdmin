@@ -84,18 +84,8 @@
                 </table>
             </div>
             <div class="box-footer">
-               {$page}
-                <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
-                    <small>每页显示</small>&nbsp;
-                    <select class="input-sm grid-per-pager select-page-rows" onchange="change_page_rows(this)">
-                        <option value="10">10</option>
-                        <option value="20" selected="">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    &nbsp;<small>条记录</small>
-                </label>
+                {$page}
+                {include file="template/list_rows" /}
             </div>
             <!-- /.box-body -->
         </div>

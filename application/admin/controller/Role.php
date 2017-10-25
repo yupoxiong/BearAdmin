@@ -26,7 +26,7 @@ class Role extends Base
     public function index()
     {
         $authgroups = new AuthGroups();
-        $roles      = $authgroups->paginate(10);
+        $roles      = $authgroups->paginate($this->web_data['list_rows']);
 
         $this->assign([
             'lists'    => $roles,

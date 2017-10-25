@@ -286,6 +286,38 @@
 <!-- ./wrapper -->
 <script src="__STATIC__/js/demo.js" type="text/javascript"></script>
 <script>
+    //removeCookie("backend_list_rows");
+    console.log(document.cookie);
+    console.log(getCookie("backend_list_rows"));
+
+    function change_page_rows(obj) {
+        console.log(getCookie("backend_list_rows"));
+        setCookie("backend_list_rows",obj.value,1000);
+        window.location.reload();
+    }
+
+    function setCookie(key,value,t)
+    {
+        var oDate=new Date();
+        oDate.setDate(oDate.getDate()+t);
+        document.cookie=key+"="+value+"; expires="+oDate.toDateString()+"; path=/";
+    }
+
+
+    function getCookie(key){
+        var arr1=document.cookie.split("; ");
+        for(var i=0;i<arr1.length;i++){
+            var arr2=arr1[i].split("=");
+            if(arr2[0]==key){
+                return decodeURI(arr2[1]);
+            }
+        }
+    }
+    //封装一个移除cookie的函数
+    function removeCookie(key){
+        setCookie(key,"",-1);//把cookie设置为过期
+
+    }
     console.log('%c BUG？反馈->%c i@yufuping.com',';color:#1e90ff',';color:#070cfe');
 </script>
 </body>

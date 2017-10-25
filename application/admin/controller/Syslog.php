@@ -28,7 +28,7 @@ class Syslog extends Base
         $lists = $syslogs
             ->with('syslogTrace')
             ->order('log_id desc')
-            ->paginate(10, false, $page_param);
+            ->paginate($this->web_data['list_rows'], false, $page_param);
         $this->assign([
             'lists'    => $lists,
             'page'     => $lists->render(),

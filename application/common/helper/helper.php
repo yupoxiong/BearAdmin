@@ -74,8 +74,8 @@ if (!function_exists('ip_get_info')) {
             if ($adcode) {
                 $weather_info_str = file_get_contents('http://restapi.amap.com/v3/weather/weatherInfo?key=' . $amap_web_key . '&city=' . $adcode);
                 $weather_info     = json_decode($weather_info_str, true);
-                if ($weather_info['status'] == 1 && $weather_info['count']>0) {
-                    $result = count($weather_info['lives'][0])>0 ? $weather_info['lives'][0] : false;
+                if ($weather_info['status'] == 1 && $weather_info['count'] > 0) {
+                    $result = count($weather_info['lives'][0]) > 0 ? $weather_info['lives'][0] : false;
                 }
             }
         }
@@ -95,8 +95,9 @@ if (!function_exists('encrypt')) {
      * @param int $expiry 过期时间，单位：秒
      * @return string
      */
-    function encrypt($string, $key = '', $expiry = 0){
-        return Crypt::authcode($string,'encode',$key,$expiry);
+    function encrypt($string, $key = '', $expiry = 0)
+    {
+        return Crypt::authcode($string, 'encode', $key, $expiry);
 
     }
 }
@@ -109,8 +110,9 @@ if (!function_exists('decrypt')) {
      * @param string $key 密钥
      * @return string
      */
-    function decrypt($string, $key){
-        return Crypt::authcode($string,'DECODE',$key);
+    function decrypt($string, $key)
+    {
+        return Crypt::authcode($string, 'DECODE', $key);
     }
 }
 
@@ -121,7 +123,8 @@ if (!function_exists('format_size')) {
      * @param string $delimiter
      * @return string
      */
-    function format_size($size, $delimiter = '') {
+    function format_size($size, $delimiter = '')
+    {
         $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
         for ($i = 0; $size >= 1024 && $i < 5; $i++) $size /= 1024;
         return round($size, 2) . $delimiter . $units[$i];
@@ -155,14 +158,20 @@ if (!function_exists('get_browser_type')) {
 }
 
 
-if(!function_exists('get_list_rows'))
-{
+if (!function_exists('get_list_rows')) {
     /**
-     * 获取分页配置
+     * 获取后台分页配置
      */
     function get_list_rows()
     {
-        
+        $rows = Config::get('list_rows') ? Config::get('list_rows') : 10;
+        if (isset($_COOKIE['backend_list_rows'])) {
+            $c_rows = $_COOKIE['backend_list_rows'];
+            if (0 < $c_rows && 100 >= $c_rows) {
+                $rows = $c_rows;
+            }
+        }
+        return intval($rows);
     }
 }
 
