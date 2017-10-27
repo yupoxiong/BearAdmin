@@ -4,7 +4,7 @@
             <div class="box-body">
                 <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
 
-                    <div class="form-group" >
+                    <div class="form-group">
                         <input type="text" value="{$keywords ? $keywords : '' ;}"
                                name="keywords" id="keywords" class="form-control" placeholder="帐号/用户名/手机号/邮箱">
                     </div>
@@ -14,7 +14,8 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <button onclick="clear_form()" class="btn btn-default" type="button"><i class="fa  fa-eraser"></i> 清空查询
+                        <button onclick="clear_form()" class="btn btn-default" type="button"><i
+                                class="fa  fa-eraser"></i> 清空查询
                         </button>
                     </div>
                 </form>
@@ -29,9 +30,12 @@
             <!--数据列表页头部-->
             {include file="template/data_header" /}
             <!-- /.box-header -->
-            <div class="box-header"><a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm margin" title="批量删除数据，请谨慎使用此功能" onclick="dels()">
-                批量删除
-            </a></div>
+            <div class="box-header">
+                <a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm margin" title="批量删除数据，请谨慎使用此功能"
+                   onclick="dels()">
+                    批量删除
+                </a>
+            </div>
 
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
@@ -52,12 +56,14 @@
 
                     {foreach name="lists" item="list"}
                     <tr>
-                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$list.user_id}" class="checkbox data-list-check" value="{$list.user_id}" placeholder="选择/取消"></td>
+                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox"
+                                   data-id="{$list.user_id}" class="checkbox data-list-check" value="{$list.user_id}"
+                                   placeholder="选择/取消"></td>
                         <td>{$list.user_id}</td>
                         <td>{$list.user_name}</td>
                         <td>{$list.nick_name}</td>
                         <td>
-                            {foreach  name="list.adminRoles" item="listson"}
+                            {foreach name="list.adminRoles" item="listson"}
                             {$listson.authGroup.title}&nbsp;
                             {/foreach}
                         </td>
