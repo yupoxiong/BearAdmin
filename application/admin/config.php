@@ -54,7 +54,8 @@ return [
     'file_upload_path'           => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
     //上次传文件url显示路径
     'file_upload_url'            => DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
-    'file_upload_max_size'       => 20480,//3145728,
+    'file_upload_max_size'       => 20480,
+    //'file_upload_max_size'       => 3145728,
     'file_upload_ext'            => 'jpg,png,gif,doc,docx,xlsx',
 
 
@@ -80,8 +81,8 @@ return [
     'alidayu_' => [
         'app_key'    => '阿里大于key',
         'app_secret' => '阿里大于secret',
-        'sign_name'  =>'短信签名',
-        'tpl' =>'SMS_47075011'
+        'sign_name'  => '短信签名',
+        'tpl'        => 'SMS_47075011'
     ],
 
 ];
