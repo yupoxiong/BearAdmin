@@ -258,7 +258,6 @@ class Base extends Controller
             $msg = '页面不存在！';
             $url = 'admin/index/index';
         }
-        Log::write($this->param,'error');
         return $this->redirect($url, $data, 302, ['error_message' => $msg,'form_info'=>$this->param]);
     }
 
