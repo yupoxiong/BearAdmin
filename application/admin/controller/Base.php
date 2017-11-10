@@ -52,8 +52,7 @@ class Base extends Controller
 
         parent::__construct();
     }
-
-
+    
     public function _initialize()
     {
         $auth = new Auth();
