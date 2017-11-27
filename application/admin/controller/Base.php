@@ -7,13 +7,11 @@
 
 namespace app\admin\controller;
 
-use think\Config;
 use think\Controller;
 use app\admin\auth\Auth;
 use app\admin\auth\Tree;
 use think\exception\ClassNotFoundException;
 use think\exception\HttpResponseException;
-use think\Log;
 use think\Request;
 use think\Response;
 use think\Session;

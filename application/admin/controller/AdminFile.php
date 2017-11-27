@@ -8,7 +8,6 @@
 namespace app\admin\controller;
 
 use net\Http;
-use think\Db;
 use app\common\model\AdminFiles;
 use think\Session;
 
@@ -17,22 +16,22 @@ class AdminFile extends Base
     //文件列表
     public function index()
     {
-        $files      = new AdminFiles();
+        $model      = new AdminFiles();
         $page_param = ['query' => []];
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
             $keywords                        = "%" . $this->param['keywords'] . "%";
-            $files->whereLike('original_name', $keywords);
+            $model->whereLike('original_name', $keywords);
             $this->assign('keywords', $this->param['keywords']);
         }
 
-        $lists = $files->order('id desc')
+        $lists = $model->order('id desc')
             ->paginate($this->web_data['list_rows'], false, $page_param);
 
         $this->assign([
             'lists' => $lists,
             'page'  => $lists->render(),
-            'total'=>$lists->total()
+            'total' => $lists->total()
         ]);
         return $this->fetch();
     }
@@ -65,7 +64,7 @@ class AdminFile extends Base
             )->move(config('file_upload_path') . $user_id);
 
             if ($info) {
-                
+
                 $file_info = [
                     'user_id'       => $user_id,
                     'original_name' => $info->getInfo('name'),
@@ -98,14 +97,16 @@ class AdminFile extends Base
     public function download()
     {
         $admin_file = AdminFiles::get($this->id);
-        if ($admin_file) {
-            $path = $admin_file->save_path;
-            $name = $admin_file->original_name;
 
-            if (file_exists($path)) {
-                return Http::download($path, $name);
-            }
+        if (!$admin_file) {
             return $this->do_error('文件不存在');
+        }
+
+        $path = $admin_file->save_path;
+        $name = $admin_file->original_name;
+
+        if (file_exists($path)) {
+            return Http::download($path, $name);
         }
         return $this->do_error('文件不存在');
     }
