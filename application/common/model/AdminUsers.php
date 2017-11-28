@@ -17,7 +17,6 @@ class AdminUsers extends Model
 
     protected $name = 'admin_users';
     protected $autoWriteTimestamp = true;
-
     
     
     public function adminLogs()
