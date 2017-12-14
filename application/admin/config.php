@@ -31,6 +31,7 @@ return [
     //后台用户头像相关设置
     'admin_avatar'               => [
         'upload_path' => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'avatar' . DS,
+        'upload_url' => DS . 'uploads' . DS . 'admin' . DS . 'avatar' . DS,
     ],
     //后台文件上传路径设置
     'file_upload_path'           => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
@@ -69,6 +70,4 @@ return [
         'auth_user'         => 'admin_users', // 用户信息表
     ],
 
-
-    'admin_avatar_url'=>'/uploads/admin/avatar/',
 ];

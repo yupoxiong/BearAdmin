@@ -122,7 +122,7 @@ class Auth extends Base
                 return $this->error('创建用户失败');
             }
 
-            $user->name = 'user_'.$user->id;
+            $user->name = 'user'.$user->id;
             $user->save();
 
             $access_data = [

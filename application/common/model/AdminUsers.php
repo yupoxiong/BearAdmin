@@ -39,7 +39,7 @@ class AdminUsers extends Model
     public function getAvatarAttr($value)
     {
         if (false === strpos($value, 'http://') && false === strpos($value, 'https://')) {
-            $value = config('api_source_prefix') . config('admin_avatar_url') . $value;
+            $value = config('admin_avatar.upload_url'). $value;
         }
         return $value;
     }
