@@ -2,8 +2,6 @@
 /**
  * 接管异常处理类
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * Date: 2017/5/14
  */
 
 namespace app\common\exception;
@@ -26,6 +24,7 @@ class LogException extends Handle
      */
     public function render(Exception $e)
     {
+        //本处理暂无用处
         if ($e instanceof HttpException) {
             $statusCode = $e->getStatusCode();
         }
@@ -47,13 +46,10 @@ class LogException extends Handle
             $syslog->syslogTrace()->save($trace_data);
         }
 
-        /*
-         * */
-
         $e_content = sprintf('%s:%s', $e_file, $e_line);
         $e_title = nl2br(htmlentities($e_message));
         $data = $e_title ." in ". $e_content;
-        $logger = new Logger('bear_log');
+        $logger = new Logger('errorlog');
         $stream_handler = new StreamHandler(config('sys_log.path'), Logger::INFO);
         $stream_handler->setFormatter(new JsonFormatter());
         $logger->pushHandler($stream_handler);

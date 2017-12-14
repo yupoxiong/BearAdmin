@@ -2,7 +2,6 @@
 /**
  * 后台系统日志
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
  */
 
 namespace app\admin\controller;
@@ -27,8 +26,8 @@ class Syslog extends Base
         }
         $lists = $syslogs
             ->with('syslogTrace')
-            ->order('log_id desc')
-            ->paginate($this->web_data['list_rows'], false, $page_param);
+            ->order('id desc')
+            ->paginate($this->webData['list_rows'], false, $page_param);
         $this->assign([
             'lists'    => $lists,
             'page'     => $lists->render(),
@@ -38,30 +37,8 @@ class Syslog extends Base
         return $this->fetch();
     }
 
-    public function statistics(){
-        
-        return $this->fetch();
-    }
 
-    //用户信息
-    public function user(){
-
-        $this->assign('user_info',$this->web_data['user_info']);
-        return $this->fetch();
-    }
-    
-    /**
-     * 查看系统日志，支持用日志标题模糊搜索
-     */
-    public function log(){
-
-        $logs = $this->readlog();
-        dump($logs);
-
-        return $this->fetch();
-    }
-
-
+    //读取日志，暂未用到
     function readlog(){
         $file_path = config('sys_log.path');
         $file = fopen($file_path, "r");

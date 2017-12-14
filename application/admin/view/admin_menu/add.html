@@ -1,69 +1,96 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{$web_data['web_title']}</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" action="" method="post">
+            {include file="template/form_header" /}
+            <form id="dataForm" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                 <div class="box-body">
-                    <div class="form-group">
-                        <label for="parent_id">上级菜单</label>
-                        <select name="parent_id" id="parent_id" class="form-control">
-                            <option value="0">/</option>
-                            {$selects}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="title">菜单名称</label>
-                        <input type="text" name="title" value="{$Think.session.form_info.title|default=''}" id="title" class="form-control" placeholder="请输入菜单名称">
-                    </div>
-                    <div class="form-group">
-                        <label for="url">url</label>
-                        <input type="text" id="url" name="url" value="{$Think.session.form_info.url|default=''}"  class="form-control" placeholder="菜单url">
-                    </div>
-                    <div class="form-group">
-                        <label for="icon">菜单图标</label>
-                        <input type="text" name="icon"  id="icon" class="form-control"
-                               value="{$Think.session.form_info.icon|default='fa-circle-o'}"    placeholder="请输入图标class">
-                    </div>
+                    <div class="fields-group">
+                        {if isset($info)}
+                        <input id="id" name="id" value="{$info.id}" hidden placeholder="请勿修改">
+                        {/if}
 
-                    <div class="form-group">
-                        <label for="sort_id">排序</label>
-                        <input type="text" name="sort_id" id="sort_id" value="{$Think.session.form_info.sort_id|default='100'}" class="form-control"
-                               placeholder="默认100">
-                    </div>
-
-                    <div class="form-group">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="is_show" id="is_show_1" value="1" {if (null!=$Think.session.form_info.is_show && $Think.session.form_info.is_show==1) || null==$Think.session.form_info.is_show}checked{/if}  >
-                                显示菜单
-                            </label>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上级菜单</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <select name="parent_id" id="parent_id" class="form-control">
+                                        <option value="0">/</option>
+                                        {$selects}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="is_show" id="is_show_0" value="0" {if (null!=$Think.session.form_info.is_show && $Think.session.form_info.is_show==0)}checked{/if}>
-                                隐藏菜单
-                            </label>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">名称</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                    <input maxlength="50" id="title" name="title" value="{$info.title|default=''}" class="form-control" placeholder="请输入菜单名称">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="url" class="col-sm-2 control-label">url</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-internet-explorer"></i></span>
+                                    <input maxlength="100" id="url" name="url" value="{$info.url|default=''}" class="form-control" placeholder="菜单url">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon" class="col-sm-2 control-label">图标</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                    <input maxlength="30" id="icon" name="icon" value="{$info.icon|default=''}" class="form-control" placeholder="请输入图标class">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sort_id" class="col-sm-2 control-label">排序</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
+                                    <input max="9999" min="1" type="number" id="sort_id" name="sort_id" value="{$info.sort_id|default=''}" class="form-control" placeholder="默认100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="is_show" class="col-sm-2 control-label">是否显示</label>
+                            <div class="col-sm-8">
+                                <div class="input-group iconpicker-container">
+                                    <input {if (isset($info) && $info.is_show==1) || !isset($info)}checked{/if}
+                                           value="{$info.is_show|default='1'}"
+                                           class="switch-is-show" type="checkbox" placeholder="status-switch">
+                                    <input id="is_show" name="is_show" class="input_status" value="{$info.is_show|default='1'}" type="hidden" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="log_type" class="col-sm-2 control-label">日志请求方式</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <select name="" id="log_type" class="form-control">
+                                        <option value="0">不记录日志</option>
+                                        {foreach name='requests' item='r'}
+                                        <option value="{$r.id}" {eq name='info.log_type' value='$r.id' }selected{/eq}>
+                                        {$r.title}
+                                        </option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="log_type">日志请求方式</label>
-                        <select name="log_type" id="log_type" class="form-control">
-                            <option value="0">不记录日志</option>
-                            {foreach name='requests' item='r'}
-                            <option value="{$r.id}"  {if null!==$Think.session.form_info.log_type && $r.id==$Think.session.form_info.log_type}selected{/if}>{$r.title}</option>
-                            {/foreach}
-                        </select>
-                    </div>
-
                 </div>
-                <!-- /.box-body -->
-
-                {include file="template/action_footer" /}
+                {include file="template/form_footer" /}
             </form>
         </div>
     </div>

@@ -1,8 +1,7 @@
 <?php
 /**
- * User: yupoxiong
- * Date: 2017/2/10
- * Time: 14:54
+ * 创建app_key
+ * @author yupoxiong<i@yufuping.com>
  */
 
 namespace app\common\command;

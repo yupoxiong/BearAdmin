@@ -1,180 +1,155 @@
 <?php
 /**
- * Api基础类
+ * Api基础控制器
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * 采用JWT认证
- * header auth字段已经改成appauthorization，因为postman对于头部中的authorization字段偶尔会篡改，导致无法很好的测试
- * 默认返回数据格式 {status: 404, extend: {}, result: {}, message: "", timestamp: 1488793997}
- * status 为状态码，extend 为扩展数据 ，result 为结果数据 ，
- * message 为提示消息，timestamp 为接收请求的时间，客户端可利用这个判断网络传输用时
- *
  */
 
 namespace app\api\controller;
 
-use Exception;
-use Firebase\JWT\JWT;
-use think\Config;
+use think\exception\ValidateException;
+use Lcobucci\JWT\Parser as TokenParser;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use think\exception\HttpResponseException;
+use think\Loader;
 use think\Request;
 use think\Response;
 
 class Api
 {
-    //定义返回的变量
-    protected $api_source_prefix, $domain, $request, $token, $get, $post, $api_result, $app_key, $token_user, $token_uid;
+    //Request实例
+    protected $request;
 
-    function __construct()
+    //请求参数
+    protected $param;
+
+    //token
+    protected $token;
+
+    //是否需要验证token
+    protected $needAuth = true;
+
+    //当前请求用户id,默认0
+    protected $uid = 0;
+
+    //验证失败是否抛出异常
+    protected $failException = false;
+
+    //是否批量验证
+    protected $batchValidate = false;
+
+    public function __construct(Request $request = null)
     {
-        $this->request = Request::instance();
-        $this->token   = $this->request->header('appauthorization');
-        $this->get     = $this->request->get();
-        $this->post    = $this->request->post();
-        $this->domain  = $this->request->domain();
+        if (is_null($request)) {
+            $request = Request::instance();
+        }
+        $this->request = $request;
+        $this->token   = $this->request->header('AppAuthorization');
 
-        $this->api_source_prefix = Config::get('api_source_prefix');
+        //如果当前需要验证token
+        if (true == $this->needAuth) {
+            //缺少token
+            if (is_null($this->token)) {
+                $this->error('miss token');
+            }
 
-        $this->api_result = [
-            'status'    => 404,
-            'extend'    => [],
-            'result'    => [],
-            'message'   => '',
-            'timestamp' => time()
-        ];
-
-        $this->app_key   = Config::get('app_key');
-        $this->token_uid = -1;
-        if ($this->token != null) {
-            try {
-                $result           = JWT::decode($this->token, $this->app_key, array('HS256'));
-                $this->token_user = $user_data = $result->user;
-                $this->token_uid  = $user_data->uid;
-            } catch (Exception $e) {
-                $this->token_uid             = 0;
-                $this->api_result['status']  = 500;
-                $this->api_result['message'] = $e->getMessage();
+            $signer = new Sha256();
+            try{
+                $token  = (new TokenParser())->parse((string)$this->token);
+            }catch (\Exception $e){
+                $this->error($e->getMessage());
+            }
+            
+            //验证成功后给当前uid赋值
+            if (true == ($token->verify($signer, config('app_key')))) {
+                $this->uid = $token->getClaim('uid');
+            }else{
+                $this->error('token error');
             }
         }
     }
 
-    /**
-     * @param string $message
-     * @param int $status $api_result中的status
-     * @param string $data $api_result中的result
-     * @param int $code http状态码
-     * @param array $header
-     * @param array $option
-     * @return Response|\think\response\Json
-     */
-    function api_success($message = '',$status = 200, $data = '', $code = 200, array $header = [], $option = [])
+    //成功返回
+    protected function success($data = '', $msg = 'success', $code = 1, $type = 'json', array $header = [])
     {
-        $this->api_result['message'] = $message;
-        $this->api_result['status'] = $status;
-        if (!empty($data)) {
-            $this->api_result['result'] = $data;
-        }
-        return Response::create($this->api_result, 'json', $code, $header, $option);
+        $this->result($data, $code, $msg, $type, $header);
     }
 
-    /**
-     * @param string $message
-     * @param int $status $api_result中的status
-     * @param string $data $api_result中的result
-     * @param int $code http状态码
-     * @param array $header
-     * @param array $option
-     * @return Response|\think\response\Json
-     */
-    function api_error($message = '',$status = 500, $data = '', $code = 200, array $header = [], $option = [])
+
+    //失败返回
+    protected function error($msg = 'fail', $data = '', $code = 0, $type = 'json', array $header = [])
     {
-        $this->api_result['message'] = $message;
-        $this->api_result['status'] = $status;
-        if (!empty($data)) {
-            $this->api_result['result'] = $data;
-        }
-        return Response::create($this->api_result, 'json', $code, $header, $option);
+        $this->result($data, $code, $msg, $type, $header);
     }
 
-    //api返回带http状态的返回
-    function api_success_code($data, $status = 404, array $header = [], $option = [])
+    //返回结果，参考tp自带result方法
+    protected function result($data, $code = 0, $msg = '', $type = 'json', array $header = [])
     {
-        $data['status'] = $status;
-        return Response::create($data, 'json', $status, $header, $option);
+        $msg = lang($msg, [], config('default_lang'));
+        $result = [
+            'code' => $code,
+            'msg'  => $msg,
+            'time' => time(),
+            'data' => $data,
+        ];
+
+        $type     = $type ?: $this->getResponseType();
+        $response = Response::create($result, $type)->header($header);
+
+        throw new HttpResponseException($response);
     }
 
-    //不存在的api
+
+    //访问空页面
     public function _empty()
     {
-        return $this->api_error('',404);
-        //return Response::create($this->api_result, 'json', 404);
+        return $this->error('Api not found');
     }
 
-    /**
-     * 解析token
-     * @param $token
-     * @param $key
-     * @return bool|object
-     * @internal param $jwt
-     */
-    public static function deToken($token, $key)
+
+    //参考tp自带Controller  validate
+    protected function validateFailException($fail = true)
     {
-        try {
-            $result = JWT::decode($token, $key, array('HS256'));
-            return $result;
-        } catch (Exception $e) {
-            //return $e->getMessage();
-            return false;
+        $this->failException = $fail;
+        return $this;
+    }
+
+    //参考tp自带Controller  validate
+    protected function validate($data, $validate, $message = [], $batch = false, $callback = null)
+    {
+        if (is_array($validate)) {
+            $v = Loader::validate();
+            $v->rule($validate);
+        } else {
+            if (strpos($validate, '.')) {
+                // 支持场景
+                list($validate, $scene) = explode('.', $validate);
+            }
+            $v = Loader::validate($validate);
+            if (!empty($scene)) {
+                $v->scene($scene);
+            }
         }
-    }
+        // 是否批量验证
+        if ($batch || $this->batchValidate) {
+            $v->batch(true);
+        }
 
-    /**
-     * 生成token
-     * @param $body
-     * @param $key
-     * @return string
-     */
-    public static function enToken($body, $key)
-    {
-        $jwt = JWT::encode($body, $key);
-        return $jwt;
-    }
+        if (is_array($message)) {
+            $v->message($message);
+        }
 
-    /**
-     * 普通post方法封装
-     * @param $url
-     * @param $data
-     * @return mixed
-     */
-    public static function http_post($url, $data)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //对认证证书来源的检查
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        return $output;
-    }
+        if ($callback && is_callable($callback)) {
+            call_user_func_array($callback, [$v, &$data]);
+        }
 
-    /**
-     * 普通get方法封装
-     * @param $url
-     * @return mixed
-     */
-    public static function http_get($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-        $output = curl_exec($ch);
-        dump(curl_error($ch));
-        curl_close($ch);
-        return $output;
+        if (!$v->check($data)) {
+            if ($this->failException) {
+                throw new ValidateException($v->getError());
+            } else {
+                return $v->getError();
+            }
+        } else {
+            return true;
+        }
     }
 }

@@ -1,9 +1,6 @@
 <?php
 /**
- *
- * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * Date: 2017/6/5
+ * mail异常类，也来自网络
  */
 
 /**

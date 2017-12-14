@@ -6,14 +6,11 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminUsers;
-use app\common\model\Users;
-use think\Config;
 use think\Db;
 
 class Database extends Base
 {
-
+    //列表
     public function index()
     {
         $list = db()->query('SHOW TABLE STATUS');
@@ -32,8 +29,6 @@ class Database extends Base
     {
         if ($name) {
 
-            $db = new Db();
-
             $info  = Db::table($name)->getTableInfo($name);
             $fields = [];
             $datas = [];
@@ -50,7 +45,7 @@ class Database extends Base
             ]);
             return $this->fetch();
         }
-        return $this->do_error("请指定要查看的表");
+        return $this->error("请指定要查看的表");
     }
 
 
@@ -65,13 +60,12 @@ class Database extends Base
             $list = $Db->query("OPTIMIZE TABLE `{$name}`");
 
             if ($list) {
-                return $this->do_success("数据表优化成功");
+                return $this->success("数据表优化成功");
             }
-            return $this->do_error("数据表优化失败");
+            return $this->error("数据表优化失败");
 
         }
-        return $this->do_error("请指定要优化的表");
-
+        return $this->error("请指定要优化的表");
     }
 
 
@@ -86,11 +80,10 @@ class Database extends Base
             $list = $Db->query("REPAIR TABLE `{$name}`");
 
             if ($list) {
-                return $this->do_success("数据表修复成功！");
+                return $this->success("数据表修复成功！");
             }
-            return $this->do_error("数据表修复失败");
+            return $this->error("数据表修复失败");
         }
-        return $this->do_error("请指定要修复的表");
+        return $this->error("请指定要修复的表");
     }
-
 }

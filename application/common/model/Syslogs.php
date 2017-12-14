@@ -1,8 +1,7 @@
 <?php
 /**
- * 后台管理员操作日志模型
+ * 系统错误日志模型
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
  */
 
 namespace app\common\model;
@@ -17,7 +16,6 @@ class Syslogs extends Model
     
     public function syslogTrace()
     {
-        return $this->hasOne('SyslogTrace','log_id')->field('trace_id,log_id,trace');
+        return $this->hasOne('SyslogTrace','log_id','id')->field('trace_id,log_id,trace');
     }
-    
 }

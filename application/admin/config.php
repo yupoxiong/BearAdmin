@@ -1,47 +1,29 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/2/7
- * Time: 17:47
+ * 后台配置文件
+ * @author yupoxiong<i@yufuping.com>
  */
-
-use \think\Request;
-
-$basename = Request::instance()->root();
-
-if (pathinfo($basename, PATHINFO_EXTENSION) == 'php') {
-    $basename = dirname($basename);
-}
 
 return [
     // 模板参数替换
     'view_replace_str' => [
-        '__ROOT__'   => $basename,
-        '__STATIC__' => $basename . '/static/admin',
-        '__AVATAR__' => $basename . '/uploads/admin/avatar/'
+        '__STATIC__'  => '/static/admin',
+        '__CSS__'     => '/static/admin/css',
+        '__JS__'      => '/static/admin/js',
+        '__IMAGES__'  => '/static/admin/images',
+        '__FONTS__'   => '/static/admin/fonts',
+        '__PLUGINS__' => '/static/admin/plugins',
+        '__AVATAR__' => '/uploads/admin/avatar',
     ],
 
     'template'                   => [
-
         'layout_on'       => true,
         'layout_name'     => 'template/layout',
         'layout_item'     => '[__REPLACE__]',
-
-        // 模板引擎类型 支持 php think 支持扩展
-        'type'            => 'Think',
-        // 模板路径
-        'view_path'       => '',
-        // 模板后缀
-        'view_suffix'     => '.html',
-        // 预先加载的标签库
-        'taglib_pre_load' => '',
-        // 默认主题
-        'default_theme'   => '',
     ],
     //分页配置
     'paginate'                   => [
-        'type'      => '\util\page\Bearpage',
+        'type'      => '\tools\Bearpage',
         'var_page'  => 'page',
         'list_rows' => 10,
     ],
@@ -54,7 +36,7 @@ return [
     'file_upload_path'           => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
     //上次传文件url显示路径
     'file_upload_url'            => DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
-    'file_upload_max_size'       => 20480,
+    'file_upload_max_size'       => 204800,
     //'file_upload_max_size'       => 3145728,
     'file_upload_ext'            => 'jpg,png,gif,doc,docx,xlsx',
 
@@ -63,7 +45,7 @@ return [
     'email_file_upload_path'     => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'email_file' . DS,
     //上次传文件url显示路径
     'email_file_upload_url'      => DS . 'uploads' . DS . 'admin' . DS . 'email_file' . DS,
-    'email_file_upload_max_size' => 20480,//3145728,
+    'email_file_upload_max_size' => 204800,//3145728,
     'email_file_upload_ext'      => 'jpg,png,gif,doc,docx,xlsx',
 
 
@@ -75,14 +57,15 @@ return [
     //后台邮件相关参数设置
     'email_from_name'            => '于破熊', // 发件人
     'email_smtp'                 => 'smtp.163.com', // SMTP服务器
-    'email_username'             => '', // 账号
-    'email_password'             => '', // 密码
+    'email_username'             => '填你的@163.com', // 账号
+    'email_password'             => '填你的', // 密码
 
-    'alidayu_' => [
-        'app_key'    => '阿里大于key',
-        'app_secret' => '阿里大于secret',
-        'sign_name'  => '短信签名',
-        'tpl'        => 'SMS_47075011'
+    'admin_auth'=>[
+        'auth_on'           => 1, // 权限开关
+        'auth_type'         => 1, // 认证方式，1为实时认证；2为登录认证。
+        'auth_group'        => 'admin_groups', // 用户组数据表名
+        'auth_group_access' => 'admin_group_access', // 用户-用户组关系表
+        'auth_rule'         => 'admin_menus', // 权限规则表
+        'auth_user'         => 'admin_users', // 用户信息表
     ],
-
 ];

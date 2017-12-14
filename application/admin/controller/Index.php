@@ -2,7 +2,6 @@
 /**
  * 后台首页
  * @author yupoxiong <i@yufuping.com>
- * @version 1.0
  */
 
 namespace app\admin\controller;

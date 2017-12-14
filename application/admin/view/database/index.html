@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">{$web_data['web_title']}</h3>
+                <h3 class="box-title">{$webData['title']}</h3>
                 {if isset($total)}
                 共{$total}个表
                 {/if}
@@ -28,23 +28,19 @@
                         <td>{$list.data_length|format_size}</td>
                         <td>{$list.create_time}</td>
                         <td>{$list.comment}</td>
-                        <td>
-                            <a href="{:url($web_data['do_url'].'view',['name'=>$list.name])}"
-                               class="btn btn-default btn-sm margin">
+                        <td class="td-do">
+                            <a href="view.html?name={$list.name}"
+                               class="btn btn-default btn-xs" title="查看详情">
                                 <i class="fa  fa-info-circle"></i>
-                                表详情
                             </a>
-                            |
-                            <a href="{:url($web_data['do_url'].'optimize',['name'=>$list.name])}"
-                               class="btn btn-default btn-sm margin">
+                            <a href="optimize.html?name={$list.name}"
+                               class="btn btn-warning btn-xs" title="优化表">
                                 <i class="fa  fa-refresh"></i>
-                                优化表
                             </a>
-                            <a href="{:url($web_data['do_url'].'repair',['name'=>$list.name])}"
-                               class="btn btn-primary btn-sm margin"
+                            <a href="repair.html?name={$list.name}"
+                               class="btn btn-primary btn-xs"
                                title="修复表" >
                                 <i class="fa  fa-circle-o-notch"></i>
-                                修复表
                             </a>
                            <!-- |
                             <a data-toggle="modal" data-target="#modal"

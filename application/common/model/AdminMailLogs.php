@@ -1,8 +1,7 @@
 <?php
 /**
- * 后台管理员操作日志模型
+ * 后台用户邮件记录模型
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
  */
 
 namespace app\common\model;
@@ -15,11 +14,9 @@ class AdminMailLogs extends Model
     protected $autoWriteTimestamp = true;
     protected $updateTime = false;
 
-    
-    //和后台用户关联
+    //关联后台用户
     public function adminUser()
     {
         return $this->belongsTo('AdminUsers','user_id')->field('user_id,user_name,nick_name');
     }
-    
 }

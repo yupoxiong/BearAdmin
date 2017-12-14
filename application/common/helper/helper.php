@@ -2,8 +2,6 @@
 /**
  * 自定义助手函数
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * Date: 2017/6/10
  */
 
 use crypt\Crypt;
@@ -156,6 +154,21 @@ if (!function_exists('get_browser_type')) {
         return $result;
     }
 }
+
+if(!function_exists('parse_name')){
+     function parse_name($name, $type = 0, $ucfirst = true)
+    {
+        if ($type) {
+            $name = preg_replace_callback('/_([a-zA-Z])/', function ($match) {
+                return strtoupper($match[1]);
+            }, $name);
+            return $ucfirst ? ucfirst($name) : lcfirst($name);
+        } else {
+            return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
+        }
+    }
+}
+
 
 
 if (!function_exists('get_list_rows')) {

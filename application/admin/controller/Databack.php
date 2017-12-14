@@ -2,7 +2,6 @@
 /**
  * 数据库备份
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
  */
 
 namespace app\admin\controller;
@@ -26,22 +25,22 @@ class Databack extends Base
         $this->config['filename'] = "database-backup-" . date("Y-m-d-H-i-s", time()) . ".sql";
 
         $this->back     = new DataBackup($this->config);
-        $this->filename = isset($this->param['filename']) ? $this->param['filename'] : '';
+        $this->filename = isset($this->param['name']) ? $this->param['name'] : '';
     }
 
     //列表
     public function index()
     {
-        $list   = [];
+        $lists   = [];
         $result = $this->back->get_filelist();
 
         if ($result['status'] == 200) {
-            $list = $result['result'];
+            $lists = $result['result'];
         }
 
         $this->assign([
-            "list"  => $list,
-            'total' => sizeof($list)
+            "lists"  => $lists,
+            'total' => sizeof($lists)
         ]);
 
         return $this->fetch();
@@ -52,16 +51,16 @@ class Databack extends Base
     {
         $result = $this->back->backup();
         if ($result['status'] == 200) {
-            return $this->do_success($result['message']);
+            return $this->success($result['message']);
         }
-        return $this->do_error($result['message']);
+        return $this->error($result['message']);
     }
+
 
     //下载备份
     public function download()
     {
         $this->back->downloadFile($this->filename);
-
     }
 
 
@@ -70,21 +69,19 @@ class Databack extends Base
     {
         $result = $this->back->restore($this->filename);
         if ($result['status'] == 200) {
-            return $this->do_success($result['message']);
+            return $this->success($result['message']);
         }
-        return $this->do_error($result['message']);
+        return $this->error($result['message']);
     }
 
 
     //删除
     public function del()
     {
-       
         $result = $this->back->deleteFile($this->filename);
         if ($result['status'] == 200) {
-            return $this->do_success($result['message']);
+            return $this->success($result['message']);
         }
-        return $this->do_error($result['message']);
+        return $this->error($result['message']);
     }
-
 }

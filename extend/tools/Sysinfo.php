@@ -2,8 +2,6 @@
 /**
  * 系统信息类
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * Date: 2017/3/21
  */
 namespace tools;
 

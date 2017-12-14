@@ -1,7 +1,7 @@
 <?php
 /**
  * @author yupoxiong<i@yufuping.com>
- * Date: 2017/8/27
+ * 前台基础控制器
  */
 namespace app\index\controller;
 

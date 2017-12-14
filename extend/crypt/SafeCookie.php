@@ -2,7 +2,6 @@
 /**
  * 安全设置Cookie
  * @author yupoxiong <i@yufuping.com>
- * @version 1.0
  */
 
 namespace crypt;

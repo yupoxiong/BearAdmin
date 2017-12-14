@@ -13,26 +13,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="list" item="l"}
+                    {foreach name="lists" item="list"}
                     <tr>
-                        <td>{$l.name}</td>
-                        <td>{$l.time}</td>
-                        <td>{$l.size}</td>
-                        <td>
-                            <a href="{:url($web_data['do_url'].'restore',['filename'=>$l.name])}"
-                               class="btn btn-warning btn-sm margin">
+                        <td>{$list.name}</td>
+                        <td>{$list.time}</td>
+                        <td>{$list.size}</td>
+                        <td class="td-do">
+                            <a href="restore.html?name={$list.name}"
+                               class="btn btn-warning btn-xs" title="还原">
                                 <i class="fa fa-mail-reply"></i>
-                                还原
                             </a>
-                            <a target="_blank" href="{:url($web_data['do_url'].'download',['filename'=>$l.name])}"
-                               class="btn btn-default btn-sm margin">
+                            <a target="_blank" href="download.html?name={$list.name}"
+                               class="btn btn-default btn-xs" title="下载">
                                 <i class="fa fa-download"></i>
-                                下载
                             </a>
-                            <a href="{:url($web_data['do_url'].'del',['filename'=>$l.name])}"
-                               class="btn btn-danger btn-sm margin">
-                                <i class="fa fa-close"></i>
-                                删除
+                            <a href="del.html?name={$list.name}"
+                               class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -43,7 +40,6 @@
             <div class="box-footer">
                 <div>
                     <div class="dataTables_paginate paging_simple_numbers">
-
                     </div>
                 </div>
             </div>

@@ -1,25 +1,19 @@
-<style>
-    .hide-trace{
-        display: none;
-    }
-</style>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <div class="box-body">
                 <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
-
                     <div class="form-group" >
-                        <input type="text" value="{$keywords ? $keywords : '' ;}"
-                               name="keywords" id="keywords" class="form-control" placeholder="关键字">
+                        <input value="{$keywords ? $keywords : '' ;}"
+                               name="keywords" id="keywords" class="form-control input-sm" placeholder="关键字">
                     </div>
-
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
                         </button>
                     </div>
                     <div class="form-group">
-                        <button onclick="clear_form()" class="btn btn-default" type="button"><i class="fa  fa-eraser"></i> 清空查询
+                        <button onclick="clear_form()" class="btn btn-sm btn-default" type="button">
+                            <i class="fa  fa-eraser"></i> 清空查询
                         </button>
                     </div>
                 </form>
@@ -31,14 +25,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <!--数据列表页头部-->
-            <div class="box-header">
-                <h3 class="box-title">{$web_data['web_title']}</h3>
-                {if isset($total)}
-                共{$total}条记录
-                {/if}
-            </div>
-            <!-- /.box-header -->
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
@@ -52,19 +38,18 @@
                     </tr>
                     </thead>
                     <tbody>
-
                     {foreach name="lists" item="list"}
                     <tr>
-                        <td>{$list.log_id}</td>
-                        <td>{$list.message}</td>
-                        <td>{$list.file}</td>
+                        <td>{$list.id}</td>
+                        <td class="td-log" title="{$list.message}">{$list.message}</td>
+                        <td  class="td-log" title="{$list.file}">{$list.file}</td>
                         <td>{$list.line}</td>
                         <td>{$list.create_time}</td>
-                        <td>
-                            <a data-toggle="modal" data-target="#modaltrace" onclick="view_trace({$list.log_id})" class="btn btn-default  btn-sm margin" title="查看trace" >
-                                查看trace
+                        <td class="td-do">
+                            <a data-toggle="modal" data-target="#modaltrace" onclick="view_trace('{$list.id}')" class="btn btn-default  btn-xs" title="查看trace" >
+                                <i class="fa fa-eye"></i>
                             </a>
-                            <div id="trace{$list.log_id}" class="hide-trace">
+                            <div id="trace{$list.id}" class="hide-trace">
                                 {$list->syslogTrace['trace']}
                             </div>
                         </td>
@@ -74,10 +59,7 @@
                 </table>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-                {$page}
-                {include file="template/list_rows" /}
-            </div>
+            {include file="template/data_footer" /}
         </div>
         <!-- /.box -->
     </div>

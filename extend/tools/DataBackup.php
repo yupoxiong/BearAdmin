@@ -2,8 +2,6 @@
 /**
  * 数据库备份类
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * Date: 2017/8/15
  * 参数说明
  * config:type(数据库类型),hostname,database,username,password,hostport,charset,savepath(备份存放目录),filename(备份文件名)
  */

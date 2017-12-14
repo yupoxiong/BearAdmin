@@ -4,19 +4,17 @@
         <div class="box">
             <div class="box-body">
                 <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
-
                     <div class="form-group">
-                        <input type="text" value="{$keywords ? $keywords : '' ;}"
-                               name="keywords" id="keywords" class="form-control" placeholder="输入关键词查询">
+                        <input value="{$keywords ? $keywords : '' ;}"
+                               name="keywords" id="keywords" class="form-control input-sm" placeholder="输入关键词查询">
                     </div>
-
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
                         </button>
                     </div>
                     <div class="form-group">
-                        <button onclick="clear_form()" class="btn btn-default" type="button"><i
-                                class="fa  fa-eraser"></i> 清空查询
+                        <button onclick="clear_form()" class="btn btn-sm btn-default" type="button"><i
+                                class="fa fa-eraser"></i> 清空查询
                         </button>
                     </div>
                 </form>
@@ -30,26 +28,20 @@
         <div class="box">
             <!--数据列表页头部-->
             <div class="box-header">
-                <h3 class="box-title">{$web_data['web_title']}</h3>
-                {if isset($total)}
-                共{$total}条记录
-                {/if}
+                <a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm" title="批量删除数据，请谨慎使用此功能"
+                   onclick="dels()">
+                    删除
+                </a>
                 <div class="box-tools">
                     <div class="input-group input-group-sm">
                         <div class="input-group-btn">
-                            <a class="btn btn-default pull-right" data-toggle="modal" data-target="#upload-modal">
+                            <a class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#upload-modal">
                                 <i class="fa fa-upload"></i>
                                 上传文件
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-header">
-                <a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm margin" title="批量删除数据，请谨慎使用此功能"
-                   onclick="dels()">
-                    批量删除
-                </a>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
@@ -76,32 +68,24 @@
                         <td>{$list.size}</td>
                         <td>{$list.mime}</td>
                         <td>{$list.create_time}</td>
-                        <td>
-                            <a href="download.html?id={$list.id}" class="btn btn-default btn-sm margin">
+                        <td class="td-do">
+                            <a title="下载" href="download.html?id={$list.id}" class="btn btn-success btn-xs">
                                 <i class="fa fa-download"></i>
-                                下载
                             </a>
                             <a data-toggle="modal" data-target="#modal"
-                               class="btn btn-danger btn-sm margin"
+                               class="btn btn-danger btn-xs"
                                title="删除" onclick="del({$list.id})">
-                                <i class="fa fa-close"></i>
-                                删除
+                                <i class="fa fa-trash"></i>
                             </a>
-
                         </td>
                     </tr>
                     {/foreach}
-
                     </tbody>
                 </table>
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                {$page}
-                {include file="template/list_rows" /}
-            </div>
+            {include file="template/data_footer" /}
         </div>
-        <!-- /.box -->
+
     </div>
 </div>
 
@@ -137,7 +121,7 @@
         headers: {
             "__token__": $("input[name='__token__']").val()
         },
-        maxFilesize: 3,
+        maxFilesize: 0.05,
         maxFiles: 5,
         acceptedFiles: ".jpg,.gif,.png,.doc,.docx,.xlsx",
         dictMaxFilesExceeded: "您每次最多只能上传5个文件！",
@@ -146,7 +130,6 @@
         dictResponseError: "上传文件出错,请联系管理员!",
         dictDefaultMessage: "拖动文件到此或点击上传",
         sending: function (file, xhr, formData) {
-            console.log(xhr);
             if (xhr.status != 200) {
 
             }
@@ -155,6 +138,10 @@
             done();
         },
         success: function (file, done) {
+            if(done.code==0)
+            {
+                toastr.error(done.msg);
+            }
             console.log(done);
         }
     };

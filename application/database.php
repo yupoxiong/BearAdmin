@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'bearadmin_yufup',
+    'database'        => 'bearadmin',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'bearadmin',
     // 密码
-    'password'        => 'root',
+    'password'        => 'bearadmin',
     // 端口
     'hostport'        => '3306',
     // 连接dsn

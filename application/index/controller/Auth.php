@@ -1,7 +1,7 @@
 <?php
 /**
+ * 前台登录退出权限等控制器
  * @author yupoxiong<i@yufuping.com>
- * Date: 2017/8/27
  */
 namespace app\index\controller;
 

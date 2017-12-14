@@ -1,8 +1,7 @@
 <?php
 /**
- * 后台管理员模型
+ * 后台excel导入导出示例模型
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
  */
 
 

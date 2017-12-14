@@ -1,6 +1,5 @@
 .idea
 runtime
-app_logs/
-thinkphp/
-vendor/
-backup/
+thinkphp
+vendor
+backup

@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            {include file="template/form_header" /}
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <th colspan="4" class="text-bold text-center">日志摘要</th>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">日志ID</td>
+                        <td>{$log.id}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">操作用户</td>
+                        <td>{$log->adminUser->name}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">操作</td>
+                        <td>{$log.title}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">url</td>
+                        <td>{$log.log_url}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">类型</td>
+                        <td>{$log.log_type}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">ip</td>
+                        <td>{$log.log_ip}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">日期</td>
+                        <td>{$log.create_time}</td>
+                    </tr>
+
+                    <tr style="border-top:2px solid #d2d6de;">
+                        <th colspan="2" class="text-bold text-center">数据详情</th>
+                    </tr>
+                    {foreach name="log_data" item="list" key="data"}
+                    <tr>
+                        <td  class="text-bold">{$data}</td>
+                        <td colspan="3">{$list}</td>
+
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+{if isset($pre_log)}
+{include file="dolog/pre_log" /}
+{/if}

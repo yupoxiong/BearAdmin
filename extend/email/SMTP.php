@@ -1,9 +1,6 @@
 <?php
 /**
- *
- * @author yupoxiong<i@yufuping.com>
- * @version 1.0
- * Date: 2017/6/4
+ * 同样来自网络的smtp类
  */
 
 /**

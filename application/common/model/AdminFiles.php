@@ -1,8 +1,7 @@
 <?php
 /**
- * 后台管理员模型
+ * 后台用户文件模型
  * @author yupoxiong<i@yufuping.com>
- * @version 1.0
  */
 
 
@@ -18,12 +17,13 @@ class AdminFiles extends Model
     protected $name = 'admin_files';
     protected $autoWriteTimestamp = true;
 
+    //关联后台用户
     public function adminUser()
     {
-        return $this->belongsTo('AdminUsers', 'user_id', 'user_id');
+        return $this->belongsTo('AdminUsers', 'user_id', 'id');
     }
 
-    //
+    //格式化大小
     public function getSizeAttr($value)
     {
         $units = array(' B', ' KB', ' MB', ' GB', ' TB');

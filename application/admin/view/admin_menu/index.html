@@ -4,10 +4,13 @@
             <!--数据列表页头部-->
             {include file="template/data_header" /}
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-bordered">
-                    <tbody>
+            <div class="box-body table-responsive">
+                <table class="table table-hover table-bordered datatable" width="100%">
+                    <thead>
                     <tr>
+                        <th>
+                            <input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消">
+                        </th>
                         <th>ID</th>
                         <th>菜单名称</th>
                         <th>url</th>
@@ -18,17 +21,11 @@
                         <th>日志记录方式</th>
                         <th>操作</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     {$menu_list}
-
                     </tbody>
                 </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <div>
-
-
-                </div>
             </div>
         </div>
         <!-- /.box -->

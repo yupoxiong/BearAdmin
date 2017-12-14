@@ -1,18 +1,7 @@
-/**
- * AdminLTE Demo Menu
- * ------------------
- * You should not use this file in production.
- * This file is for demo purposes only.
- */
+/* AdminLTE Demo Menu*/
 (function ($, AdminLTE) {
-
     "use strict";
-
-    /**
-     * List of all the available skins
-     *
-     * @type Array
-     */
+    /* List of all the available skins */
     var my_skins = [
         "skin-blue",
         "skin-black",

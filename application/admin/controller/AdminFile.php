@@ -7,9 +7,8 @@
 
 namespace app\admin\controller;
 
-use net\Http;
+use tools\Http;
 use app\common\model\AdminFiles;
-use think\Session;
 
 class AdminFile extends Base
 {
@@ -26,7 +25,7 @@ class AdminFile extends Base
         }
 
         $lists = $model->order('id desc')
-            ->paginate($this->web_data['list_rows'], false, $page_param);
+            ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
             'lists' => $lists,
@@ -39,57 +38,50 @@ class AdminFile extends Base
     //删除文件
     public function del()
     {
-        $result = AdminFiles::destroy($this->id);
+
+        $id = $this->id;
+        $result = AdminFiles::destroy(function ($query) use ($id) {
+            $query->whereIn('id',$id);
+        });
+        
         if ($result) {
-            return $this->do_success();
+            return $this->success();
         }
-        return $this->do_error();
+        return $this->error();
     }
 
     //上传文件
     public function upload()
     {
         if (!$this->request->isPost()) {
-            return $this->ajaxReturnError('请用post访问');
+            return $this->error('请用post访问');
         }
-        $user_id = Session::get('user.user_id');
-        if ($user_id > 0) {
+        
+        $file = request()->file('file');
+        $info = $file->validate([
+                'size' => config('file_upload_max_size'),
+                'ext'  => config('file_upload_ext')
+            ])->move(config('file_upload_path') . $this->uid);
 
-            $file = request()->file('file');
-            $info = $file->validate(
-                [
-                    'size' => config('file_upload_max_size'),
-                    'ext'  => config('file_upload_ext')
-                ]
-            )->move(config('file_upload_path') . $user_id);
+        if ($info) {
+            $file_info = [
+                'user_id'       => $this->uid,
+                'original_name' => $info->getInfo('name'),
+                'save_name'     => $info->getFilename(),
+                'save_path'     => config('file_upload_path') . $this->uid . DS . $info->getSaveName(),
+                'extension'     => $info->getExtension(),
+                'mime'          => $info->getInfo('type'),
+                'size'          => $info->getSize(),
+                'md5'           => $info->hash('md5'),
+                'sha1'          => $info->hash(),
+                'url'           => config('file_upload_url') . $this->uid . DS . $info->getSaveName()
+            ];
 
-            if ($info) {
+            $result = AdminFiles::create($file_info);
 
-                $file_info = [
-                    'user_id'       => $user_id,
-                    'original_name' => $info->getInfo('name'),
-                    'save_name'     => $info->getFilename(),
-                    'save_path'     => config('file_upload_path') . $user_id . DS . $info->getSaveName(),
-                    'extension'     => $info->getExtension(),
-                    'mime'          => $info->getInfo('type'),
-                    'size'          => $info->getSize(),
-                    'md5'           => $info->hash('md5'),
-                    'sha1'          => $info->hash(),
-                    'url'           => config('file_upload_url') . $user_id . DS . $info->getSaveName()
-                ];
-
-                AdminFiles::create($file_info);
-
-                $this->api_result['status']  = 200;
-                $this->api_result['message'] = '上传成功';
-                $this->api_result['result']  = $file_info;
-                return $this->ajaxReturnData($this->api_result);
-            }
-
-
-            return $this->ajaxReturnError($file->getError());
+            return $result ? $this->success('上传成功') : $this->error('上传失败');
         }
-        return $this->ajaxReturnError('未登录或登录失效');
+        return $this->error($file->getError());
     }
 
 
@@ -99,7 +91,7 @@ class AdminFile extends Base
         $admin_file = AdminFiles::get($this->id);
 
         if (!$admin_file) {
-            return $this->do_error('文件不存在');
+            return $this->error('文件不存在');
         }
 
         $path = $admin_file->save_path;
@@ -108,6 +100,6 @@ class AdminFile extends Base
         if (file_exists($path)) {
             return Http::download($path, $name);
         }
-        return $this->do_error('文件不存在');
+        return $this->error('文件不存在');
     }
 }
