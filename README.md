@@ -1,6 +1,7 @@
  # BearAdmin
 基于ThinkPHP5+AdminLTE的后台管理系统
 
+
  ## 演示地址
  * <https://bearadmin.yufuping.com/admin>
  * 帐号：demo
@@ -18,7 +19,7 @@
  ```
  或
 ```
- git clone https://git.oschina.net/yupoxiong/BearAdmin
+ git clone https://gitee.com/yupoxiong/BearAdmin
 ```
  #### 第二步
  安装TP框架与项目用到的扩展
@@ -60,7 +61,8 @@
  * 文件上传下载
  * Excel导入导出
  * 邮件发送(支持附件)
- * 还有许多待添加然而并没有来得及添加的功能
+ * 阿里云OSS
+ * 七牛云存储
 
  #### Api相关
 对于刚开始做api开发的同学，可能有些这方面的困惑，恰好本人也做过几个api开发的案例，
@@ -77,4 +79,3 @@
 在此，对所有用到的开源代码作者表示由衷的感谢。
 
 交流QQ群：[480018279](//shang.qq.com/wpa/qunwpa?idkey=2e8674491df685dab9f634773b72ce8ed7df033aed7cbf194cda95dd4ad45737)
-
