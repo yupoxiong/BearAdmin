@@ -6,6 +6,7 @@
 
 namespace app\admin\controller;
 
+use app\common\model\AdminGroupAccess;
 use app\common\model\AdminUsers;
 use think\Session;
 use tools\AdminAuth;
@@ -21,10 +22,10 @@ class Auth extends Base
     {
         if ($this->request->isPost()) {
 
-            if(!$this->check_geetest()){
+            if (!$this->check_geetest()) {
                 return $this->error('验证失败');
             }
-            
+
             $result = $this->validate($this->param, 'AdminUser.login');
 
             if (true !== $result) {
@@ -81,50 +82,61 @@ class Auth extends Base
 
     public function qqlogin()
     {
-        $config   = config('qq_login');
+        $config = config('qq_login');
         $OAuth  = OAuth::getInstance($config, 'qq');
-        if($this->request->isMobile()){
+        if ($this->request->isMobile()) {
             $OAuth->setDisplay('mobile');
         }
-        
+
         return redirect($OAuth->getAuthorizeURL());
     }
 
     //QQ登录回调
     public function qq()
     {
-        $config   =config('qq_login');
-        $OAuth    = OAuth::getInstance($config, 'qq');
+        $config = config('qq_login');
+        $OAuth  = OAuth::getInstance($config, 'qq');
         $OAuth->getAccessToken();
 
         $sns_info = $OAuth->userinfo();
-        
-        $user = AdminUsers::get(function ($query) use($sns_info) {
-           $query->where('qq_openid','=',$sns_info['openid']); 
+
+        $user = AdminUsers::get(function ($query) use ($sns_info) {
+            $query->where('qq_openid', '=', $sns_info['openid']);
         });
-        
-        //如果用户已存在
-        if(!$user){
+
+        //如果用户不存在
+        if (!$user) {
 
             //创建新用户
             $data = [
-                'name'=>$sns_info['openid'],
-                'qq_openid'=>$sns_info['openid'],
-                'sex'  => $sns_info['gender'] == "m" ? 1 : 0,
-                'nick_name'=>$sns_info['nick'],
-                'avatar'=>$sns_info['avatar'],
-                'password'=>md5('123456'),
+                'name'      => $sns_info['openid'],
+                'qq_openid' => $sns_info['openid'],
+                'sex'       => $sns_info['gender'] == "m" ? 1 : 0,
+                'nick_name' => $sns_info['nick'],
+                'avatar'    => $sns_info['avatar'],
+                'password'  => md5('123456'),
             ];
 
             $user = AdminUsers::create($data);
-
-            if(!$user){
+            if (!$user) {
                 return $this->error('创建用户失败');
             }
 
+            $user->name = 'user_'.$user->id;
+            $user->save();
+
+            $access_data = [
+                'uid'      => $user->id,
+                'group_id' => 2
+            ];
+
+            $access = AdminGroupAccess::create($access_data);
+            if (!$access) {
+                return $this->error('分配用户权限失败');
+            }
         }
 
-        AdminAuth::login($user->id,$user->name,true);
+        AdminAuth::login($user->id, $user->name, true);
         $auth = new AdminAuth();
         $auth->createLog('QQ登录', 2);
         $redirect_uri = isset($this->param['uri']) ? $this->param['uri'] : 'admin/index/index';
@@ -180,7 +192,7 @@ class Auth extends Base
         );
 
         if (Session::get('gtserver') == 1) {   //服务器正常
-            $result = $geetest->success_validate($this->param['geetest_challenge'],$this->param['geetest_validate'],$this->param['geetest_seccode'], $data);
+            $result = $geetest->success_validate($this->param['geetest_challenge'], $this->param['geetest_validate'], $this->param['geetest_seccode'], $data);
             if ($result) {
                 return true;
             }

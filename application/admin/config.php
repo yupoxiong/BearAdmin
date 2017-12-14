@@ -68,4 +68,7 @@ return [
         'auth_rule'         => 'admin_menus', // 权限规则表
         'auth_user'         => 'admin_users', // 用户信息表
     ],
+
+
+    'admin_avatar_url'=>'/uploads/admin/avatar/',
 ];

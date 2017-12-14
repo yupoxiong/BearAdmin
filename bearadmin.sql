@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-14 18:24:56
+Date: 2017-12-14 20:05:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -190,7 +190,7 @@ INSERT INTO `bear_admin_menus` VALUES ('20', '17', '系统日志', 'admin/syslog
 INSERT INTO `bear_admin_menus` VALUES ('21', '2', '文件管理', 'admin/admin_file/index', 'fa-file-archive-o', '', '1', '101', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('22', '21', '上传文件', 'admin/admin_file/upload', 'fa-upload', '', '0', '100', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('23', '21', '下载文件', 'admin/admin_file/download', 'fa-download', '', '0', '100', '1', '1', '1');
-INSERT INTO `bear_admin_menus` VALUES ('24', '21', '修改文件', 'admin/admin_file/edit', 'fa-edit', '', '1', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('24', '21', '修改文件', 'admin/admin_file/edit', 'fa-edit', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('25', '21', '删除文件', 'admin/admin_file/del', 'fa-crash', '', '0', '100', '1', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('26', '2', '数据维护', 'admin/data', 'fa-database', '', '1', '100', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('27', '26', '数据库备份', 'admin/databack/index', 'fa-database', '', '1', '100', '0', '1', '1');
@@ -241,10 +241,8 @@ CREATE TABLE `bear_admin_users` (
 -- ----------------------------
 -- Records of bear_admin_users
 -- ----------------------------
-INSERT INTO `bear_admin_users` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员', '', '18', '1\\20171208\\dc6f12bb9a981882e3d559a5af1addd0.png', null, '1488189586', '1513148717', null, '1');
-INSERT INTO `bear_admin_users` VALUES ('2', 'admin2', '', '管理员2', '', '', '2\\20171212\\619fa1aa498f8b47de518295a76574a2.png', null, '1488189586', '1513185374', null, '1');
-INSERT INTO `bear_admin_users` VALUES ('3', 'admin4443', 'admin343443', '4343434', '', '', 'avatar.png', null, '1513148861', '1513148887', '1513148887', '1');
-INSERT INTO `bear_admin_users` VALUES ('4', 'admin345435', 'admin', '345435', '', '', 'avatar.png', null, '1513148878', '1513148887', '1513148887', '1');
+INSERT INTO `bear_admin_users` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员', '', '18855550000', '1\\20171212\\dc6f12bb9a981882e3d559a5af1addd0.png', null, '1488189586', '1513148717', null, '1');
+INSERT INTO `bear_admin_users` VALUES ('2', 'admin2', '21232f297a57a5a743894a0e4a801fc3', '管理员2', '', '', '1\\20171212\\dc6f12bb9a981882e3d559a5af1addd0.png', null, '1488189586', '1513185374', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_excel_examples

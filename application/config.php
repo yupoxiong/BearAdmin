@@ -278,7 +278,7 @@ return [
         'path' => ROOT_PATH . 'runtime/errorlog/' . date("Y-m-d") . '.log',
     ],
 
-    'api_source_prefix' => 'https://bearadmin.yufuping.com',
+    'api_source_prefix' => 'http://192.168.31.153:728',
     'slide_path'        => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'slides' . DS,
     'slide_url'         => DS . 'uploads' . DS . 'slides' . DS,
     'qq_login'          => [

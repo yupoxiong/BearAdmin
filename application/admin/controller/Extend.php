@@ -226,7 +226,7 @@ class Extend extends Base
 
                 return $this->success('success', null, $result);
             }
-            return $this->error('上传错误');
+            return $this->error($file->getError());
         }
         return $this->fetch();
     }
@@ -257,7 +257,7 @@ class Extend extends Base
                 $result = config('qiniu.url') . $data[0]['key'];
                 return $this->success('success', null, $result);
             }
-            return $this->error('上传错误');
+            return $this->error($file->getError());
         }
         return $this->fetch();
     }
@@ -271,7 +271,7 @@ class Extend extends Base
             if (!$file) {
                 return $this->error('请上传文件');
             }
-            $info = $file->validate(['ext' => 'xlsx'])->move(ROOT_PATH . 'uploads' . DS . 'excel');
+            $info = $file->validate(['ext' => 'xlsx','size' => config('file_upload_max_size')])->move(ROOT_PATH . 'uploads' . DS . 'excel');
             if ($info) {
 
                 $file_name    = $info->getPathname();

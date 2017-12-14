@@ -13,7 +13,7 @@ class Demo extends Api
     protected $needAuth=false;
 
     //后台最新5条操作日志
-    public function log()
+    public function index()
     {
         $list = AdminLogs::all(function ($query){
             $query->order('id desc')->limit(5);
