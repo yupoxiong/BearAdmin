@@ -80,8 +80,8 @@
                                     <select name="" id="log_type" class="form-control">
                                         <option value="0">不记录日志</option>
                                         {foreach name='requests' item='r'}
-                                        <option value="{$r.id}" {eq name='info.log_type' value='$r.id' }selected{/eq}>
-                                        {$r.title}
+                                        <option value="{$r.id}" {if isset($info) && $info.log_type==$r.id}selected{/if}>
+                                            {$r.title}
                                         </option>
                                         {/foreach}
                                     </select>
