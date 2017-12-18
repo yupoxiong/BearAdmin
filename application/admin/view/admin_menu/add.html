@@ -77,7 +77,7 @@
                             <label for="log_type" class="col-sm-2 control-label">日志请求方式</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                    <select name="" id="log_type" class="form-control">
+                                    <select name="log_type" id="log_type" class="form-control">
                                         <option value="0">不记录日志</option>
                                         {foreach name='requests' item='r'}
                                         <option value="{$r.id}" {if isset($info) && $info.log_type==$r.id}selected{/if}>
