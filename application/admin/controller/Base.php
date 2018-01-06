@@ -58,7 +58,7 @@ class Base extends Controller
 
     public function _initialize()
     {
-        $this->uid              = Session::get('user.id');
+
         $menu_info              = AdminMenus::get(['url' => $this->url]);
         $this->webData['title'] = $menu_info['title'];
         $log_type               = $menu_info['log_type'];
@@ -68,8 +68,7 @@ class Base extends Controller
             if (!$auth->is_login()) {
                 $this->redirect('auth/login');
             }
-
-
+            $this->uid = Session::get('user.id');
             if ($this->uid != 1) {
                 if (!$auth->check($this->url, $this->uid)) {
 
