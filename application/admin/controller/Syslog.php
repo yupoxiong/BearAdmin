@@ -13,7 +13,6 @@ use think\Log;
 
 class Syslog extends Base
 {
-
     //系统日志列表
     public function index(){
         $syslogs = new Syslogs();
@@ -33,11 +32,9 @@ class Syslog extends Base
             'page'     => $lists->render(),
             'total'    => $lists->total()
         ]);
-
         return $this->fetch();
     }
-
-
+    
     //读取日志，暂未用到
     function readlog(){
         $file_path = config('sys_log.path');

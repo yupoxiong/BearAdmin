@@ -388,7 +388,7 @@ class Extend extends Base
             header('Pragma: public'); // HTTP/1.0
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $version_opt[$version]['write_type']);
-            $objWriter->save('php://output');
+            return $objWriter->save('php://output');
         } catch (\Exception $e) {
             return $e->getMessage();
         }

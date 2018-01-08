@@ -11,12 +11,10 @@ use app\common\model\AdminGroups;
 
 class AdminUser extends Base
 {
-
     //列表
     public function index()
     {
         $model = new AdminUsers();
-
         $page_param = ['query' => []];
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
@@ -89,7 +87,6 @@ class AdminUser extends Base
         $this->assign([
             'roles' => $roles
         ]);
-
         return $this->fetch();
     }
 
@@ -154,7 +151,6 @@ class AdminUser extends Base
             'roles' => $roles,
             'info'  => $info
         ]);
-
         return $this->fetch('add');
     }
 

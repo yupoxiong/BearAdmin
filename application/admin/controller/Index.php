@@ -34,23 +34,4 @@ class Index extends Base
         ]);
         return $this->fetch();
     }
-
-
-    //萌萌哒的打赏功能
-    public function reward()
-    {
-        $domain = $this->request->domain();
-        $url = $domain.'/index/index/reward';
-        $qrcode  = new QrCode($url);
-        $qrcode
-            ->setWriterByName('png')
-            ->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH)
-            ->setLogoPath(ROOT_PATH.'public'.'/favicon-96x96.png');
-
-        $qrcode->writeFile(ROOT_PATH.'public'.'/reward.png');
-        $this->assign([
-            'reward_qrcode'=>$domain.'/reward.png',
-        ]);
-        return $this->fetch();
-    }
 }

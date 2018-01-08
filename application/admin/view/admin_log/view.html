@@ -2,7 +2,6 @@
     <div class="col-md-12">
         <div class="box">
             {include file="template/form_header" /}
-            <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
                 <table class="table table-bordered table-striped">
                     <tbody>
@@ -37,7 +36,6 @@
                         <td class="text-bold">日期</td>
                         <td>{$log.create_time}</td>
                     </tr>
-
                     <tr style="border-top:2px solid #d2d6de;">
                         <th colspan="2" class="text-bold text-center">数据详情</th>
                     </tr>
@@ -45,17 +43,14 @@
                     <tr>
                         <td  class="text-bold">{$data}</td>
                         <td colspan="3">{$list}</td>
-
                     </tr>
                     {/foreach}
                     </tbody>
                 </table>
             </div>
         </div>
-        <!-- /.box -->
     </div>
 </div>
-
 {if isset($pre_log)}
 {include file="admin_log/pre_log" /}
 {/if}

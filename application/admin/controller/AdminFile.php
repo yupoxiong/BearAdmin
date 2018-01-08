@@ -38,12 +38,10 @@ class AdminFile extends Base
     //删除文件
     public function del()
     {
-
         $id = $this->id;
         $result = AdminFiles::destroy(function ($query) use ($id) {
             $query->whereIn('id',$id);
         });
-        
         if ($result) {
             return $this->success();
         }
@@ -89,7 +87,6 @@ class AdminFile extends Base
     public function download()
     {
         $admin_file = AdminFiles::get($this->id);
-
         if (!$admin_file) {
             return $this->error('文件不存在');
         }

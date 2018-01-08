@@ -16,7 +16,6 @@ class Statistics extends Base
 
     //统计概览
     public function index(){
-
         $admin_users = new AdminUsers();
         $admin_user_count = $admin_users->count();
         $syslogs = new Syslogs();
@@ -27,7 +26,6 @@ class Statistics extends Base
         $admin_menu_count = $admin_menus->count();
 
         $this->assign([
-
             'adminuser_count'=>$admin_user_count,
             'syslog_count'=>$syslog_count,
             'admin_log_count'=>$admin_log_count,

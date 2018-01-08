@@ -17,7 +17,6 @@ class AdminLog extends Base
     public function index()
     {
         $logs = new AdminLogs();
-
         $page_param = ['query' => []];
         if (isset($this->param['title']) && !empty($this->param['title'])) {
             $page_param['query']['title'] = $this->param['title'];
@@ -66,7 +65,6 @@ class AdminLog extends Base
     //操作日志详情
     public function view()
     {
-
         $key         = null != config('app_key') ? config('app_key') : 'beautiful_taoqi';
         $log_info    = AdminLogs::get($this->id);
         $log_data    = unserialize(Crypt::decrypt($log_info->adminLogData->data, $key));

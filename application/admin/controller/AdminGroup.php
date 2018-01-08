@@ -75,7 +75,6 @@ class AdminGroup extends Base
             'info' => $info
         ]);
         return $this->fetch('add');
-
     }
 
 
@@ -147,7 +146,6 @@ class AdminGroup extends Base
             'webData'   => $this->webData
         ]);
         return $this->fetch();
-
     }
 
     

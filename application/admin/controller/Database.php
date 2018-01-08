@@ -19,11 +19,9 @@ class Database extends Base
             'lists' => $list,
             'total' => sizeof($list),
         ]);
-
         return $this->fetch();
     }
-
-
+    
     //查看表详情
     public function view($name = null)
     {

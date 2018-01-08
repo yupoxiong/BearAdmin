@@ -56,8 +56,7 @@ class AdminMenu extends Base
                 : '隐藏';
             $result[$n]['log_type']   = $log_types[$r['log_type']];
         }
-
-
+        
         $str = "<tr id='node-\$id' data-level='\$level' \$parent_id_node>
                     <td><input type='checkbox' onclick='check_this(this)'
                      name='data-checkbox' data-id='\$id\' 
@@ -109,7 +108,6 @@ class AdminMenu extends Base
             'requests' => $requests,
             'selects'  => $selects
         ]);
-
         return $this->fetch();
     }
 
@@ -145,7 +143,6 @@ class AdminMenu extends Base
             'selects'  => $selects,
             'info'     => $info
         ]);
-
         return $this->fetch('add');
     }
 
@@ -168,7 +165,6 @@ class AdminMenu extends Base
         if ($result) {
             return $this->success();
         }
-
         return $this->error('菜单删除失败');
     }
 
@@ -179,16 +175,13 @@ class AdminMenu extends Base
         $tree        = new Tree();
         $admin_menus = new AdminMenus();
         $result      = $admin_menus->whereNotIn('id', $current_id)->order(["sort_id" => "asc", 'id' => 'asc'])->column('*', 'id');
-
         foreach ($result as $r) {
             $r['selected'] = $r['id'] == $selected ? 'selected' : '';
             $array[]       = $r;
         }
 
         $str = "<option value='\$id' \$selected >\$spacer \$title</option>";
-
         $tree->init($result);
-
         return $tree->get_tree(0, $str, $selected);
     }
 }

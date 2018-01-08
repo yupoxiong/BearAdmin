@@ -30,13 +30,11 @@
                 </div>
             </div>
         </div>
-        <!-- /.box -->
     </div>
 </div>
 
 <script>
     function upload_file() {
-
         var formData =new FormData();
         formData.append("file",$("#file")[0].files[0]);
         $.ajax({
@@ -61,7 +59,6 @@
                 toastr.error("系统异常，请稍后重试");
             }
         });
-
         return false;
     }
 

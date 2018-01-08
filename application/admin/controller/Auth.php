@@ -76,7 +76,6 @@ class Auth extends Base
         $auth->createLog('退出', 2);
         $auth->logout();
         $this->redirect('auth/login');
-
     }
 
 
@@ -87,7 +86,6 @@ class Auth extends Base
         if ($this->request->isMobile()) {
             $OAuth->setDisplay('mobile');
         }
-
         return redirect($OAuth->getAuthorizeURL());
     }
 
@@ -99,14 +97,12 @@ class Auth extends Base
         $OAuth->getAccessToken();
 
         $sns_info = $OAuth->userinfo();
-
         $user = AdminUsers::get(function ($query) use ($sns_info) {
             $query->where('qq_openid', '=', $sns_info['openid']);
         });
 
         //如果用户不存在
         if (!$user) {
-
             //创建新用户
             $data = [
                 'name'      => $sns_info['openid'],
