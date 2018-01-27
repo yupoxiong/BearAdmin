@@ -77,10 +77,9 @@
 
  * 访问方式：`GET/POST`
  * 参数：
-| 参数名  |       参数值  | 说明      |
-|--------|--------------|-----------|
-|  page|  3 | 当前请求页数，非必选，默认1 |
-|  num|  20 | 每页数量，非必选，默认10 |
+
+![竟然无法设置表格？](http://p0ozp0sp4.bkt.clouddn.com/bearadmin/20180127/171d8d4f3a79ceba84b478c370a65796.png?9755)
+
 
  #### 其他说明
 本项目采用大量的开源代码，包括thinkphp，adminlte等等。
@@ -88,3 +87,5 @@
 在此，对所有用到的开源代码作者表示由衷的感谢。
 
 交流QQ群：[480018279](//shang.qq.com/wpa/qunwpa?idkey=2e8674491df685dab9f634773b72ce8ed7df033aed7cbf194cda95dd4ad45737)
+
+:stuck_out_tongue::bear::heart:
