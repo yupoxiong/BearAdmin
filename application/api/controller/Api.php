@@ -43,6 +43,7 @@ class Api
             $request = Request::instance();
         }
         $this->request = $request;
+        $this->param   = $request->param();
         $this->token   = $this->request->header('AppAuthorization');
 
         //如果当前需要验证token

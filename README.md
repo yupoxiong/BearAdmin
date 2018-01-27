@@ -71,7 +71,16 @@
 具体代码在<kbd>application\api\controller</kbd>目录下,
 包括基于JWT的登录认证，友好的数据返回格式等等，更多可直接阅读源码。
 
-放一个demo地址：<https://bearadmin.yufuping.com/api/demo>
+>放一个demo
+
+ * 地址：<https://bearadmin.yufuping.com/api/demo>
+
+ * 访问方式：`GET/POST`
+ * 参数：
+| 参数名  |       参数值  | 说明      |
+|--------|--------------|-----------|
+|  page|  3 | 当前请求页数，非必选，默认1 |
+|  num|  20 | 每页数量，非必选，默认10 |
 
  #### 其他说明
 本项目采用大量的开源代码，包括thinkphp，adminlte等等。
