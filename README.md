@@ -24,7 +24,7 @@
  #### 第二步
  安装TP框架与项目用到的扩展
  ```
- composer update
+ composer install
  ```
  ### 第三步
  导入数据
