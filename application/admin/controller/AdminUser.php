@@ -61,7 +61,8 @@ class AdminUser extends Base
             if ($save_name) {
                 $this->param['avatar'] = $save_name;
             }
-
+            
+            $this->param['password'] = md5($this->param['password']);
             $user = AdminUsers::create($this->param);
             if ($user) {
                 $roles = $this->param['parent_id'];
