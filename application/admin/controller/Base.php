@@ -30,6 +30,11 @@ class Base extends Controller
 
     protected $uid = 0;
     protected $needAuth = true;
+    
+    protected $showDataHeader = true;
+    protected $showDataHeaderAddButton = true;
+    protected $showDataHeaderDeleteButton = true;
+    protected $showLeftMenu = true;
 
     public function __construct()
     {
@@ -268,7 +273,15 @@ class Base extends Controller
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
         //左侧菜单
-        $this->webData['left_menu'] = $this->getLeftMenu();
+        if($this->showLeftMenu){
+            $this->webData['left_menu'] = $this->getLeftMenu();
+        }
+        
+        parent::assign([
+           'showDataHeader'=>$this->showDataHeader, 
+           'showDataHeaderAddButton'=>$this->showDataHeaderAddButton, 
+           'showDataHeaderDeleteButton'=>$this->showDataHeaderDeleteButton, 
+        ]);
 
         parent::assign(['webData' => $this->webData]);
         return parent::fetch($template, $vars, $replace, $config);
