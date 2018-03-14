@@ -1,4 +1,10 @@
 <link rel="stylesheet" type="text/css" href="__STATIC__/plugins/dropzone/dropzone.min.css">
+<style>
+    .file-thumbnail {
+        max-height: 64px;
+        max-width: 64px;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -7,6 +13,17 @@
                     <div class="form-group">
                         <input value="{$keywords ? $keywords : '' ;}"
                                name="keywords" id="keywords" class="form-control input-sm" placeholder="输入关键词查询">
+                    </div>
+                    <div class="form-group">
+                        <select name="file_type" id="file_type" class="form-control input-sm">
+                            <option value="0">文件类型</option>
+                            <option value="1" {if isset($file_type) && $file_type==1}selected{/if} >图片</option>
+                            <option value="2" {if isset($file_type) && $file_type==2}selected{/if} >文档</option>
+                            <option value="3" {if isset($file_type) && $file_type==3}selected{/if} >压缩文件</option>
+                            <option value="4" {if isset($file_type) && $file_type==4}selected{/if} >音频</option>
+                            <option value="5" {if isset($file_type) && $file_type==5}selected{/if} >视频</option>
+                            <option value="6" {if isset($file_type) && $file_type==6}selected{/if} >其他</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
@@ -22,7 +39,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -35,7 +51,8 @@
                 <div class="box-tools">
                     <div class="input-group input-group-sm">
                         <div class="input-group-btn">
-                            <a class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#upload-modal">
+                            <a class="btn btn-default btn-sm pull-right" data-toggle="modal"
+                               data-target="#upload-modal">
                                 <i class="fa fa-upload"></i>
                                 上传文件
                             </a>
@@ -51,7 +68,7 @@
                         <th><input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消"></th>
                         <th>文件ID</th>
                         <th>文件名称</th>
-                        <!--<th>文件预览</th>-->
+                        <th>文件预览</th>
                         <th>文件大小</th>
                         <th>文件类型</th>
                         <th>上传时间</th>
@@ -65,8 +82,9 @@
                                    class="checkbox data-list-check" value="{$list.id}" placeholder="选择/取消"></td>
                         <td>{$list.id}</td>
                         <td>{$list.original_name}</td>
+                        <td class="text-center"><span><img src="{$list.thumbnail}" class="file-thumbnail"></span></td>
                         <td>{$list.size}</td>
-                        <td>{$list.mime}</td>
+                        <td>{$list.file_type}</td>
                         <td>{$list.create_time}</td>
                         <td class="td-do">
                             <a title="下载" href="download.html?id={$list.id}" class="btn btn-success btn-xs">
@@ -121,9 +139,9 @@
         headers: {
             "__token__": $("input[name='__token__']").val()
         },
-        maxFilesize: 0.05,
-        maxFiles: 5,
-        acceptedFiles: ".jpg,.gif,.png,.doc,.docx,.xlsx",
+        maxFilesize: 2048,
+        maxFiles: 50,
+        acceptedFiles: ".jpg,.gif,.png,.bmp,.svg,.txt,.doc,.docx,.xls,.xlsx,.rar,.zip,.7z,.tar",
         dictMaxFilesExceeded: "您每次最多只能上传5个文件！",
         dictFileTooBig: "上传文件太大,无法上传!",
         dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png*.doc,*.docx,*.xlsx。",
@@ -138,8 +156,7 @@
             done();
         },
         success: function (file, done) {
-            if(done.code==0)
-            {
+            if (done.code == 0) {
                 toastr.error(done.msg);
             }
             console.log(done);

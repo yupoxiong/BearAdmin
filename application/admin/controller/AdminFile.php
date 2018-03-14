@@ -12,6 +12,15 @@ use app\common\model\AdminFiles;
 
 class AdminFile extends Base
 {
+    protected $filetype = [
+        1 => ['jpg', 'bmp', 'png', 'jpeg', 'gif', 'svg'],
+        2 => ['txt', 'doc', 'docx', 'xls', 'xlsx', 'pdf'],
+        3 => ['rar', 'zip', '7z', 'tar'],
+        4 => ['mp3', 'ogg', 'flac', 'wma', 'ape'],
+        5 => ['mp4', 'wmv', 'avi', 'rmvb', 'mov', 'mpg'],
+        6 => '其他'
+    ];
+
     //文件列表
     public function index()
     {
@@ -22,6 +31,20 @@ class AdminFile extends Base
             $keywords                        = "%" . $this->param['keywords'] . "%";
             $model->whereLike('original_name', $keywords);
             $this->assign('keywords', $this->param['keywords']);
+        }
+
+        if (isset($this->param['file_type']) && ($this->param['file_type'] > 0)) {
+
+            $page_param['query']['file_type'] = $this->param['file_type'];
+            $filetype = [];
+            foreach ($this->filetype as $key=>$value){
+                if($key==$this->param['file_type']){
+                    $filetype = $value;
+                    break;
+                }
+            }
+            $model->whereIn('extension', $filetype);
+            $this->assign('file_type', $this->param['file_type']);
         }
 
         $lists = $model->order('id desc')
@@ -38,9 +61,9 @@ class AdminFile extends Base
     //删除文件
     public function del()
     {
-        $id = $this->id;
+        $id     = $this->id;
         $result = AdminFiles::destroy(function ($query) use ($id) {
-            $query->whereIn('id',$id);
+            $query->whereIn('id', $id);
         });
         if ($result) {
             return $this->success();
@@ -54,12 +77,12 @@ class AdminFile extends Base
         if (!$this->request->isPost()) {
             return $this->error('请用post访问');
         }
-        
+
         $file = request()->file('file');
         $info = $file->validate([
-                'size' => config('file_upload_max_size'),
-                'ext'  => config('file_upload_ext')
-            ])->move(config('file_upload_path') . $this->uid);
+            'size' => config('file_upload_max_size'),
+            'ext'  => config('file_upload_ext')
+        ])->move(config('file_upload_path') . $this->uid);
 
         if ($info) {
             $file_info = [
