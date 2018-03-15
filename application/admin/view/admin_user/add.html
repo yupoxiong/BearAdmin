@@ -1,10 +1,7 @@
-<!--{__NOLAYOUT__}-->
-<link rel="stylesheet" href="__STATIC__/css/app.min.css">
-<script src="__STATIC__/js/app.min.js"></script>
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
-            <form id="dataForm" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
                 <div class="box-body">
                     <div class="fields-group">
                         {if isset($info)}
@@ -106,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                {include file="template/form_footer" /}
+                {include file="admin_user/form_footer" /}
             </form>
         </div>
     </div>
