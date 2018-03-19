@@ -35,6 +35,11 @@ class Base extends Controller
     protected $showDataHeaderAddButton = true;
     protected $showDataHeaderDeleteButton = true;
     protected $showLeftMenu = true;
+    //ajax提交返回跳转url，1为返回上一页，2重新载入当前页面，3为跳转到指定页面，4为不跳转
+    protected $returnDirectUrl = [
+        'type'=>1,
+        'url'=>'',
+    ];
 
     public function __construct()
     {
@@ -164,6 +169,9 @@ class Base extends Controller
     protected function success($msg = '操作成功', $url = null, $data = '', $wait = 3, array $header = [])
     {
         if ($this->request->isAjax()) {
+            if($url==null){
+                $url = $this->returnDirectUrl;
+            }
             parent::success($msg, $url, $data, $wait, $header);
         }
 

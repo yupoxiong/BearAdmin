@@ -71,7 +71,7 @@ class AdminUser extends Base
                     array_push($group, ['uid' => $user->id, 'group_id' => $value]);
                 }
                 $user->adminGroup()->saveAll($group);
-
+                
                 return $this->success();
             }
             return $this->error();

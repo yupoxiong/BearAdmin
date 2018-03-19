@@ -40,9 +40,9 @@
                                     if (result.code === 1) {
                                         console.log('%cresult success', ';color:#00a65a');
                                         layer.msg(result.msg);
-                                        if (result.data.url !== undefined) {
-                                            window.location.href = result.data.url;
-                                        }
+                                        setTimeout(function () {
+                                            goUrl(result.url);
+                                        },500);
                                     } else {
                                         console.log('%cresult fail', ';color:#f39c12');
                                         layer.msg(result.msg);
@@ -63,4 +63,20 @@
                 }
         );
     });
+
+    function goUrl(url_data) {
+        if (url_data.type !== undefined) {
+            if(url_data.type===1){
+                window.history.back();
+            }else if(url_data.type===2){
+                window.location.reload();
+            }else if(url_data.type===3){
+                window.location.href=url_data.url;
+            }else if(url_data.type===4){
+                console.log('不做任何操作');
+            }else{
+                console.log('位置跳转类型');
+            }
+        }
+    }
 </script>

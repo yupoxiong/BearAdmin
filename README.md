@@ -2,6 +2,20 @@
 基于ThinkPHP5+AdminLTE的后台管理系统
 
 
+>注意：当前代码修改了一段tp源代码，修改后的代码参考此文件
+[Jump.php](Jump.php)
+```
+//文件位置 D:\php\website\BearAdmin\thinkphp\libary\traits\controller\Jump.php
+41行和75行
+elseif ('' !== $url) {
+    $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : Url::build($url);
+}
+//***改为***
+elseif ('' !== $url && !is_array($url)) {
+    $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : Url::build($url);
+}
+```
+
  ## 演示地址
  * <https://bearadmin.yufuping.com/admin>
  * 帐号：demo
