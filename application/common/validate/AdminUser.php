@@ -28,6 +28,6 @@ class AdminUser extends Validate
     protected $scene = [
         'add'   => ['parent_id', 'name', 'password', 'nick_name'],
         'edit'  => ['parent_id', 'name', 'nick_name'],
-        'login' => ['name', 'password'],
+        'login' => ['name'=>'require', 'password'],
     ];
 }

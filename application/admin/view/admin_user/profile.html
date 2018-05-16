@@ -43,14 +43,14 @@
                         <div class="form-group">
                             <label for="mobile" class="col-sm-2 control-label">手机</label>
                             <div class="col-sm-10">
-                                <input type="tel" class="form-control" value="{$user->mobile}" name="mobile"
+                                <input type="tel" autocomplete='tel-national' class="form-control" value="{$user->mobile}" name="mobile"
                                        id="mobile" placeholder="手机号">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" value="{$user->email}" name="email"
+                                <input type="email" autocomplete='email' class="form-control" value="{$user->email}" name="email"
                                        id="email" placeholder="邮箱">
                             </div>
                         </div>
@@ -69,21 +69,21 @@
                         <div class="form-group">
                             <label for="password" class="col-sm-2 control-label">当前密码</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" name="password" id="password"
+                                <input type="password" autocomplete='password' class="form-control" name="password" id="password"
                                        placeholder="请输入当前密码">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="newpassword" class="col-sm-2 control-label">新密码</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" name="newpassword" id="newpassword"
+                                <input type="password" class="form-control" autocomplete='newpassword' name="newpassword" id="newpassword"
                                        placeholder="请输入新密码">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="newpassword_do" class="col-sm-2 control-label">确认新密码</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" name="newpassword_do" id="newpassword_do"
+                                <input type="password" class="form-control" autocomplete='newpassword_do' name="newpassword_do" id="newpassword_do"
                                        placeholder="再次输入新密码">
                             </div>
                         </div>
