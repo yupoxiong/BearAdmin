@@ -79,3 +79,13 @@ html,body{height:100%}.layout-boxed html,.layout-boxed body{height:100%}body{fon
     white-space: nowrap;
     max-width:300px;
 }
+
+/*表单数字输入*/
+.form-input-number{
+    max-width: 100px; text-align: center;
+}
+
+/*表单 保存按钮*/
+.dataform-submit{
+    margin-right: 20px;
+}

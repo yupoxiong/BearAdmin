@@ -1,5 +1,8 @@
 <div class="row">
     <style scoped>
+        .checkbox{
+            cursor: pointer;
+        }
         .checkmod {
             margin-bottom: 20px;
             border: 1px solid #ebebeb;
@@ -59,7 +62,7 @@
                 </label>
             </div>
             <div class="box-body" id="all_check">
-                <form role="form" action="" method="post">
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="table_full">
                             <table width="100%" cellspacing="0">
@@ -116,6 +119,17 @@
                     }
                 }
             }
+
+            var all_length = $("input[name='menu_id[]']").length;
+            var checked_length = $("input[name='menu_id[]']:checked").length;
+            console.log(all_length);
+            console.log(checked_length);
+            if(all_length==checked_length){
+                $("#check_all").prop("checked",true);
+            }else{
+                $("#check_all").prop("checked",false);
+            }
+
         }
     </script>
 </div>

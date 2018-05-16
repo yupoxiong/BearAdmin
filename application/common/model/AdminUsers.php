@@ -34,13 +34,5 @@ class AdminUsers extends Model
         $status = [0 => '否', 1 => '是'];
         return $status[$data['status']];
     }
-
-
-    public function getAvatarAttr($value)
-    {
-        if (false === strpos($value, 'http://') && false === strpos($value, 'https://')) {
-            $value = config('admin_avatar.upload_url'). $value;
-        }
-        return $value;
-    }
+    
 }

@@ -7,6 +7,7 @@
 namespace app\admin\controller;
 
 use app\common\model\AdminMenus;
+use app\common\model\Sysconfigs;
 use think\Controller;
 use tools\AdminAuth;
 use tools\Tree;
@@ -16,6 +17,11 @@ use app\common\model\AdminUsers;
 
 class Base extends Controller
 {
+    //url跳转常量
+    const URL_CURRENT = 'url://current';
+    const URL_RELOAD  = 'url://reload';
+    const URL_BACK    = 'url://back';
+
     protected $reuqest;
     protected $requestType;
     protected $param;
@@ -35,11 +41,6 @@ class Base extends Controller
     protected $showDataHeaderAddButton = true;
     protected $showDataHeaderDeleteButton = true;
     protected $showLeftMenu = true;
-    //ajax提交返回跳转url，1为返回上一页，2重新载入当前页面，3为跳转到指定页面，4为不跳转
-    protected $returnDirectUrl = [
-        'type'=>1,
-        'url'=>'',
-    ];
 
     public function __construct()
     {
@@ -166,11 +167,16 @@ class Base extends Controller
     }
 
 
+    protected function deleteSuccess($msg = '删除成功', $url = self::URL_RELOAD, $data = '', $wait = 3, array $header = [])
+    {
+       return self::success($msg,$url,$data,$wait,$header);
+    }
+
     protected function success($msg = '操作成功', $url = null, $data = '', $wait = 3, array $header = [])
     {
         if ($this->request->isAjax()) {
             if($url==null){
-                $url = $this->returnDirectUrl;
+                $url = self::URL_BACK;
             }
             parent::success($msg, $url, $data, $wait, $header);
         }
@@ -190,6 +196,9 @@ class Base extends Controller
     protected function error($msg = '操作失败', $url = null, $data = '', $wait = 3, array $header = [])
     {
         if ($this->request->isAjax()) {
+            if($url==null){
+                $url = self::URL_CURRENT;
+            }
             parent::error($msg, $url, $data, $wait, $header);
         }
 
@@ -210,7 +219,6 @@ class Base extends Controller
     {
         $auth = new AdminAuth();
         $menu = $auth->getMenuList(Session::get('user.id'), 1);
-
         $max_level  = 0;
         $current_id = 1;
         $parent_ids = array(0 => 0);
@@ -291,6 +299,12 @@ class Base extends Controller
             'showDataHeaderDeleteButton' => $this->showDataHeaderDeleteButton,
             'pre_url'                    => $this->request->server('HTTP_REFERER'),
         ]);
+
+        $backend_name = Sysconfigs::get(function ($query){
+            $query->where('code','backend_name')->where('status',1);
+        });
+
+        $this->webData['backend_name'] = $backend_name?$backend_name->content:'后台管理';
 
         parent::assign(['webData' => $this->webData]);
         return parent::fetch($template, $vars, $replace, $config);

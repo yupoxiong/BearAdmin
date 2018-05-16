@@ -53,7 +53,7 @@ class Sysconfig extends Base
             if (true !== $result) {
                 return $this->error($result);
             }
-            if ($info->save($this->param)) {
+            if (false!==$info->save($this->param)) {
                 return $this->success();
             }
             return $this->error();
@@ -73,12 +73,12 @@ class Sysconfig extends Base
         if(in_array($this->id,$protected_ids)){
             return $this->error('系统限制，无法删除');
         }
-        if (empty($this->id)) {
-            return $this->error('请选择需要删除的数据');
-        }
-        $result = Sysconfigs::destroy($this->id);
+        $id     = $this->id;
+        $result = Sysconfigs::destroy(function ($query) use ($id) {
+            $query->whereIn('id', $id);
+        });
         if ($result) {
-            return $this->success();
+            return $this->deleteSuccess();
         }
         return $this->error('删除失败');
     }

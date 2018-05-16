@@ -17,11 +17,11 @@ class Syslog extends Base
     public function index(){
         $syslogs = new Syslogs();
         $page_param = ['query' => []];
-        if (isset($this->get['keywords']) && !empty($this->get['keywords'])) {
-            $page_param['query']['keywords'] = $this->get['keywords'];
-            $keywords = "%" . $this->get['keywords'] . "%";
+        if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
+            $page_param['query']['keywords'] = $this->param['keywords'];
+            $keywords = "%" . $this->param['keywords'] . "%";
             $syslogs->whereLike('message', $keywords);
-            $this->assign('keywords', $this->get['keywords']);
+            $this->assign('keywords', $this->param['keywords']);
         }
         $lists = $syslogs
             ->with('syslogTrace')

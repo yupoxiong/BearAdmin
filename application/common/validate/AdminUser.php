@@ -11,7 +11,7 @@ use think\Validate;
 class AdminUser extends Validate
 {
     protected $rule = [
-        'name|帐号'      => 'require',
+        'name|帐号'      => 'require|unique:admin_users',
         'parent_id|角色' => 'require',
         'password|密码'  => 'require',
         'nick_name|昵称' => 'require',

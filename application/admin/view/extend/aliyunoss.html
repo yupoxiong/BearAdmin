@@ -50,11 +50,11 @@
                     console.log(result.data);
                     $("#result").attr('src', result.data + "?" + img_name_random());
                 } else {
-                    toastr.error(result.msg);
+                    layer.msg(result.msg);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error("系统异常，请稍后重试");
+                layer.msg("系统异常，请稍后重试");
             }
         });
         return false;

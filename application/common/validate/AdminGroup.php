@@ -11,8 +11,8 @@ use think\Validate;
 class AdminGroup extends Validate
 {
     protected $rule = [
-        'name' => 'require',
-        'description' => 'require',
+        'name|角色名称' => 'require',
+        'description|角色描述' => 'require',
         'rules'    => 'require',
     ];
 

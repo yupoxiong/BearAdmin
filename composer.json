@@ -17,10 +17,10 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "topthink/framework": "^5.0",
-        "phpoffice/phpexcel": "^1.8",
+        "topthink/framework": "5.0.*",
+        "phpoffice/phpexcel": "1.8.*",
         "monolog/monolog": "^1.22",
-        "endroid/qrcode": "^2.2",
+        "endroid/qrcode": "2.2.*",
         "topthink/think-image": "^1.0",
         "anerg2046/sns_auth": "^1.1",
         "erusev/parsedown": "^1.6",

@@ -54,10 +54,15 @@ class AdminGroup extends Base
     public function edit()
     {
         if ($this->request->isPost()) {
-
-            if ($this->id == 1 && $this->uid != 1) {
-                return $this->error('不允许修改管理员角色权限');
+            if ($this->id == 1) {
+                if($this->uid != 1){
+                    return $this->error('不允许修改管理员角色');
+                }
+                if(isset($this->param['stataus']) && $this->param['stataus']==0){
+                    return $this->error('不允许禁用管理员角色');
+                }
             }
+
             $result = $this->validate($this->param, 'AdminGroup.edit');
             if (true !== $result) {
                 return $this->error($result);
@@ -84,7 +89,7 @@ class AdminGroup extends Base
         if ($this->id == 1) {
             return $this->error('此角色无法删除');
         }
-
+        $id = $this->id;
         $result = AdminGroups::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });
@@ -93,10 +98,10 @@ class AdminGroup extends Base
             //删除用户与角色关联记录
             $auth_groups = new AdminGroupAccess();
             $result      = $auth_groups->whereIn('group_id', $this->id)->delete();
-            if (!$result) {
+            if (false===$result) {
                 return $this->error('角色关联数据删除失败！');
             }
-            return $this->success();
+            return $this->deleteSuccess();
         }
         return $this->error();
     }
@@ -105,27 +110,20 @@ class AdminGroup extends Base
     public function access()
     {
         $info = AdminGroups::get($this->id);
-
         if (!$info) {
             return $this->error('角色不存在');
         }
-
         if ($this->id == 1 && $this->uid != 1) {
             return $this->error('此角色无法修改授权');
         }
-
         if ($this->request->isPost()) {
-
             if (!isset($this->param['menu_id'])) {
                 return $this->error('请至少选择一项权限');
             }
-
             $data = [
                 'rules' => implode(',', $this->param['menu_id'])
             ];
-
             if (false !== $info->save($data)) {
-
                 return $this->success();
             }
             return $this->error();
@@ -137,9 +135,7 @@ class AdminGroup extends Base
             ->column('*', 'id');
 
         $auth_menus = explode(',', $info->rules);
-
         $html = self::authorizeHtml($menu, $auth_menus);
-
         $this->assign([
             'role_name' => $info->name,
             'html'      => $html,

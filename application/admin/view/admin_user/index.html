@@ -21,20 +21,20 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            {if $showDataHeader}
-            {include file="admin_user/data_header" /}
-            {/if}
+            {include file="template/data_header" /}
             <div class="box-body table-responsive">
-                <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
+                <table class="table table-hover table-bordered datatable" width="100%">
                     <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消">
+                            <input id="data-checkall" type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消">
                         </th>
                         <th>用户ID</th>
+                        <th>头像</th>
                         <th>帐号</th>
                         <th>姓名</th>
                         <th>角色</th>
@@ -53,6 +53,7 @@
                                    placeholder="选择/取消">
                         </td>
                         <td>{$list.id}</td>
+                        <td><img src="{$list.avatar}" style="max-height: 45px;max-width: 45px;"></td>
                         <td>{$list.name}</td>
                         <td>{$list.nick_name}</td>
                         <td>
@@ -68,9 +69,7 @@
                                class="btn btn-primary btn-xs">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a data-toggle="modal" data-target="#modal"
-                               class="btn btn-danger btn-xs"
-                               title="删除" onclick="del({$list.id})">
+                            <a class="btn btn-danger btn-xs dataDeleteButton" title="删除" data-id="{$list.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

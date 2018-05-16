@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             {include file="template/form_header" /}
-            <form id="dataForm" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+            <form id="dataForm" class="dataForm form-horizontal" action="" method="post" enctype="multipart/form-data">
                 <div class="box-body">
                     <div class="fields-group">
                         {if isset($info)}
@@ -10,7 +10,7 @@
                         {/if}
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">名称</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <input maxlength="20" id="name" name="name" value="{$info.name|default=''}"
@@ -21,7 +21,7 @@
 
                         <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">描述</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
                                     <input maxlength="50" id="description" name="description"
@@ -32,12 +32,12 @@
                         </div>
                         <div class="form-group">
                             <label for="status" class="col-sm-2 control-label">是否启用</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group iconpicker-container">
                                     <input {if (isset($info) && $info.status==1) || !isset($info)}checked{/if}
-                                           value="{$info.status|default='1'}"
-                                           class="switch-is-show" type="checkbox" placeholder="status-switch">
-                                    <input id="status" name="status" class="input_status" value="{$info.status|default='1'}" type="hidden" />
+                                    value="{$info.status|default='1'}"
+                                    class="form-input-switch" type="checkbox" placeholder="status-switch" data-input="status">
+                                    <input id="status" name="status" value="{$info.status|default='1'}" type="hidden"/>
                                 </div>
                             </div>
                         </div>

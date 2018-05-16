@@ -8,6 +8,7 @@ namespace app\admin\controller;
 
 use app\common\model\AdminUsers;
 use app\common\model\AdminGroups;
+use tools\Attachment;
 
 class AdminUser extends Base
 {
@@ -48,18 +49,10 @@ class AdminUser extends Base
                 return $this->error($result);
             }
 
-            $save_name = null;
-            $file      = request()->file('avatar');
-            if ($file != null) {
-                $file_info = $file->move(config('admin_avatar.upload_path'));
-                if (!$file_info) {
-                    return $this->error($file->getError());
-                }
-                $save_name = $file_info->getSaveName();
-            }
-
-            if ($save_name) {
-                $this->param['avatar'] = $save_name;
+            $attachment = new Attachment();
+            $file =  $attachment->upload('avatar');
+            if($file['code']==1){
+                $this->param['avatar'] = $file['data'];
             }
             
             $this->param['password'] = md5($this->param['password']);
@@ -106,19 +99,10 @@ class AdminUser extends Base
                 return $this->error($result);
             }
 
-            $file      = request()->file('avatar');
-            $save_name = '';
-            if ($file != null) {
-                $file_info = $file->move(config('admin_avatar.upload_path') . $this->id);
-
-                if (!$file_info) {
-                    return $this->error($file->getError());
-                }
-                $save_name = $this->id . DS . $file_info->getSaveName();
-            }
-
-            if ($save_name != '') {
-                $this->param['avatar'] = $save_name;
+            $attachment = new Attachment();
+            $file =  $attachment->upload('avatar');
+            if($file['code']==1){
+                $this->param['avatar'] = $file['data'];
             }
 
             if (!empty($this->param['password'])) {
@@ -164,7 +148,7 @@ class AdminUser extends Base
             $query->whereIn('id', $id);
         });
         if ($result) {
-            return $this->success();
+            return $this->deleteSuccess();
         }
 
         return $this->error('删除失败');
@@ -174,38 +158,26 @@ class AdminUser extends Base
     public function profile()
     {
         $user = AdminUsers::get($this->uid);
-
         if (!$user) {
             return $this->error('无法获取用户信息');
         }
 
         //更新资料
         if ($this->request->isPost()) {
-
             if ($this->param['update_type'] == 'password') {
-
                 if ($user->getData('password') != md5($this->param['password'])) {
                     return $this->error('当前密码不正确');
                 }
                 $this->param['password'] = md5($this->param['newpassword']);
             } else if ($this->param['update_type'] == 'avatar') {
-                $save_name = '';
-                $file      = request()->file('avatar');
-                if ($file != null) {
-                    $info = $file->move(config('admin_avatar.upload_path') . DS . $this->uid);
-                    if ($info) {
-                        $save_name = $this->uid . DS . $info->getSaveName();
-                    } else {
-                        return $this->error($file->getError());
-                    }
-                }
-
-                if ($save_name != '') {
-                    $this->param['avatar'] = $save_name;
+                $attachment = new Attachment();
+                $file =  $attachment->upload('avatar');
+                if($file['code']==1){
+                    $this->param['avatar'] = $file['data'];
                 }
             }
             if (false !== $user->save($this->param)) {
-                return $this->success();
+                return $this->success('修改成功',self::URL_RELOAD);
             }
             return $this->error();
         }

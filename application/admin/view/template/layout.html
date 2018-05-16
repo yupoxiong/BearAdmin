@@ -26,29 +26,21 @@
     <link rel="stylesheet" href="__STATIC__/css/app.min.css">
 
     <script>
-        /*删除地址*/
-        var data_del_url = "{$webData['data_del_url']|default='del.html'}";
-        /*定义批量删除id*/
-        var del_ids = [];
+        var dataDelIds = [];
     </script>
     <script src="__STATIC__/js/app.min.js"></script>
+    <script src="__PLUGINS__/layer/layer.js"></script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    {if $Think.session.error_message}
-    {include file="template/error" /}
-    {/if}
-    {if $Think.session.success_message}
-    {include file="template/success" /}
-    {/if}
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <header class="main-header">
         <a class="logo">
-            <span class="logo-mini"><b>管理</b>后台</span>
-            <span class="logo-lg"><b>{if !empty($project_name)}{$project_name}{/if}</b>管理后台</span>
+            <span class="logo-mini"><b>{$webData['backend_name']|default=''}</b>后台</span>
+            <span class="logo-lg"><b>{$webData['backend_name']|default=''}</b>管理后台</span>
         </a>
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">

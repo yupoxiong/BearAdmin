@@ -20,8 +20,7 @@ class AdminGroups extends Model
     //状态获取器
     public function getStatusTextAttr($value,$data)
     {
-        $text = [0=>'禁用',1=>'正常'];
+        $text = [0=>'否',1=>'是'];
         return $text[$data['status']];
     }
-    
 }

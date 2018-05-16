@@ -46,8 +46,7 @@ class Auth extends Base
                 return $this->error('账户被冻结');
             }
 
-            $remember = $this->param['is_remember'] == 1 ? true : false;
-
+            $remember = isset($this->param['remember']) ? true : false;
             AdminAuth::login($user['id'], $user['name'], $remember);
 
             //手动加入日志

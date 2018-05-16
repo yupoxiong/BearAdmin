@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-14 20:05:04
+Date: 2018-05-16 16:13:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,13 +21,14 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `bear_admin_files`;
 CREATE TABLE `bear_admin_files` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `directory_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '文件目录：1默认目录',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上传用户id',
-  `original_name` varchar(255) NOT NULL,
-  `save_name` varchar(255) NOT NULL,
+  `original_name` varchar(255) NOT NULL COMMENT '显示名称',
+  `save_name` varchar(255) NOT NULL COMMENT '保存名称',
   `save_path` varchar(255) NOT NULL,
-  `extension` varchar(255) NOT NULL,
-  `mime` varchar(255) NOT NULL,
-  `size` int(11) unsigned NOT NULL DEFAULT '0',
+  `extension` varchar(255) NOT NULL COMMENT '后缀',
+  `mime` varchar(255) NOT NULL COMMENT '类型',
+  `size` bigint(19) unsigned NOT NULL DEFAULT '0' COMMENT '尺寸',
   `md5` char(32) NOT NULL,
   `sha1` char(40) NOT NULL,
   `url` varchar(255) NOT NULL,
@@ -59,7 +60,7 @@ CREATE TABLE `bear_admin_groups` (
 -- Records of bear_admin_groups
 -- ----------------------------
 INSERT INTO `bear_admin_groups` VALUES ('1', '管理员', '管理员角色', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,26,27,28,29,30,31,32,33,34,21,22,23,25,24,35,36,44,37,38,39,40,41,43,42,45,46,47,48,49,50');
-INSERT INTO `bear_admin_groups` VALUES ('2', '体验用户', '系统体验用户', '1', '1,2,3,4,8,13,17,18,19,20,26,27,31,34,21,22,23,24,35,36,37,38,39,40,41,43,42,45,49,50');
+INSERT INTO `bear_admin_groups` VALUES ('2', '测试角色', '测试角色描述', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,26,27,28,29,30,31,32,33,34,21,22,23,25,24,35,36,44,37,38,39,40,41,43,42,45,46,47,48,49,50');
 
 -- ----------------------------
 -- Table structure for bear_admin_group_access
@@ -78,6 +79,8 @@ CREATE TABLE `bear_admin_group_access` (
 -- ----------------------------
 INSERT INTO `bear_admin_group_access` VALUES ('1', '1');
 INSERT INTO `bear_admin_group_access` VALUES ('2', '2');
+INSERT INTO `bear_admin_group_access` VALUES ('3', '1');
+INSERT INTO `bear_admin_group_access` VALUES ('3', '2');
 
 -- ----------------------------
 -- Table structure for bear_admin_logs
@@ -169,7 +172,7 @@ CREATE TABLE `bear_admin_menus` (
 -- ----------------------------
 INSERT INTO `bear_admin_menus` VALUES ('1', '0', '后台首页', 'admin/index/index', 'fa-home', '', '1', '1', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('2', '0', '系统管理', 'admin/sys', 'fa-desktop', '', '1', '100', '0', '1', '1');
-INSERT INTO `bear_admin_menus` VALUES ('3', '2', '个人资料', 'admin/admin_user/profile', 'fa-edit', '', '0', '2', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('3', '2', '个人资料', 'admin/admin_user/profile', 'fa-edit', '', '1', '2', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('4', '2', '用户管理', 'admin/admin_user/index', 'fa-user', '', '1', '99', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('5', '4', '添加用户', 'admin/admin_user/add', 'fa-plus', '', '0', '100', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('6', '4', '修改用户', 'admin/admin_user/edit', 'fa-edit', '', '0', '100', '2', '1', '1');
@@ -236,13 +239,42 @@ CREATE TABLE `bear_admin_users` (
   `delete_time` int(10) unsigned DEFAULT NULL COMMENT '删除时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态1正常，0冻结',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户表';
 
 -- ----------------------------
 -- Records of bear_admin_users
 -- ----------------------------
 INSERT INTO `bear_admin_users` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员', '', '18855550000', '1\\20171212\\dc6f12bb9a981882e3d559a5af1addd0.png', null, '1488189586', '1513148717', null, '1');
 INSERT INTO `bear_admin_users` VALUES ('2', 'admin2', '21232f297a57a5a743894a0e4a801fc3', '管理员2', '', '', '1\\20171212\\dc6f12bb9a981882e3d559a5af1addd0.png', null, '1488189586', '1513185374', null, '1');
+INSERT INTO `bear_admin_users` VALUES ('3', 'test03', '', 'test03', '855315155@qq.com', '18366666666', '3\\20180319\\9b1f64c9f7b95b4681da12275698c54d.jpg', null, '1521105081', '1526456552', null, '1');
+
+-- ----------------------------
+-- Table structure for bear_attachments
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_attachments`;
+CREATE TABLE `bear_attachments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上传用户id',
+  `original_name` varchar(255) NOT NULL,
+  `save_name` varchar(255) NOT NULL,
+  `save_path` varchar(255) NOT NULL,
+  `extension` varchar(255) NOT NULL,
+  `mime` varchar(255) NOT NULL,
+  `size` int(11) unsigned NOT NULL DEFAULT '0',
+  `md5` char(32) NOT NULL,
+  `sha1` char(40) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `is_open` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否公开，默认为0不公开只能自己看，1为公开',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `update_time` int(11) unsigned NOT NULL,
+  `delete_time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
+
+-- ----------------------------
+-- Records of bear_attachments
+-- ----------------------------
+INSERT INTO `bear_attachments` VALUES ('9', '0', 'banner_看图王.jpg', '50ed8bc53da36b5989332702f9850079.jpg', 'D:\\php\\website\\BearAdmin\\public/uploads/attachment/20180516\\50ed8bc53da36b5989332702f9850079.jpg', 'jpg', 'image/jpeg', '117035', '31315cd67d853b8f3b881fd527a5fe96', '3ffef815542328785e2542c5f8b88d1df0112d5b', '/uploads/attachment/20180516\\50ed8bc53da36b5989332702f9850079.jpg', '0', '1526458016', '1526458016', null);
 
 -- ----------------------------
 -- Table structure for bear_excel_examples
@@ -303,7 +335,7 @@ CREATE TABLE `bear_sysconfigs` (
 -- ----------------------------
 -- Records of bear_sysconfigs
 -- ----------------------------
-INSERT INTO `bear_sysconfigs` VALUES ('1', '1', '后台名称', 'site_name', 'BearAdmin', '1', '网站后台名称，title和登录界面显示', '1502187289', '0', null);
+INSERT INTO `bear_sysconfigs` VALUES ('1', '1', '后台名称', 'backend_name', 'Test', '1', '网站后台名称，title和登录界面显示', '1502187289', '0', null);
 INSERT INTO `bear_sysconfigs` VALUES ('2', '1', '测试', 'ceshi', '昵称', '1', '昵称说明', '1506366998', '0', null);
 
 -- ----------------------------

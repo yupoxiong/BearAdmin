@@ -7,8 +7,9 @@
 
 namespace app\admin\controller;
 
+use app\common\model\Attachments;
+use tools\Attachment;
 use tools\Http;
-use app\common\model\AdminFiles;
 
 class AdminFile extends Base
 {
@@ -24,7 +25,7 @@ class AdminFile extends Base
     //文件列表
     public function index()
     {
-        $model      = new AdminFiles();
+        $model      = new Attachments();
         $page_param = ['query' => []];
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
@@ -62,11 +63,11 @@ class AdminFile extends Base
     public function del()
     {
         $id     = $this->id;
-        $result = AdminFiles::destroy(function ($query) use ($id) {
+        $result = Attachments::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });
         if ($result) {
-            return $this->success();
+            return $this->deleteSuccess();
         }
         return $this->error();
     }
@@ -74,42 +75,21 @@ class AdminFile extends Base
     //上传文件
     public function upload()
     {
-        if (!$this->request->isPost()) {
-            return $this->error('请用post访问');
+        if ($this->request->isPost()) {
+            $attachment = new Attachment();
+            $file_avatar =  $attachment->upload('file');
+            if($file_avatar['code']==1){
+               return $this->success('上传成功');
+            }
         }
-
-        $file = request()->file('file');
-        $info = $file->validate([
-            'size' => config('file_upload_max_size'),
-            'ext'  => config('file_upload_ext')
-        ])->move(config('file_upload_path') . $this->uid);
-
-        if ($info) {
-            $file_info = [
-                'user_id'       => $this->uid,
-                'original_name' => $info->getInfo('name'),
-                'save_name'     => $info->getFilename(),
-                'save_path'     => config('file_upload_path') . $this->uid . DS . $info->getSaveName(),
-                'extension'     => $info->getExtension(),
-                'mime'          => $info->getInfo('type'),
-                'size'          => $info->getSize(),
-                'md5'           => $info->hash('md5'),
-                'sha1'          => $info->hash(),
-                'url'           => config('file_upload_url') . $this->uid . DS . $info->getSaveName()
-            ];
-
-            $result = AdminFiles::create($file_info);
-
-            return $result ? $this->success('上传成功') : $this->error('上传失败');
-        }
-        return $this->error($file->getError());
+        return $this->error();
     }
 
 
     //下载文件
     public function download()
     {
-        $admin_file = AdminFiles::get($this->id);
+        $admin_file = Attachments::get($this->id);
         if (!$admin_file) {
             return $this->error('文件不存在');
         }
@@ -121,5 +101,18 @@ class AdminFile extends Base
             return Http::download($path, $name);
         }
         return $this->error('文件不存在');
+    }
+    
+    //查看
+    public function view()
+    {
+        
+        $info = Attachments::get($this->id);
+        
+        $this->assign([
+            'info'=>$info
+        ]);
+        
+        return $this->fetch();
     }
 }

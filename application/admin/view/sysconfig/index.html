@@ -7,7 +7,7 @@
                     <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消">
+                            <input id="data-checkall" type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消">
                         </th>
                         <th>ID</th>
                         <th>分组</th>
@@ -36,12 +36,10 @@
                         <td>{$list.status_text}</td>
                         <td>
                             <a href="edit.html?id={$list.id}"
-                               class="btn btn-default btn-xs" title="编辑">
+                               class="btn btn-primary btn-xs" title="编辑">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a data-toggle="modal" data-target="#modal"
-                               class="btn btn-danger btn-xs"
-                               title="删除" onclick="del({$list.id})">
+                            <a class="btn btn-danger btn-xs dataDeleteButton" title="删除" data-id="{$list.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

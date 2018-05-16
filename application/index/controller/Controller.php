@@ -10,4 +10,5 @@ use think\Controller as Tk;
 class Controller extends Tk
 {
 
+    
 }

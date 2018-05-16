@@ -159,11 +159,12 @@ class AdminMenu extends Base
             return $this->error('有子菜单不可删除！');
         }
 
+        $id = $this->id;
         $result = AdminMenus::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });
         if ($result) {
-            return $this->success();
+            return $this->deleteSuccess();
         }
         return $this->error('菜单删除失败');
     }

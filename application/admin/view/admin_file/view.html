@@ -1,0 +1,38 @@
+{__NOLAYOUT__}
+<link rel="stylesheet" href="__STATIC__/css/app.min.css">
+<script src="__STATIC__/js/app.min.js"></script>
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">{$info.original_name}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <img src="{$info.thumbnail}" alt="预览图" style="max-height: 120px;max-width: 120px;">
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>ID :</dt>
+                    <dd>{$info.id}</dd>
+                    <dt>名称：</dt>
+                    <dd>{$info.original_name}</dd>
+                    <dt>类型：</dt>
+                    <dd>{$info.file_type}</dd>
+                    <dt>url：</dt>
+                    <dd><a href="{$info.file_url}" target="_blank">{$info.file_url}</a> </dd>
+                    <dt>时间：</dt>
+                    <dd>{$info.create_time}</dd>
+                </dl>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>

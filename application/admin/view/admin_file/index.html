@@ -4,6 +4,10 @@
         max-height: 64px;
         max-width: 64px;
     }
+    .layui-layer-iframe{
+        max-width: 650px;
+        max-height: 550px;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -42,30 +46,18 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <!--数据列表页头部-->
             <div class="box-header">
-                <a data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm" title="批量删除数据，请谨慎使用此功能"
-                   onclick="dels()">
-                    删除
+                <a class="btn btn-danger btn-sm dataDeleteButton" title="批量删除，谨慎使用" data-id="checked" data-url="del.html">删除</a>
+                <a class="btn btn-default btn-sm" data-toggle="modal"
+                   data-target="#upload-modal">
+                    <i class="fa fa-upload"></i>上传文件
                 </a>
-                <div class="box-tools">
-                    <div class="input-group input-group-sm">
-                        <div class="input-group-btn">
-                            <a class="btn btn-default btn-sm pull-right" data-toggle="modal"
-                               data-target="#upload-modal">
-                                <i class="fa fa-upload"></i>
-                                上传文件
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <!-- /.box-header -->
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
                     <tr>
-                        <th><input type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消"></th>
+                        <th><input type="checkbox" id="data-checkall" onclick="check_all(this)" class="checkbox" placeholder="全选/取消"></th>
                         <th>文件ID</th>
                         <th>文件名称</th>
                         <th>文件预览</th>
@@ -87,12 +79,13 @@
                         <td>{$list.file_type}</td>
                         <td>{$list.create_time}</td>
                         <td class="td-do">
+                            <a title="查看" onclick="viewAttachment({$list.id})" class="btn btn-default btn-xs">
+                                <i class="fa fa-eye"></i>
+                            </a>
                             <a title="下载" href="download.html?id={$list.id}" class="btn btn-success btn-xs">
                                 <i class="fa fa-download"></i>
                             </a>
-                            <a data-toggle="modal" data-target="#modal"
-                               class="btn btn-danger btn-xs"
-                               title="删除" onclick="del({$list.id})">
+                            <a class="btn btn-danger btn-xs dataDeleteButton" title="删除" data-id="{$list.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>
@@ -144,12 +137,12 @@
         acceptedFiles: ".jpg,.gif,.png,.bmp,.svg,.txt,.doc,.docx,.xls,.xlsx,.rar,.zip,.7z,.tar",
         dictMaxFilesExceeded: "您每次最多只能上传5个文件！",
         dictFileTooBig: "上传文件太大,无法上传!",
-        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png*.doc,*.docx,*.xlsx。",
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.gif,*.png*.doc,*.docx,*.xlsx,*.rar,*.zip,*.7z,*.tar。",
         dictResponseError: "上传文件出错,请联系管理员!",
         dictDefaultMessage: "拖动文件到此或点击上传",
         sending: function (file, xhr, formData) {
             if (xhr.status != 200) {
-
+                consolg.log('fail???');
             }
         },
         accept: function (file, done) {
@@ -162,4 +155,16 @@
             console.log(done);
         }
     };
+
+    function viewAttachment(id) {
+        layer.open({
+            type: 2,
+            area: ['80%', '50%'],
+            title: '文件信息',
+            closeBtn: 1,
+            shift: 0,
+            content: 'view.html?id='+id
+        });
+    }
+
 </script>

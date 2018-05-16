@@ -1,18 +1,14 @@
 {if $showDataHeader}
 <div class="box-header">
-    {if $showDataHeaderDeleteButton}
-    <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-danger btn-sm" title="批量删除数据，请谨慎使用此功能"
-            onclick="dels()">
-        删除
-    </button>
-    {/if}
-    {if $showDataHeaderAddButton}
-    <div class="pull-right">
-        <a href="add.html" class="btn btn-sm btn-default pull-right button-add-data">
-            <i class="fa fa-plus"></i>
+    <div>
+        {if $showDataHeaderAddButton}
+        <a title="新增" class="btn btn-primary btn-sm" href="add.html">
             新增
         </a>
+        {/if}
+        {if $showDataHeaderDeleteButton}
+        <a class="btn btn-danger btn-sm dataDeleteButton" title="批量删除，谨慎使用" data-id="checked" data-url="del.html">删除</a>
+        {/if}
     </div>
-    {/if}
 </div>
 {/if}

@@ -11,9 +11,9 @@ use think\Validate;
 class Sysconfig extends Validate
 {
     protected $rule = [
-        'code'    => 'require',
-        'content' => 'require',
-        'status'  => 'require',
+        'code|代码'    => 'require',
+        'content|内容' => 'require',
+        'status|是否启用'  => 'require',
     ];
 
     protected $scene = [
