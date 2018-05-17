@@ -106,13 +106,74 @@ class AdminFile extends Base
     //查看
     public function view()
     {
-        
         $info = Attachments::get($this->id);
-        
         $this->assign([
             'info'=>$info
         ]);
-        
         return $this->fetch();
+    }
+
+    //回收站
+    public function recycle()
+    {
+        $model      = new Attachments();
+        $page_param = ['query' => []];
+        if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
+            $page_param['query']['keywords'] = $this->param['keywords'];
+            $keywords                        = "%" . $this->param['keywords'] . "%";
+            $model->whereLike('original_name', $keywords);
+            $this->assign('keywords', $this->param['keywords']);
+        }
+
+        if (isset($this->param['file_type']) && ($this->param['file_type'] > 0)) {
+            $page_param['query']['file_type'] = $this->param['file_type'];
+            $filetype = [];
+            foreach ($this->filetype as $key=>$value){
+                if($key==$this->param['file_type']){
+                    $filetype = $value;
+                    break;
+                }
+            }
+            $model->whereIn('extension', $filetype);
+            $this->assign('file_type', $this->param['file_type']);
+        }
+
+        $lists = $model->order('id desc')
+            ->useSoftDelete('delete_time', ['not null', ''])
+            ->paginate($this->webData['list_rows'], false, $page_param);
+
+        $this->assign([
+            'lists' => $lists,
+            'page'  => $lists->render(),
+            'total' => $lists->total()
+        ]);
+        return $this->fetch('index');
+    }
+
+
+    //还原
+    public function reduction()
+    {
+        $data = Attachments::onlyTrashed()->whereIn('id', $this->id)->select();
+        if ($data) {
+            foreach ($data as $d) {
+                $d->save(['delete_time' => null]);
+            }
+            return $this->success('还原成功',self::URL_RELOAD);
+        }
+        return $this->error('还原失败');
+    }
+
+    //永久删除
+    public function delete()
+    {
+        $data = Attachments::onlyTrashed()->whereIn('id', $this->id)->select();
+        if ($data) {
+            foreach ($data as $d) {
+                $d->save(['delete_time' => null]);
+            }
+            return $this->success('还原成功',self::URL_RELOAD);
+        }
+        return $this->error('还原失败');
     }
 }
