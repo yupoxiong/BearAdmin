@@ -170,6 +170,9 @@ class AdminUser extends Base
                 }
                 $this->param['password'] = md5($this->param['newpassword']);
             } else if ($this->param['update_type'] == 'avatar') {
+                if(!(request()->file('avatar'))){
+                    return $this->error('请上传新头像');
+                }
                 $attachment = new Attachment();
                 $file =  $attachment->upload('avatar');
                 if($file['code']==1){

@@ -46,7 +46,7 @@ class Attachment
                     'user_id'       => $user_id,
                     'original_name' => $info->getInfo('name'),
                     'save_name'     => $info->getFilename(),
-                    'save_path'     => $file_path . $info->getSaveName(),
+                    'save_path'     => str_replace($file_path . $info->getSaveName(),"\\","/"),
                     'extension'     => $info->getExtension(),
                     'mime'          => $info->getInfo('type'),
                     'size'          => $info->getSize(),

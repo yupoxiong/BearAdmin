@@ -147,7 +147,7 @@ class AdminFile extends Base
             'page'  => $lists->render(),
             'total' => $lists->total()
         ]);
-        return $this->fetch('index');
+        return $this->fetch();
     }
 
 
