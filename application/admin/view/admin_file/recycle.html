@@ -49,7 +49,7 @@
             <div class="box-header">
                 <a class="btn btn-warning btn-sm" title="还原选中项">还原</a>
                 <a class="btn btn-danger btn-sm" title="永久删除选中项,不可恢复">
-                    永久删除
+                    删除
                 </a>
             </div>
             <div class="box-body table-responsive">
@@ -78,12 +78,11 @@
                         <td>{$list.file_type}</td>
                         <td>{$list.create_time}</td>
                         <td class="td-do">
-                            <a title="还原" class="btn btn-warning btn-xs">
-                                还原
+                            <a title="还原" class="btn btn-warning btn-xs AjaxButton" data-type="1" data-url="reduction.html" data-id="{$list.id}">
+                                <i class="fa fa-reply"></i>
                             </a>
-
-                            <a class="btn btn-danger btn-xs" title="永久删除">
-                                永久删除
+                            <a data-id="{$list.id}" data-url="delete.html" class="btn btn-danger btn-xs recycleDeleteButton" title="删除">
+                                <i class="fa fa-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -163,5 +162,27 @@
             content: 'view.html?id='+id
         });
     }
+
+
+    $(function () {
+        /*列表页删除*/
+        $(".recycleDeleteButton").on('click', function(){
+            var delId = $(this).data("id");
+            if(delId==='checked'){
+                delId = dataDelIds;
+            }
+            var delUrl = $(this).data("url");
+            layer.confirm('您确认永久删除吗？',{title:'永久删除',closeBtn:1,icon:3},function(){
+                layer.msg('正在删除，请稍候…',{icon:16,time:0,shade: [0.3, '#000']});
+                $.post(delUrl, {"id":delId}, function(result) {
+                    layer.closeAll();
+                    layer.msg(result.msg,{
+                        icon: result.code ? 1 : 2
+                    });
+                    goUrl(result.url);
+                });
+            });
+        });
+    });
 
 </script>

@@ -39,20 +39,20 @@ class Attachment
         if ($file) {
             $file_path = $this->config['path'] . $path;
             $file_url  = $this->config['url'] . $path;
-            $validate = array_merge($this->config['validate'],$validate);
-            $info = $file->validate($validate)->move($file_path);
+            $validate  = array_merge($this->config['validate'], $validate);
+            $info      = $file->validate($validate)->move($file_path);
             if ($info) {
                 $file_info = [
                     'user_id'       => $user_id,
                     'original_name' => $info->getInfo('name'),
                     'save_name'     => $info->getFilename(),
-                    'save_path'     => str_replace($file_path . $info->getSaveName(),"\\","/"),
+                    'save_path'     => str_replace($file_path . $info->getSaveName(), "\\", "/"),
                     'extension'     => $info->getExtension(),
                     'mime'          => $info->getInfo('type'),
                     'size'          => $info->getSize(),
                     'md5'           => $info->hash('md5'),
                     'sha1'          => $info->hash(),
-                    'url'           => $file_url . $info->getSaveName()
+                    'url'           => str_replace($file_url . $info->getSaveName(), "\\", "/")
                 ];
 
                 $data = Attachments::create($file_info);
@@ -60,14 +60,14 @@ class Attachment
                     $result['code'] = 1;
                     $result['data'] = $file_info['url'];
                     $result['msg']  = '上传成功';
-                }else{
+                } else {
                     $result['msg'] = '保存失败';
                 }
-            }else{
-                $result['msg'] = '保存失败,错误信息:'.$file->getError();
+            } else {
+                $result['msg'] = '保存失败,错误信息:' . $file->getError();
             }
-        }else{
-            $result['msg']='无法获取文件';
+        } else {
+            $result['msg'] = '无法获取文件';
         }
         return $result;
     }

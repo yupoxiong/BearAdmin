@@ -8,10 +8,9 @@
                         {if isset($info)}
                         <input id="id" name="id" value="{$info.id}" hidden placeholder="请勿修改">
                         {/if}
-
                         <div class="form-group">
                             <label class="col-sm-2 control-label">上级菜单</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <select name="parent_id" id="parent_id" class="form-control">
                                         <option value="0">/</option>
@@ -22,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">名称</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     <input maxlength="50" id="title" name="title" value="{$info.title|default=''}" class="form-control" placeholder="请输入菜单名称">
@@ -31,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="url" class="col-sm-2 control-label">url</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-internet-explorer"></i></span>
                                     <input maxlength="100" id="url" name="url" value="{$info.url|default=''}" class="form-control" placeholder="菜单url">
@@ -41,7 +40,7 @@
 
                         <div class="form-group">
                             <label for="icon" class="col-sm-2 control-label">图标</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     <input maxlength="30" id="icon" name="icon" value="{$info.icon|default=''}" class="form-control" placeholder="请输入图标class">
@@ -50,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <label for="sort_id" class="col-sm-2 control-label">排序</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
                                     <input max="9999" min="1" type="number" id="sort_id" name="sort_id" value="{$info.sort_id|default='1000'}" class="form-control" placeholder="默认1000">
@@ -70,7 +69,7 @@
                         </div>
                         <div class="form-group">
                             <label for="log_type" class="col-sm-2 control-label">日志请求方式</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <select name="log_type" id="log_type" class="form-control">
                                         <option value="0">不记录日志</option>

@@ -170,10 +170,11 @@ class AdminFile extends Base
         $data = Attachments::onlyTrashed()->whereIn('id', $this->id)->select();
         if ($data) {
             foreach ($data as $d) {
-                $d->save(['delete_time' => null]);
+                @unlink($d->save_path);
+                $d->delete(true);
             }
-            return $this->success('还原成功',self::URL_RELOAD);
+            return $this->deleteSuccess('永久删除成功',self::URL_RELOAD);
         }
-        return $this->error('还原失败');
+        return $this->error('永久删除失败');
     }
 }
