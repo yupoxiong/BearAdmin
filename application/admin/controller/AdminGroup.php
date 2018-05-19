@@ -86,10 +86,17 @@ class AdminGroup extends Base
     //删除
     public function del()
     {
-        if ($this->id == 1) {
-            return $this->error('此角色无法删除');
-        }
+        $protected_ids = [1];
         $id = $this->id;
+        if (is_array($id)) {
+            if (array_intersect($id, $protected_ids)) {
+                return $this->error('包含系统数据，无法删除');
+            }
+        } else if (in_array($id, $protected_ids)) {
+            return $this->error('包含系统数据，无法删除');
+        }
+
+
         $result = AdminGroups::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });

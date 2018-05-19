@@ -47,12 +47,11 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <a class="btn btn-danger btn-sm dataDeleteButton" title="批量删除，谨慎使用" data-id="checked" data-url="del.html">删除</a>
+                <a class="btn btn-danger btn-sm AjaxButton" title="批量删除，谨慎使用" data-id="checked" data-url="del.html">删除</a>
                 <a class="btn btn-default btn-sm" data-toggle="modal"
                    data-target="#upload-modal">
                     <i class="fa fa-upload"></i>上传文件
                 </a>
-                <a href="recycle.html" class="btn btn-warning btn-sm" title="点击查看回收站">回收站</a>
             </div>
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
@@ -80,13 +79,13 @@
                         <td>{$list.file_type}</td>
                         <td>{$list.create_time}</td>
                         <td class="td-do">
-                            <a title="查看" onclick="viewAttachment({$list.id})" class="btn btn-default btn-xs">
+                            <a title="查看"  data-id="{$list.id}" data-url="view" data-confirm="2" data-type="2" class="AjaxButton btn btn-default btn-xs">
                                 <i class="fa fa-eye"></i>
                             </a>
                             <a title="下载" href="download.html?id={$list.id}" class="btn btn-success btn-xs">
                                 <i class="fa fa-download"></i>
                             </a>
-                            <a class="btn btn-danger btn-xs dataDeleteButton" title="删除" data-id="{$list.id}" data-url="del.html">
+                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$list.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>
@@ -156,16 +155,4 @@
             });
         }
     };
-
-    function viewAttachment(id) {
-        layer.open({
-            type: 2,
-            area: ['80%', '50%'],
-            title: '文件信息',
-            closeBtn: 1,
-            shift: 0,
-            content: 'view.html?id='+id
-        });
-    }
-
 </script>

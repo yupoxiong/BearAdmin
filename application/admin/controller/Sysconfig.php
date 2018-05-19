@@ -14,7 +14,7 @@ class Sysconfig extends Base
     public function index()
     {
         $sysconfigs = new Sysconfigs();
-        $configs = $sysconfigs->paginate($this->webData['list_rows']);
+        $configs    = $sysconfigs->paginate($this->webData['list_rows']);
 
         $this->assign([
             'lists' => $configs,
@@ -29,7 +29,7 @@ class Sysconfig extends Base
     public function add()
     {
         if ($this->request->isPost()) {
-            $param   = $this->param;
+            $param  = $this->param;
             $result = $this->validate($param, 'Sysconfig.add');
             if (true !== $result) {
                 return $this->error($result);
@@ -53,7 +53,7 @@ class Sysconfig extends Base
             if (true !== $result) {
                 return $this->error($result);
             }
-            if (false!==$info->save($this->param)) {
+            if (false !== $info->save($this->param)) {
                 return $this->success();
             }
             return $this->error();
@@ -69,11 +69,17 @@ class Sysconfig extends Base
     //删除设置
     public function del()
     {
-        $protected_ids = range(1,100);
-        if(in_array($this->id,$protected_ids)){
-            return $this->error('系统限制，无法删除');
+        $protected_ids = range(1, 100);
+        $id            = $this->id;
+
+        if (is_array($id)) {
+            if (array_intersect($id, $protected_ids)) {
+                return $this->error('包含系统数据，无法删除');
+            }
+        } else if (in_array($id, $protected_ids)) {
+            return $this->error('包含系统数据，无法删除');
         }
-        $id     = $this->id;
+        
         $result = Sysconfigs::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });

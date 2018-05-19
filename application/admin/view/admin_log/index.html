@@ -66,8 +66,8 @@
                         <td>{$list.log_ip}</td>
                         <td>{$list.create_time}</td>
                         <td class="td-do">
-                            <a href="{:url('admin/admin_log/view','id='.$list.id)}"
-                               class="btn btn-default btn-xs" title="查看详情">
+                            <a data-id="{$list.id}" data-url="view" data-confirm="2" data-type="2"
+                               class="btn btn-default btn-xs AjaxButton" title="查看详情">
                                 <i class="fa fa-eye"></i>
                             </a>
                         </td>
