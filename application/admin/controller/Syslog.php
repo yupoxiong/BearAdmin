@@ -20,14 +20,14 @@ class Syslog extends Base
             $syslogs->whereLike('message', $keywords);
             $this->assign('keywords', $this->param['keywords']);
         }
-        $lists = $syslogs
+        $list = $syslogs
             ->with('syslogTrace')
             ->order('id desc')
             ->paginate($this->webData['list_rows'], false, $page_param);
         $this->assign([
-            'lists'    => $lists,
-            'page'     => $lists->render(),
-            'total'    => $lists->total()
+            'list'    => $list,
+            'page'     => $list->render(),
+            'total'    => $list->total()
         ]);
         return $this->fetch();
     }

@@ -20,21 +20,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="lists" item="list"}
+                    {foreach name="list" item="item"}
                     <tr>
-                        <td>{$list.name}</td>
-                        <td>{$list.rows}</td>
-                        <td>{$list.data_length|format_size}</td>
-                        <td>{$list.create_time}</td>
-                        <td>{$list.comment}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.rows}</td>
+                        <td>{$item.data_length|format_size}</td>
+                        <td>{$item.create_time}</td>
+                        <td>{$item.comment}</td>
                         <td class="td-do">
-                            <a  data-data='{"name":"{$list.name}"}' data-url="view.html" data-confirm="2" data-type="2" class="AjaxButton btn btn-default btn-xs" title="查看详情">
+                            <a  data-data='{"name":"{$item.name}"}' data-url="view.html" data-confirm="2" data-type="2" class="AjaxButton btn btn-default btn-xs" title="查看详情">
                                 <i class="fa  fa-info-circle"></i>
                             </a>
-                            <a data-data='{"name":"{$list.name}"}' data-go="1" data-url="optimize.html" data-confirm="2" class="AjaxButton btn btn-warning btn-xs" title="优化表">
+                            <a data-data='{"name":"{$item.name}"}' data-go="1" data-url="optimize.html" data-confirm="2" class="AjaxButton btn btn-warning btn-xs" title="优化表">
                                 <i class="fa  fa-refresh"></i>
                             </a>
-                            <a data-data='{"name":"{$list.name}"}' data-go="1" data-url="repair.html" data-confirm="2" class="AjaxButton btn btn-primary btn-xs" title="修复表" >
+                            <a data-data='{"name":"{$item.name}"}' data-go="1" data-url="repair.html" data-confirm="2" class="AjaxButton btn btn-primary btn-xs" title="修复表" >
                                 <i class="fa  fa-circle-o-notch"></i>
                             </a>
                            <!-- |

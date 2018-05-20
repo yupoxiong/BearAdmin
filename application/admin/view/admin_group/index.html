@@ -15,27 +15,27 @@
                         <th>是否启用</th>
                         <th>操作</th>
                     </tr>
-                    {foreach name='lists' item='list'}
+                    {foreach name='list' item='item'}
                     <tr>
                         <td>
                             <input type="checkbox" onclick="check_this(this)" name="data-checkbox"
-                                   data-id="{$list.id}" class="checkbox data-list-check" value="{$list.id}"
+                                   data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
                                    placeholder="选择/取消">
                         </td>
-                        <td>{$list.id}</td>
-                        <td>{$list.name}</td>
-                        <td>{$list.description}</td>
-                        <td>{$list.status_text}</td>
+                        <td>{$item.id}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.description}</td>
+                        <td>{$item.status_text}</td>
                         <td class="td-do">
-                            <a href="{:url('admin_group/access','id='.$list.id)}"
+                            <a href="{:url('admin_group/access','id='.$item.id)}"
                                class="btn btn-warning btn-xs" title="授权">
                                 <i class="fa fa-key"></i>
                             </a>
-                            <a href="{:url('admin_group/edit','id='.$list.id)}"
+                            <a href="{:url('admin_group/edit','id='.$item.id)}"
                                class="btn btn-primary btn-xs" title="编辑">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$list.id}" data-url="del.html">
+                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$item.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

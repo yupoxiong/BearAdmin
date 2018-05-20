@@ -297,7 +297,6 @@ class Base extends Controller
             'showDataHeader'             => $this->showDataHeader,
             'showDataHeaderAddButton'    => $this->showDataHeaderAddButton,
             'showDataHeaderDeleteButton' => $this->showDataHeaderDeleteButton,
-            'pre_url'                    => $this->request->server('HTTP_REFERER'),
         ]);
 
         $backend_name = Sysconfigs::get(function ($query){
@@ -309,7 +308,6 @@ class Base extends Controller
         parent::assign(['webData' => $this->webData]);
         return parent::fetch($template, $vars, $replace, $config);
     }
-
 
     //空方法
     public function _empty()

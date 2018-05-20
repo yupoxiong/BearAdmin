@@ -48,13 +48,13 @@ class AdminFile extends Base
             $this->assign('file_type', $this->param['file_type']);
         }
 
-        $lists = $model->order('id desc')
+        $list = $model->order('id desc')
             ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
-            'lists' => $lists,
-            'page'  => $lists->render(),
-            'total' => $lists->total()
+            'list' => $list,
+            'page'  => $list->render(),
+            'total' => $list->total()
         ]);
         return $this->fetch();
     }
@@ -138,14 +138,14 @@ class AdminFile extends Base
             $this->assign('file_type', $this->param['file_type']);
         }
 
-        $lists = $model->order('id desc')
+        $list = $model->order('id desc')
             ->useSoftDelete('delete_time', ['not null', ''])
             ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
-            'lists' => $lists,
-            'page'  => $lists->render(),
-            'total' => $lists->total()
+            'list' => $list,
+            'page'  => $list->render(),
+            'total' => $list->total()
         ]);
         return $this->fetch();
     }

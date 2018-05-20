@@ -20,7 +20,7 @@ class AdminGroup extends Base
         $roles       = $AdminGroups->paginate($this->webData['list_rows']);
 
         $this->assign([
-            'lists' => $roles,
+            'list' => $roles,
             'total' => $roles->total(),
             'page'  => $roles->render()
         ]);

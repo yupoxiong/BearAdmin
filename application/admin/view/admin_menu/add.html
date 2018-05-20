@@ -72,11 +72,8 @@
                             <div class="col-sm-10 col-md-4">
                                 <div class="input-group">
                                     <select name="log_type" id="log_type" class="form-control">
-                                        <option value="0">不记录日志</option>
-                                        {foreach name='requests' item='r'}
-                                        <option value="{$r.id}" {if isset($info) && $info.log_type==$r.id}selected{/if}>
-                                            {$r.title}
-                                        </option>
+                                        {foreach name='logtype' item='item'}
+                                        <option value="{$key}" {if isset($info) && $info.log_type==$key}selected{/if}>{$item}</option>
                                         {/foreach}
                                     </select>
                                 </div>

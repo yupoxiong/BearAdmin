@@ -19,20 +19,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="lists" item="list"}
+                    {foreach name="list" item="item"}
                     <tr>
-                        <td>{$list.name}</td>
-                        <td>{$list.time}</td>
-                        <td>{$list.size}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.time}</td>
+                        <td>{$item.size}</td>
                         <td class="td-do">
-                            <a data-url="restore.html" data-data='{"name":"{$list.name}"}' class="AjaxButton btn btn-warning btn-xs" title="还原">
+                            <a data-url="restore.html" data-data='{"name":"{$item.name}"}' class="AjaxButton btn btn-warning btn-xs" title="还原">
                                 <i class="fa fa-mail-reply"></i>
                             </a>
-                            <a target="_blank" href="download.html?name={$list.name}"
+                            <a target="_blank" href="download.html?name={$item.name}"
                                class="btn btn-default btn-xs" title="下载">
                                 <i class="fa fa-download"></i>
                             </a>
-                            <a data-url="del.html" data-data='{"name":"{$list.name}"}'
+                            <a data-url="del.html" data-data='{"name":"{$item.name}"}'
                                class="AjaxButton btn btn-danger btn-xs">
                                 <i class="fa fa-trash"></i>
                             </a>

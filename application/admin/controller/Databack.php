@@ -31,16 +31,16 @@ class Databack extends Base
     //列表
     public function index()
     {
-        $lists   = [];
+        $list   = [];
         $result = $this->back->get_filelist();
 
         if ($result['status'] == 200) {
-            $lists = $result['result'];
+            $list = $result['result'];
         }
 
         $this->assign([
-            "lists"  => $lists,
-            'total' => sizeof($lists)
+            "list"  => $list,
+            'total' => sizeof($list)
         ]);
 
         return $this->fetch();

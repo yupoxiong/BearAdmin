@@ -20,26 +20,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="lists" item="list"}
+                    {foreach name="list" item="item"}
                     <tr>
                         <td>
                             <input type="checkbox" onclick="check_this(this)" name="data-checkbox"
-                                   data-id="{$list.id}" class="checkbox data-list-check" value="{$list.id}"
+                                   data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
                                    placeholder="选择/取消">
                         </td>
-                        <td>{$list.id}</td>
-                        <td>{$list.configGroup.name}</td>
-                        <td>{$list.name}</td>
-                        <td>{$list.code}</td>
-                        <td>{$list.content}</td>
-                        <td>{$list.description}</td>
-                        <td>{$list.status_text}</td>
+                        <td>{$item.id}</td>
+                        <td>{$item.configGroup.name}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.code}</td>
+                        <td>{$item.content}</td>
+                        <td>{$item.description}</td>
+                        <td>{$item.status_text}</td>
                         <td>
-                            <a href="edit.html?id={$list.id}"
+                            <a href="edit.html?id={$item.id}"
                                class="btn btn-primary btn-xs" title="编辑">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$list.id}" data-url="del.html">
+                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$item.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

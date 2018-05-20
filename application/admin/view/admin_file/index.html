@@ -68,24 +68,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="lists" item="list"}
+                    {foreach name="list" item="item"}
                     <tr>
-                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$list.id}"
-                                   class="checkbox data-list-check" value="{$list.id}" placeholder="选择/取消"></td>
-                        <td>{$list.id}</td>
-                        <td>{$list.original_name}</td>
-                        <td class="text-center"><span><img src="{$list.thumbnail}" class="file-thumbnail"></span></td>
-                        <td>{$list.size}</td>
-                        <td>{$list.file_type}</td>
-                        <td>{$list.create_time}</td>
+                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$item.id}"
+                                   class="checkbox data-list-check" value="{$item.id}" placeholder="选择/取消"></td>
+                        <td>{$item.id}</td>
+                        <td>{$item.original_name}</td>
+                        <td class="text-center"><span><img src="{$item.thumbnail}" class="file-thumbnail"></span></td>
+                        <td>{$item.size}</td>
+                        <td>{$item.file_type}</td>
+                        <td>{$item.create_time}</td>
                         <td class="td-do">
-                            <a title="查看" data-id="{$list.id}" data-url="view" data-confirm="2" data-type="2" class="AjaxButton btn btn-default btn-xs">
+                            <a title="查看" data-id="{$item.id}" data-url="view" data-confirm="2" data-type="2" class="AjaxButton btn btn-default btn-xs">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <a title="下载" target="_blank" href="download.html?id={$list.id}" class="btn btn-success btn-xs">
+                            <a title="下载" target="_blank" href="download.html?id={$item.id}" class="btn btn-success btn-xs">
                                 <i class="fa fa-download"></i>
                             </a>
-                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$list.id}" data-url="del.html">
+                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$item.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

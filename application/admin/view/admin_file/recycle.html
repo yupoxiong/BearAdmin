@@ -67,21 +67,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="lists" item="list"}
+                    {foreach name="lists" item="item"}
                     <tr>
-                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$list.id}"
-                                   class="checkbox data-list-check" value="{$list.id}" placeholder="选择/取消"></td>
-                        <td>{$list.id}</td>
-                        <td>{$list.original_name}</td>
-                        <td class="text-center"><span><img src="{$list.thumbnail}" class="file-thumbnail"></span></td>
-                        <td>{$list.size}</td>
-                        <td>{$list.file_type}</td>
-                        <td>{$list.create_time}</td>
+                        <td><input type="checkbox" onclick="check_this(this)" name="data-checkbox" data-id="{$item.id}"
+                                   class="checkbox data-list-check" value="{$item.id}" placeholder="选择/取消"></td>
+                        <td>{$item.id}</td>
+                        <td>{$item.original_name}</td>
+                        <td class="text-center"><span><img src="{$item.thumbnail}" class="file-thumbnail"></span></td>
+                        <td>{$item.size}</td>
+                        <td>{$item.file_type}</td>
+                        <td>{$item.create_time}</td>
                         <td class="td-do">
-                            <a title="还原" class="btn btn-warning btn-xs AjaxButton" data-type="1" data-url="reduction.html" data-id="{$list.id}">
+                            <a title="还原" class="btn btn-warning btn-xs AjaxButton" data-type="1" data-url="reduction.html" data-id="{$item.id}">
                                 <i class="fa fa-reply"></i>
                             </a>
-                            <a data-id="{$list.id}" data-url="delete.html" class="btn btn-danger btn-xs recycleDeleteButton" title="删除">
+                            <a data-id="{$item.id}" data-url="delete.html" class="btn btn-danger btn-xs recycleDeleteButton" title="删除">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

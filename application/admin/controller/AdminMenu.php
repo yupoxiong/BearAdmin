@@ -12,6 +12,13 @@ use app\admin\model\AdminMenus;
 
 class AdminMenu extends Base
 {
+    protected $logType = [
+        0 => '不记录',
+        1 => 'GET',
+        2 => 'POST',
+        3 => 'PUT',
+        4 => 'DELETE'
+    ];
 
     //列表
     public function index()
@@ -24,13 +31,7 @@ class AdminMenu extends Base
         $tree       = new Tree();
         $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
 
-        $log_types = [
-            0 => '不记录',
-            1 => 'GET',
-            2 => 'POST',
-            3 => 'PUT',
-            4 => 'DELETE'
-        ];
+
 
         foreach ($result as $n => $r) {
 
@@ -47,7 +48,7 @@ class AdminMenu extends Base
             $result[$n]['is_show']    = $r['is_show'] == 1
                 ? '显示'
                 : '隐藏';
-            $result[$n]['log_type']   = $log_types[$r['log_type']];
+            $result[$n]['log_type']   = $this->logType[$r['log_type']];
         }
         
         $str = "<tr id='node-\$id' data-level='\$level' \$parent_id_node>
@@ -96,9 +97,8 @@ class AdminMenu extends Base
         }
         $parent_id = isset($this->param['parent_id']) ? $this->param['parent_id'] : 0;
         $selects   = $this->menu($parent_id);
-        $requests  = Db::name('request_type')->order('id asc')->select();
         $this->assign([
-            'requests' => $requests,
+            'logtype' => $this->logType,
             'selects'  => $selects
         ]);
         return $this->fetch();
@@ -129,10 +129,9 @@ class AdminMenu extends Base
             return $this->error('菜单修改失败');
         }
 
-        $requests = Db::name('request_type')->order('id asc')->select();
         $selects  = $this->menu($info->parent_id, $this->id);
         $this->assign([
-            'requests' => $requests,
+            'logtype' => $this->logType,
             'selects'  => $selects,
             'info'     => $info
         ]);

@@ -17,7 +17,7 @@ class Sysconfig extends Base
         $configs    = $sysconfigs->paginate($this->webData['list_rows']);
 
         $this->assign([
-            'lists' => $configs,
+            'list' => $configs,
             'total' => $configs->total(),
             'page'  => $configs->render()
         ]);

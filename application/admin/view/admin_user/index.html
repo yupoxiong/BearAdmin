@@ -45,31 +45,31 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {foreach name="lists" item="list"}
+                    {foreach name="list" item="item"}
                     <tr>
                         <td>
                             <input type="checkbox" onclick="check_this(this)" name="data-checkbox"
-                                   data-id="{$list.id}" class="checkbox data-list-check" value="{$list.id}"
+                                   data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
                                    placeholder="选择/取消">
                         </td>
-                        <td>{$list.id}</td>
-                        <td><img src="{$list.avatar}" style="max-height: 45px;max-width: 45px;"></td>
-                        <td>{$list.name}</td>
-                        <td>{$list.nick_name}</td>
+                        <td>{$item.id}</td>
+                        <td><img src="{$item.avatar}" style="max-height: 45px;max-width: 45px;"></td>
+                        <td>{$item.name}</td>
+                        <td>{$item.nick_name}</td>
                         <td>
-                            {foreach name="list.adminGroup" item="listson"}
-                            <small class="label bg-blue">{$listson.adminGroup.name}</small>
+                            {foreach name="item.adminGroup" id="itemson"}
+                            <small class="label bg-blue">{$itemson.adminGroup.name}</small>
                             {/foreach}
                         </td>
-                        <td>{$list.mobile}</td>
-                        <td>{$list.email}</td>
-                        <td>{$list.status_text}</td>
+                        <td>{$item.mobile}</td>
+                        <td>{$item.email}</td>
+                        <td>{$item.status_text}</td>
                         <td class="td-do">
-                            <a href="edit.html?id={$list.id}"
+                            <a href="edit.html?id={$item.id}"
                                class="btn btn-primary btn-xs">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$list.id}" data-url="del.html">
+                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$item.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

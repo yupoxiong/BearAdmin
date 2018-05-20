@@ -27,7 +27,7 @@ class Extend extends Base
     {
 
         $extend = AdminMenus::get(['url' => 'admin/extend/index']);
-        $lists  = AdminMenus::all(['parent_id' => $extend->id]);
+        $list  = AdminMenus::all(['parent_id' => $extend->id]);
         $colors = [
             'bg-aqua'   => 'bg-aqua',
             'bg-green'  => 'bg-green',
@@ -39,7 +39,7 @@ class Extend extends Base
         ];
 
         $this->assign([
-            'lists'  => $lists,
+            'list' => $list,
             'colors' => $colors
         ]);
 
@@ -315,13 +315,13 @@ class Extend extends Base
             return $this->export($header, $body, "Excel导出例子", '2007');
         }
 
-        $lists = $excel_examples
+        $list = $excel_examples
             ->order('id desc')
             ->paginate(10);
 
         $this->assign([
-            'lists' => $lists,
-            'page'  => $lists->render()
+            'list' => $list,
+            'page'  => $list->render()
         ]);
 
         return $this->fetch();

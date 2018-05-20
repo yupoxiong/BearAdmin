@@ -7,12 +7,12 @@
             <div class="box-body">
                 <div class="row margin bg-gray " style="padding-top: 15px">
                     <div class="col-md-12">
-                    {foreach name='lists' id='list'}
+                    {foreach name='list' id='item'}
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box" onclick="window.location.href='{:url($list.url)}'">
-                            <span class="info-box-icon {:array_rand($colors)}"><i class="fa {$list.icon}"></i></span>
+                        <div class="info-box" onclick="window.location.href='{:url($item.url)}'">
+                            <span class="info-box-icon {:array_rand($colors)}"><i class="fa {$item.icon}"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">{$list.title}</span>
+                                <span class="info-box-text">{$item.title}</span>
                                 <span class="info-box-number">点击体验</span>
                             </div>
                         </div>
