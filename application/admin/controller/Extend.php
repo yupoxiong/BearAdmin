@@ -6,9 +6,9 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminMailLogs;
-use app\common\model\AdminMenus;
-use app\common\model\ExcelExamples;
+use app\admin\model\AdminMailLogs;
+use app\admin\model\AdminMenus;
+use app\admin\model\ExcelExamples;
 use email\SendMail;
 use Overtrue\EasySms\EasySms;
 use Parsedown;

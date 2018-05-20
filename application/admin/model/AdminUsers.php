@@ -4,12 +4,11 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
 use traits\model\SoftDelete;
 
-class AdminUsers extends Model
+class AdminUsers extends Admin
 {
     use SoftDelete;
 

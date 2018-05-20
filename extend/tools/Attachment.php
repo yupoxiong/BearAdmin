@@ -6,7 +6,7 @@
 
 namespace tools;
 
-use app\common\model\Attachments;
+use app\admin\model\Attachments;
 
 class Attachment
 {

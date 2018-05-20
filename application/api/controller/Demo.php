@@ -6,7 +6,7 @@
 
 namespace app\api\controller;
 
-use app\common\model\AdminLogs;
+use app\admin\model\AdminLogs;
 
 class Demo extends Api
 {

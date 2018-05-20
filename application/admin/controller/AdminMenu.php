@@ -8,15 +8,10 @@ namespace app\admin\controller;
 
 use think\Db;
 use tools\Tree;
-use app\common\model\AdminMenus;
+use app\admin\model\AdminMenus;
 
 class AdminMenu extends Base
 {
-    public function __construct()
-    {
-        $this->protected_menu = range(1, 80);
-        parent::__construct();
-    }
 
     //列表
     public function index()
@@ -48,9 +43,7 @@ class AdminMenu extends Base
                 ';
 
             $result[$n]['str_manage'] .=
-                '<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal" title="删除" onclick="del(' .
-                $r['id'] .
-                ')"><i class="fa fa-trash"></i></a>';
+                '<a class="btn btn-danger btn-xs AjaxButton" data-id="'. $r['id'].'" data-url="del.html" title="删除"><i class="fa fa-trash"></i></a>';
             $result[$n]['is_show']    = $r['is_show'] == 1
                 ? '显示'
                 : '隐藏';
@@ -118,7 +111,7 @@ class AdminMenu extends Base
         $info = AdminMenus::get($this->id);
 
         //不允许修改的菜单，首页和个人资料页，还是多加点吧
-        if (in_array($this->id, $this->protected_menu) && $this->uid != 1) {
+        if ($this->id<60 && $this->uid != 1) {
             return $this->error('此菜单不允许修改');
         }
         if ($this->request->isPost()) {
@@ -150,11 +143,24 @@ class AdminMenu extends Base
     //删除
     public function del()
     {
-        if (in_array($this->id, $this->protected_menu)) {
-            return $this->error('此菜单不允许删除');
+
+        $protected_ids = range(1,50);
+        $id = $this->id;
+        if (is_array($id)) {
+            if (array_intersect($id, $protected_ids)) {
+                return $this->error('包含系统数据，无法删除');
+            }
+        } else if (in_array($id, $protected_ids)) {
+            return $this->error('包含系统数据，无法删除');
         }
-        $map_son        = ['parent_id' => $this->id];
-        $admin_menu_son = AdminMenus::get($map_son);
+
+        $admin_menu_son = AdminMenus::get(function ($query) use ($id) {
+            if(is_array($id)){
+                $query->whereIn('parent_id',$id);
+            }else{
+                $query->where('parent_id',$id);
+            }
+        });
         if ($admin_menu_son) {
             return $this->error('有子菜单不可删除！');
         }

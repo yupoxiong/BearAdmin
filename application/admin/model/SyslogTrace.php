@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
-
-class SyslogTrace extends Model
+class SyslogTrace extends Admin
 {
     protected $name = 'syslog_trace';
 

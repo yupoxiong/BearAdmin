@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\validate;
+namespace app\admin\validate;
 
-use think\Validate;
-
-class AdminMail extends Validate
+class AdminMail extends Admin
 {
     protected $rule = [
         'address|收信人'      => 'require',

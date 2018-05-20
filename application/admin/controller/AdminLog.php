@@ -6,8 +6,8 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminLogs;
-use app\common\model\AdminUsers;
+use app\admin\model\AdminLogs;
+use app\admin\model\AdminUsers;
 use crypt\Crypt;
 
 class AdminLog extends Base

@@ -6,10 +6,10 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminLogs;
-use app\common\model\AdminMenus;
-use app\common\model\AdminUsers;
-use app\common\model\Syslogs;
+use app\admin\model\AdminLogs;
+use app\admin\model\AdminMenus;
+use app\admin\model\AdminUsers;
+use app\admin\model\Syslogs;
 
 class Statistics extends Base
 {

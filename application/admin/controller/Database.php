@@ -25,6 +25,7 @@ class Database extends Base
     //查看表详情
     public function view($name = null)
     {
+        $this->showLeftMenu = false;
         if ($name) {
 
             $info  = Db::table($name)->getTableInfo($name);

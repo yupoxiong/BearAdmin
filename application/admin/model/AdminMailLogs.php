@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
-
-class AdminMailLogs extends Model
+class AdminMailLogs extends Admin
 {
     protected $name = 'admin_mail_logs';
     protected $autoWriteTimestamp = true;

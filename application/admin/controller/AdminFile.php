@@ -7,7 +7,7 @@
 
 namespace app\admin\controller;
 
-use app\common\model\Attachments;
+use app\admin\model\Attachments;
 use tools\Attachment;
 use tools\Http;
 
@@ -173,7 +173,7 @@ class AdminFile extends Base
                 @unlink($d->save_path);
                 $d->delete(true);
             }
-            return $this->deleteSuccess('永久删除成功',self::URL_RELOAD);
+            return $this->deleteSuccess('永久删除成功');
         }
         return $this->error('永久删除失败');
     }

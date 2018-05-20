@@ -45,12 +45,10 @@
                         <td>{$list.line}</td>
                         <td>{$list.create_time}</td>
                         <td class="td-do">
-                            <a data-toggle="modal" data-target="#modaltrace" onclick="view_trace('{$list.id}')" class="btn btn-default  btn-xs" title="查看trace" >
+                            <a data-id="{$list.id}" data-url="trace" data-confirm="2" data-type="2"
+                               class="btn btn-default btn-xs AjaxButton" title="查看Trace">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <div id="trace{$list.id}" class="hide-trace">
-                                {$list->syslogTrace['trace']}
-                            </div>
                         </td>
                     </tr>
                     {/foreach}
@@ -61,26 +59,3 @@
         </div>
     </div>
 </div>
-<div  class="modal fade" id="modaltrace" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">trace</h4>
-            </div>
-            <div class="modal-body">
-                <p id="modal_message"></p>
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal"  type="button" class="btn btn-primary">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function view_trace(id) {
-        var trace_content = $("#trace"+id).html();
-        $("#modal_message").html(trace_content);
-    }
-</script>

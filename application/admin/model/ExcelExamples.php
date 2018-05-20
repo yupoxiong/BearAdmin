@@ -5,11 +5,9 @@
  */
 
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
-
-class ExcelExamples extends Model
+class ExcelExamples extends Admin
 {
     protected $name = 'excel_examples';
 }

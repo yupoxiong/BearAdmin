@@ -1,7 +1,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-           {include file="template/data_header" /}
+            <div class="box-header">
+                <div>
+                    <a title="新增" data-id="" class="AjaxButton btn btn-primary btn-sm" data-url="add.html">
+                        新增
+                    </a>
+                </div>
+            </div>
             <div class="box-body table-responsive">
                 <table id="datalist" class="table table-hover table-bordered datatable" width="100%">
                     <thead>
@@ -19,16 +25,15 @@
                         <td>{$list.time}</td>
                         <td>{$list.size}</td>
                         <td class="td-do">
-                            <a href="restore.html?name={$list.name}"
-                               class="btn btn-warning btn-xs" title="还原">
+                            <a data-url="restore.html" data-data='{"name":"{$list.name}"}' class="AjaxButton btn btn-warning btn-xs" title="还原">
                                 <i class="fa fa-mail-reply"></i>
                             </a>
                             <a target="_blank" href="download.html?name={$list.name}"
                                class="btn btn-default btn-xs" title="下载">
                                 <i class="fa fa-download"></i>
                             </a>
-                            <a href="del.html?name={$list.name}"
-                               class="btn btn-danger btn-xs">
+                            <a data-url="del.html" data-data='{"name":"{$list.name}"}'
+                               class="AjaxButton btn btn-danger btn-xs">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

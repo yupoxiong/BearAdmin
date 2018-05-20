@@ -68,10 +68,7 @@ html,body{height:100%}.layout-boxed html,.layout-boxed body{height:100%}body{fon
 .td-do{
     text-align: center; vertical-align: middle;
 }
-/*日志页面trace*/
- .hide-trace{
-     display: none;
- }
+
  /*日志title过长处理*/
 .td-log{
     overflow: hidden;

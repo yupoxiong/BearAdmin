@@ -4,12 +4,11 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
 use traits\model\SoftDelete;
 
-class Attachments extends Model
+class Attachments extends Admin
 {
     use SoftDelete;
 

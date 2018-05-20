@@ -13,7 +13,7 @@ use think\Session;
 use think\Cookie;
 use think\Request;
 use think\Loader;
-use app\common\model\AdminLogs;
+use app\admin\model\AdminLogs;
 
 /**
  * 权限认证类

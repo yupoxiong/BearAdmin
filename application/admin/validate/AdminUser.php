@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\validate;
+namespace app\admin\validate;
 
-use think\Validate;
-
-class AdminUser extends Validate
+class AdminUser extends Admin
 {
     protected $rule = [
         'name|帐号'      => 'require|unique:admin_users',

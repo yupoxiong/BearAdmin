@@ -6,8 +6,8 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminUsers;
-use app\common\model\AdminGroups;
+use app\admin\model\AdminUsers;
+use app\admin\model\AdminGroups;
 use tools\Attachment;
 
 class AdminUser extends Base

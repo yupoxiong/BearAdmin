@@ -7,9 +7,9 @@
 namespace app\admin\controller;
 
 use tools\Tree;
-use app\common\model\AdminMenus;
-use app\common\model\AdminGroups;
-use app\common\model\AdminGroupAccess;
+use app\admin\model\AdminMenus;
+use app\admin\model\AdminGroups;
+use app\admin\model\AdminGroupAccess;
 
 class AdminGroup extends Base
 {

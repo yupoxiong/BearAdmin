@@ -6,10 +6,7 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminLogs;
-use app\common\model\AdminUsers;
-use app\common\model\Syslogs;
-use think\Log;
+use app\admin\model\Syslogs;
 
 class Syslog extends Base
 {
@@ -32,6 +29,14 @@ class Syslog extends Base
             'page'     => $lists->render(),
             'total'    => $lists->total()
         ]);
+        return $this->fetch();
+    }
+
+
+    public function trace()
+    {
+        $data = Syslogs::get($this->id);
+        $this->assign('data',$data);
         return $this->fetch();
     }
     

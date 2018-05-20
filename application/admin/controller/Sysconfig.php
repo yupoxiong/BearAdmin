@@ -6,7 +6,7 @@
 
 namespace app\admin\controller;
 
-use app\common\model\Sysconfigs;
+use app\admin\model\Sysconfigs;
 
 class Sysconfig extends Base
 {

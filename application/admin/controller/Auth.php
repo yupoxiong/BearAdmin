@@ -6,8 +6,8 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminGroupAccess;
-use app\common\model\AdminUsers;
+use app\admin\model\AdminGroupAccess;
+use app\admin\model\AdminUsers;
 use think\Session;
 use tools\AdminAuth;
 use tools\GeetestLib;

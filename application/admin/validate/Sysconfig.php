@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\validate;
+namespace app\admin\validate;
 
-use think\Validate;
-
-class Sysconfig extends Validate
+class Sysconfig extends Admin
 {
     protected $rule = [
         'code|代码'    => 'require',

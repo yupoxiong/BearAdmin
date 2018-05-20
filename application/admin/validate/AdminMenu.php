@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\validate;
+namespace app\admin\validate;
 
-use think\Validate;
-
-class AdminMenu extends Validate
+class AdminMenu extends Admin
 {
     protected $rule = [
         'parent_id|上级菜单' => ['require','egt:0'],

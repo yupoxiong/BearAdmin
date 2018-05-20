@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
-
-class AdminMenus extends Model
+class AdminMenus extends Admin
 {
     protected $name = 'admin_menus';
 }

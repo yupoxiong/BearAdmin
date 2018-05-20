@@ -28,17 +28,13 @@
                         <td>{$list.create_time}</td>
                         <td>{$list.comment}</td>
                         <td class="td-do">
-                            <a href="view.html?name={$list.name}"
-                               class="btn btn-default btn-xs" title="查看详情">
+                            <a  data-data='{"name":"{$list.name}"}' data-url="view.html" data-confirm="2" data-type="2" class="AjaxButton btn btn-default btn-xs" title="查看详情">
                                 <i class="fa  fa-info-circle"></i>
                             </a>
-                            <a href="optimize.html?name={$list.name}"
-                               class="btn btn-warning btn-xs" title="优化表">
+                            <a data-data='{"name":"{$list.name}"}' data-go="1" data-url="optimize.html" data-confirm="2" class="AjaxButton btn btn-warning btn-xs" title="优化表">
                                 <i class="fa  fa-refresh"></i>
                             </a>
-                            <a href="repair.html?name={$list.name}"
-                               class="btn btn-primary btn-xs"
-                               title="修复表" >
+                            <a data-data='{"name":"{$list.name}"}' data-go="1" data-url="repair.html" data-confirm="2" class="AjaxButton btn btn-primary btn-xs" title="修复表" >
                                 <i class="fa  fa-circle-o-notch"></i>
                             </a>
                            <!-- |

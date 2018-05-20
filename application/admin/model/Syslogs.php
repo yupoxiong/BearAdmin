@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\model;
+namespace app\admin\model;
 
-use think\Model;
-
-class Syslogs extends Model
+class Syslogs extends Admin
 {
     protected $name = 'syslogs';
     protected $autoWriteTimestamp = true;

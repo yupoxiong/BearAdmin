@@ -6,9 +6,6 @@
 
 namespace app\admin\controller;
 
-use app\api\controller\Api;
-use Endroid\QrCode\ErrorCorrectionLevel;
-use Endroid\QrCode\QrCode;
 use Parsedown;
 use tools\Sysinfo;
 

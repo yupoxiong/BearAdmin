@@ -6,7 +6,7 @@
 
 namespace app\common\exception;
 
-use app\common\model\Syslogs;
+use app\admin\model\Syslogs;
 use Exception;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\ErrorLogHandler;

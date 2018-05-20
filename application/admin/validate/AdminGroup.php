@@ -4,11 +4,9 @@
  * @author yupoxiong<i@yufuping.com>
  */
 
-namespace app\common\validate;
+namespace app\admin\validate;
 
-use think\Validate;
-
-class AdminGroup extends Validate
+class AdminGroup extends Admin
 {
     protected $rule = [
         'name|角色名称' => 'require',

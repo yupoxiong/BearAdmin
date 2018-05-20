@@ -6,14 +6,14 @@
 
 namespace app\admin\controller;
 
-use app\common\model\AdminMenus;
-use app\common\model\Sysconfigs;
+use app\admin\model\AdminMenus;
+use app\admin\model\Sysconfigs;
 use think\Controller;
 use tools\AdminAuth;
 use tools\Tree;
 use think\Request;
 use think\Session;
-use app\common\model\AdminUsers;
+use app\admin\model\AdminUsers;
 
 class Base extends Controller
 {
