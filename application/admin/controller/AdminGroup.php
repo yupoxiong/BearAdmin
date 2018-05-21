@@ -37,7 +37,7 @@ class AdminGroup extends Base
                 return $this->error($result);
             }
             //默认写入首页和个人资料权限
-            $param['rules'] = '1,2';
+            $param['rules'] = '1,2,44';
 
             $role = new AdminGroups();
             if ($role->create($param)) {

@@ -28,7 +28,7 @@ class AdminLogs extends Admin
     //关联后台用户
     public function adminUser()
     {
-        return $this->belongsTo('AdminUsers','user_id')->field('id,name,nick_name');
+        return $this->belongsTo('AdminUsers','user_id')->field('id,name,nickname');
     }
 
     //管理日志数据

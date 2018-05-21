@@ -107,7 +107,7 @@ class Auth extends Base
                 'name'      => $sns_info['openid'],
                 'qq_openid' => $sns_info['openid'],
                 'sex'       => $sns_info['gender'] == "m" ? 1 : 0,
-                'nick_name' => $sns_info['nick'],
+                'nickname' => $sns_info['nick'],
                 'avatar'    => preg_replace('/http:/','https:', $sns_info['avatar'],1)  ,
                 'password'  => md5('123456'),
             ];

@@ -17,7 +17,7 @@
                             <option value="-1">选择用户</option>
                             {foreach name="user_list" item="user"}
                             <option value="{$user.id}" {if isset($user_id)&&
-                                    $user_id==$user.id}selected{/if}>{$user.nick_name}({$user.name})
+                                    $user_id==$user.id}selected{/if}>{$user.nickname}({$user.name})
                             </option>
                             {/foreach}
                         </select>

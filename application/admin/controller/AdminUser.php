@@ -21,7 +21,7 @@ class AdminUser extends Base
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
 
-            $model->whereLike('name|nick_name|email|mobile', "%" . $this->param['keywords'] . "%");
+            $model->whereLike('name|nickname|email|mobile', "%" . $this->param['keywords'] . "%");
             $this->assign('keywords', $this->param['keywords']);
         }
 

@@ -258,7 +258,11 @@ class Base extends Controller
 
         $text_base_one   = "<li class='treeview";
         $text_hover      = " active";
-        $text_base_two   = "'><a href='javascript:void(0);'><i class='fa \$icon'></i><span>\$title</span>
+        $text_base_two   = "'><a href='javascript:void(0);'>
+<i class='fa \$icon'></i>
+<span>
+\$title
+</span>
                              <span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>
                              </a><ul class='treeview-menu";
         $text_open       = " menu-open";

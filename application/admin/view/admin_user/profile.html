@@ -3,7 +3,7 @@
         <div class="box box-primary">
             <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="{$user.avatar}" alt="头像">
-                <h3 class="profile-username text-center">{$user.nick_name}</h3>
+                <h3 class="profile-username text-center">{$user.nickname}</h3>
                 <p class="text-muted text-center">{$user.name}</p>
             </div>
         </div>
@@ -33,17 +33,17 @@
                         <input type="hidden" value="profile" name="update_type" placeholder="请勿修改">
 
                         <div class="form-group">
-                            <label for="nick_name" class="col-sm-2 control-label">昵称</label>
+                            <label for="nickname" class="col-sm-2 control-label">昵称</label>
                             <div class="col-sm-10">
-                                <input class="form-control" value="{$user->nick_name}" name="nick_name"
-                                       id="nick_name" maxlength="30"
+                                <input class="form-control" value="{$user->nickname}" name="nickname"
+                                       id="nickname" maxlength="30"
                                        placeholder="昵称或姓名">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="mobile" class="col-sm-2 control-label">手机</label>
                             <div class="col-sm-10">
-                                <input type="tel" autocomplete='tel-national' class="form-control" value="{$user->mobile}" name="mobile"
+                                <input type="tel" maxlength="11" autocomplete='tel-national' class="form-control" value="{$user->mobile}" name="mobile"
                                        id="mobile" placeholder="手机号">
                             </div>
                         </div>
