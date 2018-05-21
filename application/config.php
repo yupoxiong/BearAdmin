@@ -255,11 +255,7 @@ return [
         'list_rows' => 15,
     ],
 
-    //后台固定信息
-    'admin'    => [
-        'company' => '熊族窝窝',
-        'version' => '1.0',
-    ],
+
 
     /**
      * 应用加密字符串
@@ -278,9 +274,7 @@ return [
         'path' => ROOT_PATH . 'runtime/errorlog/' . date("Y-m-d") . '.log',
     ],
 
-    'api_source_prefix' => 'http://192.168.31.153:728',
-    'slide_path'        => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'slides' . DS,
-    'slide_url'         => DS . 'uploads' . DS . 'slides' . DS,
+
     'qq_login'          => [
         'app_key'    => '填写你的',
         'app_secret' => '',
@@ -302,7 +296,7 @@ return [
 
     'http_exception_template' => [
         // 定义404错误的重定向页面地址
-        404 => APP_PATH . 'public/404.html',
+        404 => ROOT_PATH . 'public/404.html',
         // 还可以定义其它的HTTP status
     ],
 
@@ -323,7 +317,6 @@ return [
         'default'  => [
             // 网关调用策略，默认：顺序调用
             'strategy' => \Overtrue\EasySms\Strategies\OrderStrategy::class,
-
             // 默认可用的发送网关
             'gateways' => [
                 'alidayu' // ,'yunpian', 'aliyun',

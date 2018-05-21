@@ -16,9 +16,8 @@ class AdminGroup extends Base
     //列表
     public function index()
     {
-        $AdminGroups = new AdminGroups();
-        $roles       = $AdminGroups->paginate($this->webData['list_rows']);
-
+        $model = new AdminGroups();
+        $roles       = $model->paginate($this->webData['list_rows']);
         $this->assign([
             'list' => $roles,
             'total' => $roles->total(),

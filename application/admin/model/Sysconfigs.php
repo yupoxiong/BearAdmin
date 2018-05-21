@@ -6,8 +6,11 @@
 
 namespace app\admin\model;
 
+use traits\model\SoftDelete;
+
 class Sysconfigs extends Admin
 {
+    use SoftDelete;
     protected $name = 'sysconfigs';
     protected $autoWriteTimestamp = true;
     protected $updateTime = false;
@@ -26,9 +29,11 @@ class Sysconfigs extends Admin
         return $status[$data['status']];
     }
 
-    //关联设置组
-    public function configGroup()
+    
+    public function getGroupTextAttr($value,$data)
     {
-        return $this->belongsTo('SysconfigGroups','group_id','id');
+        $text = [1=>'系统设置',2=>'其他设置'];
+        
+        return $text[$data['group_id']];
     }
 }

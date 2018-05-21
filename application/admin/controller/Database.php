@@ -28,7 +28,9 @@ class Database extends Base
         $this->showLeftMenu = false;
         if ($name) {
 
+
             $info  = Db::table($name)->getTableInfo($name);
+       
             $fields = [];
             $datas = [];
             foreach ($info['fields'] as $field){
@@ -37,6 +39,11 @@ class Database extends Base
                 $datas['type'] = str_replace('unsigned','<span class="badge">无符号</span>',$info['type'][$field]);
                 $fields[] = $datas;
             }
+
+            if(is_array($info['pk'])){
+                $info['pk'] = implode(',',$info['pk']);
+            }
+
             $this->assign([
                 'fields'=>$fields,
                 'table'=>$name,

@@ -95,9 +95,7 @@ class Extend extends Base
     public function sms()
     {
         if ($this->request->isPost()) {
-
             $easySms = new EasySms(config('easysms'));
-
             $success = false;
             $result  = [];
             $msg     = '';
@@ -114,7 +112,7 @@ class Extend extends Base
             }
 
             if ($success && $result['alidayu']['status'] == 'success') {
-                return $this->success('发送成功');
+                return $this->success('发送成功',self::URL_CURRENT);
             }
 
             return $this->error($msg);
@@ -161,7 +159,7 @@ class Extend extends Base
 
                 $data['qrcode'] = config('qrcode_url') . $this->uid . '-qrcode.png';
 
-                return $this->success('success', '', $data);
+                return $this->success('success', self::URL_CURRENT, $data);
 
             }
             return $this->error('内容不能为空');
@@ -224,7 +222,7 @@ class Extend extends Base
                 $aliOss = new AliOss();
                 $result = $aliOss->upload($file_info);
 
-                return $this->success('success', null, $result);
+                return $this->success('success', self::URL_CURRENT, $result);
             }
             return $this->error($file->getError());
         }
@@ -255,7 +253,7 @@ class Extend extends Base
                 $qiniu = new Qiniu();
                 $data   = $qiniu->upload($file_info);
                 $result = config('qiniu.url') . $data[0]['key'];
-                return $this->success('success', null, $result);
+                return $this->success('success', self::URL_CURRENT, $result);
             }
             return $this->error($file->getError());
         }

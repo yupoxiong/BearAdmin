@@ -12,15 +12,28 @@ class Syslog extends Base
 {
     //系统日志列表
     public function index(){
-        $syslogs = new Syslogs();
+        $model = new Syslogs();
         $page_param = ['query' => []];
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
             $keywords = "%" . $this->param['keywords'] . "%";
-            $syslogs->whereLike('message', $keywords);
+            $model->whereLike('message', $keywords);
             $this->assign('keywords', $this->param['keywords']);
         }
-        $list = $syslogs
+        if (isset($this->param['start_date']) && !empty($this->param['start_date'])) {
+            $page_param['query']['start_date'] = $this->param['start_date'];
+            $start_date                        = $this->param['start_date'];
+            $model->whereTime('create_time', '>=', $start_date);
+            $this->assign('start_date', $this->param['start_date']);
+        }
+
+        if (isset($this->param['end_date']) && !empty($this->param['end_date'])) {
+            $page_param['query']['end_date'] = $this->param['end_date'];
+            $end_date                        = $this->param['end_date'];
+            $model->whereTime('create_time', '<=', strtotime($end_date . '+1 day'));
+            $this->assign('end_date', $this->param['end_date']);
+        }
+        $list = $model
             ->with('syslogTrace')
             ->order('id desc')
             ->paginate($this->webData['list_rows'], false, $page_param);

@@ -28,20 +28,13 @@ return [
         'list_rows' => 10,
     ],
 
-    //后台用户头像相关设置
-    'admin_avatar'               => [
-        'upload_path' => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'avatar' . DS,
-        'upload_url' => DS . 'uploads' . DS . 'admin' . DS . 'avatar' . DS,
+    //后台固定信息
+    'admin'    => [
+        'company' => '熊族窝窝',
+        'version' => '1.0',
     ],
-    //后台文件上传路径设置
-    'file_upload_path'           => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
-    //上次传文件url显示路径
-    'file_upload_url'            => DS . 'uploads' . DS . 'admin' . DS . 'admin_file' . DS,
-    'file_upload_max_size'       => 204800,
-    //'file_upload_max_size'       => 3145728,
-    'file_upload_ext'            => 'jpg,png,gif,doc,docx,xlsx',
 
-
+    
     //后台文件上传路径设置
     'email_file_upload_path'     => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'admin' . DS . 'email_file' . DS,
     //上次传文件url显示路径

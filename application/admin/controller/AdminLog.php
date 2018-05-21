@@ -16,37 +16,37 @@ class AdminLog extends Base
     //日志列表
     public function index()
     {
-        $logs = new AdminLogs();
+        $model = new AdminLogs();
         $page_param = ['query' => []];
         if (isset($this->param['title']) && !empty($this->param['title'])) {
             $page_param['query']['title'] = $this->param['title'];
             $keywords                     = "%" . $this->param['title'] . "%";
-            $logs->whereLike('title', $keywords);
+            $model->whereLike('title', $keywords);
             $this->assign('title', $this->param['title']);
         }
 
         if (isset($this->param['user_id']) && ($this->param['user_id']) > 0) {
             $page_param['query']['user_id'] = $this->param['user_id'];
             $where_user                       = $this->param['user_id'];
-            $logs->where('user_id=' . $where_user);
+            $model->where('user_id=' . $where_user);
             $this->assign('user_id', $this->param['user_id']);
         }
 
         if (isset($this->param['start_date']) && !empty($this->param['start_date'])) {
             $page_param['query']['start_date'] = $this->param['start_date'];
             $start_date                        = $this->param['start_date'];
-            $logs->whereTime('create_time', '>=', $start_date);
+            $model->whereTime('create_time', '>=', $start_date);
             $this->assign('start_date', $this->param['start_date']);
         }
 
         if (isset($this->param['end_date']) && !empty($this->param['end_date'])) {
             $page_param['query']['end_date'] = $this->param['end_date'];
             $end_date                        = $this->param['end_date'];
-            $logs->whereTime('create_time', '<=', strtotime($end_date . '+1 day'));
+            $model->whereTime('create_time', '<=', strtotime($end_date . '+1 day'));
             $this->assign('end_date', $this->param['end_date']);
         }
 
-        $log_list = $logs->field('id,user_id,title,log_url,log_type,log_ip,create_time')
+        $log_list = $model->field('id,user_id,title,log_url,log_type,log_ip,create_time')
             ->with('adminUser')
             ->order('id desc')
             ->paginate($this->webData['list_rows'], false, $page_param);

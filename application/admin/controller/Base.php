@@ -37,10 +37,17 @@ class Base extends Controller
     protected $uid = 0;
     protected $needAuth = true;
 
+    protected $showLeftMenu = true;
     protected $showDataHeader = true;
     protected $showDataHeaderAddButton = true;
     protected $showDataHeaderDeleteButton = true;
-    protected $showLeftMenu = true;
+
+    protected $showFormHeader = true;
+    protected $showFormHeaderBackButton = true;
+
+    protected $showFormFooter = true;
+    protected $showFormFooterSubmitButton = true;
+    protected $showFormFooterResetButton = true;
 
     public function __construct()
     {
@@ -297,6 +304,11 @@ class Base extends Controller
             'showDataHeader'             => $this->showDataHeader,
             'showDataHeaderAddButton'    => $this->showDataHeaderAddButton,
             'showDataHeaderDeleteButton' => $this->showDataHeaderDeleteButton,
+            'showFormHeader'             => $this->showFormHeader,
+            'showFormHeaderBackButton'   => $this->showFormHeaderBackButton,
+            'showFormFooter'             => $this->showFormFooter,
+            'showFormFooterSubmitButton' => $this->showFormFooterSubmitButton,
+            'showFormFooterResetButton'  => $this->showFormFooterResetButton,
         ]);
 
         $backend_name = Sysconfigs::get(function ($query){

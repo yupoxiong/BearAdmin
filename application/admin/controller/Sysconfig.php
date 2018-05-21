@@ -79,7 +79,7 @@ class Sysconfig extends Base
         } else if (in_array($id, $protected_ids)) {
             return $this->error('包含系统数据，无法删除');
         }
-        
+
         $result = Sysconfigs::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });

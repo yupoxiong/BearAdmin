@@ -23,16 +23,14 @@ class AdminMenu extends Base
     //列表
     public function index()
     {
-        $admin_menus = new AdminMenus();
-        $result      = $admin_menus
+        $model = new AdminMenus();
+        $result      = $model
             ->order('sort_id asc, id asc')
             ->column('*', 'id');
 
         $tree       = new Tree();
         $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
-
-
-
+        
         foreach ($result as $n => $r) {
 
             $result[$n]['level']          = $tree->get_level($r['id'], $result);

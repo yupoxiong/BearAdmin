@@ -16,4 +16,9 @@ return [
         //限制允许读取日志的client_id
         'allow_client_ids' => [],
     ],
+
+    //前缀
+    'api_source_prefix' => 'http://192.168.31.153:728',
+    'slide_path'        => ROOT_PATH . 'public' . DS . 'uploads' . DS . 'slides' . DS,
+    'slide_url'         => DS . 'uploads' . DS . 'slides' . DS,
 ];
