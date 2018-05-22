@@ -1,0 +1,20 @@
+<div class="box-footer">
+    {$page}
+    <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
+        {if isset($total)}
+        <small>共{$total}条记录</small>
+        &nbsp;
+        {/if}
+        <small>每页显示</small>
+        &nbsp;
+        <select class="input-sm" onchange="changePageRows(this)">
+            <option value="10" {if $webData.list_rows==10}selected=""{/if}>10</option>
+            <option value="20" {if $webData.list_rows==20}selected=""{/if}>20</option>
+            <option value="30" {if $webData.list_rows==30}selected=""{/if}>30</option>
+            <option value="50" {if $webData.list_rows==50}selected=""{/if}>50</option>
+            <option value="100" {if $webData.list_rows==100}selected=""{/if}>100</option>
+        </select>
+        &nbsp;
+        <small>条记录</small>
+    </label>
+</div>
