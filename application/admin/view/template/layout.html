@@ -34,6 +34,16 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    {if $Think.session.error_message}
+    <script>
+        layer.msg('{$Think.session.error_message}',{icon:2});
+    </script>
+    {/if}
+    {if $Think.session.success_message}
+    <script>
+        layer.msg('{$Think.session.success_message}',{icon:1});
+    </script>
+    {/if}
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

@@ -77,12 +77,14 @@ class AdminFile extends Base
     {
         if ($this->request->isPost()) {
             $attachment = new Attachment();
-            $file_avatar =  $attachment->upload('file');
-            if($file_avatar['code']==1){
-               return $this->success('上传成功');
+            $file =  $attachment->upload('file');
+            if($file['code']==1){
+                return $this->success('上传成功');
+            }else{
+                $error = $file['msg'];
             }
         }
-        return $this->error();
+        return $this->error($error);
     }
 
 
