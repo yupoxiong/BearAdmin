@@ -176,7 +176,7 @@ CREATE TABLE `bear_admin_users` (
   `delete_time` int(10) unsigned DEFAULT NULL COMMENT '删除时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态1正常，0冻结',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户表';
 
 -- ----------------------------
 -- Records of bear_admin_users
@@ -238,10 +238,10 @@ INSERT INTO `bear_sysconfigs` VALUES ('1', '1', '后台名称', 'backend_name', 
 -- ----------------------------
 DROP TABLE IF EXISTS `bear_syslog_trace`;
 CREATE TABLE `bear_syslog_trace` (
-  `trace_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `log_id` int(11) unsigned NOT NULL COMMENT 'log id',
   `trace` text,
-  PRIMARY KEY (`trace_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志trace表';
 
 -- ----------------------------
