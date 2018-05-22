@@ -14,6 +14,6 @@ class Syslogs extends Admin
     
     public function syslogTrace()
     {
-        return $this->hasOne('SyslogTrace','log_id','id')->field('trace_id,log_id,trace');
+        return $this->hasOne('SyslogTrace','log_id','id')->field('id,log_id,trace');
     }
 }
