@@ -22,7 +22,7 @@ class Base extends Controller
     const URL_RELOAD  = 'url://reload';
     const URL_BACK    = 'url://back';
 
-    protected $reuqest;
+    protected $request;
     protected $requestType;
     protected $param;
 
