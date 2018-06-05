@@ -7,8 +7,7 @@
 
 namespace app\admin\controller;
 
-use app\admin\model\Attachments;
-use tools\Attachment;
+use app\common\model\Attachments;
 use tools\Http;
 
 class AdminFile extends Base
@@ -37,9 +36,9 @@ class AdminFile extends Base
         if (isset($this->param['file_type']) && ($this->param['file_type'] > 0)) {
 
             $page_param['query']['file_type'] = $this->param['file_type'];
-            $filetype = [];
-            foreach ($this->filetype as $key=>$value){
-                if($key==$this->param['file_type']){
+            $filetype                         = [];
+            foreach ($this->filetype as $key => $value) {
+                if ($key == $this->param['file_type']) {
                     $filetype = $value;
                     break;
                 }
@@ -52,7 +51,7 @@ class AdminFile extends Base
             ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
-            'list' => $list,
+            'list'  => $list,
             'page'  => $list->render(),
             'total' => $list->total()
         ]);
@@ -75,16 +74,13 @@ class AdminFile extends Base
     //上传文件
     public function upload()
     {
-        if ($this->request->isPost()) {
-            $attachment = new Attachment();
-            $file =  $attachment->upload('file');
-            if($file['code']==1){
-                return $this->success('上传成功');
-            }else{
-                $error = $file['msg'];
-            }
+        $model = new Attachments();
+        $file       = $model->upload('file');
+        if ($file) {
+            return $this->success('上传成功');
         }
-        return $this->error($error);
+        return $this->error($file->getError());
+
     }
 
 
@@ -104,13 +100,13 @@ class AdminFile extends Base
         }
         return $this->error('文件不存在');
     }
-    
+
     //查看
     public function view()
     {
         $info = Attachments::get($this->id);
         $this->assign([
-            'info'=>$info
+            'info' => $info
         ]);
         return $this->fetch();
     }
@@ -129,9 +125,9 @@ class AdminFile extends Base
 
         if (isset($this->param['file_type']) && ($this->param['file_type'] > 0)) {
             $page_param['query']['file_type'] = $this->param['file_type'];
-            $filetype = [];
-            foreach ($this->filetype as $key=>$value){
-                if($key==$this->param['file_type']){
+            $filetype                         = [];
+            foreach ($this->filetype as $key => $value) {
+                if ($key == $this->param['file_type']) {
                     $filetype = $value;
                     break;
                 }
@@ -145,7 +141,7 @@ class AdminFile extends Base
             ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
-            'list' => $list,
+            'list'  => $list,
             'page'  => $list->render(),
             'total' => $list->total()
         ]);
@@ -161,7 +157,7 @@ class AdminFile extends Base
             foreach ($data as $d) {
                 $d->save(['delete_time' => null]);
             }
-            return $this->success('还原成功',self::URL_RELOAD);
+            return $this->success('还原成功', self::URL_RELOAD);
         }
         return $this->error('还原失败');
     }
