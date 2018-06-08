@@ -8,7 +8,7 @@ namespace app\admin\controller;
 
 use app\admin\model\AdminUsers;
 use app\admin\model\AdminGroups;
-use tools\Attachment;
+use app\common\model\Attachments;
 
 class AdminUser extends Base
 {
@@ -50,12 +50,11 @@ class AdminUser extends Base
                 return $this->error($result);
             }
 
-            $attachment = new Attachment();
+            $attachment = new Attachments();
             $file =  $attachment->upload('avatar');
-            if($file['code']==1){
-                $this->param['avatar'] = $file['data'];
+            if ($file) {
+                $this->param['avatar'] = $file->url;
             }
-            
             $this->param['password'] = md5($this->param['password']);
             $user = AdminUsers::create($this->param);
             if ($user) {
@@ -100,10 +99,14 @@ class AdminUser extends Base
                 return $this->error($result);
             }
 
-            $attachment = new Attachment();
-            $file =  $attachment->upload('avatar');
-            if($file['code']==1){
-                $this->param['avatar'] = $file['data'];
+            if($this->request->file('avatar')){
+                $attachment = new Attachments();
+                $file       = $attachment->upload('avatar');
+                if ($file) {
+                    $this->param['avatar'] = $file->url;
+                } else {
+                    return $this->error($attachment->getError());
+                }
             }
 
             if (!empty($this->param['password'])) {
@@ -174,10 +177,12 @@ class AdminUser extends Base
                 if(!(request()->file('avatar'))){
                     return $this->error('请上传新头像');
                 }
-                $attachment = new Attachment();
-                $file =  $attachment->upload('avatar');
-                if($file['code']==1){
-                    $this->param['avatar'] = $file['data'];
+                $attachment = new Attachments();
+                $file       = $attachment->upload('avatar');
+                if ($file) {
+                    $this->param['avatar'] = $file->url;
+                } else {
+                    return $this->error($attachment->getError());
                 }
             }
             if (false !== $user->save($this->param)) {

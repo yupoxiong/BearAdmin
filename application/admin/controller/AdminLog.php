@@ -46,15 +46,15 @@ class AdminLog extends Base
             $this->assign('end_date', $this->param['end_date']);
         }
 
-        $log_list = $model->field('id,user_id,title,log_url,log_type,log_ip,create_time')
+        $list = $model->field('id,user_id,title,log_url,log_type,log_ip,create_time')
             ->with('adminUser')
             ->order('id desc')
             ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
-            'list'      => $log_list,
-            'page'      => $log_list->render(),
-            'total'     => $log_list->total(),
+            'list'      => $list,
+            'page'      => $list->render(),
+            'total'     => $list->total(),
             'user_list' => AdminUsers::all()
         ]);
 

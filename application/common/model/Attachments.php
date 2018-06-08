@@ -115,7 +115,7 @@ class Attachments extends Model
                 ];
                 return $this->create($file_info);
             } else {
-                $error = $file->getError();
+                $this->error = $file->getError();
             }
         } else {
             $this->error='无法获取文件';

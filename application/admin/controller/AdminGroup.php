@@ -17,11 +17,11 @@ class AdminGroup extends Base
     public function index()
     {
         $model = new AdminGroups();
-        $roles       = $model->paginate($this->webData['list_rows']);
+        $list       = $model->paginate($this->webData['list_rows']);
         $this->assign([
-            'list' => $roles,
-            'total' => $roles->total(),
-            'page'  => $roles->render()
+            'list' => $list,
+            'total' => $list->total(),
+            'page'  => $list->render()
         ]);
         return $this->fetch();
     }
@@ -38,9 +38,7 @@ class AdminGroup extends Base
             }
             //默认写入首页和个人资料权限
             $param['rules'] = '1,2,44';
-
-            $role = new AdminGroups();
-            if ($role->create($param)) {
+            if (AdminGroups::create($param)) {
                 return $this->success();
             }
             return $this->error();
@@ -62,9 +60,9 @@ class AdminGroup extends Base
                 }
             }
 
-            $result = $this->validate($this->param, 'AdminGroup.edit');
-            if (true !== $result) {
-                return $this->error($result);
+            $result_validate = $this->validate($this->param, 'AdminGroup.edit');
+            if (true !== $result_validate) {
+                return $this->error($result_validate);
             }
 
             $info = AdminGroups::get($this->id);
