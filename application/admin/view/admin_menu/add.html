@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="__PLUGINS__/iconpicker/css/iconpicker.min.css">
+<script src="__PLUGINS__/iconpicker/js/iconpicker.min.js"></script>
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
@@ -41,9 +43,9 @@
                         <div class="form-group">
                             <label for="icon" class="col-sm-2 control-label">图标</label>
                             <div class="col-sm-10 col-md-4">
-                                <div class="input-group">
+                                <div class="input-group iconpicker-container">
                                     <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    <input maxlength="30" id="icon" name="icon" value="{$info.icon|default=''}" class="form-control" placeholder="请输入图标class">
+                                    <input maxlength="30" id="icon" name="icon" value="{$info.icon|default='fa-list'}" class="form-control  iconpicker-element iconpicker-input" placeholder="请输入图标class">
                                 </div>
                             </div>
                         </div>
@@ -86,3 +88,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function(){
+        $('#icon').iconpicker({placement: 'bottomLeft'});
+    });
+</script>
