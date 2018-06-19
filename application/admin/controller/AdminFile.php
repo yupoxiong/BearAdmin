@@ -79,7 +79,7 @@ class AdminFile extends Base
         if ($file) {
             return $this->success('上传成功');
         }
-        return $this->error($file->getError());
+        return $this->error($model->getError());
 
     }
 
