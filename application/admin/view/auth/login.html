@@ -91,7 +91,9 @@
         $("#login_button").click(function (e) {
             var validate = captchaObj.getValidate();
             if (!validate) {
-                layer.msg('请先完成验证');
+                layer.msg('请先完成验证',{
+                    icon:2
+                });
                 e.preventDefault();
             }
         });
