@@ -89,6 +89,9 @@ class Base extends Controller
             $this->uid = Session::get('user.id');
             if ($this->uid != 1) {
                 if (!$auth->check($this->url, $this->uid)) {
+                    if(isset($this->param['layer_check_auth']) && $this->param['layer_check_auth']==1){
+                        $this->error('无权限');
+                    }
 
                     $redirect_uri = null;
                     $server       = $this->request->server();
@@ -108,6 +111,10 @@ class Base extends Controller
                     }
 
                     $this->error('无权限', $redirect_uri);
+                }else{
+                    if(isset($this->param['layer_check_auth']) && $this->param['layer_check_auth']==1){
+                        $this->success('已授权');
+                    }
                 }
             }
 
