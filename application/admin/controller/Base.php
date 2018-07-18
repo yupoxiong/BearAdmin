@@ -116,6 +116,10 @@ class Base extends Controller
                         $this->success('已授权');
                     }
                 }
+            }else{
+                if(isset($this->param['layer_check_auth']) && $this->param['layer_check_auth']==1){
+                    $this->success('已授权');
+                }
             }
 
             if ($log_type == $this->requestType && $log_type != 0) {
