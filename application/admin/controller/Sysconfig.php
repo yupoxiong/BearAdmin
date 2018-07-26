@@ -10,7 +10,6 @@ use app\admin\model\Sysconfigs;
 
 class Sysconfig extends Base
 {
-    //列表
     public function index()
     {
         $model = new Sysconfigs();
@@ -25,7 +24,6 @@ class Sysconfig extends Base
     }
 
 
-    //添加设置
     public function add()
     {
         if ($this->request->isPost()) {
@@ -44,7 +42,6 @@ class Sysconfig extends Base
     }
 
 
-    //修改设置
     public function edit()
     {
         $info = Sysconfigs::get($this->id);
@@ -66,7 +63,6 @@ class Sysconfig extends Base
     }
 
 
-    //删除设置
     public function del()
     {
         $protected_ids = range(1, 100);
