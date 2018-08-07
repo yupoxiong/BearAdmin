@@ -1,19 +1,37 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : BearAdmin
-Source Server Version : 50718
-Source Host           : 106.14.118.64:3306
+Source Server         : 本地
+Source Server Version : 50553
+Source Host           : localhost:3306
 Source Database       : bearadmin
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-05-21 23:34:07
+Date: 2018-08-07 23:10:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for bear_admin_groups
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_admin_groups`;
+CREATE TABLE `bear_admin_groups` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '角色名称',
+  `description` varchar(200) DEFAULT '' COMMENT '角色描述',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认为1启用，2冻结',
+  `rules` varchar(2000) NOT NULL DEFAULT '' COMMENT '权限id集合',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+
+-- ----------------------------
+-- Records of bear_admin_groups
+-- ----------------------------
+INSERT INTO `bear_admin_groups` VALUES ('1', '管理员', '管理员角色', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,26,27,28,29,30,31,32,33,34,21,22,23,25,24,35,36,44,37,38,39,40,41,43,42,45,46,47,48,49,50,51,52,53,54');
 
 -- ----------------------------
 -- Table structure for bear_admin_group_access
@@ -33,62 +51,43 @@ CREATE TABLE `bear_admin_group_access` (
 INSERT INTO `bear_admin_group_access` VALUES ('1', '1');
 
 -- ----------------------------
--- Table structure for bear_admin_groups
--- ----------------------------
-DROP TABLE IF EXISTS `bear_admin_groups`;
-CREATE TABLE `bear_admin_groups` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT '',
-  `description` varchar(200) DEFAULT '' COMMENT '角色描述',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认为1启用，2冻结',
-  `rules` varchar(350) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
-
--- ----------------------------
--- Records of bear_admin_groups
--- ----------------------------
-INSERT INTO `bear_admin_groups` VALUES ('1', '管理员', '管理员角色', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,26,27,28,29,30,31,32,33,34,21,22,23,25,24,35,36,44,37,38,39,40,41,43,42,45,46,47,48,49,50');
-
--- ----------------------------
--- Table structure for bear_admin_log_datas
--- ----------------------------
-DROP TABLE IF EXISTS `bear_admin_log_datas`;
-CREATE TABLE `bear_admin_log_datas` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `log_id` int(10) unsigned NOT NULL,
-  `data` longtext NOT NULL,
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `delete_time` int(10) unsigned DEFAULT NULL,
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台用户操作日志数据表';
-
--- ----------------------------
--- Records of bear_admin_log_datas
--- ----------------------------
-
--- ----------------------------
 -- Table structure for bear_admin_logs
 -- ----------------------------
 DROP TABLE IF EXISTS `bear_admin_logs`;
 CREATE TABLE `bear_admin_logs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL COMMENT '用户id',
-  `resource_id` int(10) NOT NULL DEFAULT '0' COMMENT '资源id，如果是0证明是添加？',
-  `title` varchar(100) NOT NULL,
+  `resource_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '资源id，如果是0证明是添加？',
+  `title` varchar(255) NOT NULL COMMENT '日志标题',
   `log_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1get，2post，3put，4deldet',
   `log_url` varchar(255) NOT NULL COMMENT '访问url',
   `log_ip` bigint(15) NOT NULL COMMENT '操作ip',
-  `create_time` int(11) unsigned NOT NULL COMMENT '操作时间',
-  `delete_time` int(10) unsigned DEFAULT NULL,
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认状态',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态，保留字段',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台用户操作日志表';
 
 -- ----------------------------
 -- Records of bear_admin_logs
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bear_admin_log_datas
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_admin_log_datas`;
+CREATE TABLE `bear_admin_log_datas` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `log_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '日志id',
+  `data` longtext NOT NULL COMMENT '日志内容',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态，保留字段',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `delete_time` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台用户操作日志数据表';
+
+-- ----------------------------
+-- Records of bear_admin_log_datas
 -- ----------------------------
 
 -- ----------------------------
@@ -108,13 +107,13 @@ CREATE TABLE `bear_admin_menus` (
   `type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '认证方式，1为实时认证，2为登录认证',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1默认正常，2禁用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of bear_admin_menus
 -- ----------------------------
-INSERT INTO `bear_admin_menus` VALUES ('1', '0', '后台首页', 'admin/index/index', 'fa-home', '', '1', '1000', '0', '1', '1');
-INSERT INTO `bear_admin_menus` VALUES ('2', '0', '系统管理', 'admin/sys', 'fa-desktop', '', '1', '1000', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('1', '0', '后台首页', 'admin/index/index', 'fa-home', '', '1', '99', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('2', '0', '系统管理', 'admin/sys', 'fa-desktop', '', '1', '1099', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('3', '2', '用户管理', 'admin/admin_user/index', 'fa-user', '', '1', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('4', '3', '添加用户', 'admin/admin_user/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('5', '3', '修改用户', 'admin/admin_user/edit', 'fa-edit', '', '0', '1000', '2', '1', '1');
@@ -157,13 +156,23 @@ INSERT INTO `bear_admin_menus` VALUES ('41', '40', '优化表', 'admin/database/
 INSERT INTO `bear_admin_menus` VALUES ('42', '40', '修复表', 'admin/database/repair', 'fa-circle-o-notch', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('43', '40', '查看表详情', 'admin/database/view', 'fa-info-circle', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('44', '2', '个人资料', 'admin/admin_user/profile', 'fa-smile-o', '', '1', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('45', '0', '用户管理', 'admin/user/manage', 'fa-user', '', '1', '1000', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('46', '45', '用户列表', 'admin/user/index', 'fa-list', '', '1', '1000', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('47', '46', '添加用户', 'admin/user/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('48', '46', '修改用户', 'admin/user/edit', 'fa-pencil', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('49', '46', '删除用户', 'admin/user/del', 'fa-trash', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('50', '46', '用户禁用(启用)', 'admin/user/disable', 'fa-ban', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('51', '45', '用户等级', 'admin/user_level/index', 'fa-list', '', '1', '1000', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('52', '51', '添加用户等级', 'admin/user_level/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('53', '51', '修改用户等级', 'admin/user_level/edit', 'fa-pencil', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('54', '51', '删除用户等级', 'admin/user_level/del', 'fa-trash', '', '0', '1000', '2', '1', '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_users
 -- ----------------------------
 DROP TABLE IF EXISTS `bear_admin_users`;
 CREATE TABLE `bear_admin_users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `name` varchar(50) NOT NULL COMMENT '用户名（登录帐号）',
   `password` char(32) NOT NULL COMMENT '密码',
   `nickname` varchar(30) DEFAULT NULL COMMENT '用户昵称或中文用户名',
@@ -216,12 +225,12 @@ CREATE TABLE `bear_attachments` (
 DROP TABLE IF EXISTS `bear_sysconfigs`;
 CREATE TABLE `bear_sysconfigs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '默认1，系统设置',
-  `name` varchar(255) NOT NULL,
-  `code` varchar(255) NOT NULL,
-  `content` varchar(255) NOT NULL,
+  `group_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '分组默认1，系统设置',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `code` varchar(255) NOT NULL COMMENT '代码',
+  `content` varchar(255) NOT NULL COMMENT '内容',
+  `description` varchar(255) NOT NULL COMMENT '描述',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否启用，1启用，0禁用',
-  `description` varchar(255) NOT NULL,
   `create_time` int(11) unsigned NOT NULL DEFAULT '0',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   `delete_time` int(11) unsigned DEFAULT NULL,
@@ -231,22 +240,7 @@ CREATE TABLE `bear_sysconfigs` (
 -- ----------------------------
 -- Records of bear_sysconfigs
 -- ----------------------------
-INSERT INTO `bear_sysconfigs` VALUES ('1', '1', '后台名称', 'backend_name', 'Test', '1', '网站后台名称，title和登录界面显示', '1502187289', '0', null);
-
--- ----------------------------
--- Table structure for bear_syslog_trace
--- ----------------------------
-DROP TABLE IF EXISTS `bear_syslog_trace`;
-CREATE TABLE `bear_syslog_trace` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `log_id` int(11) unsigned NOT NULL COMMENT 'log id',
-  `trace` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志trace表';
-
--- ----------------------------
--- Records of bear_syslog_trace
--- ----------------------------
+INSERT INTO `bear_sysconfigs` VALUES ('1', '1', '后台名称', 'backend_name', 'Test', '网站后台名称，title和登录界面显示', '1', '1502187289', '0', null);
 
 -- ----------------------------
 -- Table structure for bear_syslogs
@@ -264,4 +258,19 @@ CREATE TABLE `bear_syslogs` (
 
 -- ----------------------------
 -- Records of bear_syslogs
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bear_syslog_trace
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_syslog_trace`;
+CREATE TABLE `bear_syslog_trace` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `log_id` int(11) unsigned NOT NULL COMMENT '日志id',
+  `trace` longtext COMMENT '日志trace',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志trace表';
+
+-- ----------------------------
+-- Records of bear_syslog_trace
 -- ----------------------------

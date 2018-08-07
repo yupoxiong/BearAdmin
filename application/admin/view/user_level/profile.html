@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="{$user.avatar}" alt="头像">
+                <h3 class="profile-username text-center">{$user.nickname}</h3>
+                <p class="text-muted text-center">{$user.name}</p>
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">详情资料</h3>
+            </div>
+            <div class="box-body">
+                <strong><i class="fa fa-envelope"></i> 手机</strong>
+                <p class="text-muted">{$user->mobile}</p>
+                <hr>
+                <strong><i class="fa fa-envelope"></i> 邮箱</strong>
+                <p class="text-muted">{$user->email}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">个人信息</a></li>
+                <li class=""><a href="#privacy" data-toggle="tab" aria-expanded="false">修改密码</a></li>
+                <li class=""><a href="#avatars" data-toggle="tab" aria-expanded="false">修改头像</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+                    <form class="dataForm form-horizontal" action="" method="post">
+                        <input type="hidden" value="profile" name="update_type" placeholder="请勿修改">
+
+                        <div class="form-group">
+                            <label for="nickname" class="col-sm-2 control-label">昵称</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input class="form-control" value="{$user->nickname}" name="nickname"
+                                       id="nickname" maxlength="30"
+                                       placeholder="昵称或姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">手机</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input type="tel" maxlength="11" autocomplete='tel-national' class="form-control" value="{$user->mobile}" name="mobile"
+                                       id="mobile" placeholder="手机号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input type="email" autocomplete='email' class="form-control" value="{$user->email}" name="email"
+                                       id="email" placeholder="邮箱">
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane" id="privacy">
+                    <form class="dataForm form-horizontal" action="" method="post">
+                        <input type="hidden" value="password" name="update_type" placeholder="请勿修改">
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">当前密码</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input type="password" autocomplete='password' class="form-control" name="password" id="password"
+                                       placeholder="请输入当前密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newpassword" class="col-sm-2 control-label">新密码</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input type="password" class="form-control" autocomplete='newpassword' name="newpassword" id="newpassword"
+                                       placeholder="请输入新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newpassword_do" class="col-sm-2 control-label">确认新密码</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input type="password" class="form-control" autocomplete='newpassword_do' name="newpassword_do" id="newpassword_do"
+                                       placeholder="再次输入新密码">
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="avatars">
+                    <form class="dataForm form-horizontal" action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" value="avatar" name="update_type" placeholder="请勿淘气修改">
+                        <div class="form-group">
+                            <label for="avatar" class="col-sm-2 control-label">头像</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input type="file" class="form-control" name="avatar" id="avatar"
+                                       placeholder="头像可空">
+                            </div>
+                        </div>
+                        {:token()}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
