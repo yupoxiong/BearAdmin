@@ -60,13 +60,19 @@ class Databack extends Base
     //下载备份
     public function download()
     {
-        $this->back->downloadFile($this->filename);
+        if(!preg_match('/^[A-Za-z0-9_-]+.sql$/',$this->filename)){
+            return $this->error('文件名不合法');
+        }
+        return $this->back->downloadFile($this->filename);
     }
 
 
     //还原
     public function restore()
     {
+        if(!preg_match('/^[A-Za-z0-9_-]+.sql$/',$this->filename)){
+            return $this->error('文件名不合法');
+        }
         $result = $this->back->restore($this->filename);
         if ($result['status'] == 200) {
             return $this->success($result['message']);
@@ -78,6 +84,9 @@ class Databack extends Base
     //删除
     public function del()
     {
+        if(!preg_match('/^[A-Za-z0-9_-]+.sql$/',$this->filename)){
+            return $this->error('文件名不合法');
+        }
         $result = $this->back->deleteFile($this->filename);
         if ($result['status'] == 200) {
             return $this->success($result['message']);
