@@ -99,6 +99,8 @@ class User extends Base
             $file                    = $attachment->upload('headimg');
             if ($file) {
                 $this->param['headimg'] = $file->url;
+            }else{
+                return $this->error($attachment->getError());
             }
 
             $result = Users::create($this->param);

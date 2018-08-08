@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50553
+Source Server         : localhost
+Source Server Version : 50717
 Source Host           : localhost:3306
-Source Database       : bearadmin
+Source Database       : bearadmin20180808
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-08-07 23:10:52
+Date: 2018-08-08 10:43:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,7 +57,7 @@ DROP TABLE IF EXISTS `bear_admin_logs`;
 CREATE TABLE `bear_admin_logs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL COMMENT '用户id',
-  `resource_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '资源id，如果是0证明是添加？',
+  `resource_id` int(11) NOT NULL DEFAULT '0' COMMENT '资源id，如果是0证明是添加？，此字段不设置为无符号',
   `title` varchar(255) NOT NULL COMMENT '日志标题',
   `log_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1get，2post，3put，4deldet',
   `log_url` varchar(255) NOT NULL COMMENT '访问url',
@@ -213,11 +213,14 @@ CREATE TABLE `bear_attachments` (
   `update_time` int(11) unsigned NOT NULL,
   `delete_time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
 
 -- ----------------------------
 -- Records of bear_attachments
 -- ----------------------------
+INSERT INTO `bear_attachments` VALUES ('1', '0', 'fx.png', 'dd9be964dc8cec705ef2626be6a94648.png', 'D:/php/website/BearAdmin/public/uploads/attachment/20180808/dd9be964dc8cec705ef2626be6a94648.png', 'png', 'image/png', '3228', '82d5b8eb764adb141250a8613b0f883a', 'be9492d8fa95873377e3e8008b15b1d41368925b', '/uploads/attachment/20180808/dd9be964dc8cec705ef2626be6a94648.png', '0', '1533695403', '1533695403', null);
+INSERT INTO `bear_attachments` VALUES ('2', '0', 'r3.png', '7e2a8ed1e5e301608e8851e8df8d0bbe.png', 'D:/php/website/BearAdmin/public/uploads/attachment/20180808/7e2a8ed1e5e301608e8851e8df8d0bbe.png', 'png', 'image/png', '1933', 'b7a14b939643579b40273a10a29da008', 'b9db5f2d43c2b988ea65612a414403e8f9f78c63', '/uploads/attachment/20180808/7e2a8ed1e5e301608e8851e8df8d0bbe.png', '0', '1533695438', '1533695438', null);
+INSERT INTO `bear_attachments` VALUES ('3', '0', 'r3_1.png', '1c6bcdb692cc11df6b393e90d30af5e2.png', 'D:/php/website/BearAdmin/public/uploads/attachment/20180808/1c6bcdb692cc11df6b393e90d30af5e2.png', 'png', 'image/png', '1836', '9f870914e24115562c869538daa4820d', 'e83af3fcc03e7b9db52ad485f6b4e142eaadda7c', '/uploads/attachment/20180808/1c6bcdb692cc11df6b393e90d30af5e2.png', '0', '1533695461', '1533695461', null);
 
 -- ----------------------------
 -- Table structure for bear_sysconfigs
@@ -274,3 +277,53 @@ CREATE TABLE `bear_syslog_trace` (
 -- ----------------------------
 -- Records of bear_syslog_trace
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for bear_users
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_users`;
+CREATE TABLE `bear_users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `level_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户等级id',
+  `name` varchar(50) NOT NULL COMMENT '用户账号',
+  `password` char(32) NOT NULL COMMENT '密码',
+  `nickname` varchar(50) NOT NULL COMMENT '昵称',
+  `headimg` varchar(255) NOT NULL COMMENT '头像',
+  `mobile` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
+  `email` varchar(255) NOT NULL COMMENT '邮箱',
+  `money` decimal(11,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '余额',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态，1启用，2禁用',
+  `reg_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
+  `last_login_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `delete_time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='前台用户表';
+
+-- ----------------------------
+-- Records of bear_users
+-- ----------------------------
+INSERT INTO `bear_users` VALUES ('1', '1', 'test001', '14e1b600b1fd579f47433b88e8d85291', 'test001', '/uploads/attachment/20180808/dd9be964dc8cec705ef2626be6a94648.png', '13000000001', '', '0.00', '1', '0', '0', '1533695403', '1533695403', null);
+INSERT INTO `bear_users` VALUES ('2', '2', 'test002', '14e1b600b1fd579f47433b88e8d85291', 'test002', '/uploads/attachment/20180808/7e2a8ed1e5e301608e8851e8df8d0bbe.png', '13000000002', '', '0.00', '1', '0', '0', '1533695438', '1533695438', null);
+INSERT INTO `bear_users` VALUES ('3', '3', 'test003', '14e1b600b1fd579f47433b88e8d85291', 'test003', '/uploads/attachment/20180808/1c6bcdb692cc11df6b393e90d30af5e2.png', '13000000003', '', '0.00', '1', '0', '0', '1533695461', '1533695461', null);
+
+-- ----------------------------
+-- Table structure for bear_user_levels
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_user_levels`;
+CREATE TABLE `bear_user_levels` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '等级名称',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `delete_time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='前台用户等级表';
+
+-- ----------------------------
+-- Records of bear_user_levels
+-- ----------------------------
+INSERT INTO `bear_user_levels` VALUES ('1', '普通会员', '1533695231', '1533695231', null);
+INSERT INTO `bear_user_levels` VALUES ('2', '中级会员', '1533695240', '1533695240', null);
+INSERT INTO `bear_user_levels` VALUES ('3', '高级会员', '1533695246', '1533695246', null);
