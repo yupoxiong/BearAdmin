@@ -111,6 +111,8 @@ class AdminUser extends Base
 
             if (!empty($this->param['password'])) {
                 $this->param['password'] = md5($this->param['password']);
+            }else {
+                unset($this->param['password']);
             }
 
             if (false !== $info->save($this->param)) {
