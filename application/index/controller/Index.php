@@ -6,9 +6,6 @@
 
 namespace app\index\controller;
 
-use Endroid\QrCode\ErrorCorrectionLevel;
-use Endroid\QrCode\QrCode;
-use think\Config;
 
 class Index extends Controller
 {

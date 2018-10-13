@@ -18,6 +18,10 @@ class AliOss
         $accessKeySecret =config('aliyun_oss.KeySecret');
         $endpoint = config('aliyun_oss.EndPoint');
         $bucket= config('aliyun_oss.Bucket');
+
+        if(!$accessKeyId || $accessKeySecret){
+            throw  new \Exception('请先配置完整AccessKeyId和AaccessKeySecret');
+        }
         
         $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
         //判断bucketname是否存在，不存在就去创建

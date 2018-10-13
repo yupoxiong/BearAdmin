@@ -17,6 +17,9 @@ class Qiniu
         // 需要填写你的 Access Key 和 Secret Key
         $accessKey = config('qiniu.AccessKey');
         $secretKey = config('qiniu.SecretKey');
+        if(!$accessKey || $secretKey){
+            throw new \Exception('请先配置完整AccessKey和SecretKey');
+        }
         // 构建鉴权对象
         $auth = new Auth($accessKey, $secretKey);
 

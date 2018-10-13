@@ -29,18 +29,6 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">导入excel示例参考图</h3>
-            </div>
-            <div class="box-body">
-                <img src="__STATIC__/images/excel_import_example.png">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-header">
                 <h3 class="box-title">{$webData['title']}</h3>
                 {if isset($total)}
                 共{$total}条记录
@@ -58,13 +46,13 @@
                                 <th>性别</th>
                                 <th>城市</th>
                             </tr>
-                            {foreach name=$item item='list'}
+                            {foreach name='list' id='item'}
                             <tr>
-                                <td>{$list.id}</td>
-                                <td>{$list.name}</td>
-                                <td>{$list.age}</td>
-                                <td>{$list.sex}</td>
-                                <td>{$list.city}</td>
+                                <td>{$item.id}</td>
+                                <td>{$item.name}</td>
+                                <td>{$item.age}</td>
+                                <td>{$item.sex}</td>
+                                <td>{$item.city}</td>
                             </tr>
                             {/foreach}
                             </tbody>
