@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50717
+Source Server Version : 50553
 Source Host           : localhost:3306
-Source Database       : bearadmin20180808
+Source Database       : bearadmin
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-08-08 10:43:32
+Date: 2018-10-15 10:57:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,6 +49,7 @@ CREATE TABLE `bear_admin_group_access` (
 -- Records of bear_admin_group_access
 -- ----------------------------
 INSERT INTO `bear_admin_group_access` VALUES ('1', '1');
+INSERT INTO `bear_admin_group_access` VALUES ('2', '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_logs
@@ -107,7 +108,7 @@ CREATE TABLE `bear_admin_menus` (
   `type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '认证方式，1为实时认证，2为登录认证',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1默认正常，2禁用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 -- ----------------------------
 -- Records of bear_admin_menus
@@ -127,7 +128,7 @@ INSERT INTO `bear_admin_menus` VALUES ('12', '2', '菜单管理', 'admin/admin_m
 INSERT INTO `bear_admin_menus` VALUES ('13', '12', '添加菜单', 'admin/admin_menu/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('14', '12', '修改菜单', 'admin/admin_menu/edit', 'fa-edit', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('15', '12', '删除菜单', 'admin/admin_menu/del', 'fa-close', '', '0', '1000', '2', '1', '1');
-INSERT INTO `bear_admin_menus` VALUES ('16', '2', '系统设置', 'admin/sysconfig/index', 'fa-cog', '', '1', '1000', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('16', '2', '系统设置', 'admin/sysconfig/manage', 'fa-cog', '', '1', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('17', '16', '添加设置', 'admin/sysconfig/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('18', '16', '修改设置', 'admin/sysconfig/edit', 'fa-edit', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('19', '16', '删除设置', 'admin/sysconfig/del', 'fa-close', '', '0', '1000', '2', '1', '1');
@@ -144,7 +145,7 @@ INSERT INTO `bear_admin_menus` VALUES ('29', '2', '日志管理', 'admin/admin_l
 INSERT INTO `bear_admin_menus` VALUES ('30', '29', '操作日志', 'admin/admin_log/index', 'fa-keyboard-o', '', '1', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('31', '30', '查看操作日志详情', 'admin/admin_log/view', 'fa-search-plus', '', '0', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('32', '29', '系统日志', 'admin/syslog/index', 'fa-exclamation-circle', '', '1', '1000', '0', '1', '1');
-INSERT INTO `bear_admin_menus` VALUES ('33', '32', '查看系统日志Trace', 'admin/syslog/trace', 'fa-info-circle', '', '0', '1000', '0', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('33', '32', '查看系统日志Trace', 'admin/syslog/view', 'fa-info-circle', '', '0', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('34', '2', '数据维护', 'admin/data', 'fa-database', '', '1', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('35', '34', '数据库备份', 'admin/databack/index', 'fa-database', '', '1', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('36', '35', '添加备份', 'admin/databack/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
@@ -161,11 +162,12 @@ INSERT INTO `bear_admin_menus` VALUES ('46', '45', '用户列表', 'admin/user/i
 INSERT INTO `bear_admin_menus` VALUES ('47', '46', '添加用户', 'admin/user/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('48', '46', '修改用户', 'admin/user/edit', 'fa-pencil', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('49', '46', '删除用户', 'admin/user/del', 'fa-trash', '', '0', '1000', '2', '1', '1');
-INSERT INTO `bear_admin_menus` VALUES ('50', '46', '用户禁用(启用)', 'admin/user/disable', 'fa-ban', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('50', '46', '禁用/启用 用户', 'admin/user/disable', 'fa-ban', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('51', '45', '用户等级', 'admin/user_level/index', 'fa-list', '', '1', '1000', '0', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('52', '51', '添加用户等级', 'admin/user_level/add', 'fa-plus', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('53', '51', '修改用户等级', 'admin/user_level/edit', 'fa-pencil', '', '0', '1000', '2', '1', '1');
 INSERT INTO `bear_admin_menus` VALUES ('54', '51', '删除用户等级', 'admin/user_level/del', 'fa-trash', '', '0', '1000', '2', '1', '1');
+INSERT INTO `bear_admin_menus` VALUES ('55', '16', '后台设置', 'admin/sysconfig/index', 'fa-list', '', '1', '1000', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for bear_admin_users
@@ -185,12 +187,13 @@ CREATE TABLE `bear_admin_users` (
   `delete_time` int(10) unsigned DEFAULT NULL COMMENT '删除时间',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态1正常，0冻结',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='后台用户表';
 
 -- ----------------------------
 -- Records of bear_admin_users
 -- ----------------------------
 INSERT INTO `bear_admin_users` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '超级管理员', '', '18888888888', '/static/admin/images/avatar.png', null, '1488189586', '1526916735', null, '1');
+INSERT INTO `bear_admin_users` VALUES ('2', 'demo', 'fe01ce2a7fbac8fafaed7c982a04e229', 'Demo', '', '', '/static/admin/images/avatar.png', null, '1539572074', '1539572110', null, '1');
 
 -- ----------------------------
 -- Table structure for bear_attachments
@@ -221,6 +224,26 @@ CREATE TABLE `bear_attachments` (
 INSERT INTO `bear_attachments` VALUES ('1', '0', 'fx.png', 'dd9be964dc8cec705ef2626be6a94648.png', 'D:/php/website/BearAdmin/public/uploads/attachment/20180808/dd9be964dc8cec705ef2626be6a94648.png', 'png', 'image/png', '3228', '82d5b8eb764adb141250a8613b0f883a', 'be9492d8fa95873377e3e8008b15b1d41368925b', '/uploads/attachment/20180808/dd9be964dc8cec705ef2626be6a94648.png', '0', '1533695403', '1533695403', null);
 INSERT INTO `bear_attachments` VALUES ('2', '0', 'r3.png', '7e2a8ed1e5e301608e8851e8df8d0bbe.png', 'D:/php/website/BearAdmin/public/uploads/attachment/20180808/7e2a8ed1e5e301608e8851e8df8d0bbe.png', 'png', 'image/png', '1933', 'b7a14b939643579b40273a10a29da008', 'b9db5f2d43c2b988ea65612a414403e8f9f78c63', '/uploads/attachment/20180808/7e2a8ed1e5e301608e8851e8df8d0bbe.png', '0', '1533695438', '1533695438', null);
 INSERT INTO `bear_attachments` VALUES ('3', '0', 'r3_1.png', '1c6bcdb692cc11df6b393e90d30af5e2.png', 'D:/php/website/BearAdmin/public/uploads/attachment/20180808/1c6bcdb692cc11df6b393e90d30af5e2.png', 'png', 'image/png', '1836', '9f870914e24115562c869538daa4820d', 'e83af3fcc03e7b9db52ad485f6b4e142eaadda7c', '/uploads/attachment/20180808/1c6bcdb692cc11df6b393e90d30af5e2.png', '0', '1533695461', '1533695461', null);
+
+-- ----------------------------
+-- Table structure for bear_excel_examples
+-- ----------------------------
+DROP TABLE IF EXISTS `bear_excel_examples`;
+CREATE TABLE `bear_excel_examples` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `age` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `sex` varchar(8) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of bear_excel_examples
+-- ----------------------------
+INSERT INTO `bear_excel_examples` VALUES ('1', '于破熊', '25', '男', '济南');
+INSERT INTO `bear_excel_examples` VALUES ('2', '淘气熊', '23', '女', '济南');
+INSERT INTO `bear_excel_examples` VALUES ('3', '熊宝宝', '1', '男', '济南');
 
 -- ----------------------------
 -- Table structure for bear_sysconfigs

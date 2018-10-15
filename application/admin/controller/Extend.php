@@ -325,13 +325,9 @@ class Extend extends Base
 
                 $file_name    = $info->getPathname();
                 $spreadsheet    = IOFactory::load($file_name);
-
                 $excel_array = $spreadsheet->getActiveSheet()->toArray();
                 array_shift($excel_array);  //删除第一个数组(标题);
-
-                dump($excel_array);
-                exit();
-
+                
                 $person = [];
                 foreach ($excel_array as $k => $v) {
                     $person[$k]['name'] = $v[0];
@@ -382,14 +378,15 @@ class Extend extends Base
 
 
     //导出方法
-    function export($head, $body, $name = null, $version = '2007')
+    function export($head, $body, $name = null, $version = '2007',$title='记录')
     {
+        //config('app_trace',false);
         try {
             // 输出 Excel 文件头
             $name = empty($name) ? date('Y-m-d-H-i-s') : $name;
 
-            $objPHPExcel   = new Spreadsheet();
-            $sheetPHPExcel = $objPHPExcel->setActiveSheetIndex(0);
+            $spreadsheet   = new Spreadsheet();
+            $sheetPHPExcel = $spreadsheet->setActiveSheetIndex(0);
             $char_index    = range("A", "Z");
 
             // Excel 表格头
@@ -397,12 +394,14 @@ class Extend extends Base
                 $sheetPHPExcel->setCellValue("{$char_index[$key]}1", $val);
             }
 
+            $spreadsheet->getActiveSheet()->setTitle($title);
+
             // Excel body 部分
             foreach ($body as $key => $val) {
                 $row = $key + 2;
                 $col = 0;
                 foreach ($val as $k => $v) {
-                    $sheetPHPExcel->setCellValue("{$char_index[$col]}{$row}", $v);
+                    $spreadsheet->getActiveSheet()->setCellValue("{$char_index[$col]}{$row}", $v);
                     $col++;
                 }
             }
@@ -412,11 +411,11 @@ class Extend extends Base
                 '2007' => [
                     'mime'       => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                     'ext'        => '.xlsx',
-                    'write_type' => 'Excel2007',
+                    'write_type' => 'Xlsx',
                 ],
                 '2003' => ['mime'       => 'application/vnd.ms-excel',
                            'ext'        => '.xls',
-                           'write_type' => 'Excel5',
+                           'write_type' => 'Xls',
                 ],
                 'pdf'  => ['mime'       => 'application/pdf',
                            'ext'        => '.pdf',
@@ -431,16 +430,8 @@ class Extend extends Base
             header('Content-Type: ' . $version_opt[$version]['mime']);
             header('Content-Disposition: attachment;filename="' . $name . $version_opt[$version]['ext'] . '"');
             header('Cache-Control: max-age=0');
-            // If you're serving to IE 9, then the following may be needed
-            header('Cache-Control: max-age=1');
 
-            // If you're serving to IE over SSL, then the following may be needed
-            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-            header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-            header('Pragma: public'); // HTTP/1.0
-
-            $objWriter = IOFactory::createWriter($objPHPExcel, $version_opt[$version]['write_type']);
+            $objWriter = IOFactory::createWriter($spreadsheet, 'Xlsx');
             return $objWriter->save('php://output');
         } catch (\Exception $e) {
             return $e->getMessage();
