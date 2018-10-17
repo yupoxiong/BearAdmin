@@ -3,7 +3,7 @@
         <div class="box">
             <div class="box-header">
                 <div>
-                    <a title="新增" data-id="" class="AjaxButton btn btn-primary btn-sm" data-url="add.html">
+                    <a title="新增" data-toggle="tooltip" data-id="" class="AjaxButton btn btn-primary btn-sm" data-url="add.html">
                         新增
                     </a>
                 </div>
@@ -25,15 +25,15 @@
                         <td>{$item.time}</td>
                         <td>{$item.size}</td>
                         <td class="td-do">
-                            <a data-url="restore.html" data-data='{"name":"{$item.name}"}' class="AjaxButton btn btn-warning btn-xs" title="还原">
+                            <a data-url="restore.html" data-data='{"name":"{$item.name}"}' data-toggle="tooltip" class="AjaxButton btn btn-warning btn-xs" title="还原">
                                 <i class="fa fa-mail-reply"></i>
                             </a>
                             <a target="_blank" href="download.html?name={$item.name}"
-                               class="btn btn-default btn-xs" title="下载">
+                               class="btn btn-default btn-xs" data-toggle="tooltip" title="下载">
                                 <i class="fa fa-download"></i>
                             </a>
                             <a data-url="del.html" data-data='{"name":"{$item.name}"}'
-                               class="AjaxButton btn btn-danger btn-xs">
+                               class="AjaxButton btn btn-danger btn-xs" title="删除" data-toggle="tooltip">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

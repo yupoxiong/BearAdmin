@@ -47,8 +47,8 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <a class="btn btn-warning btn-sm AjaxButton" data-id="checked" data-url="reduction.html" title="还原选中项">还原</a>
-                <a class="btn btn-danger btn-sm AjaxButton" data-id="checked" data-url="delete.html" title="永久删除选中项,不可恢复">
+                <a class="btn btn-warning btn-sm AjaxButton" data-id="checked" data-url="reduction.html" title="还原选中项" data-toggle="tooltip">还原</a>
+                <a class="btn btn-danger btn-sm AjaxButton" data-id="checked" data-url="delete.html" title="永久删除选中项,不可恢复" data-toggle="tooltip">
                     删除
                 </a>
             </div>
@@ -78,10 +78,10 @@
                         <td>{$item.file_type}</td>
                         <td>{$item.create_time}</td>
                         <td class="td-do">
-                            <a title="还原" class="btn btn-warning btn-xs AjaxButton" data-type="1" data-url="reduction.html" data-id="{$item.id}">
+                            <a title="还原" data-toggle="tooltip" class="btn btn-warning btn-xs AjaxButton" data-type="1" data-url="reduction.html" data-id="{$item.id}">
                                 <i class="fa fa-reply"></i>
                             </a>
-                            <a data-id="{$item.id}" data-url="delete.html" class="btn btn-danger btn-xs recycleDeleteButton" title="删除">
+                            <a data-id="{$item.id}" data-toggle="tooltip" data-url="delete.html" class="btn btn-danger btn-xs recycleDeleteButton" title="删除">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

@@ -38,11 +38,11 @@ class AdminMenu extends Base
 
             $result[$n]['str_manage'] =
                 '<a href="' . url('admin_menu/edit', 'id=' . $r['id']) .
-                '" class="btn btn-primary btn-xs" title="编辑"><i class="fa fa-pencil"></i></a>
+                '" class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
                 ';
 
             $result[$n]['str_manage'] .=
-                '<a class="btn btn-danger btn-xs AjaxButton" data-id="'. $r['id'].'" data-url="del.html" title="删除"><i class="fa fa-trash"></i></a>';
+                '<a class="btn btn-danger btn-xs AjaxButton" data-id="'. $r['id'].'" data-url="del.html" data-toggle="tooltip" title="删除"><i class="fa fa-trash"></i></a>';
             $result[$n]['is_show']    = $r['is_show'] == 1
                 ? '显示'
                 : '隐藏';

@@ -28,14 +28,14 @@
                         <td>{$item.status_text}</td>
                         <td class="td-do">
                             <a href="{:url('admin_group/access','id='.$item.id)}"
-                               class="btn btn-warning btn-xs" title="授权">
+                               class="btn btn-warning btn-xs" data-toggle="tooltip" title="授权">
                                 <i class="fa fa-key"></i>
                             </a>
                             <a href="{:url('admin_group/edit','id='.$item.id)}"
-                               class="btn btn-primary btn-xs" title="编辑">
+                               class="btn btn-primary btn-xs" data-toggle="tooltip" title="修改">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a class="btn btn-danger btn-xs AjaxButton" title="删除" data-id="{$item.id}" data-url="del.html">
+                            <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除" data-id="{$item.id}" data-url="del.html">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>
