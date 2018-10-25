@@ -1,6 +1,11 @@
  # BearAdmin
-基于ThinkPHP5+AdminLTE的后台管理系统
 
+ ![PHP from Travis config](https://img.shields.io/travis/php-v/symfony/symfony.svg) ![Github Releases](https://img.shields.io/github/downloads/atom/atom/latest/total.svg)
+![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
+
+
+
+ > 基于ThinkPHP5+AdminLTE的后台管理系统
  ## 演示地址
  * <https://bearadmin.yufuping.com/admin>
  * 帐号：demo
