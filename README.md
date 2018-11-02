@@ -1,8 +1,6 @@
  # BearAdmin
 
- ![PHP from Travis config](https://img.shields.io/travis/php-v/symfony/symfony.svg) ![Github Releases](https://img.shields.io/github/downloads/atom/atom/latest/total.svg)
-![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
-
+[![](https://img.shields.io/badge/php->=7.1-blue.svg)](https://github.com/yupoxiong/region)
 
 
  > 基于ThinkPHP5+AdminLTE的后台管理系统
