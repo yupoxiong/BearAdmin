@@ -276,7 +276,7 @@ return [
 
 
     'qq_login'          => [
-        'app_key'    => '填写你的',
+        'app_id'    => '填写你的',
         'app_secret' => '',
         'scope'      => 'get_user_info',
         'callback'   => [
