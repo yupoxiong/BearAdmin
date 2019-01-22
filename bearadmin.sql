@@ -275,7 +275,7 @@ DROP TABLE IF EXISTS `bear_syslogs`;
 CREATE TABLE `bear_syslogs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `level` int(8) unsigned NOT NULL DEFAULT '0' COMMENT '错误等级',
-  `message` varchar(255) NOT NULL COMMENT '错误信息',
+  `message` varchar(500) NOT NULL COMMENT '错误信息',
   `file` varchar(255) NOT NULL COMMENT '文件',
   `line` int(10) unsigned NOT NULL COMMENT '所在行数',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0',
