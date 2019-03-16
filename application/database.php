@@ -17,9 +17,9 @@ return [
     // 数据库名
     'database'        => 'bearadmin',
     // 用户名
-    'username'        => 'bearadmin',
+    'username'        => 'root',
     // 密码
-    'password'        => 'bearadmin',
+    'password'        => 'root',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
