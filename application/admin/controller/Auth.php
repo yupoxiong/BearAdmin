@@ -13,6 +13,10 @@ use tools\AdminAuth;
 use tools\GeetestLib;
 use anerg\OAuth2\OAuth;
 
+/**
+ * @property mixed id
+ * @property mixed name
+ */
 class Auth extends Base
 {
     protected $needAuth = false;
@@ -62,7 +66,7 @@ class Auth extends Base
         $bg     = array_rand($bg_all, 1);
 
         $this->assign([
-            'title'  => "登录",
+            'title'  => '登录',
             'bg_num' => $bg_all[$bg]
         ]);
         return $this->fetch();
@@ -89,6 +93,10 @@ class Auth extends Base
     }
 
     //QQ登录回调
+
+    /**
+     * @throws \think\exception\DbException
+     */
     public function qq()
     {
         $config = config('qq_login');
@@ -96,7 +104,7 @@ class Auth extends Base
         $OAuth->getAccessToken();
 
         $sns_info = $OAuth->userinfo();
-        $user = AdminUsers::get(function ($query) use ($sns_info) {
+        $user     = AdminUsers::get(function ($query) use ($sns_info) {
             $query->where('qq_openid', '=', $sns_info['openid']);
         });
 
@@ -106,9 +114,9 @@ class Auth extends Base
             $data = [
                 'name'      => $sns_info['openid'],
                 'qq_openid' => $sns_info['openid'],
-                'sex'       => $sns_info['gender'] == "m" ? 1 : 0,
-                'nickname' => $sns_info['nick'],
-                'avatar'    => preg_replace('/http:/','https:', $sns_info['avatar'],1)  ,
+                'sex'       => $sns_info['gender'] === 'm' ? 1 : 0,
+                'nickname'  => $sns_info['nick'],
+                'avatar'    => preg_replace('/http:/', 'https:', $sns_info['avatar'], 1),
                 'password'  => md5('123456'),
             ];
 
@@ -117,7 +125,7 @@ class Auth extends Base
                 return $this->error('创建用户失败');
             }
 
-            $user->name = 'user'.$user->id;
+            $user->name = 'user' . $user->id;
             $user->save();
 
             $access_data = [
@@ -138,36 +146,15 @@ class Auth extends Base
         return $this->success('登录成功', $redirect_uri);
     }
 
-    //微博登录
-    public function weibo()
-    {
-
-
-    }
-
-
-    //github登录
-    public function github()
-    {
-
-    }
-
-
-    //微信登录
-    public function wechat()
-    {
-
-    }
-
 
     //使用前验证
     public function get_geetest_status()
     {
         $geetest = new GeetestLib(config('geetest.id'), config('geetest.key'));
         $data    = array(
-            "user_id"     => "0", # 网站用户id
-            "client_type" => "web", #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式
-            "ip_address"  => $this->request->ip() # 请在此处传输用户请求验证时所携带的IP
+            'user_id'     => '0', # 网站用户id
+            'client_type' => 'web', #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式
+            'ip_address'  => $this->request->ip() # 请在此处传输用户请求验证时所携带的IP
         );
 
         $status = $geetest->pre_process($data, 1);
@@ -181,9 +168,9 @@ class Auth extends Base
     {
         $geetest = new GeetestLib(config('geetest.id'), config('geetest.key'));
         $data    = array(
-            "user_id"     => Session::get('gt_user_id'), # 网站用户id
-            "client_type" => "web", #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式
-            "ip_address"  => $this->request->ip()
+            'user_id'     => Session::get('gt_user_id'), # 网站用户id
+            'client_type' => 'web', #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式
+            'ip_address'  => $this->request->ip()
         );
 
         if (Session::get('gtserver') == 1) {   //服务器正常

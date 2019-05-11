@@ -8,6 +8,11 @@ namespace app\admin\model;
 
 use traits\model\SoftDelete;
 
+/**
+ * @property mixed id
+ * @property mixed name
+ */
+
 class AdminUsers extends Admin
 {
     use SoftDelete;
