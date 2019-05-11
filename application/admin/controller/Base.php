@@ -8,8 +8,6 @@ namespace app\admin\controller;
 
 use app\admin\model\AdminMenus;
 use app\admin\model\Sysconfigs;
-use PHPExcel;
-use PHPExcel_IOFactory;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use think\Controller;
@@ -280,7 +278,7 @@ class Base extends Controller
 </span>
                              <span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>
                              </a><ul class='treeview-menu";
-        $text_open       = " menu-open";
+        $text_open       = ' menu-open';
         $text_base_three = "'>";
 
         $text_base_four = "<li";
@@ -319,7 +317,7 @@ class Base extends Controller
             $this->webData['left_menu'] = $this->getLeftMenu();
         }
 
-        parent::assign([
+        $this->assign([
             'showDataHeader'             => $this->showDataHeader,
             'showDataHeaderAddButton'    => $this->showDataHeaderAddButton,
             'showDataHeaderDeleteButton' => $this->showDataHeaderDeleteButton,
@@ -336,7 +334,7 @@ class Base extends Controller
 
         $this->webData['backend_name'] = $backend_name?$backend_name->content:'后台管理';
 
-        parent::assign(['webData' => $this->webData]);
+        $this->assign(['webData' => $this->webData]);
         return parent::fetch($template, $vars, $replace, $config);
     }
 
