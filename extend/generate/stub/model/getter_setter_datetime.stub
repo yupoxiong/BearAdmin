@@ -1,0 +1,11 @@
+//[FORM_NAME]获取器
+public function get[FIELD_NAME]Attr($value)
+{
+    return date('Y-m-d H:i:s',$value);
+}
+
+//[FORM_NAME]修改器
+public function set[FIELD_NAME]Attr($value)
+{
+    return strtotime($value);
+}

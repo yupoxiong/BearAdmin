@@ -1,0 +1,5 @@
+//关联[CN_NAME]
+public function [RELATION_NAME]()
+{
+    return $this->[RELATION_TYPE]([CLASS_NAME]::class);
+}

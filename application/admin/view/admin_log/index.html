@@ -1,102 +1,125 @@
-<script src="__STATIC__/plugins/laydate/laydate.js"></script>
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body">
-                <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
-                    <div class="form-group">
-                        <input id="start_date" style="background: #fff" readonly name="start_date" value="{$start_date ? $start_date : '' ;}"
-                               class=" form-control input-sm" placeholder="起始日期">
-                    </div>
-                    <div class="form-group">
-                        <input id="end_date" style="background: #fff" readonly name="end_date" value="{$end_date ? $end_date : '' ;}"
-                               class=" form-control input-sm " placeholder="截止日期">
-                    </div>
-                    <div class="form-group">
-                        <select name="user_id" class="form-control input-sm">
-                            <option value="-1">选择用户</option>
-                            {foreach name="user_list" item="user"}
-                            <option value="{$user.id}" {if isset($user_id)&&
-                                    $user_id==$user.id}selected{/if}>{$user.nickname}({$user.name})
-                            </option>
-                            {/foreach}
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+                        <div class="form-group">
+                            <input value="{$_keywords ? $_keywords : '' ;}"
+                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="操作/URL/IP">
+                        </div>
+
+                        <div class="form-group">
+                            <select name="admin_user_id" id="admin_user_id" class="form-control input-sm">
+                                <option value="">选择用户</option>
+                                {foreach name='admin_user_list' id='item'}
+                                <option value="{$item.id}"
+                                        {if isset($admin_user_id)&& $admin_user_id==$item.id}selected{/if}
+                                >
+                                    {$item.nickname}[{$item.username}]
+                                </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <script>
+                            $('#admin_user_id').select2();
+                        </script>
+
+                        <div class="form-group">
+                            <input value="{$create_time_range ?? '' ;}"
+                                   name="create_time_range" id="create_time_range" class="form-control input-sm date-range" placeholder="日期">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                    class="fa  fa-eraser"></i> 清空
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
+                    <table class="table table-hover table-bordered datatable" width="100%">
+
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户</th>
+                            <th>操作</th>
+                            <th>URL</th>
+                            <th>请求方式</th>
+                            <th>IP</th>
+                            <th>日期</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {foreach name='data' item='list'}
+                        <tr>
+                            <td>{$list.id}</td>
+                            <td>{$list->adminUser->nickname}</td>
+                            <td>{$list.name}</td>
+                            <td>{$list.url}</td>
+                            <td>{$list.log_method}</td>
+                            <td>{$list.log_ip}</td>
+                            <td>{$list.create_time}</td>
+                            <td class="td-do">
+                                <a data-id="{$list.id}" data-url="view" data-confirm="2" data-type="2"
+                                   class="btn btn-default btn-xs AjaxButton" title="查看详情" data-toggle="tooltip">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="box-footer">
+                    {$page|raw}
+                    <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
+                        <small>共{$total}条记录</small>&nbsp;
+                        <small>每页显示</small>
+                        &nbsp;
+                        <select class="input-sm" onchange="changePerPage(this)">
+                            <option value="10" {if $admin.per_page==10}selected{/if}>10</option>
+                            <option value="20" {if $admin.per_page==20}selected{/if}>20</option>
+                            <option value="30" {if $admin.per_page==30}selected{/if}>30</option>
+                            <option value="50" {if $admin.per_page==50}selected{/if}>50</option>
+                            <option value="100" {if $admin.per_page==100}selected{/if}>100</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <input value="{$title ? $title : '' ;}"
-                               name="title" id="title" class="form-control input-sm" placeholder="操作名称">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> 查询
-                        </button>
-                    </div>
-                    <div class="form-group">
-                        <button onclick="clear_form()" class="btn btn-default btn-sm" type="button"><i
-                                class="fa  fa-eraser"></i> 清空查询
-                        </button>
-                    </div>
-                </form>
+                        &nbsp;
+                        <small>条记录</small>
+                    </label>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-bordered">
-                    <tbody>
-                    <tr>
-                        <th>ID</th>
-                        <th>用户名</th>
-                        <th>操作</th>
-                        <th>URL</th>
-                        <th>请求方式</th>
-                        <th>IP</th>
-                        <th>日期</th>
-                        <th>操作</th>
-                    </tr>
-                    {foreach name='list' item='list'}
-                    <tr>
-                        <td>{$list.id}</td>
-                        <td>{$list->adminuser['name']}</td>
-                        <td>{$list.title}</td>
-                        <td>{$list.log_url}</td>
-                        <td>{$list.log_type}</td>
-                        <td>{$list.log_ip}</td>
-                        <td>{$list.create_time}</td>
-                        <td class="td-do">
-                            <a data-id="{$list.id}" data-url="view" data-confirm="2" data-type="2"
-                               class="btn btn-default btn-xs AjaxButton" title="查看详情" data-toggle="tooltip">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {/foreach}
-                    </tbody>
-                </table>
-            </div>
-            {include file="template/data_footer" /}
-        </div>
-    </div>
-</div>
+</section>
+
 <script>
-    var start = {
-        elem: '#start_date',
-        max: laydate.now(),
-        istoday: false,
-        choose: function (datas) {
-            end.min = datas; //开始日选好后，重置结束日的最小日期
-            end.start = datas; //将结束日的初始值设定为开始日
-        }
-    };
-    var end = {
-        elem: '#end_date',
-        max: laydate.now(),
-        choose: function (datas) {
-            start.max = datas; //结束日选好后，重置开始日的最大日期
-        }
-    };
-    laydate(start);
-    laydate(end);
+    laydate.render({
+        elem: '.date-range'
+        ,range: true
+        ,type:'datetime'
+    });
 </script>
+
+{/block}
+

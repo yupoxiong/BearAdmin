@@ -1,0 +1,25 @@
+<!--省市区街道联动-->
+var regionId = [[REGION_FIELD]];
+var regionHtml = [[REGION_TIPS]];
+$(function () {
+    {if !isset($data)}
+    getRegion(0, 0);
+    {/if}
+});
+function getRegion(parent_id, level) {
+    clearSon(level);
+    var html = '<option value="-1">' + regionHtml[level] + '</option>';
+    $.post('/admin/pub/getRegion', {parent_id: parent_id, level: level}, function (result) {
+        $.each(result, function (index, item) {
+            html += '<option value="' + item.id + '">' + item.name + '</option>'
+        });
+        $(regionId[level]).html(html);
+    });
+}
+
+function clearSon(level) {
+    for(var i=level+1;i<=4;i++){
+        var html = '<option value="-1">' + regionHtml[i] + '</option>';
+        $(regionId[i]).html(html);
+    }
+}

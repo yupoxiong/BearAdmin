@@ -1,15 +1,14 @@
 <?php
 /**
- *
+ * 自定义分页文件
  * @author yupoxiong<i@yufuping.com>
  */
-
 
 namespace tools;
 
 use think\Paginator;
 
-class Bearpage extends Paginator
+class BearPage extends Paginator
 {
 
     /**
@@ -53,13 +52,14 @@ class Bearpage extends Paginator
      */
     protected function getLinks()
     {
-        if ($this->simple)
+        if ($this->simple) {
             return '';
+        }
 
         $block = [
             'first'  => null,
             'slider' => null,
-            'last'   => null
+            'last'   => null,
         ];
 
         $side   = 3;
@@ -192,7 +192,7 @@ class Bearpage extends Paginator
      */
     protected function getPageLinkWrapper($url, $page)
     {
-        if ($page == $this->currentPage()) {
+        if ($this->currentPage() == $page) {
             return $this->getActivePageWrapper($page);
         }
 

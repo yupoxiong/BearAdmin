@@ -1,0 +1,10 @@
+<!--页面底部-->
+{if !$admin.pjax}
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> {$admin.version|default='1.0'}
+    </div>
+    <strong>Copyright &copy; 2019 <a href="{$admin.link|default='#'}">{$admin.author|default='admin'}</a>.</strong> All rights
+    reserved.
+</footer>
+{/if}

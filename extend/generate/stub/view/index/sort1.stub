@@ -1,0 +1,4 @@
+<div class="form-group">
+    <select name="_order" id="_order" class="form-control input-sm index-order">
+        <option value="">排序字段</option>
+        <option value="id" {if isset($_order) && $_order=='id'}selected{/if}>ID</option>

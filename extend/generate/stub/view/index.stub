@@ -1,0 +1,76 @@
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<!--数据列表页面-->
+<section class="content">
+
+    [INDEX_FILTER]
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+
+                <!--数据列表顶部-->
+                <div class="box-header">
+                    <div>
+                        [INDEX_CREATE]
+                        [INDEX_DEL1]
+                        [INDEX_ENABLE1]
+                        [INDEX_REFRESH]
+                    </div>
+                </div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-hover table-bordered datatable" width="100%">
+                        <thead>
+                        <tr>
+                            [INDEX_SELECT1]
+                            [NAME_LIST]
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name="data" item="item"}
+                        <tr>
+                            [INDEX_SELECT2]
+                            [FIELD_LIST]
+                            <td class="td-do">
+                                <a href="{:url('edit',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                [INDEX_DEL2]
+                                [INDEX_ENABLE2]
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="box-footer">
+                    {$page|raw}
+                    <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
+                        <small>共{$total}条记录</small>&nbsp;
+                        <small>每页显示</small>
+                        &nbsp;
+                        <select class="input-sm" onchange="changePerPage(this)">
+                            <option value="10" {if $admin.per_page==10}selected{/if}>10</option>
+                            <option value="20" {if $admin.per_page==20}selected{/if}>20</option>
+                            <option value="30" {if $admin.per_page==30}selected{/if}>30</option>
+                            <option value="50" {if $admin.per_page==50}selected{/if}>50</option>
+                            <option value="100" {if $admin.per_page==100}selected{/if}>100</option>
+                        </select>
+                        &nbsp;
+                        <small>条记录</small>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{/block}
+

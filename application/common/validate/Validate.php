@@ -1,14 +1,13 @@
 <?php
 /**
- * 验证公共类
+ * 公共验证基类
  * @author yupoxiong<i@yufuping.com>
- * Date: 2018/5/20
+ * @date 2018/12/18
  */
+
 namespace app\common\validate;
 
-use think\Validate as ThinkValidate;
-
-class Validate extends ThinkValidate
+class Validate extends \think\Validate
 {
 
 }

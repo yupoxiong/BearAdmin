@@ -1,0 +1,53 @@
+{if !$admin.pjax}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+{/if}
+
+    {block name='title'}
+    <title>{$admin.title|default='Admin'} | {$admin.name|default='Admin'}</title>
+    {/block}
+
+
+{if !$admin.pjax}
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {include file='public/head_css' /}
+
+    {include file='public/head_js' /}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+{/if}
+
+    <!-- 顶部 -->
+    {block name='header'}
+    {include file='public/header' /}
+    {/block}
+    <!-- 左侧 -->
+    {block name='sidebar'}
+    {include file='public/sidebar' /}
+    {/block}
+    <!-- 内容 -->
+    <div class="content-wrapper" id="pjax-container">
+        {block name='content'}
+        {/block}
+    </div>
+    {block name='footer'}
+    {include file='public/footer' /}
+    {/block}
+
+    {block name='control_sidebar'}
+    {include file='public/control_sidebar' /}
+    {/block}
+
+{if !$admin.pjax}
+</div>
+{/if}
+
+{if !$admin.pjax}
+</body>
+</html>
+{/if}

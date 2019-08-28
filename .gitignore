@@ -3,4 +3,4 @@ runtime
 thinkphp
 vendor
 backup
-.DS_Store
+*.DS_Store

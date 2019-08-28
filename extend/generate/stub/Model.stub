@@ -1,0 +1,25 @@
+<?php
+/**
+ * [NAME]模型
+*/
+
+namespace app\[MODEL_MODULE]\model;
+
+[SOFT_DELETE_USE1]
+
+class [MODEL_NAME] extends Model
+{
+    [SOFT_DELETE_USE2]
+    [SOFT_DELETE_USE3]
+    protected $name = '[TABLE_NAME]';
+    [AUTO_TIMESTAMP]
+
+    //可搜索字段
+    protected $searchField = [[SEARCH_FIELD]];
+
+    [GETTER_SETTER]
+
+    [RELATION]
+
+    [MULTI_FIELD]
+}

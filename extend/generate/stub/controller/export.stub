@@ -1,0 +1,11 @@
+if (isset($param['export_data']) && $param['export_data'] == 1) {
+    $header = [[HEADER_LIST]];
+    $body   = [];
+    $data   = $model->select();
+    foreach ($data as $item) {
+        $record       = [];
+        [BODY_ITEM]
+        $body[]       = $record;
+    }
+    return $this->exportData($header, $body, '[FILE_NAME]-' . date('Y-m-d-H-i-s'));
+}

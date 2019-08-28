@@ -1,0 +1,52 @@
+.checkbox{
+    cursor: pointer;
+}
+.checkmod {
+    margin-bottom: 20px;
+    border: 1px solid #ebebeb;
+    padding-bottom: 5px;
+}
+.checkmod dt {
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #ECECEC;
+}
+.checkmod dt {
+    margin-bottom: 5px;
+    border-bottom-color: #ebebeb;
+    background-color: #ECECEC;
+}
+.checkbox, .radio {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.checkmod dd {
+    padding-left: 30px;
+    line-height: 30px;
+}
+.checkmod dd .checkbox {
+    margin: 0 30px 0 0;
+    font-weight: normal;
+}
+.checkmod dd .divsion {
+    margin-right: 20px;
+}
+.checkmod dt {
+    line-height: 30px;
+    font-weight: bold;
+
+}
+.rule_check {
+    border: 1px solid #ebebeb;
+    margin: auto;
+    padding: 5px 15px;
+}
+.menu_parent {
+    margin-bottom: 5px;
+}

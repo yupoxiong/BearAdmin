@@ -1,0 +1,5 @@
+{foreach name='[DATA_LIST]' id='item'}
+    <option value="{$item.id}" {if isset($data) && $data.[FIELD_NAME]==$item.id}selected{/if}>
+        {$item.[RELATION_SHOW]}
+    </option>
+{/foreach}

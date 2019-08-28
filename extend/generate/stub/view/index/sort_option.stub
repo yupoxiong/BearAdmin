@@ -1,0 +1,1 @@
+<option value="[FIELD_NAME]" {if isset($_order) && $_order=='[FIELD_NAME]'}selected{/if}>[FORM_NAME]</option>

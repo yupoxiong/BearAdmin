@@ -1,6 +1,5 @@
-<!--{__NOLAYOUT__}-->
-<link rel="stylesheet" href="__STATIC__/css/app.min.css">
-<script src="__STATIC__/js/app.min.js"></script>
+{include file='public/head_css'}
+{include file='public/head_js'}
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -12,47 +11,43 @@
                     </tr>
                     <tr>
                         <td class="text-bold">日志ID</td>
-                        <td>{$log.id}</td>
+                        <td>{$data.id}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">操作用户</td>
-                        <td>{$log->adminUser->name}</td>
+                        <td>{$data->adminUser->nickname}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">操作</td>
-                        <td>{$log.title}</td>
+                        <td>{$data.name}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">url</td>
-                        <td>{$log.log_url}</td>
+                        <td>{$data.url}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">类型</td>
-                        <td>{$log.log_type}</td>
+                        <td>{$data.log_method}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">ip</td>
-                        <td>{$log.log_ip}</td>
+                        <td>{$data.log_ip}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">日期</td>
-                        <td>{$log.create_time}</td>
+                        <td>{$data.create_time}</td>
                     </tr>
                     <tr style="border-top:2px solid #d2d6de;">
                         <th colspan="2" class="text-bold text-center">数据详情</th>
                     </tr>
-                    {foreach name="log_data" item="list" key="data"}
                     <tr>
-                        <td  class="text-bold">{$data}</td>
-                        <td colspan="3">{$list}</td>
+                        <td colspan="2" >
+                            <pre>{$data.adminLogData.data}</pre>
+                        </td>
                     </tr>
-                    {/foreach}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-{if isset($pre_log)}
-{include file="admin_log/pre_log" /}
-{/if}

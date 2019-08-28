@@ -1,0 +1,25 @@
+/** 表单验证错误 **/
+.dataForm .error{
+    color: #ff0000;
+    border-color: #dd4b39;
+}
+
+
+/** 列表页排序select **/
+.index-order{
+    min-width: 100px;
+}
+
+/** 表单页保存重置 **/
+
+.dataFormSubmit{
+    margin-right: 20px;
+}
+
+.dataFormReset{
+    margin-left: 20px;
+}
+
+.createContinue,.bodyFormCheckbox{
+    margin-top: 5px;
+}

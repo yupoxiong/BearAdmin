@@ -1,121 +1,198 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body">
-                <form class="form-inline" name="searchForm" id="searchForm" action="" method="GET">
-                    <div class="form-group">
-                        <input value="{$keywords ? $keywords : '' ;}"
-                               name="keywords" id="keywords" class="form-control input-sm" placeholder="帐号/昵称/手机号/邮箱">
-                    </div>
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<!--数据列表页面-->
+<section class="content">
 
+    <!--顶部搜索筛选-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
 
-                    <div class="form-group">
-                        <select name="level_id" class="form-control input-sm">
-                            <option value="-1">用户等级</option>
-                            {foreach name='userLevel' id='item'}
-                            <option value="{$item.id}" {if isset($level_id)&&$level_id==$item.id}selected{/if}>{$item.name}</option>
-                            {/foreach}
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <input value="{$_keywords ? $_keywords : '' ;}"
+                                   name="_keywords" id="_keywords" class="form-control input-sm"
+                                   placeholder="用户名/手机号/昵称">
+                        </div>
 
-                    <div class="form-group">
-                        <select name="_order_" class="form-control input-sm">
-                            <option value="">排序字段</option>
-                            <option value="" {if isset($_order_) && $_order_=='id'}selected{/if}>ID</option>
-                            <option value="name" {if isset($_order_) && $_order_=='name'}selected{/if}>帐号</option>
-                            <option value="reg_time" {if isset($_order_) && $_order_=='reg_time'}selected{/if}>注册时间</option>
-                            <option value="last_login_time" {if isset($_order_) && $_order_=='last_login_time'}selected{/if}>最后登录时间</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <select name="_order" id="_order" class="form-control input-sm index-order">
+                                <option value="">排序字段</option>
+                                <option value="id" {if isset($_order) && $_order=='id'}selected{/if}>ID</option>
+                                <option value="user_level_id" {if isset($_order) &&
+                                        $_order=='user_level_id'}selected{/if}>用户等级
+                                </option>
+                                <option value="mobile" {if isset($_order) && $_order=='mobile'}selected{/if}>手机号
+                                </option>
+                                <option value="status" {if isset($_order) && $_order=='status'}selected{/if}>是否启用
+                                </option>
+                                <option value="create_time" {if isset($_order) && $_order=='create_time'}selected{/if}>
+                                    创建时间
+                                </option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <select name="_by_" class="form-control input-sm">
-                            <option value="">排序方式</option>
-                            <option value="desc" {if isset($_by_) && $_by_=='desc'}selected{/if}>倒序</option>
-                            <option value="asc"  {if isset($_by_) && $_by_=='asc'}selected{/if}>正序</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <select name="_by" id="_by" class="form-control input-sm index-order">
+                                <option value="">排序方式</option>
+                                <option value="desc" {if isset($_by) && $_by=='desc'}selected{/if}>倒序</option>
+                                <option value="asc" {if isset($_by) && $_by=='asc'}selected{/if}>正序</option>
+                            </select>
+                        </div>
+                        <script>
+                            $('#_order').select2();
+                            $('#_by').select2();
+                        </script>
 
-                    <div class="form-group">
-                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
-                        </button>
-                    </div>
-                    <div class="form-group">
-                        <button onclick="exportData()" class="btn btn-sm btn-default" type="button"><i
-                                class="fa fa-download"></i> 导出
-                        </button>
-                    </div>
-
-                    <div class="form-group">
-                        <button onclick="clear_form()" class="btn btn-sm btn-" type="button"><i
-                                class="fa  fa-eraser"></i> 清空查询
-                        </button>
-                    </div>
-
-                </form>
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="exportData()" class="btn btn-sm btn-warning exportData" type="button"><i
+                                    class="fa fa-search"></i> 导出
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                    class="fa  fa-eraser"></i> 清空查询
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            {include file="template/data_header" /}
-            <div class="box-body table-responsive">
-                <table class="table table-hover table-bordered datatable" width="100%">
-                    <thead>
-                    <tr>
-                        <th>
-                            <input id="data-checkall" type="checkbox" onclick="check_all(this)" class="checkbox" placeholder="全选/取消">
-                        </th>
-                        <th>ID</th>
-                        <th>头像</th>
-                        <th>帐号</th>
-                        <th>昵称</th>
-                        <th>手机</th>
-                        <th>邮箱</th>
-                        <th>等级</th>
-                        <th>注册时间</th>
-                        <th>最后登录时间</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {foreach name="list" item="item"}
-                    <tr>
-                        <td>
-                            <input type="checkbox" onclick="check_this(this)" name="data-checkbox"
-                                   data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
-                                   placeholder="选择/取消">
-                        </td>
-                        <td>{$item.id}</td>
-                        <td><img src="{$item.headimg}" style="max-height: 45px;max-width: 45px;"></td>
-                        <td>{$item.name}</td>
-                        <td>{$item.nickname}</td>
-                        <td>{$item.mobile}</td>
-                        <td>{$item.email}</td>
-                        <td>{$item.userLevel.name|default='--'}</td>
-                        <td>{$item.reg_time}</td>
-                        <td>{$item.last_login_time}</td>
-                        <td>
-                            <a class="label label-{if $item.status==1}success{else/}danger{/if} AjaxButton" data-toggle="tooltip" title="{if $item.status==1}点击禁用{else/}点击启用{/if}" data-id="{$item.id}" data-confirm="1" data-url="disable.html">{$item.admin_status_text}</a>
-                        </td>
-                        <td class="td-do">
-                            <a href="edit.html?id={$item.id}"
-                               class="btn btn-primary btn-xs" data-toggle="tooltip" title="修改">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                            <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除" data-confirm-title="删除提示" data-confirm-content="您确认要删除ID为{$item.id}的用户吗？" data-id="{$item.id}" data-url="del.html">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {/foreach}
-                    </tbody>
-                </table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+
+                <!--数据列表顶部-->
+                <div class="box-header">
+                    <div>
+                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{:url('add')}">
+                            <i class="fa fa-plus"></i> 添加
+                        </a>
+                        <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据"
+                           data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked"
+                           data-url="{:url('del')}">
+                            <i class="fa fa-trash"></i> 删除
+                        </a>
+                        <a class="btn btn-success btn-sm AjaxButton" data-toggle="tooltip" title="启用选中数据"
+                           data-confirm-title="启用确认" data-confirm-content="您确定要启用选中的数据吗？" data-id="checked"
+                           data-url="{:url('enable')}">
+                            <i class="fa fa-circle"></i> 启用
+                        </a>
+
+                        <a class="btn btn-warning btn-sm AjaxButton" data-toggle="tooltip" title="禁用选中数据"
+                           data-confirm-title="禁用确认" data-confirm-content="您确定要禁用选中的数据吗？" data-id="checked"
+                           data-url="{:url('disable')}">
+                            <i class="fa fa-circle"></i> 禁用
+                        </a>
+
+                        <a class="btn btn-success btn-sm ReloadButton" data-toggle="tooltip" title="刷新">
+                            <i class="fa fa-refresh"></i> 刷新
+                        </a>
+                    </div>
+                </div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-hover table-bordered datatable" width="100%">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox"
+                                       placeholder="全选/取消">
+                            </th>
+                            <th>ID</th>
+                            <th>头像</th>
+                            <th>用户等级</th>
+                            <th>用户名</th>
+                            <th>手机号</th>
+                            <th>昵称</th>
+                            <th>是否启用</th>
+                            <th>创建时间</th>
+
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name="data" item="item"}
+                        <tr>
+                            <td>
+                                <input type="checkbox" onclick="checkThis(this)" name="data-checkbox"
+                                       data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
+                                       placeholder="选择/取消">
+                            </td>
+                            <td>{$item.id}</td>
+                            <td><img style="max-width: 40px" src="{$item.avatar}"></td>
+                            <td>{$item.user_level.name|default=''}</td>
+                            <td>{$item.username}</td>
+                            <td>{$item.mobile}</td>
+                            <td>{$item.nickname}</td>
+                            <td>{$item.status_text}</td>
+                            <td>{$item.create_time}</td>
+
+                            <td class="td-do">
+                                <a href="{:url('edit',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
+                                   data-id="{$item.id}" data-confirm-title="删除确认"
+                                   data-confirm-content='您确定要删除ID为 <span class="text-red">{$item.id}</span> 的数据吗'
+                                   data-url="{:url('del')}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                {if $item.status==1}
+                                <a class="btn btn-warning btn-xs AjaxButton" data-toggle="tooltip" title="禁用"
+                                   data-id="{$item.id}" data-confirm-title="禁用确认"
+                                   data-confirm-content='您确定要禁用ID为 <span class="text-red">{$item.id}</span> 的数据吗'
+                                   data-url="{:url('disable')}">
+                                    <i class="fa fa-circle"></i>
+                                </a>
+                                {else/}
+                                <a class="btn btn-success btn-xs AjaxButton" data-toggle="tooltip" title="启用"
+                                   data-id="{$item.id}" data-confirm-title="启用确认"
+                                   data-confirm-content='您确定要启用ID为 <span class="text-red">{$item.id}</span> 的数据吗'
+                                   data-url="{:url('enable')}">
+                                    <i class="fa fa-circle"></i>
+                                </a>
+                                {/if}
+
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="box-footer">
+                    {$page|raw}
+                    <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
+                        <small>共{$total}条记录</small>&nbsp;
+                        <small>每页显示</small>
+                        &nbsp;
+                        <select class="input-sm" onchange="changePerPage(this)">
+                            <option value="10" {if $admin.per_page==10}selected{/if}>10</option>
+                            <option value="20" {if $admin.per_page==20}selected{/if}>20</option>
+                            <option value="30" {if $admin.per_page==30}selected{/if}>30</option>
+                            <option value="50" {if $admin.per_page==50}selected{/if}>50</option>
+                            <option value="100" {if $admin.per_page==100}selected{/if}>100</option>
+                        </select>
+                        &nbsp;
+                        <small>条记录</small>
+                    </label>
+                </div>
+
             </div>
-            {include file="template/data_footer" /}
         </div>
- 
+    </div>
+</section>
+
+{/block}
+

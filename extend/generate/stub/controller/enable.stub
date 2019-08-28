@@ -1,0 +1,14 @@
+//启用
+public function enable($id,[MODEL_NAME] $model)
+{
+    $result = $model->whereIn('id',$id)->update(['status'=>1]);
+    return $result ? success('操作成功', URL_RELOAD) : error();
+}
+
+
+//禁用
+public function disable($id,[MODEL_NAME] $model)
+{
+    $result = $model->whereIn('id',$id)->update(['status'=>0]);
+    return $result ? success('操作成功', URL_RELOAD) : error();
+}

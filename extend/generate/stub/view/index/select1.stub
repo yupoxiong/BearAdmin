@@ -1,0 +1,3 @@
+<th>
+    <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox" placeholder="全选/取消">
+</th>
