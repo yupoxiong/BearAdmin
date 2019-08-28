@@ -1,4 +1,7 @@
- # BearAdmin
+
+当前基于**ThinkPHP5.0版本**的后台系统已**进入维护期**，**不再**进行功能**更新**，建议使用最新基于**ThinkPHP5.1LTS版本后台**。新版后台代码更加**简单易懂**，逻辑清晰，同时拥有还不错的**代码自动生成**功能，配备较为完善的**开发文档**，可以很好的**提高开发效率**，**值得一试**！
+
+# BearAdmin
 
 [![](https://img.shields.io/badge/php->=7.1-blue.svg)](https://github.com/yupoxiong/region)
 
