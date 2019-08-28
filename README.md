@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/php->=7.1-blue.svg)](https://github.com/yupoxiong/region)
 
 
- > 基于ThinkPHP5+AdminLTE的后台管理系统
+ > 基于ThinkPHP5.0+AdminLTE的后台管理系统
  ## 演示地址
  * <https://bearadmin.yufuping.com/admin>
  * 帐号：demo
