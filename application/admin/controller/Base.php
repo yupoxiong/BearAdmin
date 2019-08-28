@@ -21,8 +21,8 @@ class Base extends Controller
 {
     //url跳转常量
     const URL_CURRENT = 'url://current';
-    const URL_RELOAD  = 'url://reload';
-    const URL_BACK    = 'url://back';
+    const URL_RELOAD = 'url://reload';
+    const URL_BACK = 'url://back';
 
     protected $request;
     protected $requestType;
@@ -91,7 +91,7 @@ class Base extends Controller
             $this->uid = Session::get('user.id');
             if ($this->uid != 1) {
                 if (!$auth->check($this->url, $this->uid)) {
-                    if(isset($this->param['layer_check_auth']) && $this->param['layer_check_auth']==1){
+                    if (isset($this->param['layer_check_auth']) && $this->param['layer_check_auth'] == 1) {
                         $this->error('无权限');
                     }
 
@@ -113,13 +113,13 @@ class Base extends Controller
                     }
 
                     $this->error('无权限', $redirect_uri);
-                }else{
-                    if(isset($this->param['layer_check_auth']) && $this->param['layer_check_auth']==1){
+                } else {
+                    if (isset($this->param['layer_check_auth']) && $this->param['layer_check_auth'] == 1) {
                         $this->success('已授权');
                     }
                 }
-            }else{
-                if(isset($this->param['layer_check_auth']) && $this->param['layer_check_auth']==1){
+            } else {
+                if (isset($this->param['layer_check_auth']) && $this->param['layer_check_auth'] == 1) {
                     $this->success('已授权');
                 }
             }
@@ -189,13 +189,13 @@ class Base extends Controller
 
     protected function deleteSuccess($msg = '删除成功', $url = self::URL_RELOAD, $data = '', $wait = 3, array $header = [])
     {
-       return self::success($msg,$url,$data,$wait,$header);
+        return self::success($msg, $url, $data, $wait, $header);
     }
 
     protected function success($msg = '操作成功', $url = null, $data = '', $wait = 3, array $header = [])
     {
         if ($this->request->isAjax()) {
-            if($url==null){
+            if ($url == null) {
                 $url = self::URL_BACK;
             }
             parent::success($msg, $url, $data, $wait, $header);
@@ -216,7 +216,7 @@ class Base extends Controller
     protected function error($msg = '操作失败', $url = null, $data = '', $wait = 3, array $header = [])
     {
         if ($this->request->isAjax()) {
-            if($url==null){
+            if ($url == null) {
                 $url = self::URL_CURRENT;
             }
             parent::error($msg, $url, $data, $wait, $header);
@@ -237,8 +237,8 @@ class Base extends Controller
     //获取左侧菜单
     protected function getLeftMenu()
     {
-        $auth = new AdminAuth();
-        $menu = $auth->getMenuList(Session::get('user.id'), 1);
+        $auth       = new AdminAuth();
+        $menu       = $auth->getMenuList(Session::get('user.id'), 1);
         $max_level  = 0;
         $current_id = 1;
         $parent_ids = array(0 => 0);
@@ -328,11 +328,11 @@ class Base extends Controller
             'showFormFooterResetButton'  => $this->showFormFooterResetButton,
         ]);
 
-        $backend_name = Sysconfigs::get(function ($query){
-            $query->where('code','backend_name')->where('status',1);
+        $backend_name = Sysconfigs::get(function ($query) {
+            $query->where('code', 'backend_name')->where('status', 1);
         });
 
-        $this->webData['backend_name'] = $backend_name?$backend_name->content:'后台管理';
+        $this->webData['backend_name'] = $backend_name ? $backend_name->content : '后台管理';
 
         $this->assign(['webData' => $this->webData]);
         return parent::fetch($template, $vars, $replace, $config);
@@ -346,7 +346,7 @@ class Base extends Controller
 
 
     //Excel导出方法
-    function export($head, $body, $name = null, $version = '2007',$title='记录')
+    function export($head, $body, $name = null, $version = '2007', $title = '记录')
     {
         //config('app_trace',false);
         try {

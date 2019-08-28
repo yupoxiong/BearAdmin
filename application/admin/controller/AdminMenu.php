@@ -23,14 +23,14 @@ class AdminMenu extends Base
     //列表
     public function index()
     {
-        $model = new AdminMenus();
-        $result      = $model
+        $model  = new AdminMenus();
+        $result = $model
             ->order('sort_id asc, id asc')
             ->column('*', 'id');
 
         $tree       = new Tree();
         $tree->nbsp = '&nbsp;&nbsp;&nbsp;';
-        
+
         foreach ($result as $n => $r) {
 
             $result[$n]['level']          = $tree->get_level($r['id'], $result);
@@ -42,13 +42,13 @@ class AdminMenu extends Base
                 ';
 
             $result[$n]['str_manage'] .=
-                '<a class="btn btn-danger btn-xs AjaxButton" data-id="'. $r['id'].'" data-url="del.html" data-toggle="tooltip" title="删除"><i class="fa fa-trash"></i></a>';
+                '<a class="btn btn-danger btn-xs AjaxButton" data-id="' . $r['id'] . '" data-url="del.html" data-toggle="tooltip" title="删除"><i class="fa fa-trash"></i></a>';
             $result[$n]['is_show']    = $r['is_show'] == 1
                 ? '显示'
                 : '隐藏';
             $result[$n]['log_type']   = $this->logType[$r['log_type']];
         }
-        
+
         $str = "<tr id='node-\$id' data-level='\$level' \$parent_id_node>
                     <td><input type='checkbox' onclick='check_this(this)'
                      name='data-checkbox' data-id='\$id\' 
@@ -97,7 +97,7 @@ class AdminMenu extends Base
         $selects   = $this->menu($parent_id);
         $this->assign([
             'logtype' => $this->logType,
-            'selects'  => $selects
+            'selects' => $selects
         ]);
         return $this->fetch();
     }
@@ -109,7 +109,7 @@ class AdminMenu extends Base
         $info = AdminMenus::get($this->id);
 
         //不允许修改的菜单，首页和个人资料页，还是多加点吧
-        if ($this->id<60 && $this->uid != 1) {
+        if ($this->id < 60 && $this->uid != 1) {
             return $this->error('此菜单不允许修改');
         }
         if ($this->request->isPost()) {
@@ -127,11 +127,11 @@ class AdminMenu extends Base
             return $this->error('菜单修改失败');
         }
 
-        $selects  = $this->menu($info->parent_id, $this->id);
+        $selects = $this->menu($info->parent_id, $this->id);
         $this->assign([
             'logtype' => $this->logType,
-            'selects'  => $selects,
-            'info'     => $info
+            'selects' => $selects,
+            'info'    => $info
         ]);
         return $this->fetch('add');
     }
@@ -141,8 +141,8 @@ class AdminMenu extends Base
     public function del()
     {
 
-        $protected_ids = range(1,50);
-        $id = $this->id;
+        $protected_ids = range(1, 50);
+        $id            = $this->id;
         if (is_array($id)) {
             if (array_intersect($id, $protected_ids)) {
                 return $this->error('包含系统数据，无法删除');
@@ -152,17 +152,17 @@ class AdminMenu extends Base
         }
 
         $admin_menu_son = AdminMenus::get(function ($query) use ($id) {
-            if(is_array($id)){
-                $query->whereIn('parent_id',$id);
-            }else{
-                $query->where('parent_id',$id);
+            if (is_array($id)) {
+                $query->whereIn('parent_id', $id);
+            } else {
+                $query->where('parent_id', $id);
             }
         });
         if ($admin_menu_son) {
             return $this->error('有子菜单不可删除！');
         }
 
-        $id = $this->id;
+        $id     = $this->id;
         $result = AdminMenus::destroy(function ($query) use ($id) {
             $query->whereIn('id', $id);
         });

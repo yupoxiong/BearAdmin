@@ -12,7 +12,6 @@ use traits\model\SoftDelete;
  * @property mixed id
  * @property mixed name
  */
-
 class AdminUsers extends Admin
 {
     use SoftDelete;
@@ -38,5 +37,5 @@ class AdminUsers extends Admin
         $status = [0 => '否', 1 => '是'];
         return $status[$data['status']];
     }
-    
+
 }

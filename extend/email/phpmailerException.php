@@ -9,6 +9,7 @@
  */
 
 namespace email;
+
 use Exception;
 
 class phpmailerException extends Exception

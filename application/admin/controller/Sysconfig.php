@@ -13,10 +13,10 @@ class Sysconfig extends Base
     public function index()
     {
         $model = new Sysconfigs();
-        $list    = $model->paginate($this->webData['list_rows']);
+        $list  = $model->paginate($this->webData['list_rows']);
 
         $this->assign([
-            'list' => $list,
+            'list'  => $list,
             'total' => $list->total(),
             'page'  => $list->render()
         ]);
@@ -27,7 +27,7 @@ class Sysconfig extends Base
     public function add()
     {
         if ($this->request->isPost()) {
-            $param  = $this->param;
+            $param           = $this->param;
             $result_validate = $this->validate($param, 'Sysconfig.add');
             if (true !== $result_validate) {
                 return $this->error($result_validate);

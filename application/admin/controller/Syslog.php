@@ -11,12 +11,13 @@ use app\admin\model\Syslogs;
 class Syslog extends Base
 {
     //系统日志列表
-    public function index(){
-        $model = new Syslogs();
+    public function index()
+    {
+        $model      = new Syslogs();
         $page_param = ['query' => []];
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
-            $keywords = "%" . $this->param['keywords'] . "%";
+            $keywords                        = "%" . $this->param['keywords'] . "%";
             $model->whereLike('message', $keywords);
             $this->assign('keywords', $this->param['keywords']);
         }
@@ -38,9 +39,9 @@ class Syslog extends Base
             ->order('id desc')
             ->paginate($this->webData['list_rows'], false, $page_param);
         $this->assign([
-            'list'    => $list,
-            'page'     => $list->render(),
-            'total'    => $list->total()
+            'list'  => $list,
+            'page'  => $list->render(),
+            'total' => $list->total()
         ]);
         return $this->fetch();
     }
@@ -49,23 +50,23 @@ class Syslog extends Base
     public function trace()
     {
         $data = Syslogs::get($this->id);
-        $this->assign('data',$data);
+        $this->assign('data', $data);
         return $this->fetch();
     }
-    
+
     //读取日志，暂未用到
-    function readlog(){
+    function readlog()
+    {
         $file_path = config('sys_log.path');
-        $file = fopen($file_path, "r");
-        $logs=array();
-        $i=0;
-        while(! feof($file))
-        {
-            $logs[$i]= fgets($file);//fgets()函数从文件指针中读取一行
+        $file      = fopen($file_path, "r");
+        $logs      = array();
+        $i         = 0;
+        while (!feof($file)) {
+            $logs[$i] = fgets($file);//fgets()函数从文件指针中读取一行
             $i++;
         }
         fclose($file);
-        $user=array_filter($logs);
+        $user = array_filter($logs);
         return $user;
     }
 }

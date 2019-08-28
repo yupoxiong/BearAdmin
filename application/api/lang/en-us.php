@@ -5,13 +5,13 @@
  */
 
 return [
-    'miss token'    => 'miss token',
-    'Api not found' => '404 not found',
-    'token error' => 'token error',
+    'miss token'       => 'miss token',
+    'Api not found'    => '404 not found',
+    'token error'      => 'token error',
 
     //user验证
-    'account_require'=>'Account cannot be empty',
-    'account_max'=>'Account can not exceed 25 characters',
-    'password_require'=>'Password cannot be empty',
-    'password_between'=>'Password is 6-16 characters in length',
+    'account_require'  => 'Account cannot be empty',
+    'account_max'      => 'Account can not exceed 25 characters',
+    'password_require' => 'Password cannot be empty',
+    'password_between' => 'Password is 6-16 characters in length',
 ];

@@ -69,9 +69,9 @@ class UserLevel extends Base
 
         $id = $this->id;
 
-        $users= new Users;
-        $userCount = $users->whereIn('level_id',$id)->count();
-        if($userCount>0){
+        $users     = new Users;
+        $userCount = $users->whereIn('level_id', $id)->count();
+        if ($userCount > 0) {
             return $this->error('该等级下有用户，无法删除');
         }
 

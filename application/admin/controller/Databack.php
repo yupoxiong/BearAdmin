@@ -19,7 +19,7 @@ class Databack extends Base
         $this->config = Config::get("database");
 
         $this->config['savepath'] = ROOT_PATH . 'backup/';
-        if(!is_dir($this->config['savepath'])){
+        if (!is_dir($this->config['savepath'])) {
             @mkdir($this->config['savepath']);
         }
         $this->config['filename'] = "database-backup-" . date("Y-m-d-H-i-s", time()) . ".sql";
@@ -60,7 +60,7 @@ class Databack extends Base
     //下载备份
     public function download()
     {
-        if(!preg_match('/^[A-Za-z0-9_-]+.sql$/',$this->filename)){
+        if (!preg_match('/^[A-Za-z0-9_-]+.sql$/', $this->filename)) {
             return $this->error('文件名不合法');
         }
         return $this->back->downloadFile($this->filename);
@@ -70,7 +70,7 @@ class Databack extends Base
     //还原
     public function restore()
     {
-        if(!preg_match('/^[A-Za-z0-9_-]+.sql$/',$this->filename)){
+        if (!preg_match('/^[A-Za-z0-9_-]+.sql$/', $this->filename)) {
             return $this->error('文件名不合法');
         }
         $result = $this->back->restore($this->filename);
@@ -84,7 +84,7 @@ class Databack extends Base
     //删除
     public function del()
     {
-        if(!preg_match('/^[A-Za-z0-9_-]+.sql$/',$this->filename)){
+        if (!preg_match('/^[A-Za-z0-9_-]+.sql$/', $this->filename)) {
             return $this->error('文件名不合法');
         }
         $result = $this->back->deleteFile($this->filename);

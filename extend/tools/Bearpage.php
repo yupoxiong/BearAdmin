@@ -125,8 +125,8 @@ class Bearpage extends Paginator
     /**
      * 生成一个可点击的按钮
      *
-     * @param  string $url
-     * @param  int    $page
+     * @param string $url
+     * @param int $page
      * @return string
      */
     protected function getAvailablePageWrapper($url, $page)
@@ -137,7 +137,7 @@ class Bearpage extends Paginator
     /**
      * 生成一个禁用的按钮
      *
-     * @param  string $text
+     * @param string $text
      * @return string
      */
     protected function getDisabledTextWrapper($text)
@@ -148,7 +148,7 @@ class Bearpage extends Paginator
     /**
      * 生成一个激活的按钮
      *
-     * @param  string $text
+     * @param string $text
      * @return string
      */
     protected function getActivePageWrapper($text)
@@ -169,7 +169,7 @@ class Bearpage extends Paginator
     /**
      * 批量生成页码按钮.
      *
-     * @param  array $urls
+     * @param array $urls
      * @return string
      */
     protected function getUrlLinks(array $urls)
@@ -186,8 +186,8 @@ class Bearpage extends Paginator
     /**
      * 生成普通页码按钮
      *
-     * @param  string $url
-     * @param  int    $page
+     * @param string $url
+     * @param int $page
      * @return string
      */
     protected function getPageLinkWrapper($url, $page)

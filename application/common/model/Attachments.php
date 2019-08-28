@@ -105,20 +105,20 @@ class Attachments extends Model
                     'user_id'       => $user_id,
                     'original_name' => $info->getInfo('name'),
                     'save_name'     => $info->getFilename(),
-                    'save_path'     => str_replace("\\", "/",$file_path . $info->getSaveName()),
+                    'save_path'     => str_replace("\\", "/", $file_path . $info->getSaveName()),
                     'extension'     => $info->getExtension(),
                     'mime'          => $info->getInfo('type'),
                     'size'          => $info->getSize(),
                     'md5'           => $info->hash('md5'),
                     'sha1'          => $info->hash(),
-                    'url'           => str_replace("\\", "/",$file_url . $info->getSaveName())
+                    'url'           => str_replace("\\", "/", $file_url . $info->getSaveName())
                 ];
                 return $this->create($file_info);
             } else {
                 $this->error = $file->getError();
             }
         } else {
-            $this->error='无法获取文件';
+            $this->error = '无法获取文件';
         }
         return false;
     }

@@ -16,12 +16,12 @@ class Database extends Base
         $list = db()->query('SHOW TABLE STATUS');
         $list = array_map('array_change_key_case', $list);
         $this->assign([
-            'list' => $list,
-            'total' => sizeof($list),
+            'list'  => $list,
+            'total' => count($list),
         ]);
         return $this->fetch();
     }
-    
+
     //查看表详情
     public function view($name = null)
     {
@@ -29,25 +29,25 @@ class Database extends Base
         if ($name) {
 
 
-            $info  = Db::table($name)->getTableInfo($name);
-       
-            $fields = [];
-            $datas = [];
-            foreach ($info['fields'] as $field){
-                $datas['name']=$field;
+            $info = Db::table($name)->getTableInfo($name);
 
-                $datas['type'] = str_replace('unsigned','<span class="badge">无符号</span>',$info['type'][$field]);
-                $fields[] = $datas;
+            $fields = [];
+            $datas  = [];
+            foreach ($info['fields'] as $field) {
+                $datas['name'] = $field;
+
+                $datas['type'] = str_replace('unsigned', '<span class="badge">无符号</span>', $info['type'][$field]);
+                $fields[]      = $datas;
             }
 
-            if(is_array($info['pk'])){
-                $info['pk'] = implode(',',$info['pk']);
+            if (is_array($info['pk'])) {
+                $info['pk'] = implode(',', $info['pk']);
             }
 
             $this->assign([
-                'fields'=>$fields,
-                'table'=>$name,
-                'pk' => $info['pk']
+                'fields' => $fields,
+                'table'  => $name,
+                'pk'     => $info['pk']
             ]);
             return $this->fetch();
         }

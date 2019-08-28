@@ -9,12 +9,12 @@ namespace app\common\validate;
 class UserLevel extends Validate
 {
     protected $rule = [
-        'name|名称'     => 'require',
+        'name|名称' => 'require',
     ];
 
 
     protected $scene = [
-        'admin_add'   => ['name' ],
-        'admin_edit'  => [ 'name'],
+        'admin_add'  => ['name'],
+        'admin_edit' => ['name'],
     ];
 }

@@ -21,19 +21,19 @@ class AdminLogs extends Admin
     //日志类型获取器
     public function getLogTypeAttr($value)
     {
-        $logtype=[0=>'NONE',1=>'GET',2=>'POST',3=>'PUT',4=>'DELETE'];
+        $logtype = [0 => 'NONE', 1 => 'GET', 2 => 'POST', 3 => 'PUT', 4 => 'DELETE'];
         return $logtype[$value];
     }
 
     //关联后台用户
     public function adminUser()
     {
-        return $this->belongsTo('AdminUsers','user_id')->field('id,name,nickname');
+        return $this->belongsTo('AdminUsers', 'user_id')->field('id,name,nickname');
     }
 
     //管理日志数据
     public function adminLogData()
     {
-        return $this->hasOne('AdminLogDatas','log_id','id')->field('id,log_id,data');
+        return $this->hasOne('AdminLogDatas', 'log_id', 'id')->field('id,log_id,data');
     }
 }

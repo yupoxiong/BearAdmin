@@ -323,11 +323,11 @@ class Extend extends Base
             $info = $file->validate(['ext' => 'xlsx', 'size' => config('file_upload_max_size')])->move(ROOT_PATH . 'uploads' . DS . 'excel');
             if ($info) {
 
-                $file_name    = $info->getPathname();
-                $spreadsheet    = IOFactory::load($file_name);
+                $file_name   = $info->getPathname();
+                $spreadsheet = IOFactory::load($file_name);
                 $excel_array = $spreadsheet->getActiveSheet()->toArray();
                 array_shift($excel_array);  //删除第一个数组(标题);
-                
+
                 $person = [];
                 foreach ($excel_array as $k => $v) {
                     $person[$k]['name'] = $v[0];
@@ -378,7 +378,7 @@ class Extend extends Base
 
 
     //导出方法
-    function export($head, $body, $name = null, $version = '2007',$title='记录')
+    function export($head, $body, $name = null, $version = '2007', $title = '记录')
     {
         //config('app_trace',false);
         try {

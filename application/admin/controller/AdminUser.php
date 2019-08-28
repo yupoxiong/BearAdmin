@@ -12,11 +12,11 @@ use app\common\model\Attachments;
 
 class AdminUser extends Base
 {
-    
+
     //列表
     public function index()
     {
-        $model = new AdminUsers();
+        $model      = new AdminUsers();
         $page_param = ['query' => []];
         if (isset($this->param['keywords']) && !empty($this->param['keywords'])) {
             $page_param['query']['keywords'] = $this->param['keywords'];
@@ -32,7 +32,7 @@ class AdminUser extends Base
             ->paginate($this->webData['list_rows'], false, $page_param);
 
         $this->assign([
-            'list' => $list,
+            'list'  => $list,
             'page'  => $list->render(),
             'total' => $list->total()
         ]);
@@ -51,12 +51,12 @@ class AdminUser extends Base
             }
 
             $attachment = new Attachments();
-            $file =  $attachment->upload('avatar');
+            $file       = $attachment->upload('avatar');
             if ($file) {
                 $this->param['avatar'] = $file->url;
             }
             $this->param['password'] = md5($this->param['password']);
-            $user = AdminUsers::create($this->param);
+            $user                    = AdminUsers::create($this->param);
             if ($user) {
                 $roles = $this->param['parent_id'];
                 $group = [];
@@ -64,7 +64,7 @@ class AdminUser extends Base
                     array_push($group, ['uid' => $user->id, 'group_id' => $value]);
                 }
                 $user->adminGroup()->saveAll($group);
-                
+
                 return $this->success();
             }
             return $this->error();
@@ -99,7 +99,7 @@ class AdminUser extends Base
                 return $this->error($result);
             }
 
-            if($this->request->file('avatar')){
+            if ($this->request->file('avatar')) {
                 $attachment = new Attachments();
                 $file       = $attachment->upload('avatar');
                 if ($file) {
@@ -111,7 +111,7 @@ class AdminUser extends Base
 
             if (!empty($this->param['password'])) {
                 $this->param['password'] = md5($this->param['password']);
-            }else {
+            } else {
                 unset($this->param['password']);
             }
 
@@ -176,7 +176,7 @@ class AdminUser extends Base
                 }
                 $this->param['password'] = md5($this->param['newpassword']);
             } else if ($this->param['update_type'] == 'avatar') {
-                if(!(request()->file('avatar'))){
+                if (!(request()->file('avatar'))) {
                     return $this->error('请上传新头像');
                 }
                 $attachment = new Attachments();
@@ -188,7 +188,7 @@ class AdminUser extends Base
                 }
             }
             if (false !== $user->save($this->param)) {
-                return $this->success('修改成功',self::URL_RELOAD);
+                return $this->success('修改成功', self::URL_RELOAD);
             }
             return $this->error();
         }

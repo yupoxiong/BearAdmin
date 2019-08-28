@@ -3,82 +3,74 @@
  * 系统信息类
  * @author yupoxiong<i@yufuping.com>
  */
+
 namespace tools;
 
 class Sysinfo
 {
 
-    function getLang() {
+    function getLang()
+    {
         $Lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
-        if (preg_match('/zh-c/i',$Lang)) {
+        if (preg_match('/zh-c/i', $Lang)) {
             $Lang = '简体中文';
-        }
-        elseif (preg_match('/zh/i',$Lang)) {
+        } elseif (preg_match('/zh/i', $Lang)) {
             $Lang = '繁體中文';
-        }
-        else {
+        } else {
             $Lang = 'English';
         }
         return $Lang;
     }
-    function getBrowser() {
+
+    function getBrowser()
+    {
         $Browser = $_SERVER['HTTP_USER_AGENT'];
-        if (preg_match('/MSIE/i',$Browser)) {
+        if (preg_match('/MSIE/i', $Browser)) {
             $Browser = 'MSIE';
-        }
-        elseif (preg_match('/Firefox/i',$Browser)) {
+        } elseif (preg_match('/Firefox/i', $Browser)) {
             $Browser = 'Firefox';
-        }
-        elseif (preg_match('/Chrome/i',$Browser)) {
+        } elseif (preg_match('/Chrome/i', $Browser)) {
             $Browser = 'Chrome';
-        }
-        elseif (preg_match('/Safari/i',$Browser)) {
+        } elseif (preg_match('/Safari/i', $Browser)) {
             $Browser = 'Safari';
-        }
-        elseif (preg_match('/Opera/i',$Browser)) {
+        } elseif (preg_match('/Opera/i', $Browser)) {
             $Browser = 'Opera';
-        }
-        else {
+        } else {
             $Browser = 'Other';
         }
         return $Browser;
     }
-    function getOS() {
+
+    function getOS()
+    {
         $OS = $_SERVER['HTTP_USER_AGENT'];
-        if (preg_match('/win/i',$OS)) {
+        if (preg_match('/win/i', $OS)) {
             $OS = 'Windows';
-        }
-        elseif (preg_match('/mac/i',$OS)) {
+        } elseif (preg_match('/mac/i', $OS)) {
             $OS = 'MAC';
-        }
-        elseif (preg_match('/linux/i',$OS)) {
+        } elseif (preg_match('/linux/i', $OS)) {
             $OS = 'Linux';
-        }
-        elseif (preg_match('/unix/i',$OS)) {
+        } elseif (preg_match('/unix/i', $OS)) {
             $OS = 'Unix';
-        }
-        elseif (preg_match('/bsd/i',$OS)) {
+        } elseif (preg_match('/bsd/i', $OS)) {
             $OS = 'BSD';
-        }
-        else {
+        } else {
             $OS = 'Other';
         }
         return $OS;
     }
 
     //获取当前ip
-    function getIp() {
+    function getIp()
+    {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 
-            $ip = explode(',',$_SERVER['HTTP_CLIENT_IP']);
-        }
-        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
-        }
-        elseif (!empty($_SERVER['REMOTE_ADDR'])) {
-            $ip = explode(',',$_SERVER['REMOTE_ADDR']);
-        }
-        else {
+            $ip = explode(',', $_SERVER['HTTP_CLIENT_IP']);
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+            $ip = explode(',', $_SERVER['REMOTE_ADDR']);
+        } else {
             $ip[0] = 'None';
         }
         return $ip[0];
@@ -86,35 +78,40 @@ class Sysinfo
 
     //获取ip信息{ret: 1, start: -1, end: -1, country: "中国", province: "山东", city: "济南", district: "", isp: "",…}
     //2017年6月9日 23:21:20 新浪没有高德准，现在换成高德
-    private function getIpinfo() {
-        $ip = $this->getIp();
-        $ipinfo_str = @file_get_contents('http://restapi.amap.com/v3/ip?key=cb241360e2b73b5951371c60a1b095ef&ip='.$ip);
-        if($ipinfo_str){
-            $ipinfo = json_decode($ipinfo_str,true);
-            return $ipinfo['status']==1 ? $ipinfo : false;
+    private function getIpinfo()
+    {
+        $ip         = $this->getIp();
+        $ipinfo_str = @file_get_contents('http://restapi.amap.com/v3/ip?key=cb241360e2b73b5951371c60a1b095ef&ip=' . $ip);
+        if ($ipinfo_str) {
+            $ipinfo = json_decode($ipinfo_str, true);
+            return $ipinfo['status'] == 1 ? $ipinfo : false;
         }
         return false;
     }
 
 
     //http://restapi.amap.com/v3/weather/weatherInfo?city=110101&key=<用户key>
-    function getAdcode(){
+    function getAdcode()
+    {
         $ipinfo = $this->getIpinfo();
-        return $ipinfo!=false ? $ipinfo['adcode'] : 'None';
+        return $ipinfo != false ? $ipinfo['adcode'] : 'None';
     }
 
-    function getProvince() {
+    function getProvince()
+    {
         $ipinfo = $this->getIpinfo();
-        return $ipinfo!=false ? $ipinfo['province'] : 'None';
+        return $ipinfo != false ? $ipinfo['province'] : 'None';
     }
 
-    function getCity() {
+    function getCity()
+    {
         $ipinfo = $this->getIpinfo();
-        return $ipinfo!=false&&!is_array($ipinfo['city']) ? $ipinfo['city'] : 'None';
+        return $ipinfo != false && !is_array($ipinfo['city']) ? $ipinfo['city'] : 'None';
     }
 
-    function getProvinceCity() {
+    function getProvinceCity()
+    {
         $ipinfo = $this->getIpinfo();
-        return $ipinfo!=false ? $ipinfo['province']." ".$ipinfo['city'] : 'None';
+        return $ipinfo != false ? $ipinfo['province'] . " " . $ipinfo['city'] : 'None';
     }
 }

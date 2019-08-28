@@ -80,7 +80,7 @@ class Tree
                 extract($value);
                 $parent_id == 0 && $str_group ? eval("\$nstr = \"$str_group\";") : eval("\$nstr = \"$str\";");
                 $this->ret .= $nstr;
-                $nbsp = $this->nbsp;
+                $nbsp      = $this->nbsp;
                 $this->get_tree($id, $str, $sid, $adds . $k . $nbsp, $str_group);
                 $number++;
             }

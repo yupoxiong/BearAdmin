@@ -6,12 +6,12 @@
 
 namespace tools;
 
-class Ueditor 
+class Ueditor
 {
 
-    
+
     protected $config;
-    
+
     public function __construct($config)
     {
         $this->config = $config;
@@ -19,13 +19,10 @@ class Ueditor
 
     public function server($action)
     {
-        //header('Access-Control-Allow-Origin: http://www.baidu.com'); //设置http://www.baidu.com允许跨域访问
-        //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设置允许的跨域header
         date_default_timezone_set("Asia/Chongqing");
-        //error_reporting(1);
         header("Content-Type: text/html; charset=utf-8");
         $ue_config = $this->config;
-        
+
         switch ($action) {
             case 'config':
                 $result = $ue_config;
@@ -119,8 +116,8 @@ class Ueditor
             return json($result);
         }
     }
-  
-    
+
+
     //上传文件
     private function upFile($fieldName)
     {

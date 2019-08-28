@@ -16,6 +16,6 @@ class UserLevels extends Model
 
     public function user()
     {
-        return $this->hasMany('Users','level_id','id');
+        return $this->hasMany('Users', 'level_id', 'id');
     }
 }

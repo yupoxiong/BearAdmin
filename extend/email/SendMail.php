@@ -3,7 +3,8 @@
  * 发送邮件扩展
  * @author yupoxiong<i@yufuping.com>
  */
-namespace  email;
+
+namespace email;
 class SendMail
 {
 

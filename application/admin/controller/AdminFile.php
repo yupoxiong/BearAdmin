@@ -75,7 +75,7 @@ class AdminFile extends Base
     public function upload()
     {
         $model = new Attachments();
-        $file       = $model->upload('file');
+        $file  = $model->upload('file');
         if ($file) {
             return $this->success('上传成功');
         }

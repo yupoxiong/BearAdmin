@@ -9,9 +9,9 @@ namespace app\admin\validate;
 class Sysconfig extends Admin
 {
     protected $rule = [
-        'code|代码'    => 'require',
-        'content|内容' => 'require',
-        'status|是否启用'  => 'require',
+        'code|代码'     => 'require',
+        'content|内容'  => 'require',
+        'status|是否启用' => 'require',
     ];
 
     protected $scene = [

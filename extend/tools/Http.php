@@ -119,11 +119,11 @@ class Http
 
                 $stop = false;
                 while (!feof($fp) && !$stop) {
-                    $data = fread($fp, ($limit == 0 || $limit > 8192 ? 8192 : $limit));
+                    $data   = fread($fp, ($limit == 0 || $limit > 8192 ? 8192 : $limit));
                     $return .= $data;
                     if ($limit) {
                         $limit -= strlen($data);
-                        $stop = $limit <= 0;
+                        $stop  = $limit <= 0;
                     }
                 }
             }
@@ -149,13 +149,13 @@ class Http
         $length = 0;
         if (is_file($filename)) {
             $length = filesize($filename);
-        } elseif (is_file(ROOT_PATH .'public'. $filename)) {
-            $filename = ROOT_PATH .'public'.  $filename;
+        } elseif (is_file(ROOT_PATH . 'public' . $filename)) {
+            $filename = ROOT_PATH . 'public' . $filename;
             $length   = filesize($filename);
         } elseif ($content != '') {
             $length = strlen($content);
         } else {
-            exception($filename.'下载文件不存在！',404);
+            exception($filename . '下载文件不存在！', 404);
         }
         if (empty($showname)) {
             $showname = $filename;

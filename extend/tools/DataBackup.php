@@ -75,9 +75,9 @@ class DataBackup
             try {
 
                 $PDOStatement = $this->handler->prepare($sql);
-                $affected = $PDOStatement->execute();
+                $affected     = $PDOStatement->execute();
 
-                return $this->success($affected.'还原成功!耗时'.round(microtime(true) - $this->begin, 4) . 's');
+                return $this->success($affected . '还原成功!耗时' . round(microtime(true) - $this->begin, 4) . 's');
 
             } catch (PDOException $e) {
                 return $this->error($e->getMessage());
@@ -136,7 +136,7 @@ class DataBackup
         $str .= "Database:{$this->config['database']}\r\n";
         $str .= "Data:" . date('Y-m-d H:i:s', time()) . "\r\n*/\r\n";
         $str .= "SET FOREIGN_KEY_CHECKS=0;\r\n";
-        $i = 0;
+        $i   = 0;
         foreach ($tables as $table) {
             $str .= "-- ----------------------------\r\n";
             $str .= "-- Table structure for {$table}\r\n";
@@ -306,15 +306,15 @@ class DataBackup
         foreach ($data as $value) {
             $dataSql = '';
             foreach ($value as $v) {
-                if(null!==$v){
+                if (null !== $v) {
                     $dataSql .= "'{$v}',";
-                }else{
+                } else {
                     $dataSql .= "null,";
                 }
 
             }
             $dataSql = substr($dataSql, 0, -1);
-            $query .= "INSERT INTO `{$table}` ({$columns}) VALUES ({$dataSql});\r\n";
+            $query   .= "INSERT INTO `{$table}` ({$columns}) VALUES ({$dataSql});\r\n";
         }
         return $query;
     }

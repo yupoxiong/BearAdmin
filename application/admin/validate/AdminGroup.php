@@ -9,9 +9,9 @@ namespace app\admin\validate;
 class AdminGroup extends Admin
 {
     protected $rule = [
-        'name|角色名称' => 'require',
+        'name|角色名称'        => 'require',
         'description|角色描述' => 'require',
-        'rules'    => 'require',
+        'rules'            => 'require',
     ];
 
     protected $scene = [

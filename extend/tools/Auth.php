@@ -39,8 +39,7 @@ class Auth
      * */
     public function check($name, $user_id, $relation = 'or')
     {
-        if (!$this->config['auth_on'])
-        {
+        if (!$this->config['auth_on']) {
             return true;
         }
 

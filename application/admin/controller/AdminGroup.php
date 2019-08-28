@@ -17,9 +17,9 @@ class AdminGroup extends Base
     public function index()
     {
         $model = new AdminGroups();
-        $list       = $model->paginate($this->webData['list_rows']);
+        $list  = $model->paginate($this->webData['list_rows']);
         $this->assign([
-            'list' => $list,
+            'list'  => $list,
             'total' => $list->total(),
             'page'  => $list->render()
         ]);
@@ -52,10 +52,10 @@ class AdminGroup extends Base
     {
         if ($this->request->isPost()) {
             if ($this->id == 1) {
-                if($this->uid != 1){
+                if ($this->uid != 1) {
                     return $this->error('不允许修改管理员角色');
                 }
-                if(isset($this->param['stataus']) && $this->param['stataus']==0){
+                if (isset($this->param['stataus']) && $this->param['stataus'] == 0) {
                     return $this->error('不允许禁用管理员角色');
                 }
             }
@@ -84,7 +84,7 @@ class AdminGroup extends Base
     public function del()
     {
         $protected_ids = [1];
-        $id = $this->id;
+        $id            = $this->id;
         if (is_array($id)) {
             if (array_intersect($id, $protected_ids)) {
                 return $this->error('包含系统数据，无法删除');
@@ -102,7 +102,7 @@ class AdminGroup extends Base
             //删除用户与角色关联记录
             $auth_groups = new AdminGroupAccess();
             $result      = $auth_groups->whereIn('group_id', $this->id)->delete();
-            if (false===$result) {
+            if (false === $result) {
                 return $this->error('角色关联数据删除失败！');
             }
             return $this->deleteSuccess();
@@ -139,7 +139,7 @@ class AdminGroup extends Base
             ->column('*', 'id');
 
         $auth_menus = explode(',', $info->rules);
-        $html = self::authorizeHtml($menu, $auth_menus);
+        $html       = self::authorizeHtml($menu, $auth_menus);
         $this->assign([
             'role_name' => $info->name,
             'html'      => $html,
@@ -148,7 +148,7 @@ class AdminGroup extends Base
         return $this->fetch();
     }
 
-    
+
     //生成授权html
     protected function authorizeHtml($menu, $auth_menus = [])
     {

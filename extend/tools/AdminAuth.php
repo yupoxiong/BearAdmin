@@ -3,6 +3,7 @@
  * Auth类
  * 忘记这是谁写的了，可能是流年大神或者是谁，在一个项目里拿过来加了点代码就用了
  */
+
 namespace tools;
 
 use crypt\Crypt;
@@ -32,7 +33,7 @@ class AdminAuth
         'auth_user'         => 'admin_users', // 用户信息表
     ];
     static $crypt_key;
-    
+
     public function __construct()
     {
         //可设置配置项 auth, 此配置项为数组。
@@ -69,7 +70,7 @@ class AdminAuth
                 $name = [$name];
             }
         }
-        $list = []; //保存验证通过的规则名
+        $list    = []; //保存验证通过的规则名
         $REQUEST = '';
         if ('url' == $mode) {
             $REQUEST = unserialize(strtolower(serialize($this->request->param())));
@@ -157,8 +158,8 @@ class AdminAuth
         foreach ($rules as $rule) {
             if (!empty($rule['condition'])) {
                 //根据condition进行验证
-                $user    = $this->getUserInfo($uid); //获取用户信息,一维数组
-                $command = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
+                $user      = $this->getUserInfo($uid); //获取用户信息,一维数组
+                $command   = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
                 $condition = '';
                 @(eval('$condition=(' . $command . ');'));
                 if ($condition) {
@@ -178,7 +179,7 @@ class AdminAuth
         return array_unique($authList);
     }
 
-    
+
     //获得用户资料,根据自己的情况读取数据库
     protected function getUserInfo($id)
     {
@@ -200,8 +201,8 @@ class AdminAuth
             return false;
         }
         $user = [
-            'id'   => $id,
-            'name' => $name,
+            'id'        => $id,
+            'name'      => $name,
             'timestamp' => time()
         ];
 
@@ -256,10 +257,10 @@ class AdminAuth
     }
 
     //创建行为日志
-    public function createLog($title, $log_type, $resource_id=0)
+    public function createLog($title, $log_type, $resource_id = 0)
     {
         $user_id = Session::get('user.id');
-        $data = [
+        $data    = [
             'user_id'     => $user_id,
             'title'       => $title,
             'resource_id' => $resource_id,
@@ -270,7 +271,7 @@ class AdminAuth
 
         //加密数据，防脱库
         $crypt_data = Crypt::encrypt(serialize($this->request->param()), self::$crypt_key);
-        $log_data = [
+        $log_data   = [
             'data' => $crypt_data
         ];
 
@@ -281,7 +282,7 @@ class AdminAuth
         return false;
     }
 
-    
+
     //数据签名认证
     private static function data_auth_sign($data)
     {
@@ -306,7 +307,7 @@ class AdminAuth
         }
         //读取用户所属用户组
         $groups = $this->getGroups($uid);
-        $ids = []; //保存用户所属用户组设置的所有权限规则id
+        $ids    = []; //保存用户所属用户组设置的所有权限规则id
         foreach ($groups as $g) {
             $ids = array_merge($ids, explode(',', trim($g['rules'], ',')));
 
@@ -330,8 +331,8 @@ class AdminAuth
         foreach ($rules as $rule) {
             if (!empty($rule['condition'])) {
                 //根据condition进行验证
-                $user    = $this->getUserInfo($uid); //获取用户信息,一维数组
-                $command = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
+                $user      = $this->getUserInfo($uid); //获取用户信息,一维数组
+                $command   = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
                 $condition = '';
                 @(eval('$condition=(' . $command . ');'));
                 if ($condition) {
@@ -349,7 +350,7 @@ class AdminAuth
         }
 
         $authList = array_unique($authList);
-        $idss = []; //保存用户所属用户组设置的所有权限规则id
+        $idss     = []; //保存用户所属用户组设置的所有权限规则id
         foreach ($authList as $gg) {
             $idss = array_merge($idss, explode(',', trim($gg, ',')));
         }
@@ -358,12 +359,12 @@ class AdminAuth
 
         $uid = Session::get('user.id');
 
-        if($uid<>1){
+        if ($uid <> 1) {
             $map_menu['id'] = ['in', $idss];
         }
 
         return Db::name('admin_menus')->where($map_menu)->order('sort_id asc,id asc')->field('id,title,url,icon,is_show,parent_id')->column('*', 'id');
     }
-    
-    
+
+
 }

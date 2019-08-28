@@ -54,16 +54,16 @@ class Api
             }
 
             $signer = new Sha256();
-            try{
-                $token  = (new TokenParser())->parse((string)$this->token);
-            }catch (\Exception $e){
+            try {
+                $token = (new TokenParser())->parse((string)$this->token);
+            } catch (\Exception $e) {
                 $this->error($e->getMessage());
             }
-            
+
             //验证成功后给当前uid赋值
             if (true == ($token->verify($signer, config('app_key')))) {
                 $this->uid = $token->getClaim('uid');
-            }else{
+            } else {
                 $this->error('token error');
             }
         }
@@ -85,7 +85,7 @@ class Api
     //返回结果，参考tp自带result方法
     protected function result($data, $code = 0, $msg = '', $type = 'json', array $header = [])
     {
-        $msg = lang($msg, [], config('default_lang'));
+        $msg    = lang($msg, [], config('default_lang'));
         $result = [
             'code' => $code,
             'msg'  => $msg,

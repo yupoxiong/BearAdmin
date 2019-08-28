@@ -17,6 +17,6 @@ class AdminGroupAccess extends Admin
 
     public function adminGroup()
     {
-        return $this->belongsTo('AdminGroups','group_id','id')->field('id,name');
+        return $this->belongsTo('AdminGroups', 'group_id', 'id')->field('id,name');
     }
 }

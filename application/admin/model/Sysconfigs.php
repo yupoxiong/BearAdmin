@@ -16,9 +16,9 @@ class Sysconfigs extends Admin
     protected $updateTime = false;
 
     //启用禁用获取器
-    public function getIsOpenTextAttr($value,$data)
+    public function getIsOpenTextAttr($value, $data)
     {
-        $text = [0=>'禁用',1=>'启用'];
+        $text = [0 => '禁用', 1 => '启用'];
         return $text[$data['is_open']];
     }
 
@@ -29,11 +29,11 @@ class Sysconfigs extends Admin
         return $status[$data['status']];
     }
 
-    
-    public function getGroupTextAttr($value,$data)
+
+    public function getGroupTextAttr($value, $data)
     {
-        $text = [1=>'系统设置',2=>'其他设置'];
-        
+        $text = [1 => '系统设置', 2 => '其他设置'];
+
         return $text[$data['group_id']];
     }
 }

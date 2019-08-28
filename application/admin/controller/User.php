@@ -99,7 +99,7 @@ class User extends Base
             $file                    = $attachment->upload('headimg');
             if ($file) {
                 $this->param['headimg'] = $file->url;
-            }else{
+            } else {
                 return $this->error($attachment->getError());
             }
 
@@ -136,9 +136,9 @@ class User extends Base
             }
 
             if (isset($this->param['password'])) {
-                if(!empty($this->param['password'])){
+                if (!empty($this->param['password'])) {
                     $this->param['password'] = md5(md5($this->param['password']));
-                }else{
+                } else {
                     unset($this->param['password']);
                 }
 

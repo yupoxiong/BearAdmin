@@ -155,8 +155,8 @@ if (!function_exists('get_browser_type')) {
     }
 }
 
-if(!function_exists('parse_name')){
-     function parse_name($name, $type = 0, $ucfirst = true)
+if (!function_exists('parse_name')) {
+    function parse_name($name, $type = 0, $ucfirst = true)
     {
         if ($type) {
             $name = preg_replace_callback('/_([a-zA-Z])/', function ($match) {
@@ -168,7 +168,6 @@ if(!function_exists('parse_name')){
         }
     }
 }
-
 
 
 if (!function_exists('get_list_rows')) {

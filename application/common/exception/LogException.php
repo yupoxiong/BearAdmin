@@ -24,32 +24,28 @@ class LogException extends Handle
      */
     public function render(Exception $e)
     {
-        //本处理暂无用处
-        if ($e instanceof HttpException) {
-            $statusCode = $e->getStatusCode();
-        }
 
         $e_file    = $e->getFile();
         $e_line    = $e->getLine();
         $e_message = $e->getMessage();
-        $trace = $e->getTraceAsString();
+        $trace     = $e->getTraceAsString();
 
         $log_data = [
-            'file'=>$e_file,
-            'line'=>$e_line,
-            'message'=>$e_message
+            'file'    => $e_file,
+            'line'    => $e_line,
+            'message' => $e_message
         ];
 
-        $trace_data = ['trace'=>$trace];
-        $syslog = Syslogs::create($log_data);
-        if($syslog){
+        $trace_data = ['trace' => $trace];
+        $syslog     = Syslogs::create($log_data);
+        if ($syslog) {
             $syslog->syslogTrace()->save($trace_data);
         }
 
-        $e_content = sprintf('%s:%s', $e_file, $e_line);
-        $e_title = nl2br(htmlentities($e_message));
-        $data = $e_title ." in ". $e_content;
-        $logger = new Logger('errorlog');
+        $e_content      = sprintf('%s:%s', $e_file, $e_line);
+        $e_title        = nl2br(htmlentities($e_message));
+        $data           = $e_title . " in " . $e_content;
+        $logger         = new Logger('errorlog');
         $stream_handler = new StreamHandler(config('sys_log.path'), Logger::INFO);
         $stream_handler->setFormatter(new JsonFormatter());
         $logger->pushHandler($stream_handler);
