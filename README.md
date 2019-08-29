@@ -10,6 +10,10 @@
 ```
 git clone https://github.com/yupoxiong/BearAdmin.git
 ```
+或
+```
+git clone https://gitee.com/yupoxiong/BearAdmin.git
+```
 
 #### 安装项目依赖
 ```
