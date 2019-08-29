@@ -7,11 +7,11 @@
 namespace app\index\controller;
 
 use app\common\model\User;
-use app\index\traits\{ indexAuth, indexTree};
+use app\index\traits\{IndexAuth, IndexTree};
 
 class Controller extends \think\Controller
 {
-    use indexAuth, indexTree;
+    use IndexAuth, IndexAuth;
 
     /**
      * 当前url
