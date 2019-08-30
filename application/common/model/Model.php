@@ -11,7 +11,7 @@ use think\db\Query;
 class Model extends \think\Model
 {
     //是否字段，使用场景：用户的是否冻结，文章是否为热门等等。
-    public const BOOLEAN_TEXT = [0 => '否', 1 => '是'];
+    const BOOLEAN_TEXT = [0 => '否', 1 => '是'];
 
     //是否为软删除
     public $softDelete = true;
