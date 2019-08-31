@@ -1156,7 +1156,7 @@ class Generate
         //所有字段信息
         $field_list = Db::query('SHOW FULL COLUMNS FROM `' . $table_name . '`');
         //表信息
-        $table_info = Db::query('SHOW TABLE STATUS LIKE  `' . $table_name . '`');
+        $table_info = Db::query('SHOW TABLE STATUS LIKE ' . "'" . $table_name . "'");
         $table_info = $table_info[0];
         //表名
         $data['table']['name'] = $table_info['Name'];
