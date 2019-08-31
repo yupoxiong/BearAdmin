@@ -101,7 +101,7 @@ class Controller extends \think\Controller
             $this->admin['menu'] = $this->getLeftMenu($this->user);
         }
 
-        $this->assign('debug', config('app.debug') ? 'true' : 'false');
+        $this->assign('debug', config('app.app_debug') ? 'true' : 'false');
         $this->assign('cookie_prefix', config('cookie.prefix') ?? '');
         $this->assign('admin', $this->admin);
         return parent::fetch($template, $vars, $config);

@@ -292,7 +292,7 @@
                         </table>
                     </div>
                     <div class="box-footer">
-                        <a class="btn btn-primary btn-sm btn-success" onclick="addNew(null,2)">添加一行</a>
+                        <a class="btn btn-primary btn-sm btn-success" onclick="addNewField(null,2)">添加一行</a>
                         <button class="btn btn-primary btn-sm pull-right" type="submit">提交</button>
                     </div>
                 </div>
@@ -304,9 +304,9 @@
         <tbody id="data-template" style="display: none">
         <tr>
             <td>
-                <a class="btn btn-xs btn-primary" onclick="addNew(this,1)">插入</a>
-                <a class="btn btn-xs btn-success" onclick="addNew(this,2)">追加</a>
-                <a class="btn btn-xs btn-danger" onclick="delThis(this,1)">删除</a>
+                <a class="btn btn-xs btn-primary" onclick="addNewField(this,1)">插入</a>
+                <a class="btn btn-xs btn-success" onclick="addNewField(this,2)">追加</a>
+                <a class="btn btn-xs btn-danger" onclick="delThisField(this,1)">删除</a>
             </td>
 
             <td>
@@ -413,7 +413,7 @@
                         <div class="box-body" id="field_setting_INDEX_ID">
 
 
-                            <div class="validate more-from">
+                            <div class="more-from">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <label for="field_defaultINEDEX_ID">默认值</label>
@@ -443,32 +443,16 @@
                             </div>
 
                             <hr/>
-
-                            <div class="validate more-from">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label for="field_sceneINEDEX_ID">验证场景</label>
-                                        <select style="min-width: 380px;width: 420px;" name="field_sceneFORM_INDEX[]"
-                                                class="select2 form-control input-sm"
-                                                id="field_sceneINEDEX_ID" multiple="multiple"
-                                                data-placeholder="默认选择三大模块">
-                                            <option value="admin_add" selected>admin_add</option>
-                                            <option value="admin_edit" selected>admin_edit</option>
-                                            <option value="api_add" selected>api_add</option>
-                                            <option value="api_edit" selected>api_edit</option>
-                                            <option value="index_add" selected>index_add</option>
-                                            <option value="index_edit" selected>index_edit</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <hr/>
+                            <div class="more-from">
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <label for="is_relationFORM_INDEX">关联设置</label>
                                         <select name="is_relationFORM_INDEX[]"
                                                 class="select2 form-control input-sm"
-                                                id="is_relationFORM_INDEX" data-placeholder="是否关联字段">
+                                                id="is_relationFORM_INDEX" data-placeholder="是否关联字段"
+                                                onchange="selectRelation(this)"
+                                                data-relation-table="relation_tableFORM_INDEX[]"
+                                                data-relation-show="relation_showFORM_INDEX[]">
                                             <option value="0">非关联字段</option>
                                             <option value="1">关联外键</option>
                                             <option value="2">关联主键</option>
@@ -487,7 +471,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input name="relation_showFORM_INDEX[]"
+                                        <input readonly name="relation_showFORM_INDEX[]"
                                                class="form-control input-sm"
                                                id="relation_showINEDEX_ID"
                                                title="belongsTo填写，例如文章发布人user_id要显示成User模型的nickname，填写nickname即可"
@@ -495,7 +479,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input name="relation_tableFORM_INDEX[]"
+                                        <input readonly name="relation_tableFORM_INDEX[]"
                                                class="form-control input-sm"
                                                id="relation_tableINEDEX_ID"
                                                title="一般此字段为id，belongsTo的无须填写，hasOne/hasMany填写此字段，关联多个模型务必使用英文逗号隔开，例如用户关联多篇文章，多个积分记录，可以写成article,integral_log"
@@ -505,10 +489,30 @@
                                 </div>
                             </div>
 
+                            <hr/>
+                            <div class="more-from">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label for="field_sceneINEDEX_ID">验证场景</label>
+                                        <select style="min-width: 380px;width: 420px;" name="field_sceneFORM_INDEX[]"
+                                                class="select2 form-control input-sm"
+                                                id="field_sceneINEDEX_ID" multiple="multiple"
+                                                data-placeholder="默认选择三大模块">
+                                            <option value="admin_add" selected>admin_add</option>
+                                            <option value="admin_edit" selected>admin_edit</option>
+                                            <option value="api_add" selected>api_add</option>
+                                            <option value="api_edit" selected>api_edit</option>
+                                            <option value="index_add" selected>index_add</option>
+                                            <option value="index_edit" selected>index_edit</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
-
             </td>
         </tr>
         </tbody>
@@ -519,6 +523,7 @@
 </section>
 <script>
 
+    //刷新数据库表
     function refreshTable() {
         $.post('{:url("admin/generate/getTable")}', function (result) {
             let html = '<option value=""></option>';
@@ -534,32 +539,12 @@
 
     $(function () {
 
-        $('[data-toggle="tooltip"]').tooltip();
-
-        $("#table_name").on("change", function () {
-
-            //获取表字段
+        //获取表信息和字段等，进行页面填充
+        $("#table_name").on('change', function () {
             getField($(this).val());
         });
 
-        $('#view_index_delete').on('click', function () {
-            if ($(this).is(':checked')) {
-                $('#view_index_select').prop('checked', true);
-            }
-        });
-        $('#view_index_disable').on('click', function () {
-            if ($(this).is(':checked')) {
-                $('#view_index_select').prop('checked', true);
-            }
-        });
-
-        $(".form-type-select").off().on("change", function () {
-            var data = $(this).val();
-            alert(data);
-        });
-
-        addNew(null, 1);
-
+        //列表启用/禁止关联菜单和控制器
         $('#list_enable').change(function () {
             console.log('启用/禁止选项');
             let checked = $(this).is(':checked');
@@ -570,9 +555,16 @@
             $menu_list.select2();
             $action_list.select2();
         });
+
+        //默认添加一行空的字段
+        addNewField(null, 1);
+
     });
 
-    function addNew(obj, type) {
+
+    //添加新的字段
+    function addNewField(obj, type) {
+
         formIndex++;
         let template = $("#data-template").html().replace(/FORM_INDEX/g, '[' + formIndex + ']').replace(/INDEX_ID/g, formIndex);
 
@@ -585,18 +577,21 @@
                 $(obj).parent().parent().after(template);
             }
         }
-        $('[data-toggle="tooltip"]').tooltip();
-        $('#dataBody .select2').select2();
 
+        //刷新 dataBody DOM后的操作
+        dataBodyRefreshed();
     }
 
-    function delThis(obj) {
+
+    //删除当前字段
+    function delThisField(obj) {
         layer.confirm('您确认删除本行吗？', {title: '删除确认', closeBtn: 1, icon: 3}, function () {
             $(obj).parent().parent().remove();
             layer.closeAll();
         });
     }
 
+    //提交验证
     $("#dataForm").validate({
         rules: {
             table_name: {
@@ -636,13 +631,23 @@
         placeholder: "不选择为不生成菜单"
     });
 
+    //获取表信息
     function getField(name) {
         $.post('getField', {name: name}, function (result) {
             if (result.code === 1) {
+
+                let $dataBody = $("#dataBody");
+
+                if (adminDebug) {
+                    console.time('表信息与相关DOM操作耗时');
+                }
                 let controller = result.data.controller;
                 let model = result.data.model;
                 let validate = result.data.validate;
                 let field = result.data.field;
+                if (adminDebug) {
+                    console.log('字段数量：' + field.length);
+                }
                 let table = result.data.table;
                 //中文名
                 $('#cn_name').val(table.cn_name);
@@ -652,7 +657,7 @@
                     $("#model_name").val(model.name);
                     $("#validate_name").val(validate.name);
                 }
-                $("#dataBody").html('');
+                $dataBody.html('');
                 //字段名
                 let field_name = "#data-template input[name='field_nameFORM_INDEX[]']";
                 //字段类型
@@ -677,6 +682,7 @@
                 let list_sort = "#data-template [name='list_sortFORM_INDEX[]']";
 
                 //
+                let listHtml = '';
                 $.each(field, function (index, item) {
                     //字段名
                     $(field_name).attr('value', item.name);
@@ -717,15 +723,15 @@
                     //表单选项
                     $(form_validate).find("option[value='required']").attr("selected", true);
 
-                    console.log(item.getter_setter);
                     //获取器/修改器
                     if (item.getter_setter !== false) {
                         $(getter_setter).find("option[value='" + item.getter_setter + "']").attr("selected", true);
                     }
 
-                    //这里需要处理不同类型的字段添加不同的验证选项
+                    //优化生成DOM慢的问题
+                    formIndex++;
+                    listHtml += $("#data-template").html().replace(/FORM_INDEX/g, '[' + formIndex + ']').replace(/INDEX_ID/g, formIndex);
 
-                    addNew(null, 1);
                     if (getter_setter !== false) {
                         $(getter_setter).find("option[value='" + item.getter_setter + "']").attr("selected", false);
                     }
@@ -734,9 +740,16 @@
                     $(field_type).attr('value', '');
                     $(form_validate).empty();
 
-                })
+                });
+
+                $dataBody.append(listHtml);
+                dataBodyRefreshed();
+
+                if (adminDebug) {
+                    console.timeEnd('表信息与相关DOM操作耗时');
+                }
             }
-            console.log(result);
+
         });
     }
 
@@ -762,14 +775,9 @@
 
     //刷新菜单
     function refreshMenu() {
-
+        //目前还没写，争取尽快完善
     }
 
-    //显示隐藏扩展的功能
-    function displayDom(domId) {
-        let $dom = $('#' + domId);
-        $dom.is(":hidden") ? $dom.show() : $dom.hide();
-    }
 
     //字段更多设置
     $("#pjax-container").off('click').on('click', '.setting-more', function () {
@@ -777,6 +785,30 @@
         $dom.is(":hidden") ? $dom.show() : $dom.hide();
     });
 
+    //选择关联类型防呆设计
+    function selectRelation(obj) {
+        let $obj = $(obj);
+        let relation_type = parseInt($obj.val());
+        let relation_show = $obj.data('relationShow');
+        let relation_table = $obj.data('relationTable');
+
+        if (relation_type === 1) {
+            $('input[name="' + relation_table + '"]').attr('readonly', 'readonly');
+            $('input[name="' + relation_show + '"]').removeAttr('readonly');
+        } else if (relation_type === 2) {
+            $('input[name="' + relation_show + '"]').attr('readonly', 'readonly');
+            $('input[name="' + relation_table + '"]').removeAttr('readonly');
+        } else {
+            $('input[name="' + relation_table + '"]').attr('readonly', 'readonly');
+            $('input[name="' + relation_show + '"]').attr('readonly', 'readonly');
+        }
+    }
+
+    //列表刷新后的操作
+    function dataBodyRefreshed() {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#dataBody .select2').select2();
+    }
 
 </script>
 
