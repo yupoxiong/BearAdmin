@@ -10,7 +10,7 @@ class Editor extends Field
 {
     public static $html = <<<EOF
 <div class="form-group">
-    <label for="[FIELD_NAME]" class="col-sm-2 control-label">内容</label>
+    <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
         <div class="col-sm-10">
             <script id="[FIELD_NAME]" name="[FIELD_NAME]" type="text/plain">{\$data.[FIELD_NAME]|raw|default='[FIELD_DEFAULT]'}</script>
         </div>
