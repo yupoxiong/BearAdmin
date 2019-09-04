@@ -12,7 +12,7 @@ class Image extends Field
     <div class="form-group">
         <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
         <div class="col-sm-10 col-md-4"> 
-            <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" {if isset(\$data.[FIELD_NAME])}data-initial-preview="{\$data.[FIELD_NAME]}"{/if} type="file" class="form-control field-image" >
+            <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" type="file" class="form-control field-image" >
         </div>
     </div>
     <script>

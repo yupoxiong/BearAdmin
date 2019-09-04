@@ -35,7 +35,7 @@ trait AdminTree
      * @param array $arr
      * @return bool
      */
-    public function initTree($arr=[])
+    public function initTree($arr = [])
     {
         $this->array = $arr;
         $this->ret   = '';
@@ -55,7 +55,7 @@ trait AdminTree
     public function getTree($my_id, $str, $sid = 0, $adds = '', $str_group = '')
     {
         $parent_id = '';
-        $n_str      = '';
+        $n_str     = '';
         $number    = 1;
         $child     = $this->getChild($my_id);
 
@@ -92,7 +92,7 @@ trait AdminTree
     public function get_authTree($my_id, $current_id, $parent_ids)
     {
 
-        $n_str  = '';
+        $n_str = '';
         $child = $this->getChild($my_id);
         if (is_array($child)) {
             $menu = current($child);
@@ -172,7 +172,7 @@ trait AdminTree
     public function getAuthTreeAccess($my_id)
     {
         $id    = '';
-        $n_str  = '';
+        $n_str = '';
         $child = $this->getChild($my_id);
 
         if (is_array($child)) {
@@ -367,10 +367,7 @@ trait AdminTree
     {
         $data = $model->column('id,parent_id,name', 'id');
 
-        foreach ($data as $key => $value) {
-            $data[$key]['disabled'] = $value['parent_id'] === 0 ? 'disabled' : '';
-        }
-        $html = "<option value='\$id' \$selected \$disabled >\$spacer \$name</option>";
+        $html = "<option value='\$id' \$selected >\$spacer \$name</option>";
         $this->initTree($data);
         return $this->getTree(0, $html, $selected);
     }
