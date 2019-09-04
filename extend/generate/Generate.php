@@ -335,6 +335,11 @@ class Generate
     protected function createController()
     {
 
+        //不生成控制器
+        if($this->data['controller']['create']==0){
+            return true;
+        }
+
         $add_field_code  = '';
         $edit_field_code = '';
 
@@ -493,6 +498,12 @@ class Generate
      */
     protected function createModel()
     {
+
+        //不生成模型
+        if($this->data['model']['create']==0){
+            return true;
+        }
+
         $auto_time      = 'protected $autoWriteTimestamp = true;';
         $soft_delete1   = 'use think\model\concern\SoftDelete;';
         $soft_delete2   = 'use SoftDelete;';
@@ -643,6 +654,10 @@ class Generate
     //创建验证器
     protected function createValidate()
     {
+        //不生成验证器
+        if($this->data['validate']['create']==0){
+            return true;
+        }
 
         $file = $this->config['template']['validate'];
         $code = file_get_contents($file);

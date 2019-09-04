@@ -38,16 +38,23 @@ EOF;
 
     //图片字段显示
     public static $listImgHtml = <<<EOF
-<td><img style="max-width: 40px" src="{\$item.[FIELD_NAME]}"></td>\n
+<td><img class="dataListImg" src="{\$item.[FIELD_NAME]}"></td>\n
 EOF;
 
 
     public static $listMultiImgHtml = <<<EOF
-<td>
+<td class="dataListMultiImg" id="[FIELD_NAME]ImgViewer">
 {foreach name='item.[FIELD_NAME]' id='item_[FIELD_NAME]'}
-<img style="max-width: 40px" src="{\$item_[FIELD_NAME]}">
+<img class="dataListImg" data-img="{\$item_[FIELD_NAME]}" src="{\$item_[FIELD_NAME]}">
 {/foreach}
-</td>\n
+</td>
+<script>
+    $(function () {
+        $('#[FIELD_NAME]ImgViewer').viewer({
+            url:'data-img',
+        });
+    });
+</script>\n
 EOF;
 
     //status字段获取器为switch的时候自动显示为field_name_text
@@ -64,14 +71,11 @@ EOF;
 EOF;
 
 
-
-
-
     //获取选择的字段和字段对应的验证optionDOM代码
     public function getFormSelectOption($field_type)
     {
         $result     = ['text', ''];
-        $field_info = $this->getFieldInfo($file_name='',$field_type);
+        $field_info = $this->getFieldInfo($file_name = '', $field_type);
         switch ($field_info['type']) {
             case 'tinyint':
                 $result[0] = 'switch';
