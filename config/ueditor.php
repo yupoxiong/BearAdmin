@@ -6,27 +6,29 @@
 
 return [
 
-    'imageActionName'         => 'uploadimage',
-    'imageFieldName'          => 'upfile',
-    'imageMaxSize'            => 2048000,
-    'imageAllowFiles'         => [
+    'imageActionName'     => 'uploadimage',
+    'imageFieldName'      => 'upfile',
+    'imageMaxSize'        => 2048000,
+    'imageAllowFiles'     => [
         '.png',
         '.jpg',
         '.jpeg',
         '.gif',
         '.bmp'
     ],
-    'imageCompressEnable'     => true,
-    'imageCompressBorder'     => 1600,
-    'imageInsertAlign'        => 'none',
-    'imageUrlPrefix'          => '',
-    'imagePathFormat'         => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
-    'scrawlActionName'        => 'uploadscrawl',
-    'scrawlFieldName'         => 'upfile',
-    'scrawlPathFormat'        => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
-    'scrawlMaxSize'           => 2048000,
-    'scrawlUrlPrefix'         => '',
+    'imageCompressEnable' => true,
+    'imageCompressBorder' => 1600,
+    'imageInsertAlign'    => 'none',
+    'imageUrlPrefix'      => '',
+    'imagePathFormat'     => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+    'scrawlActionName'    => 'uploadscrawl',
+    'scrawlFieldName'     => 'upfile',
+    'scrawlPathFormat'    => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+    'scrawlMaxSize'       => 2048000,
+    'scrawlUrlPrefix'     => '',
+
     'scrawlInsertAlign'       => 'none',
+    'scrawlAllowFiles'        => ['.png', '.jpg', '.jpeg', '.gif', '.bmp',],
     'snapscreenActionName'    => 'uploadimage',
     'snapscreenPathFormat'    => '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
     'snapscreenUrlPrefix'     => '',

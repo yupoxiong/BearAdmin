@@ -9,14 +9,20 @@ namespace tools;
 class UEditor
 {
     protected $config;
+    protected $request;
+    protected $param;
 
     public function __construct($config)
     {
-        $this->config = $config;
+        $this->config  = $config;
+        $this->request = request();
+        $this->param   = $this->request->param();
     }
 
     public function server($action)
     {
+
+
         $config = $this->config;
 
         switch ($action) {
@@ -34,10 +40,10 @@ class UEditor
                     'pathFormat' => $config['scrawlPathFormat'],
                     'maxSize'    => $config['scrawlMaxSize'],
                     'allowFiles' => $config['scrawlAllowFiles'],
-                    'oriName'    => 'scrawl.png'
+                    'oriName'    => 'upfile'
                 );
-                $fieldName = $config['scrawlFieldName'];
-                $base64    = 'base64';
+
+                $fieldName = $config['oriName'];
                 $result    = $this->upBase64($config, $fieldName);
                 break;
             /* 上传视频 */
@@ -55,7 +61,7 @@ class UEditor
                 $allowFiles = $config['imageManagerAllowFiles'];
                 $listSize   = $config['imageManagerListSize'];
                 $path       = $config['imageManagerListPath'];
-                $get        = $_GET;
+                $get        = $this->param;
                 $result     = $this->fileList($allowFiles, $listSize, $get);
                 break;
             /* 列出文件 */
@@ -77,7 +83,7 @@ class UEditor
                 $fieldName = $config['catcherFieldName'];
                 /* 抓取远程图片 */
                 $list = array();
-                isset($_POST[$fieldName]) ? $source = $_POST[$fieldName] : $source = $_GET[$fieldName];
+                isset($this->param[$fieldName]) ? $source = $this->param[$fieldName] : $source = [];
 
                 foreach ($source as $imgUrl) {
                     $info   = json_decode($this->saveRemote($config, $imgUrl), true);
@@ -203,20 +209,33 @@ class UEditor
     /*遍历获取目录下的指定类型的文件*/
     private function getFiles($path, $allowFiles, &$files = array())
     {
-        if (!is_dir($path)) return null;
-        if (substr($path, strlen($path) - 1) !== '/') $path .= '/';
-        $handle = opendir($path);
+        $public_path = app()->getRootPath().'public';
+
+
+        if (substr($path, strlen($path) - 1) !== '/') {
+            $path .= '/';
+        }
+
+        $real_path = $public_path . $path;
+
+        if (!is_dir($real_path)) {
+
+            return null;
+        }
+
+        $handle = opendir($real_path);
 
         while (false !== ($file = readdir($handle))) {
             if ($file !== '.' && $file !== '..') {
                 $path2 = $path . $file;
-                if (is_dir($path2)) {
+
+                if (is_dir($public_path . $path2)) {
                     $this->getFiles($path2, $allowFiles, $files);
                 } else {
                     if (preg_match("/\.(" . $allowFiles . ')$/i', $file)) {
                         $files[] = array(
-                            'url'   => substr($path2, 1),
-                            'mtime' => filemtime($path2)
+                            'url'   => $path2,
+                            'mtime' => filemtime($public_path . $path2)
                         );
                     }
                 }
@@ -271,7 +290,7 @@ class UEditor
         $file['oriName']  = $m ? $m[1] : '';
         $file['filesize'] = strlen($img);
         $file['ext']      = strtolower(strrchr($config['oriName'], '.'));
-        $file['name']     = uniqid('ue',true) . $file['ext'];
+        $file['name']     = uniqid('ue', true) . $file['ext'];
         $file['fullName'] = $dirname . $file['name'];
         $fullName         = $file['fullName'];
 
@@ -321,15 +340,17 @@ class UEditor
     /* 处理base64编码的图片上传 */
     private function upBase64($config, $fieldName)
     {
-        $base64Data = $_POST[$fieldName];
+
+        $base64Data = $this->param[$fieldName];
         $img        = base64_decode($base64Data);
 
-        $dirname          = app()->getRootPath() . 'uploads/ueditor/scrawl/';
+        $dirname          = app()->getRootPath() .'public/'. 'uploads/ueditor/scrawl/';
         $file['filesize'] = strlen($img);
         $file['oriName']  = $config['oriName'];
-        $file['ext']      = strtolower(strrchr($config['oriName'], '.'));
-        $file['name']     = uniqid('ue',true) . $file['ext'];
+        $file['ext']      = '.png';
+        $file['name']     = md5(uniqid('ue', true)) . $file['ext'];
         $file['fullName'] = $dirname . $file['name'];
+        $file['urlName'] = '/uploads/ueditor/scrawl/' . $file['name'];
         $fullName         = $file['fullName'];
 
         //检查文件大小是否超出限制
@@ -341,7 +362,7 @@ class UEditor
         }
 
         //创建目录失败
-        if (!file_exists($dirname) && !mkdir($dirname, 0777, true) && !is_dir($dirname)) {
+        if (!file_exists($dirname) && !mkdir($dirname, 0755, true) && !is_dir($dirname)) {
             $data = array(
                 'state' => '目录创建失败',
             );
@@ -363,7 +384,7 @@ class UEditor
         } else { //移动成功
             $data = array(
                 'state'    => 'SUCCESS',
-                'url'      => substr($file['fullName'], 1),
+                'url'      => $file['urlName'],
                 'title'    => $file['name'],
                 'original' => $file['oriName'],
                 'type'     => $file['ext'],
