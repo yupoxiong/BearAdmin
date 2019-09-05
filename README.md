@@ -1,10 +1,10 @@
 # BearAdmin
-基于ThinkPHP5.1+AdminLTE的后台管理系统
+基于ThinkPHP5.1+AdminLTE的后台管理系统。TP5.0版本[点击这里](https://github.com/yupoxiong/BearAdmin/tree/thinkphp5.0)
 
-- [开发文档](https://www.kancloud.cn/codebear/admin_system)
 
-- [TP5.0版本](https://github.com/yupoxiong/BearAdmin/tree/thinkphp5.0)
-
+ [开发文档](https://www.kancloud.cn/codebear/admin_system) |
+  [在线DEMO](https://admindemo.yupoxiong.com/) |  [DEMO源码](https://github.com/yupoxiong/AdminDemo) 
+ 
 ## 安装步骤
 #### clone 项目到本地
 ```
