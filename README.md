@@ -5,6 +5,7 @@
  [开发文档](https://www.kancloud.cn/codebear/admin_system) |
   [在线DEMO](https://admindemo.yupoxiong.com/) |  [DEMO源码](https://github.com/yupoxiong/AdminDemo) 
  
+ 在线 DEMO 账号密码：admin/admindemo
 ## 安装步骤
 #### clone 项目到本地
 ```
