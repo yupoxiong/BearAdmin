@@ -64,7 +64,7 @@ class Controller extends \think\Controller
             if (!$this->isLogin()) {
                 error('未登录', 'auth/login');
             } else if ($this->user->id !== 1 && !$this->authCheck($this->user)) {
-                error('无权限', null);
+                error('无权限', $this->request->isGet() ? null : URL_CURRENT);
             }
         }
 
