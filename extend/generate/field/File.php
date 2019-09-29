@@ -12,23 +12,18 @@ class File extends Field
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4"> 
-        <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" type="file" class="form-control field-file" >
+        <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" type="file" class="form-control field-file" >
     </div>
 </div>
 <script>
     $('#[FIELD_NAME]').fileinput({
-        //theme: 'fas',
         language: 'zh',
-    
         browseLabel: '浏览',
-        initialPreviewAsData: false,
+        initialPreviewAsData: true,
         dropZoneEnabled: false,
         showUpload:false,
         showRemove: false,
         allowedFileExtensions: ['jpg', 'png', 'gif','bmp','svg','jpeg','mp4','doc','docx','pdf','xls','xlsx','ppt','pptx','txt'],
-        {if isset(\$data)}
-        initialPreview:['<img style="max-width:100%;" src="{\$data.[FIELD_NAME]}">'],
-        {/if}
         //默认限制10M
         maxFileSize:10240
     });
