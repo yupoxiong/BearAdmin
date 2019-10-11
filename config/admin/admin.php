@@ -1,21 +1,27 @@
 <?php
+
 /**
- * 后台配置
- * @author yupoxiong<i@yufuping.com>
- * @date 2019/3/5
- */
+* 后台设置:后台管理方面的设置
+* 此配置文件为自动生成，生成时间2019-10-11 11:37:24
+*/
 
 return [
+    //基本设置:后台的基本信息设置
+    'base'=>[
     //后台名称
-    'name'             => '后台管理系统',
-    //后台名称简称
-    'short_name'       => '后台',
+    'name'=>'XX后台系统',
+    //后台简称
+    'short_name'=>'后台',
     //后台作者
-    'author'           => 'XX科技',
-    //后台版本
-    'version'          => '0.1',
-    //超级管理员默认密码警告
-    'password_warning' => true,
-    //首页欢迎信息
-    'welcome_info'     => true,
+    'author'=>'xx科技',
+],
+    //登录设置:后台登录相关设置
+    'login'=>[
+    //登录token验证
+    'token'=>'0',
+    //验证码
+    'captcha'=>'1',
+    //登录背景
+    'background'=>'/uploads/attachment/20191010/20a3383c07496ac38930665082d10a76.jpg',
+],
 ];

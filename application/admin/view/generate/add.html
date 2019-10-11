@@ -57,9 +57,9 @@
         }
 
         .more-setting .extend-div {
-            width: 570px;
+            width: 700px;
             margin-right: 0;
-            margin-left: -500px;
+            margin-left: -630px;
         }
 
         .more-setting .more-from {
@@ -68,6 +68,11 @@
 
         .modelRelationDiv .form-group .form-control {
             margin-right: 20px;
+        }
+
+        .validateScene{
+            min-width: 450px;
+            width: 550px;
         }
     </style>
 
@@ -108,35 +113,6 @@
                                               name="auto_class_name"
                                               title="自动生成控制器|模型|验证器类名" data-toggle="tooltip">自动生成类名</label>
 
-                            </div>
-
-                            <div class="form-group checkbox">
-                                <label><input checked type="checkbox" value="1" id="list_delete"
-                                              name="list_delete"
-                                              title="列表删除功能" data-toggle="tooltip">列表删除</label>
-                            </div>
-                            <div class="form-group checkbox">
-                                <label><input checked type="checkbox" value="1" id="list_create"
-                                              name="list_create"
-                                              title="列表添加功能" data-toggle="tooltip">列表添加</label>
-                            </div>
-
-                            <div class="form-group checkbox">
-                                <label><input checked type="checkbox" value="1" id="list_refresh"
-                                              name="list_refresh"
-                                              title="列表刷新功能" data-toggle="tooltip">列表刷新</label>
-                            </div>
-
-                            <div class="form-group checkbox">
-                                <label><input type="checkbox" value="1" id="list_export"
-                                              name="list_export"
-                                              title="列表导出功能" data-toggle="tooltip">列表导出</label>
-                            </div>
-
-                            <div class="form-group checkbox">
-                                <label><input type="checkbox" value="1" id="list_enable"
-                                              name="list_enable"
-                                              title="列表启用/禁用功能" data-toggle="tooltip">列表启用/禁用</label>
                             </div>
 
                         </div>
@@ -240,9 +216,6 @@
                                               title="自动添加delete_time字段，默认为0" data-toggle="tooltip">软删除</label>
                             </div>
 
-                            <div>
-
-                            </div>
                         </div>
                     </div>
 
@@ -268,6 +241,67 @@
                         </div>
 
 
+                    </div>
+
+
+                    <div class="box-header with-border">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="create_view_index">列表视图</label>
+                                <select data-id="create_view_index" name="create_view_index"
+                                        class="select2 form-control input-sm"
+                                        id="create_view_index" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label><input checked type="checkbox" value="1" id="list_delete"
+                                              name="list_delete"
+                                              title="列表删除功能" data-toggle="tooltip">列表删除</label>
+                            </div>
+                            <div class="form-group checkbox">
+                                <label><input checked type="checkbox" value="1" id="list_create"
+                                              name="list_create"
+                                              title="列表添加功能" data-toggle="tooltip">列表添加</label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label><input checked type="checkbox" value="1" id="list_refresh"
+                                              name="list_refresh"
+                                              title="列表刷新功能" data-toggle="tooltip">列表刷新</label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label><input type="checkbox" value="1" id="list_export"
+                                              name="list_export"
+                                              title="列表导出功能" data-toggle="tooltip">列表导出</label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label><input type="checkbox" value="1" id="list_enable"
+                                              name="list_enable"
+                                              title="列表启用/禁用功能" data-toggle="tooltip">列表启用/禁用</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="box-header with-border">
+                        <div class="form-inline">
+
+                            <div class="form-group">
+                                <label for="create_view_add">表单视图</label>
+                                <select data-id="create_view_add" name="create_view_add"
+                                        class="select2 form-control input-sm"
+                                        id="create_view_add" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -428,9 +462,9 @@
                                                 class="select2 form-control input-sm"
                                                 id="getter_setterFORM_INDEX" data-placeholder="获取/修改器">
                                             <option value="">无</option>
-                                            <option value="datetime">datetime</option>
-                                            <option value="switch">switch</option>
-                                            <option value="date">date</option>
+                                            <option value="switch">开关</option>
+                                            <option value="date">日期</option>
+                                            <option value="datetime">日期时间</option>
                                         </select>
                                     </div>
 
@@ -441,6 +475,27 @@
 
                                 </div>
                             </div>
+
+                            <hr/>
+
+                            <div class="form-group">
+                                <label for="index_searchFORM_INDEX">列表筛选</label>
+                                <select name="index_searchFORM_INDEX[]"
+                                        class="select2 form-control input-sm"
+                                        id="index_searchFORM_INDEX" data-placeholder="列表筛选">
+                                    <option value="">无</option>
+                                    <option value="search">关键词搜索</option>
+                                    <option value="select">列表筛选</option>
+                                    <option value="date">日期筛选</option>
+                                    <option value="datetime">日期时间筛选</option>
+                                </select>
+                            </div>
+
+                            <!--这里觉得筛选数据，关联的查询出数据进行筛选，其他列表手动填写数据，日期和日期时间为范围模式-->
+
+                            <div class="form-group">
+                                <label for="index_search_dataFORM_INDEX">筛选数据</label>
+                                <textarea class="form-control input-sm" id="index_search_dataFORM_INDEX" placeholder="列表筛选数据，关键词 、关联数据和日期/日期时间无需填写，自定义数据填写，格式为：name|value，多个选择换行即可"></textarea>
 
                             <hr/>
                             <div class="more-from">
@@ -494,8 +549,8 @@
                                 <div class="form-inline">
                                     <div class="form-group">
                                         <label for="field_sceneINEDEX_ID">验证场景</label>
-                                        <select style="min-width: 380px;width: 420px;" name="field_sceneFORM_INDEX[]"
-                                                class="select2 form-control input-sm"
+                                        <select name="field_sceneFORM_INDEX[]"
+                                                class="select2 form-control input-sm validateScene"
                                                 id="field_sceneINEDEX_ID" multiple="multiple"
                                                 data-placeholder="默认选择三大模块">
                                             <option value="admin_add" selected>admin_add</option>

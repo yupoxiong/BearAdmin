@@ -11,19 +11,22 @@
 
 // 应用公共文件
 
+
+use think\facade\Config;
+
 if (!function_exists('get_middle_str')) {
     /**
-     * 获取指定字符串中间内容
-     * @param string $str 原字符串
-     * @param string $leftStr 左侧
-     * @param string $rightStr
+     * 获取两个字符串中间的字符
+     * @param $str
+     * @param $leftStr
+     * @param $rightStr
      * @return bool|string
      */
     function get_middle_str($str, $leftStr, $rightStr)
     {
         $left  = strpos($str, $leftStr);
         $right = strpos($str, $rightStr, $left);
-        if ($left < 0 || $right < $left) {
+        if ($right < $left || $left < 0) {
             return '';
         }
         return substr($str, $left + strlen($leftStr), $right - $left - strlen($leftStr));
@@ -46,4 +49,19 @@ if (!function_exists('format_size')) {
         }
         return round($size, 2) . $delimiter . $units[$i];
     }
+}
+
+//设置相关助手函数
+if (!function_exists('setting')) {
+    function setting($name = '', $value = null)
+    {
+        if ($value === null && is_string($name)) {
+            if ('.' === substr($name, -1)) {
+                return Config::pull(substr($name, 0, -1));
+            }
+            return 0 === strpos($name, '?') ? Config::has(substr($name, 1)) : Config::get($name);
+        }
+        return Config::set($name, $value);
+    }
+
 }

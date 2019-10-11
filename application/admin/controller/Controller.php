@@ -121,20 +121,20 @@ class Controller extends \think\Controller
         if (!$this->admin['pjax']) {
 
             $admin_info = [
-                'name'       => config('admin.name'),
-                'author'     => config('admin.author'),
-                'version'    => config('admin.version'),
-                'short_name' => config('admin.short_name'),
+                'name'       => config('admin.base.name'),
+                'author'     => config('admin.base.author'),
+                'version'    => config('admin.base.version'),
+                'short_name' => config('admin.base.short_name'),
             ];
             cache('admin_info', json_encode($admin_info), 8640000);
         } else {
             $admin_info = cache('admin_info');
             if (!$admin_info) {
                 $admin_info = [
-                    'name'       => config('admin.name'),
-                    'author'     => config('admin.author'),
-                    'version'    => config('admin.version'),
-                    'short_name' => config('admin.short_name'),
+                    'name'       => config('admin.base.name'),
+                    'author'     => config('admin.base.author'),
+                    'version'    => config('admin.base.version'),
+                    'short_name' => config('admin.base.short_name'),
                 ];
             } else {
                 $admin_info = json_decode($admin_info, true);
