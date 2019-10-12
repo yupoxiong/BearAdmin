@@ -314,7 +314,6 @@
                                 <th title="字段类型，例如varchar(255),int(10),decimal(12,2)">类型</th>
                                 <th title="中文名称，例如username为用户名">名称</th>
                                 <th title="是否在列表页显示">列表</th>
-                                <th title="是否为列表页搜索字段">搜索</th>
                                 <th title="是否为添加/修改页字段">表单</th>
                                 <th class="form-type-th" title="表单类型">表单类型</th>
                                 <th class="form-validate-th" title="表单验证">表单验证</th>
@@ -365,12 +364,6 @@
             <td>
                 <label class="bodyFormCheckbox">
                     <input type="checkbox" value="1" id="is_listFORM_INDEX[]" name="is_listFORM_INDEX[]">列表
-                </label>
-            </td>
-
-            <td>
-                <label class="bodyFormCheckbox">
-                    <input type="checkbox" value="1" id="is_searchFORM_INDEX[]" name="is_searchFORM_INDEX[]">搜索
                 </label>
             </td>
             <td>
@@ -495,7 +488,7 @@
 
                             <div class="form-group">
                                 <label for="index_search_dataFORM_INDEX">筛选数据</label>
-                                <textarea class="form-control input-sm" id="index_search_dataFORM_INDEX" placeholder="列表筛选数据，关键词 、关联数据和日期/日期时间无需填写，自定义数据填写，格式为：name|value，多个选择换行即可"></textarea>
+                                <textarea class="form-control input-sm" id="index_search_dataFORM_INDEX" name="index_search_dataFORM_INDEX[]" placeholder="列表筛选数据，关键词 、关联数据和日期/日期时间无需填写，自定义数据填写，格式为：value||name，多个选择换行即可"></textarea>
 
                             <hr/>
                             <div class="more-from">
@@ -678,6 +671,12 @@
     //是否生成验证器
     $('#create_validate').select2();
 
+    //是否生成列表视图
+    $('#create_view_index').select2();
+
+    //是否生成表单视图
+    $('#create_view_add').select2();
+
     //控制器方法表
     $('#controller_action_list').select2();
     //选择父级菜单
@@ -716,8 +715,6 @@
                 let field_type = "#data-template input[name='field_typeFORM_INDEX[]']";
                 //是否为列表字段
                 let field_list = "#data-template [name='is_listFORM_INDEX[]']";
-                //是否为搜索字段
-                let field_search = "#data-template [name='is_searchFORM_INDEX[]']";
                 //是否为表单字段
                 let field_form = "#data-template [name='is_formFORM_INDEX[]']";
                 //中文名称
@@ -752,13 +749,6 @@
                         $(field_list).attr('checked', true);
                     } else {
                         $(field_list).attr('checked', false);
-                    }
-
-                    //是否为搜索字段
-                    if (item.is_search === 1) {
-                        $(field_search).attr('checked', true);
-                    } else {
-                        $(field_search).attr('checked', false);
                     }
 
                     //是否为表单字段
@@ -827,7 +817,11 @@
 
     //刷新菜单
     function refreshMenu() {
-        //目前还没写，争取尽快完善
+        $.post('{:url("admin/generate/getMenu")}', function (result) {
+            let html = '<option value="-1">不生成</option><option value="0">顶级菜单</option>';
+            html += result.data;
+            $('#create_menu').html(html).select2();
+        });
     }
 
 

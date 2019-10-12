@@ -36,6 +36,42 @@ EOF;
 <td>{\$item.[FIELD_NAME]}</td>\n
 EOF;
 
+    //列表关联筛选
+    public static $listSearchRelationHtml = <<<EOF
+<div class="form-group">
+    <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm index-search">
+        <option value="-1">[FORM_NAME]</option>
+        {foreach name='[FIELD_NAME1]_list' id='item'}
+        <option value="{\$item.id}" {if isset($[FIELD_NAME]) && $[FIELD_NAME]==\$item.id}selected{/if}>{\$item.[RELATION_SHOW]}</option>
+        {/foreach}
+    </select>
+</div>
+<script>
+    $(function () {
+        $('#[FIELD_NAME]').select2({
+        width:'100%'
+        });
+    });
+</script>\n
+EOF;
+
+    public static $listSearchSelectHtml = <<<EOF
+<div class="form-group">
+    <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm index-search">
+        <option value="-1">[FORM_NAME]</option>
+        [SELECT_OPTION]
+    </select>
+</div>
+<script>
+    $(function () {
+        $('#[FIELD_NAME]').select2({
+        width:'100%'
+        });
+    });
+</script>\n
+EOF;
+
+
     //图片字段显示
     public static $listImgHtml = <<<EOF
 <td><img class="dataListImg" src="{\$item.[FIELD_NAME]}"></td>\n

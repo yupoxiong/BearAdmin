@@ -27,6 +27,7 @@ class [CONTROLLER_NAME]Controller extends Controller
             'data'  => $data,
             'page'  => $data->render(),
             'total' => $data->total(),
+            [SEARCH_DATA_LIST]
         ]);
         return $this->fetch();
     }

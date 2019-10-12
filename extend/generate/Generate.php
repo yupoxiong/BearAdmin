@@ -7,45 +7,22 @@
 namespace generate;
 
 use app\admin\model\AdminMenu;
-use generate\field\Checkbox;
-use generate\field\Color;
-use generate\field\Date;
-use generate\field\DateRange;
-use generate\field\Datetime;
-use generate\field\DatetimeRange;
 use generate\field\Editor;
-use generate\field\Email;
 use generate\field\Field;
 use generate\field\File;
-use generate\field\Icon;
-use generate\field\IdCard;
 use generate\field\Image;
-use generate\field\Ip;
-use generate\field\Map;
-use generate\field\Mobile;
 use generate\field\MultiFile;
 use generate\field\MultiImage;
-use generate\field\MultiSelect;
-use generate\field\Number;
-use generate\field\Password;
-use generate\field\Radio;
-use generate\field\Select;
-use generate\field\SwitchField;
-use generate\field\Text;
-use generate\field\Textarea;
-use generate\field\Url;
-use generate\field\Year;
-use generate\field\YearMonth;
-use generate\field\YearMonthRange;
-use generate\field\YearRange;
 use generate\rule\Required;
 use think\Db;
 use think\facade\Env;
 use generate\traits\Tools;
+use generate\traits\Tree;
 
 class Generate
 {
 
+    use Tree;
     use Tools;
 
     protected $config = [];
@@ -173,13 +150,11 @@ class Generate
     /**
      * 获取后台已有菜单，以select形式返回
      */
-    public function getMenu()
+    public function getMenu($selected = 1, $current_id = 0)
     {
-        $selected   = 1;
-        $current_id = 0;
-        $result     = AdminMenu::where('id', '<>', $current_id)->order('sort_id', 'asc')->order('id', 'asc')->column('id,parent_id,name,sort_id', 'id');
+        $result = AdminMenu::where('id', '<>', $current_id)->order('sort_id', 'asc')->order('id', 'asc')->column('id,parent_id,name,sort_id', 'id');
         foreach ($result as $r) {
-            $r['selected'] = (int)$r['id'] === (int)$selected ? 'selected' : '';
+            $r['selected'] = (int)$r['id'] === $selected ? 'selected' : '';
         }
         $str = "<option value='\$id' \$selected >\$spacer \$name</option>";
         $this->initTree($result);
@@ -336,7 +311,7 @@ class Generate
     {
 
         //不生成控制器
-        if($this->data['controller']['create']==0){
+        if ($this->data['controller']['create'] == 0) {
             return true;
         }
 
@@ -357,6 +332,9 @@ class Generate
         $relation_with = '';
         //with列表
         $relation_with_list = '';
+
+        //列表页关联查询
+        $index_select = '';
 
         foreach ($this->data['data'] as $key => $value) {
 
@@ -407,6 +385,20 @@ class Generate
                     $list_name  = $table_name . '_list';
                     $code_3     = str_replace(array('[LIST_NAME]', '[CLASS_NAME]'), array($list_name, $class_name), $code_3);
                     $relation_3 .= $code_3;
+                }
+            }
+
+
+            if ($value['is_relation'] == 1 && $value['relation_type'] == 1) {
+                //[SEARCH_DATA_LIST]
+                if ($value['index_search'] === 'select') {
+                    $table_name        = str_replace('_id', '', $value['field_name']);
+                    $select_class_name = parse_name($table_name, 1);
+                    $select_list_name  = $table_name . '_list';
+                    $code_select       = file_get_contents($this->config['template']['path'] . 'controller/relation_assign_2.stub');
+                    $code_select       = str_replace(array('[LIST_NAME]', '[CLASS_NAME]'), array($select_list_name, $select_class_name), $code_select);
+
+                    $index_select .= $code_select;
                 }
             }
 
@@ -474,8 +466,8 @@ class Generate
         //控制器添加方法特殊字段处理
         //控制器修改方法特殊字段处理
         $code = str_replace(
-            array('[NAME]', '[CONTROLLER_NAME]', '[CONTROLLER_MODULE]', '[MODEL_NAME]', '[MODEL_MODULE]', '[VALIDATE_NAME]', '[VALIDATE_MODULE]', '[ADD_FIELD_CODE]', '[EDIT_FIELD_CODE]', '[RELATION_1]', '[RELATION_2]', '[RELATION_3]', '[EXPORT_CODE]', '[ENABLE_CODE]', '[RELATION_WITH]'),
-            array($this->data['cn_name'], $this->data['controller']['name'], $this->data['controller']['module'], $this->data['model']['name'], $this->data['model']['module'], $this->data['validate']['name'], $this->data['validate']['module'], $add_field_code, $edit_field_code, $relation_1, $relation_2, $relation_3, $export_code, $enable_code, $relation_with),
+            array('[NAME]', '[CONTROLLER_NAME]', '[CONTROLLER_MODULE]', '[MODEL_NAME]', '[MODEL_MODULE]', '[VALIDATE_NAME]', '[VALIDATE_MODULE]', '[ADD_FIELD_CODE]', '[EDIT_FIELD_CODE]', '[RELATION_1]', '[RELATION_2]', '[RELATION_3]', '[EXPORT_CODE]', '[ENABLE_CODE]', '[RELATION_WITH]', '[SEARCH_DATA_LIST]'),
+            array($this->data['cn_name'], $this->data['controller']['name'], $this->data['controller']['module'], $this->data['model']['name'], $this->data['model']['module'], $this->data['validate']['name'], $this->data['validate']['module'], $add_field_code, $edit_field_code, $relation_1, $relation_2, $relation_3, $export_code, $enable_code, $relation_with, $index_select),
             $code
         );
 
@@ -500,7 +492,7 @@ class Generate
     {
 
         //不生成模型
-        if($this->data['model']['create']==0){
+        if ($this->data['model']['create'] == 0) {
             return true;
         }
 
@@ -622,12 +614,27 @@ class Generate
 
         //搜索字段
         $search_field = '';
+        //条件字段
+        $where_field = '';
         //多文件/多图上传获取器，修改器
         $multi_field = '';
         foreach ($this->data['data'] as $value) {
-            if ($value['is_search'] == 1) {
-                $search_field .= "'" . $value['field_name'] . "',";
+            switch ($value['index_search']) {
+                case 'search':
+                    $search_field .= "'" . $value['field_name'] . "',";
+                    break;
+
+                case 'select':
+                    $where_field .= "'" . $value['field_name'] . "',";
+                    break;
+                case 'date':
+                    break;
+                case 'datetime':
+                    break;
+                default:
+                    break;
             }
+
             //多图/文件的获取器/修改器处理
             if ($value['form_type'] === 'multi_image' || $value['form_type'] === 'multi_file') {
                 $multi_field_tmp = MultiImage::$modelAttrCode;
@@ -638,7 +645,7 @@ class Generate
         }
         //搜索字段替换
         //替换多图/多文件获取器，修改器
-        $code = str_replace(array('[SEARCH_FIELD]', '[MULTI_FIELD]'), array($search_field, $multi_field), $code);
+        $code = str_replace(array('[SEARCH_FIELD]', '[MULTI_FIELD]', '[WHERE_FIELD]'), array($search_field, $multi_field, $where_field), $code);
 
         $msg = '';
         try {
@@ -655,7 +662,7 @@ class Generate
     protected function createValidate()
     {
         //不生成验证器
-        if($this->data['validate']['create']==0){
+        if ($this->data['validate']['create'] == 0) {
             return true;
         }
 
@@ -720,14 +727,22 @@ class Generate
     //列表视图
     protected function createIndexView()
     {
+        //如果不需要列表视图，直接返回
+        if ($this->data['view']['create_index'] == 0) {
+            return true;
+        }
+
         //列表数据名称
         $name_list = '';
         //列表数据字段
         $field_list = '';
         //搜索框显示
         $search_name = '';
+        //其他搜索html
+        $search_html = '';
         $file_fields = ['file', 'image'];
         $sort_code   = '';
+
         foreach ($this->data['data'] as $key => $value) {
 
             if ($value['list_sort'] == 1) {
@@ -754,12 +769,11 @@ class Generate
                 } else if ($value['form_type'] === 'switch' && $value['getter_setter'] === 'switch') {
                     //status switch显示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listSwitchHtml);
-                } else if ($value['is_relation'] == 1) {
+                } else if ($value['is_relation'] == 1 && $value['relation_type'] == 1) {
                     //关联字段显示
-                    if ($value['relation_type'] == 1) {
-                        $value['field_name'] = str_replace('_id', '', $value['field_name']) . '.' . $value['relation_show'] . '|default=' . "''";
-                        $field_list          .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listFieldHtml);
-                    }
+                    $field_name = str_replace('_id', '', $value['field_name']) . '.' . $value['relation_show'] . '|default=' . "''";
+                    $field_list .= str_replace('[FIELD_NAME]', $field_name, Field::$listFieldHtml);
+
                 } else {
                     //普通字段显示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listFieldHtml);
@@ -767,12 +781,43 @@ class Generate
 
             }
 
-            if ($value['is_search'] == 1) {
-                if (!empty($search_name)) {
-                    $search_name .= '/' . $value['form_name'];
-                } else {
-                    $search_name .= $value['form_name'];
-                }
+
+            switch ($value['index_search']) {
+                case 'search':
+                    if (!empty($search_name)) {
+                        $search_name .= '/' . $value['form_name'];
+                    } else {
+                        $search_name .= $value['form_name'];
+                    }
+                    break;
+
+                case 'select':
+                    if ($value['is_relation'] == 1 && $value['relation_type'] == 1) {
+                        //关联字段筛选
+                        $field_name  = str_replace('_id', '', $value['field_name']);
+                        $search_html .= str_replace(array('[FIELD_NAME]', '[FIELD_NAME1]', '[FORM_NAME]', '[RELATION_SHOW]'), array($value['field_name'], $field_name, $value['form_name'], $value['relation_show']), Field::$listSearchRelationHtml);
+                    } else {
+                        //自定义select
+                        $index_search_data = $value['index_search_data'];
+                        $options = explode("\r\n", $index_search_data);
+                        $option_html = '';
+                        foreach ($options as $item) {
+                            $option_key_value = explode('||', $item);
+                            $option_html .= '<option value="' . $option_key_value[0] . '" {if isset($'.$value['field_name'].') && $'.$value['field_name'].'=='. $option_key_value[0] .'}selected{/if}>' . $option_key_value[1] . '</option>'."\n";
+                        }
+                        $search_html .= str_replace(array('[FIELD_NAME]', '[FORM_NAME]', '[SELECT_OPTION]'), array($value['field_name'], $value['form_name'], $option_html), Field::$listSearchSelectHtml);
+                    }
+                    break;
+
+                case 'date':
+
+                    break;
+
+                case 'datetime':
+
+                    break;
+                default:
+                    break;
             }
 
         }
@@ -830,7 +875,7 @@ class Generate
             $enable2 = file_get_contents($this->config['template']['path'] . 'view/index/enable2.stub');
         }
 
-        $code = str_replace(array('[INDEX_ENABLE1]', '[INDEX_ENABLE2]', '[INDEX_EXPORT]', '[NAME_LIST]', '[FIELD_LIST]', '[SEARCH_FIELD]', '[SORT_CODE]'), array($enable1, $enable2, $export, $name_list, $field_list, $search_name, $sort_code), $code);
+        $code = str_replace(array('[INDEX_ENABLE1]', '[INDEX_ENABLE2]', '[INDEX_EXPORT]', '[NAME_LIST]', '[FIELD_LIST]', '[SEARCH_FIELD]', '[SORT_CODE]', '[SEARCH_HTML]'), array($enable1, $enable2, $export, $name_list, $field_list, $search_name, $sort_code, $search_html), $code);
 
         $msg = '';
         try {
@@ -846,8 +891,11 @@ class Generate
     //add视图页面
     protected function createAddView()
     {
+        //如果不需要列表视图，直接返回
+        if ($this->data['view']['create_add'] == 0) {
+            return true;
+        }
 
-        $html          = '';
         $form_body     = '';
         $form_rules    = '';
         $form_messages = '';
@@ -915,7 +963,6 @@ class Generate
             array($form_body, $form_rules, $form_messages),
             $code);
 
-
         $msg = '';
         try {
             if (!is_dir($this->config['file_dir']['view'] . $this->data['table'])) {
@@ -978,82 +1025,85 @@ class Generate
     //自动添加菜单
     protected function createMenu()
     {
-        if ($this->data['menu']['create'] >= 0) {
 
-            //菜单前缀
-            $url_prefix = 'admin/' . $this->data['table'];
-            //显示名称
-            $name_show = $this->data['cn_name'];
-            Db::startTrans();
-            try {
-                $parent = [
-                    'parent_id'  => $this->data['menu']['create'],
-                    'name'       => $name_show . '管理',
-                    'url'        => $url_prefix . '/index',
-                    'icon'       => 'fa-list',
-                    'is_show'    => 1,
-                    'log_method' => '不记录',
-                ];
-                $result = AdminMenu::create($parent);
-                if (in_array(2, $this->data['menu']['menu'])) {
-                    AdminMenu::create([
-                        'parent_id'  => $result->id,
-                        'name'       => '添加' . $name_show,
-                        'url'        => $url_prefix . '/add',
-                        'icon'       => 'fa-plus',
-                        'is_show'    => 0,
-                        'log_method' => 'POST',
-                    ]);
-                }
-
-                if (in_array(3, $this->data['menu']['menu'])) {
-                    AdminMenu::create([
-                        'parent_id'  => $result->id,
-                        'name'       => '修改' . $name_show,
-                        'url'        => $url_prefix . '/edit',
-                        'icon'       => 'fa-pencil',
-                        'is_show'    => 0,
-                        'log_method' => 'POST',
-                    ]);
-                }
-
-                if (in_array(4, $this->data['menu']['menu'])) {
-                    AdminMenu::create([
-                        'parent_id'  => $result->id,
-                        'name'       => '删除' . $name_show,
-                        'url'        => $url_prefix . '/del',
-                        'icon'       => 'fa-trash',
-                        'is_show'    => 0,
-                        'log_method' => 'POST',
-                    ]);
-                }
-
-                if (in_array(5, $this->data['menu']['menu'])) {
-                    AdminMenu::create([
-                        'parent_id'  => $result->id,
-                        'name'       => '启用' . $name_show,
-                        'url'        => $url_prefix . '/enable',
-                        'icon'       => 'fa-circle',
-                        'is_show'    => 0,
-                        'log_method' => 'POST',
-                    ]);
-
-                    AdminMenu::create([
-                        'parent_id'  => $result->id,
-                        'name'       => '禁用' . $name_show,
-                        'url'        => $url_prefix . '/disable',
-                        'icon'       => 'fa-circle',
-                        'is_show'    => 0,
-                        'log_method' => 'POST',
-                    ]);
-                }
-
-                Db::commit();
-            } catch (\Exception $e) {
-                echo $e->getMessage();
-                Db::rollback();
-            }
+        if ($this->data['menu']['create'] < 0) {
+            return true;
         }
+
+        //菜单前缀
+        $url_prefix = 'admin/' . $this->data['table'];
+        //显示名称
+        $name_show = $this->data['cn_name'];
+        Db::startTrans();
+        try {
+            $parent = [
+                'parent_id'  => $this->data['menu']['create'],
+                'name'       => $name_show . '管理',
+                'url'        => $url_prefix . '/index',
+                'icon'       => 'fa-list',
+                'is_show'    => 1,
+                'log_method' => '不记录',
+            ];
+            $result = AdminMenu::create($parent);
+            if (in_array(2, $this->data['menu']['menu'])) {
+                AdminMenu::create([
+                    'parent_id'  => $result->id,
+                    'name'       => '添加' . $name_show,
+                    'url'        => $url_prefix . '/add',
+                    'icon'       => 'fa-plus',
+                    'is_show'    => 0,
+                    'log_method' => 'POST',
+                ]);
+            }
+
+            if (in_array(3, $this->data['menu']['menu'])) {
+                AdminMenu::create([
+                    'parent_id'  => $result->id,
+                    'name'       => '修改' . $name_show,
+                    'url'        => $url_prefix . '/edit',
+                    'icon'       => 'fa-pencil',
+                    'is_show'    => 0,
+                    'log_method' => 'POST',
+                ]);
+            }
+
+            if (in_array(4, $this->data['menu']['menu'])) {
+                AdminMenu::create([
+                    'parent_id'  => $result->id,
+                    'name'       => '删除' . $name_show,
+                    'url'        => $url_prefix . '/del',
+                    'icon'       => 'fa-trash',
+                    'is_show'    => 0,
+                    'log_method' => 'POST',
+                ]);
+            }
+
+            if (in_array(5, $this->data['menu']['menu'])) {
+                AdminMenu::create([
+                    'parent_id'  => $result->id,
+                    'name'       => '启用' . $name_show,
+                    'url'        => $url_prefix . '/enable',
+                    'icon'       => 'fa-circle',
+                    'is_show'    => 0,
+                    'log_method' => 'POST',
+                ]);
+
+                AdminMenu::create([
+                    'parent_id'  => $result->id,
+                    'name'       => '禁用' . $name_show,
+                    'url'        => $url_prefix . '/disable',
+                    'icon'       => 'fa-circle',
+                    'is_show'    => 0,
+                    'log_method' => 'POST',
+                ]);
+            }
+
+            Db::commit();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            Db::rollback();
+        }
+
     }
 
     //创建目录
@@ -1137,31 +1187,33 @@ class Generate
             'field'      => [
                 [
                     //字段名
-                    'name'             => 'name',
+                    'name'              => 'name',
                     //字段中文名
-                    'cn_name'          => '名称',
+                    'cn_name'           => '名称',
                     //字段类型
-                    'field_type'       => 'varchar(30)',
+                    'field_type'        => 'varchar(30)',
                     //是否列表显示
-                    'is_list'          => 1,
-                    //是否为搜索字段
-                    'is_search'        => 1,
+                    'is_list'           => 1,
                     //是否为表单字段
-                    'is_form'          => 1,
+                    'is_form'           => 1,
                     //表单类型
-                    'form_type'        => 'text',
+                    'form_type'         => 'text',
                     //表单验证
-                    'validate'         => ['required'],
+                    'validate'          => ['required'],
                     //验证场景
-                    'validate_scene'   => ['admin_add'],
+                    'validate_scene'    => ['admin_add'],
                     //获取器
-                    'getter'           => 'date_time',
+                    'getter'            => 'date_time',
                     //修改器
-                    'setter'           => 'date_time',
+                    'setter'            => 'date_time',
+                    //列表筛选
+                    'index_search'      => '',
+                    //列表筛选数据
+                    'index_search_data' => '',
                     //关联显示
-                    'relation_display' => 1,
+                    'relation_display'  => 1,
                     //关联显示字段
-                    'display_field'    => 'name',
+                    'display_field'     => 'name',
 
                 ],
             ],
@@ -1229,34 +1281,35 @@ class Generate
 
             $field_data = [
                 //字段名
-                'name'             => $value['Field'],
+                'name'              => $value['Field'],
                 //字段中文名
-                'cn_name'          => $value['Field'] === 'id' ? 'ID' : $value['Comment'],
+                'cn_name'           => $value['Field'] === 'id' ? 'ID' : $value['Comment'],
                 //字段类型
-                'field_type'       => $value['Type'],
+                'field_type'        => $value['Type'],
                 //字段长度
-                'field_length'     => 1,
+                'field_length'      => 1,
                 //默认值
-                'default'          => $value['Default'],
+                'default'           => $value['Default'],
                 //是否列表显示
-                'is_list'          => 1,
-                //是否为搜索字段
-                'is_search'        => 0,
+                'is_list'           => 1,
                 //是否为表单字段
-                'is_form'          => 1,
+                'is_form'           => 1,
                 //表单类型
-                'form_type'        => 'text',
+                'form_type'         => 'text',
                 //表单验证
-                'validate'         => ['required'],
-                'validate_html'    => '',
+                'validate'          => ['required'],
+                'validate_html'     => '',
                 //验证场景
-                'validate_scene'   => ['admin_add'],
+                'validate_scene'    => ['admin_add'],
                 //获取器/修改器
-                'getter_setter'    => false,
+                'getter_setter'     => false,
+                //首页筛选
+                'index_search'      => '',
+                'index_search_data' => '',
                 //关联显示
-                'relation_display' => 1,
+                'relation_display'  => 1,
                 //关联显示字段
-                'display_field'    => 'name',
+                'display_field'     => 'name',
             ];
 
 

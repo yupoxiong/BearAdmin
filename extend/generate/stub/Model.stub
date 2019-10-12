@@ -17,6 +17,9 @@ class [MODEL_NAME] extends Model
     //可搜索字段
     protected $searchField = [[SEARCH_FIELD]];
 
+    //可作为条件的字段
+    protected $whereField = [[WHERE_FIELD]];
+
     [GETTER_SETTER]
 
     [RELATION]

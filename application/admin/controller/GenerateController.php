@@ -62,8 +62,8 @@ class GenerateController extends Controller
         $this->admin['title'] = 'AutoCode';
 
         $this->assign([
-            'table'      => (new Generate())->getTable(),
-            'menus'      => $this->menu(10000),
+            'table' => (new Generate())->getTable(),
+            'menus' => (new Generate())->getMenu(10000),
         ]);
 
         return $this->fetch();
@@ -78,7 +78,7 @@ class GenerateController extends Controller
 
     public function getMenu()
     {
-        return success('success', URL_CURRENT, (new Generate())->getMenu());
+        return success('success', URL_CURRENT, (new Generate())->getMenu(10000));
     }
 
 
@@ -115,10 +115,12 @@ class GenerateController extends Controller
                 'name'   => $param['validate_name'],
             ],
             'view'       => [
-                'enable' => $param['list_enable'] ?? 0,
-                'delete' => $param['list_delete'] ?? 0,
-                'create' => $param['list_create'] ?? 0,
-                'export' => $param['list_export'] ?? 0,
+                'create_index' => $param['create_view_index'] ?? 0,
+                'create_add'   => $param['create_view_add'] ?? 0,
+                'enable'       => $param['list_enable'] ?? 0,
+                'delete'       => $param['list_delete'] ?? 0,
+                'create'       => $param['list_create'] ?? 0,
+                'export'       => $param['list_export'] ?? 0,
             ],
         ];
 
@@ -131,37 +133,39 @@ class GenerateController extends Controller
 
             $field_data[] = [
                 //字段名
-                'field_name'     => $param['field_name'][$key][0],
+                'field_name'        => $param['field_name'][$key][0],
                 //字段类型
-                'field_type'     => $param['field_type'][$key][0],
+                'field_type'        => $param['field_type'][$key][0],
                 //表单名称/中文名称
-                'form_name'      => $param['form_name'][$key][0] ?? '',
+                'form_name'         => $param['form_name'][$key][0] ?? '',
                 //是否为列表字段
-                'is_list'        => $param['is_list'][$key][0] ?? 0,
-                //是否为列表搜索字段
-                'is_search'      => $param['is_search'][$key][0] ?? 0,
+                'is_list'           => $param['is_list'][$key][0] ?? 0,
                 //是否为表单字段
-                'is_form'        => $param['is_form'][$key][0] ?? 0,
+                'is_form'           => $param['is_form'][$key][0] ?? 0,
                 //表单类型
-                'form_type'      => $param['form_type'][$key][0] ?? 0,
+                'form_type'         => $param['form_type'][$key][0] ?? 0,
                 //验证规则
-                'form_validate'  => $param['form_validate'][$key] ?? 0,
+                'form_validate'     => $param['form_validate'][$key] ?? 0,
                 //默认值
-                'field_default'  => $param['field_default'][$key][0] ?? 0,
+                'field_default'     => $param['field_default'][$key][0] ?? 0,
                 //获取器/修改器
-                'getter_setter'  => $param['getter_setter'][$key][0] ?? 0,
+                'getter_setter'     => $param['getter_setter'][$key][0] ?? 0,
                 //是否参与列表排序
-                'list_sort'      => $param['list_sort'][$key][0] ?? 0,
+                'list_sort'         => $param['list_sort'][$key][0] ?? 0,
+                //筛选字段
+                'index_search'      => $param['index_search'][$key][0] ?? 0,
+                //筛选自定义select
+                'index_search_data' => $param['index_search_data'][$key][0] ?? '',
                 //验证场景
-                'field_scene'    => $param['field_scene'][$key] ?? 0,
+                'field_scene'       => $param['field_scene'][$key] ?? 0,
                 //关联
-                'is_relation'    => $param['is_relation'][$key][0] ?? 0,
+                'is_relation'       => $param['is_relation'][$key][0] ?? 0,
                 //关联类型
-                'relation_type'  => $param['relation_type'][$key][0] ?? 1,
+                'relation_type'     => $param['relation_type'][$key][0] ?? 1,
                 //关联表
-                'relation_table' => $param['relation_table'][$key][0] ?? '',
+                'relation_table'    => $param['relation_table'][$key][0] ?? '',
                 //关联显示字段
-                'relation_show'  => $param['relation_show'][$key][0] ?? 'name',
+                'relation_show'     => $param['relation_show'][$key][0] ?? 'name',
             ];
         }
 
@@ -278,17 +282,5 @@ class GenerateController extends Controller
         return $result ? success($msg, URL_CURRENT, $data) : error($msg);
     }
 
-
-    //菜单选择
-    protected function menu($selected = 1, $current_id = 0)
-    {
-        $result = AdminMenu::where('id', '<>', $current_id)->order('sort_id', 'asc')->order('id', 'asc')->column('id,parent_id,name,sort_id', 'id');
-        foreach ($result as $r) {
-            $r['selected'] = (int)$r['id'] === (int)$selected ? 'selected' : '';
-        }
-        $str = "<option value='\$id' \$selected >\$spacer \$name</option>";
-        $this->initTree($result);
-        return $this->getTree(0, $str, $selected);
-    }
 
 }
