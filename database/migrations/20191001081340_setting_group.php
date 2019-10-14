@@ -3,6 +3,7 @@
  * 设置分组
  */
 
+use think\Db;
 use think\migration\Migrator;
 use think\migration\db\Column;
 
@@ -25,5 +26,26 @@ class SettingGroup extends Migrator
             ->addColumn('update_time', 'integer', ['limit' => 10, 'default' => 0, 'comment' => '更新时间'])
             ->addColumn('delete_time', 'integer', ['limit' => 10, 'default' => 0, 'comment' => '删除时间'])
             ->create();
+
+        $this->insertData();
+    }
+
+    protected function insertData()
+    {
+        $data = '[{"id":1,"module":"admin","name":"\u540e\u53f0\u8bbe\u7f6e","description":"\u540e\u53f0\u7ba1\u7406\u65b9\u9762\u7684\u8bbe\u7f6e","code":"admin","sort_number":1000,"icon":"fa-adjust","auto_create_menu":1,"auto_create_file":1}]';
+
+        $msg = '配置分组导入成功.' . "\n";
+        Db::startTrans();
+        $data = json_decode($data, true);
+        try {
+            foreach ($data as $item) {
+                \app\common\model\SettingGroup::create($item);
+            }
+            Db::commit();
+        } catch (\Exception $e) {
+            Db::rollback();
+            $msg = $e->getMessage();
+        }
+        print ($msg);
     }
 }

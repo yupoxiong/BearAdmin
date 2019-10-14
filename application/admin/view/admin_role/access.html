@@ -24,7 +24,8 @@
                     </label>
                 </div>
                 <div class="box-body" id="all_check">
-                    <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
+                    <form id="dataForm" class="form-horizontal dataForm" action="" method="post"
+                          enctype="multipart/form-data">
                         <div class="box-body">
                             <div class="table_full">
                                 <table width="100%" cellspacing="0">
@@ -59,10 +60,10 @@
             </div>
         </div>
         <script>
-            $("#check_all").click(function(){
-                if(this.checked){
+            $("#check_all").click(function () {
+                if (this.checked) {
                     $("#all_check").find(":checkbox").prop("checked", true);
-                }else{
+                } else {
                     $("#all_check").find(":checkbox").prop("checked", false);
                 }
             });
@@ -88,8 +89,7 @@
                         if (eval(le) > eval(level_bottom)) {
 
                             chk.eq(j).prop("checked", true);
-                        }
-                        else if (eval(le) == eval(level_bottom)) {
+                        } else if (eval(le) == eval(level_bottom)) {
                             break;
                         }
                     } else {
@@ -101,14 +101,18 @@
                     }
                 }
 
-                var all_length = $("input[name='menu_id[]']").length;
-                var checked_length = $("input[name='menu_id[]']:checked").length;
-                console.log(all_length);
-                console.log(checked_length);
-                if(all_length==checked_length){
-                    $("#check_all").prop("checked",true);
-                }else{
-                    $("#check_all").prop("checked",false);
+                var all_length = $("input[name='url[]']").length;
+                var checked_length = $("input[name='url[]']:checked").length;
+
+                if(adminDebug){
+                    console.log('所有数量'+all_length);
+                    console.log('选中数量'+checked_length);
+                }
+
+                if (all_length === checked_length) {
+                    $("#check_all").prop("checked", true);
+                } else {
+                    $("#check_all").prop("checked", false);
                 }
 
             }

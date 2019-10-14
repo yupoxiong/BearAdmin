@@ -19,7 +19,6 @@ class Datetime extends Field
     laydate.render({
         elem: '#[FIELD_NAME]',
         type: 'datetime',
-        value: '{\$data.[FIELD_NAME]|default="1900-01-01 00:00:00"}'
     });
 </script>\n
 EOF;

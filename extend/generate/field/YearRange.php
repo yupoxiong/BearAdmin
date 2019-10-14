@@ -21,7 +21,6 @@ class YearRange extends Field
         elem: '#[FIELD_NAME]',
         type: 'year',
         range: true,
-        value: '{\$data.[FIELD_NAME]|default=""}'
     });
 </script>\n
 EOF;

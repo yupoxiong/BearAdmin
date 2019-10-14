@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * 用作测试的迁移文件，从user复制过来，可自行删除
+ */
 use think\migration\Migrator;
 use think\migration\db\Column;
 
@@ -8,7 +10,7 @@ class Test extends Migrator
 
     public function change()
     {
-        $table = $this->table('test', ['comment' => '测试-用户', 'engine' => 'InnoDB', 'encoding' => 'utf8mb4', 'collation' => 'utf8mb4_unicode_ci']);
+        $table = $this->table('test', ['comment' => '测试表-用户', 'engine' => 'InnoDB', 'encoding' => 'utf8mb4', 'collation' => 'utf8mb4_unicode_ci']);
         $table
             ->addColumn('avatar', 'string', ['limit' => 255, 'default' => '/static/index/images/avatar.png', 'comment' => '头像'])
             ->addColumn('username', 'string', ['limit' => 30, 'default' => '', 'comment' => '用户名'])

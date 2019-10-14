@@ -55,6 +55,7 @@ EOF;
 </script>\n
 EOF;
 
+    //列表自定义筛选数据
     public static $listSearchSelectHtml = <<<EOF
 <div class="form-group">
     <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm index-search">
@@ -70,6 +71,34 @@ EOF;
     });
 </script>\n
 EOF;
+
+    //列表日期筛选
+    public static $listSearchDate = <<<EOF
+<div class="form-group">
+    <input value="{\$[FIELD_NAME]|default=''}" readonly name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm" placeholder="[FORM_NAME]">
+</div>
+<script>
+    laydate.render({
+        elem: '#[FIELD_NAME]',
+        range: true,
+    });
+</script>\n
+EOF;
+
+    //列表日期时间筛选
+    public static $listSearchDatatime = <<<EOF
+<div class="form-group">
+    <input value="{\$[FIELD_NAME]|default=''}" readonly name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm" placeholder="[FORM_NAME]">
+</div>
+<script>
+    laydate.render({
+        elem: '#[FIELD_NAME]',
+        type: 'datetime',
+        range: true,
+    });
+</script>\n
+EOF;
+
 
 
     //图片字段显示

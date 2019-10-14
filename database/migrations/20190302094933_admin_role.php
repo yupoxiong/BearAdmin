@@ -29,7 +29,7 @@ class AdminRole extends Migrator
                 'id'          => 1,
                 'name'        => '管理员',
                 'description' => '后台管理员角色',
-                'url'         => range(1,31),
+                'url'         => range(1,48),
                 'status'      => 1
             ],
         ];

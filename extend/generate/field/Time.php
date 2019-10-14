@@ -19,7 +19,6 @@ class Time extends Field
     laydate.render({
         elem: '#[FIELD_NAME]',
         type: 'time',
-        value: '{\$data.[FIELD_NAME]|default=""}'
     });
 </script>\n
 EOF;

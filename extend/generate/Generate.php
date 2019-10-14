@@ -810,11 +810,11 @@ class Generate
                     break;
 
                 case 'date':
-
+                    $search_html .= str_replace(array('[FIELD_NAME]', '[FORM_NAME]'), array($value['field_name'], $value['form_name']), Field::$listSearchDate);
                     break;
 
                 case 'datetime':
-
+                    $search_html .= str_replace(array('[FIELD_NAME]', '[FORM_NAME]'), array($value['field_name'], $value['form_name']), Field::$listSearchDatatime);
                     break;
                 default:
                     break;

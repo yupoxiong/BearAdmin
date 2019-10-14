@@ -19,7 +19,6 @@ class DateRange extends Field
 <script>
     laydate.render({
         elem: '#[FIELD_NAME]',
-        value: '{\$data.[FIELD_NAME]|default=""}',
         range: true
     });
 </script>\n

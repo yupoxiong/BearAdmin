@@ -20,7 +20,6 @@ class YearMonth extends Field
     laydate.render({
         elem: '#[FIELD_NAME]',
         type: 'month',
-        value: '{\$data.[FIELD_NAME]|default=""}'
     });
 </script>\n
 EOF;

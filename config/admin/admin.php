@@ -2,7 +2,7 @@
 
 /**
 * 后台设置:后台管理方面的设置
-* 此配置文件为自动生成，生成时间2019-10-11 11:37:24
+* 此配置文件为自动生成，生成时间2019-10-14 10:06:06
 */
 
 return [
@@ -22,6 +22,6 @@ return [
     //验证码
     'captcha'=>'1',
     //登录背景
-    'background'=>'/uploads/attachment/20191010/20a3383c07496ac38930665082d10a76.jpg',
+    'background'=>'/static/admin/images/login-default-bg.jpg',
 ],
 ];

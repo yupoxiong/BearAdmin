@@ -111,6 +111,8 @@ class AdminRoleController extends Controller
                 return error('首页权限必选');
             }
 
+            asort( $param['url']);
+
             if (false !== $data->save($param)) {
                 return success();
             }
