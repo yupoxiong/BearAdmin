@@ -20,6 +20,9 @@ class [MODEL_NAME] extends Model
     //可作为条件的字段
     protected $whereField = [[WHERE_FIELD]];
 
+    //可做为时间
+    protected $timeField = [[TIME_FIELD]];
+
     [GETTER_SETTER]
 
     [RELATION]

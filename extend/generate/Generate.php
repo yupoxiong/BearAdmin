@@ -58,6 +58,9 @@ class Generate
         'admin_log_data',
         'migrations',
         'attachment',
+        'setting',
+        'setting_group',
+
     ];
 
     public function __construct($data = [], $config = null)
@@ -616,6 +619,8 @@ class Generate
         $search_field = '';
         //条件字段
         $where_field = '';
+        //日期/时间范围查询字段
+        $time_field = '';
         //多文件/多图上传获取器，修改器
         $multi_field = '';
         foreach ($this->data['data'] as $value) {
@@ -628,8 +633,8 @@ class Generate
                     $where_field .= "'" . $value['field_name'] . "',";
                     break;
                 case 'date':
-                    break;
                 case 'datetime':
+                    $time_field .="'" . $value['field_name'] . "',";
                     break;
                 default:
                     break;
@@ -645,7 +650,7 @@ class Generate
         }
         //搜索字段替换
         //替换多图/多文件获取器，修改器
-        $code = str_replace(array('[SEARCH_FIELD]', '[MULTI_FIELD]', '[WHERE_FIELD]'), array($search_field, $multi_field, $where_field), $code);
+        $code = str_replace(array('[SEARCH_FIELD]', '[MULTI_FIELD]', '[WHERE_FIELD]', '[TIME_FIELD]'), array($search_field, $multi_field, $where_field, $time_field), $code);
 
         $msg = '';
         try {
