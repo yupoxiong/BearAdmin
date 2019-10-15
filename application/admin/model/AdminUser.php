@@ -34,14 +34,14 @@ class AdminUser extends Model
     {
         //添加自动加密密码
         self::event('before_insert', static function ($data) {
-            $data->password = password_hash($data->password, 1);
+            $data->password = base64_encode(password_hash($data->password, 1));
         });
 
         //修改密码自动加密
         self::event('before_update', function ($data) {
             $old = (new static())::get($data->id);
             if ($data->password !== $old->password) {
-                $data->password = password_hash($data->password, 1);
+                $data->password = base64_encode(password_hash($data->password, 1));
             }
         });
     }
@@ -118,7 +118,12 @@ class AdminUser extends Model
         return AdminMenu::where('id', 'in', $url_id)->where('is_show', 1)->order('sort_id', 'asc')->order('id', 'asc')->column('id,parent_id,name,url,icon,sort_id', 'id');
     }
 
-    //用户登录
+    /**
+     * 用户登录
+     * @param $param
+     * @return mixed
+     * @throws \Exception
+     */
     public static function login($param)
     {
         $username = $param['username'];
@@ -128,7 +133,7 @@ class AdminUser extends Model
             exception('用户不存在');
         }
 
-        if (!password_verify($password, $user->password)) {
+        if (!password_verify($password, base64_decode($user->password))) {
             exception('密码错误');
         }
 

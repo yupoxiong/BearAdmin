@@ -808,7 +808,7 @@ class Generate
                         $option_html = '';
                         foreach ($options as $item) {
                             $option_key_value = explode('||', $item);
-                            $option_html .= '<option value="' . $option_key_value[0] . '" {if isset($'.$value['field_name'].') && $'.$value['field_name'].'=='. $option_key_value[0] .'}selected{/if}>' . $option_key_value[1] . '</option>'."\n";
+                            $option_html .= '<option value="' . $option_key_value[0] . '" {if isset($'.$value['field_name'].') && '."''".'!==$'.$value['field_name'].' && $'.$value['field_name'].'=='. $option_key_value[0] .'}selected{/if}>' . $option_key_value[1] . '</option>'."\n";
                         }
                         $search_html .= str_replace(array('[FIELD_NAME]', '[FORM_NAME]', '[SELECT_OPTION]'), array($value['field_name'], $value['form_name'], $option_html), Field::$listSearchSelectHtml);
                     }

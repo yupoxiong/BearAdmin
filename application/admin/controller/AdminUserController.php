@@ -21,7 +21,7 @@ class AdminUserController extends Controller
 
         $param = $request->param();
         $data  = $model->scope('where', $param)
-            ->paginate($this->admin['per_page'], false, ['query'=>$request->get()]);
+            ->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
 
         //关键词，排序等赋值
         $this->assign($request->get());
@@ -141,7 +141,7 @@ class AdminUserController extends Controller
                     return error($validate->getError());
                 }
 
-                if (!password_verify($param['password'], $this->user->password)) {
+                if (!password_verify($param['password'], base64_decode($this->user->password))) {
                     return error('当前密码不正确');
                 }
                 $param['password'] = $param['new_password'];

@@ -42,7 +42,7 @@ EOF;
     <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm index-search">
         <option value="">[FORM_NAME]</option>
         {foreach name='[FIELD_NAME1]_list' id='item'}
-        <option value="{\$item.id}" {if isset($[FIELD_NAME]) && $[FIELD_NAME]==\$item.id}selected{/if}>{\$item.[RELATION_SHOW]}</option>
+        <option value="{\$item.id}" {if isset($[FIELD_NAME]) && ''!==$[FIELD_NAME] && $[FIELD_NAME]==\$item.id}selected{/if}>{\$item.[RELATION_SHOW]}</option>
         {/foreach}
     </select>
 </div>

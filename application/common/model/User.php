@@ -30,7 +30,12 @@ class User extends Model
     }
 
 
-    //用户登录
+    /**
+     * 用户登录
+     * @param $param
+     * @return mixed
+     * @throws \Exception
+     */
     public static function login($param)
     {
         $username = $param['username'];
@@ -40,7 +45,7 @@ class User extends Model
             exception('用户不存在');
         }
 
-        if (!password_verify($password, $user->password)) {
+        if (!password_verify($password, base64_decode($user->password))) {
             exception('密码错误');
         }
 

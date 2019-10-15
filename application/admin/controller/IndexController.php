@@ -20,7 +20,7 @@ class IndexController extends Controller
 
         //默认密码修改检测
         $password_danger = 0;
-        if (config('admin.password_warning') && $this->user->id == 1 && password_verify('super-admin', $this->user->password)) {
+        if (config('admin.password_warning') && $this->user->id == 1 && password_verify('super-admin', base64_decode($this->user->password))) {
             $password_danger = 1;
         }
 
