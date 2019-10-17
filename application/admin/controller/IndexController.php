@@ -18,9 +18,11 @@ class IndexController extends Controller
     public function index(Request $request)
     {
 
+        $index_config = config('admin.index');
+
         //默认密码修改检测
         $password_danger = 0;
-        if (config('admin.password_warning') && $this->user->id == 1 && password_verify('super-admin', base64_decode($this->user->password))) {
+        if ($index_config['password_warning'] && $this->user->id == 1 && password_verify('super-admin', base64_decode($this->user->password))) {
             $password_danger = 1;
         }
 
@@ -38,11 +40,10 @@ class IndexController extends Controller
             'admin_log_count'  => AdminLog::count(),
         ]);
 
-        //是否显示欢迎信息
-        $welcome_info = config('admin.welcome_info');
-        if ($welcome_info) {
-            $this->admin['name'] = config('admin.name');
-        }
+        //是否首页显示提示信息
+        $show_notice = $index_config['show_notice'];
+        //提示内容
+        $notice_content = $index_config['notice_content'];
 
         $this->assign([
             //系统信息
@@ -53,8 +54,10 @@ class IndexController extends Controller
             'password_danger' => $password_danger,
             //当前用户
             'user'            => $this->user,
-            //欢迎信息
-            'welcome_info'    => $welcome_info
+            //是否显示提示信息
+            'show_notice'     => $show_notice,
+            //提示内容
+            'notice_content'  => $notice_content,
         ]);
         return $this->fetch();
     }

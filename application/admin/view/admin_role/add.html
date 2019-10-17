@@ -38,8 +38,10 @@
                         <div class="form-group">
                             <label for="status" class="col-sm-2 control-label">启用状态</label>
                             <div class="col-sm-10 col-md-4">
-                                <input class="input-switch"  id="status" value="1" {if(!isset($data) ||$data.status==1)}checked{/if} type="checkbox" />
-                                <input class="switch field-switch" placeholder="启用状态" name="status" value="{$data.status|default='1'}" hidden />
+                                <input class="input-switch" id="status" value="1" {if(!isset($data)
+                                       ||$data.status==1)}checked{/if} type="checkbox"/>
+                                <input class="switch field-switch" placeholder="启用状态" name="status"
+                                       value="{$data.status|default='1'}" hidden/>
                             </div>
                         </div>
 

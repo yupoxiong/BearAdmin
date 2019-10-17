@@ -162,7 +162,7 @@ class AdminRoleController extends Controller
                        \$name
                    </label>",
             '0'     => [
-                '0' => "<dl class='checkmod'>
+                '0' => "<dl class='checkMod'>
                     <dt class='hd'>
                         <label class='checkbox'>
                             <input \$checked name='url[]' value='\$id' level='\$level'

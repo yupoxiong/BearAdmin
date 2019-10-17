@@ -15,7 +15,7 @@
                     </tr>
                     <tr>
                         <td class="text-bold">操作用户</td>
-                        <td>{$data->adminUser->nickname}</td>
+                        <td>{$data->adminUser->nickname|default=''}</td>
                     </tr>
                     <tr>
                         <td class="text-bold">操作</td>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" >
-                            <pre>{$data.adminLogData.data}</pre>
+                            <pre>{$data.adminLogData.data|default=''}</pre>
                         </td>
                     </tr>
                     </tbody>

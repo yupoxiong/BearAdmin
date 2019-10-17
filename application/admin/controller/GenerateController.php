@@ -116,6 +116,7 @@ class GenerateController extends Controller
             ],
             'view'       => [
                 'create_index' => $param['create_view_index'] ?? 0,
+                'index_button' => $param['index_operation_button'] ?? 1,
                 'create_add'   => $param['create_view_add'] ?? 0,
                 'enable'       => $param['list_enable'] ?? 0,
                 'delete'       => $param['list_delete'] ?? 0,

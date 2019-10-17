@@ -30,14 +30,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {foreach name="data" item="item"}
+                        {foreach name="data" id="item"}
                         <tr>
                             [INDEX_SELECT2]
                             [FIELD_LIST]
                             <td class="td-do">
                                 <a href="{:url('edit',['id'=>$item.id])}"
                                    class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
-                                    <i class="fa fa-pencil"></i>
+                                    [OPERATION_EDIT_ICON]
+                                    [OPERATION_EDIT_TEXT]
                                 </a>
                                 [INDEX_DEL2]
                                 [INDEX_ENABLE2]

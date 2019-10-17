@@ -748,6 +748,21 @@ class Generate
         $file_fields = ['file', 'image'];
         $sort_code   = '';
 
+        //OPERATION_ICON
+        //OPERATION_TEXT
+        $operation_del_icon = '<i class="fa fa-trash"></i>';
+        $operation_del_text = '删除';
+
+        $operation_edit_icon = '<i class="fa fa-pencil"></i>';
+        $operation_edit_text = '修改';
+
+        $operation_disable_icon = '<i class="fa fa-circle"></i>';
+        $operation_disable_text = '禁用';
+
+        $operation_enable_icon = '<i class="fa fa-circle"></i>';
+        $operation_enable_text = '启用';
+
+
         foreach ($this->data['data'] as $key => $value) {
 
             if ($value['list_sort'] == 1) {
@@ -852,6 +867,14 @@ class Generate
         if ($this->data['view']['delete']) {
             $del1    = file_get_contents($this->config['template']['view']['index_del1']);
             $del2    = file_get_contents($this->config['template']['view']['index_del2']);
+            //操作形式处理
+            if($this->data['view']['index_button']==1){
+                $operation_del_text = '';
+            }else if($this->data['view']['index_button']==2){
+                $operation_del_icon = '';
+            }
+            $del2 = str_replace(array('[OPERATION_DEL_ICON]', '[OPERATION_DEL_TEXT]'), array($operation_del_icon, $operation_del_text), $del2);
+
             $select1 = file_get_contents($this->config['template']['view']['index_select1']);
             $select2 = file_get_contents($this->config['template']['view']['index_select2']);
             $create  = file_get_contents($this->config['template']['view']['index_path'] . 'create.stub');
@@ -878,9 +901,24 @@ class Generate
         if ($this->data['view']['enable']) {
             $enable1 = file_get_contents($this->config['template']['path'] . 'view/index/enable1.stub');
             $enable2 = file_get_contents($this->config['template']['path'] . 'view/index/enable2.stub');
+            //操作形式处理
+            if($this->data['view']['index_button']==1){
+                $operation_disable_text = '';
+                $operation_enable_text = '';
+            }else if($this->data['view']['index_button']==2){
+                $operation_disable_icon = '';
+                $operation_enable_icon = '';
+            }
+            $enable2 = str_replace(array('[OPERATION_DISABLE_ICON]', '[OPERATION_DISABLE_TEXT]','[OPERATION_ENABLE_ICON]', '[OPERATION_ENABLE_TEXT]'), array($operation_disable_icon, $operation_disable_text,$operation_enable_icon, $operation_enable_text), $enable2);
         }
 
-        $code = str_replace(array('[INDEX_ENABLE1]', '[INDEX_ENABLE2]', '[INDEX_EXPORT]', '[NAME_LIST]', '[FIELD_LIST]', '[SEARCH_FIELD]', '[SORT_CODE]', '[SEARCH_HTML]'), array($enable1, $enable2, $export, $name_list, $field_list, $search_name, $sort_code, $search_html), $code);
+        if($this->data['view']['index_button']==1){
+            $operation_edit_text= '';
+        }else if($this->data['view']['index_button']==2){
+            $operation_edit_icon= '';
+        }
+
+        $code = str_replace(array('[OPERATION_EDIT_ICON]', '[OPERATION_EDIT_TEXT]', '[INDEX_ENABLE1]', '[INDEX_ENABLE2]', '[INDEX_EXPORT]', '[NAME_LIST]', '[FIELD_LIST]', '[SEARCH_FIELD]', '[SORT_CODE]', '[SEARCH_HTML]'), array($operation_edit_icon, $operation_edit_text, $enable1, $enable2, $export, $name_list, $field_list, $search_name, $sort_code, $search_html), $code);
 
         $msg = '';
         try {

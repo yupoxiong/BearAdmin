@@ -130,7 +130,7 @@ class AdminUserController extends Controller
     }
 
     //个人资料
-    public function profile(Request $request, AdminUser $model, AdminUserValidate $validate)
+    public function profile(Request $request, AdminUserValidate $validate)
     {
         if ($request->isPost()) {
             $param = $request->param();

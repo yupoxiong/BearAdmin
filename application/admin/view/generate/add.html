@@ -256,6 +256,17 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label for="index_operation_button">操作按钮形式</label>
+                                <select data-id="index_operation_button" name="index_operation_button"
+                                        class="select2 form-control input-sm"
+                                        id="index_operation_button" data-placeholder="默认纯图标">
+                                    <option value="1">图标</option>
+                                    <option value="2">文字</option>
+                                    <option value="3">图标+文字</option>
+                                </select>
+                            </div>
+
                             <div class="form-group checkbox">
                                 <label><input checked type="checkbox" value="1" id="list_delete"
                                               name="list_delete"
@@ -673,6 +684,8 @@
 
     //是否生成列表视图
     $('#create_view_index').select2();
+    //列表视图操作按钮形式
+    $('#index_operation_button').select2();
 
     //是否生成表单视图
     $('#create_view_add').select2();
@@ -681,6 +694,8 @@
     $('#controller_action_list').select2();
     //选择父级菜单
     $('#create_menu').select2();
+    //
+
 
     //获取表信息
     function getField(name) {

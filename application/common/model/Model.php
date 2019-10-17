@@ -58,20 +58,20 @@ class Model extends \think\Model
         if (count($this->timeField) > 0 && count($param) > 0) {
             foreach ($param as $key => $value) {
                 if ($value !== '' && in_array($key, $this->timeField)) {
-                    $field_type = $this->getFieldsType($this->name,$key);
-                    $time_range = explode(' - ',$value);
+                    $field_type = $this->getFieldsType($this->name, $key);
+                    $time_range = explode(' - ', $value);
                     $start_time = $time_range[0];
-                    $end_time = $time_range[1];
+                    $end_time   = $time_range[1];
                     //如果是int，进行转换
-                    if(false!==strpos($field_type,'int')){
-                         $start_time = strtotime($start_time);
-                         if(strlen($end_time)==10){
-                             $end_time = $end_time.'23:59:59';
-                         }
-                         $end_time = strtotime($end_time);
+                    if (false !== strpos($field_type, 'int')) {
+                        $start_time = strtotime($start_time);
+                        if (strlen($end_time) == 10) {
+                            $end_time = $end_time . '23:59:59';
+                        }
+                        $end_time = strtotime($end_time);
                     }
 
-                    $query->where($key, 'between',[$start_time,$end_time]);
+                    $query->where($key, 'between', [$start_time, $end_time]);
                 }
             }
         }

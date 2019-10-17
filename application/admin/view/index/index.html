@@ -4,17 +4,16 @@
 
 <section class="content">
 
-    {if $welcome_info}
+    {if $show_notice}
     <div class="row">
         <div class="pad margin no-print">
             <div class="callout callout-info">
-                <h4><i class="fa fa-info"></i> 你好,{$user.nickname|default='管理员'}:</h4>
-                欢迎来到{$admin.name|default='后台管理系统'}，左侧为菜单区域，右侧为功能区。
+                <h4><i class="fa fa-info"></i> 您好,{$user.nickname|default='管理员'}:</h4>
+                {$notice_content|default=''}
             </div>
         </div>
     </div>
     {/if}
-
 
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -67,9 +66,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 
     <div class="row">
         <section class="col-lg-7 connectedSortable" id="sortable1">
@@ -155,14 +152,11 @@
                             <th>PHP当前时间</th>
                             <td>{$system_info.date_time}</td>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </section>
-
 
         <section class="col-lg-5 connectedSortable" id="composer_info">
             <div class="box sortable-widget" id="widget2">
@@ -190,14 +184,11 @@
             </div>
         </section>
     </div>
-
 </section>
 
 <script>
-
     var passwordDanger = {$password_danger};
     var sortableChanged = false;
-
     var sortableIds = [];
 
     $(function () {
@@ -230,13 +221,12 @@
                  });*/
             }
 
-
         });
         $('.connectedSortable .box-header, .connectedSortable .nav-tabs-custom').css('cursor', 'move');
 
         //密码修改检查
-        if(parseInt(passwordDanger)===1){
-            layer.confirm('系统检测到超级管理员默认密码未修改，是否马上去修改？',{title:'风险提示',closeBtn:1,icon:7},function(){
+        if (parseInt(passwordDanger) === 1) {
+            layer.confirm('系统检测到超级管理员默认密码未修改，是否马上去修改？', {title: '风险提示', closeBtn: 1, icon: 7}, function () {
                 $.pjax({
                     url: '/admin/admin_user/profile.html#privacy',
                     container: '#pjax-container'
@@ -246,7 +236,5 @@
         }
     });
 
-
 </script>
-
 {/block}

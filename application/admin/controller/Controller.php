@@ -89,21 +89,19 @@ class Controller extends \think\Controller
     //重写fetch
     protected function fetch($template = '', $vars = [], $config = [])
     {
-
         $this->admin['pjax'] = $this->request->isPjax();
-
-
         $this->admin['user'] = $this->user;
-
         $this->setAdminInfo();
-
         if (!$this->admin['pjax'] && 'admin/auth/login' !== $this->url) {
             $this->admin['menu'] = $this->getLeftMenu($this->user);
         }
 
-        $this->assign('debug', config('app.app_debug') ? 'true' : 'false');
-        $this->assign('cookie_prefix', config('cookie.prefix') ?? '');
-        $this->assign('admin', $this->admin);
+        $this->assign([
+            'debug'         => config('app.app_debug') ? 'true' : 'false',
+            'cookie_prefix' => config('cookie.prefix') ?? '',
+            'admin'         => $this->admin,
+        ]);
+
         return parent::fetch($template, $vars, $config);
     }
 
@@ -118,29 +116,11 @@ class Controller extends \think\Controller
     //设置前台显示的后台信息
     protected function setAdminInfo()
     {
-        if (!$this->admin['pjax']) {
+        $admin_config = config('admin.base');
 
-            $admin_info = [
-                'name'       => config('admin.base.name'),
-                'author'     => config('admin.base.author'),
-                'version'    => config('admin.base.version'),
-                'short_name' => config('admin.base.short_name'),
-            ];
-            cache('admin_info', json_encode($admin_info), 8640000);
-        } else {
-            $admin_info = cache('admin_info');
-            if (!$admin_info) {
-                $admin_info = [
-                    'name'       => config('admin.base.name'),
-                    'author'     => config('admin.base.author'),
-                    'version'    => config('admin.base.version'),
-                    'short_name' => config('admin.base.short_name'),
-                ];
-            } else {
-                $admin_info = json_decode($admin_info, true);
-            }
-        }
-
-        $this->admin = array_merge($this->admin, $admin_info);
+        $this->admin['name']       = $admin_config['name'] ?? '';
+        $this->admin['author']     = $admin_config['author'] ?? '';
+        $this->admin['version']    = $admin_config['version'] ?? '';
+        $this->admin['short_name'] = $admin_config['short_name'] ?? '';
     }
 }

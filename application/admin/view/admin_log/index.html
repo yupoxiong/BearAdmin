@@ -68,18 +68,18 @@
                         </thead>
 
                         <tbody>
-                        {foreach name='data' item='list'}
+                        {foreach name='data' id='item'}
                         <tr>
-                            <td>{$list.id}</td>
-                            <td>{$list->adminUser->nickname}</td>
-                            <td>{$list.name}</td>
-                            <td>{$list.url}</td>
-                            <td>{$list.log_method}</td>
-                            <td>{$list.log_ip}</td>
-                            <td>{$list.create_time}</td>
+                            <td>{$item.id}</td>
+                            <td>{$item->adminUser->nickname}</td>
+                            <td>{$item.name}</td>
+                            <td>{$item.url}</td>
+                            <td>{$item.log_method}</td>
+                            <td>{$item.log_ip}</td>
+                            <td>{$item.create_time}</td>
                             <td class="td-do">
-                                <a data-id="{$list.id}" data-url="view" data-confirm="2" data-type="2"
-                                   class="btn btn-default btn-xs AjaxButton" title="查看详情" data-toggle="tooltip">
+                                <a data-id="{$item.id}" data-url="view" data-confirm="2" data-type="2"
+                                   class="btn btn-default btn-xs AjaxButton" data-title="日志详情" title="查看详情" data-toggle="tooltip">
                                     <i class="fa fa-eye"></i>
                                 </a>
                             </td>

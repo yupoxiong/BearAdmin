@@ -106,7 +106,8 @@
                                 <div class="col-sm-10 col-md-4">
                                     <select name="log_method" id="log_method" class="form-control select2">
                                         {foreach name='log_method' item='item'}
-                                        <option value="{$item}" {if isset($data) && $data.log_method==$item}selected{/if}>
+                                        <option value="{$item}" {if isset($data) &&
+                                                $data.log_method==$item}selected{/if}>
                                             {$item}
                                         </option>
                                         {/foreach}
@@ -121,7 +122,7 @@
                             <div class="form-group">
                                 <label for="is_more" class="col-sm-2 control-label">是否自动生成增删改菜单</label>
                                 <div class="col-sm-10 col-md-4">
-                                    <input id="is_more" class="input-switch" placeholder=""  type="checkbox"/>
+                                    <input id="is_more" class="input-switch" placeholder="" type="checkbox"/>
                                     <input class="switch" name="is_more" value="0" hidden/>
                                 </div>
                             </div>
