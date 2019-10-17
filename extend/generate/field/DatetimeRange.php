@@ -13,7 +13,7 @@ class DatetimeRange extends Field
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
-        <input id="[FIELD_NAME]" name="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default='[FIELD_DEFAULT]'}" placeholder="请选择[FORM_NAME]" type="text" class="form-control filed-datetime-range">
+        <input id="[FIELD_NAME]" readonly name="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default='[FIELD_DEFAULT]'}" placeholder="请选择[FORM_NAME]" type="text" class="form-control filed-datetime-range">
     </div>
 </div>
 <script>
