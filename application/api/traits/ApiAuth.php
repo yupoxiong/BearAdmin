@@ -36,7 +36,7 @@ trait ApiAuth
 
     protected $token;
 
-    public function jtwInit()
+    public function jwtInit()
     {
         $config = config('jwt.');
         if ($config) {

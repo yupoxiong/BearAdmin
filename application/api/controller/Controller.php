@@ -41,7 +41,7 @@ class Controller
         $this->request = $request;
 
         //jwt验证
-        $this->jtwInit();
+        $this->jwtInit();
         $this->checkToken();
 
         //初始化基本数据
