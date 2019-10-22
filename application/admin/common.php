@@ -102,12 +102,12 @@ if (!function_exists('create_setting_menu')) {
     {
 
         $function = <<<EOF
-                    public function [GROUP_COED]()
-                    {
-                        return \$this->show([GROUP_ID]);
-                    }\n
-                }//append_menu
-                EOF;
+    public function [GROUP_COED]()
+    {
+        return \$this->show([GROUP_ID]);
+    }\n
+}//append_menu
+EOF;
 
         $result = true;
         if ($data->auto_create_menu == 1) {
