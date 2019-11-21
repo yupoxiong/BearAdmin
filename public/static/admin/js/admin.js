@@ -446,7 +446,7 @@ function changePerPage(obj) {
     if (adminDebug) {
         console.log('当前每页数量' + Cookies.get(cookiePrefix + 'admin_per_page'));
     }
-    Cookies.set(cookiePrefix + 'admin_per_page', obj.value, 1000);
+    Cookies.set(cookiePrefix + 'admin_per_page', obj.value, {expires:30});
     $.pjax.reload();
 }
 

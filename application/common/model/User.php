@@ -23,8 +23,24 @@ class User extends Model
         return self::BOOLEAN_TEXT[$data['status']];
     }
 
+    public static function init()
+    {
+        //添加自动加密密码
+        self::event('before_insert', static function ($data) {
+            $data->password = base64_encode(password_hash($data->password, 1));
+        });
+
+        //修改密码自动加密
+        self::event('before_update', function ($data) {
+            $old = (new static())::get($data->id);
+            if ($data->password !== $old->password) {
+                $data->password = base64_encode(password_hash($data->password, 1));
+            }
+        });
+    }
+
     //关联用户等级
-    public function userLevel()
+    public function userLevel(): \think\model\relation\BelongsTo
     {
         return $this->belongsTo(UserLevel::class);
     }

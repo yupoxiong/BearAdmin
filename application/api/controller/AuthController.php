@@ -12,6 +12,9 @@ use think\response\Json;
 class AuthController extends Controller
 {
 
+    protected $authExcept = [
+        'login',
+    ];
 
     /**d
      * 登录并发放token
@@ -24,7 +27,7 @@ class AuthController extends Controller
     {
         $param = $request->param();
         //数据验证
-        $validate_result = $validate->scene('login')->check($param);
+        $validate_result = $validate->scene('api_login')->check($param);
         if (!$validate_result) {
             return error($validate->getError());
         }

@@ -31,9 +31,16 @@
                         </script>
 
                         <div class="form-group">
-                            <input style="min-width: 260px" readonly value="{$create_time_range ?? '' ;}"
-                                   name="create_time_range" id="create_time_range" class="form-control input-sm date-range" placeholder="操作日期">
+                            <input readonly value="{$create_time ?? '' ;}"
+                                   name="create_time" id="create_time" class="form-control input-sm indexSearchDatetimeRange" placeholder="操作日期">
                         </div>
+                        <script>
+                            laydate.render({
+                                elem: '#create_time'
+                                ,range: true
+                                ,type:'datetime'
+                            });
+                        </script>
 
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
@@ -114,14 +121,6 @@
         </div>
     </div>
 </section>
-
-<script>
-    laydate.render({
-        elem: '.date-range'
-        ,range: true
-        ,type:'datetime'
-    });
-</script>
 
 {/block}
 

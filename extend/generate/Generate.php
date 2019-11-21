@@ -1459,7 +1459,6 @@ class Generate
             $field_data['form_type'] = 'date';
         }
 
-
         //日期
         if (strrchr($field_info['name'], '_date') === '_date') {
             $field_data['form_type'] = 'date';
@@ -1474,6 +1473,11 @@ class Generate
 
         //数量
         if (strrchr($field_info['name'], '_count') === '_count') {
+            $field_data['form_type'] = 'number';
+        }
+
+        //数量
+        if (strrchr($field_info['name'], '_number') === '_number') {
             $field_data['form_type'] = 'number';
         }
 

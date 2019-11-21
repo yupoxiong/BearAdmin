@@ -12,8 +12,14 @@
 
 use think\facade\Route;
 
-//api模块路由
+/**
+ * api模块路由，如果不需要路由的直接删掉就好
+ * 示例的URL为/api/user
+ */
 Route::group('api', function () {
+
+    //登录接口
+    Route::post('auth/login','api/Auth/login');
 
     //自带示例，上线务必删除
     Route::resource('user','api/User') ->only(['index','save', 'read', 'update','delete']);
@@ -26,6 +32,8 @@ Route::group('api', function () {
             'data' => '',
         ], 404);
     });
+
+
 });
 
 

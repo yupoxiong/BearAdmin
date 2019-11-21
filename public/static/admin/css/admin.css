@@ -29,3 +29,13 @@
     max-width: 40px;
     max-height: 40px;
 }
+
+/*列表页日期范围搜索*/
+.indexSearchDateRange{
+    min-width: 160px;
+}
+
+/*列表页日期时间范围搜索*/
+.indexSearchDatetimeRange{
+    min-width: 260px;
+}

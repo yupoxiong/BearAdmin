@@ -13,14 +13,14 @@ class AdminLog extends Model
     public $softDelete = false;
 
     public $methodText = [
-        1=>'GET',
-        2=>'POST',
-        3=>'PUT',
-        4=>'DELETE',
+        1 => 'GET',
+        2 => 'POST',
+        3 => 'PUT',
+        4 => 'DELETE',
     ];
 
     protected $autoWriteTimestamp = true;
-    protected $updateTime= false;
+    protected $updateTime = false;
 
     protected $searchField = [
         'name',
@@ -32,16 +32,20 @@ class AdminLog extends Model
         'admin_user_id'
     ];
 
+    protected $timeField = [
+        'create_time'
+    ];
+
     //关联用户
-    public function adminUser()
+    public function adminUser(): \think\model\relation\BelongsTo
     {
-        return $this->belongsTo(AdminUser::class, 'admin_user_id', 'id');
+        return $this->belongsTo(AdminUser::class);
     }
 
     //关联详情
-    public function adminLogData()
+    public function adminLogData(): \think\model\relation\HasOne
     {
-        return $this->hasOne(AdminLogData::class,'admin_log_id','id');
+        return $this->hasOne(AdminLogData::class);
     }
 
 }

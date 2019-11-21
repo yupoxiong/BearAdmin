@@ -32,14 +32,14 @@ class AdminUser extends Migrator
         $data = [
             [
                 'id'       => 1,
-                'username' => 'super-admin',
+                'username' => 'super_admin',
                 'nickname' => '超级管理员',
-                'password' => 'super-admin',
+                'password' => 'super_admin',
                 'role'     => [1]
             ]
         ];
 
-        $msg = '超级管理员创建成功.' . "\n" . '用户名:super-admin' . "\n" . '密码:super-admin' . "\n";
+        $msg = '超级管理员创建成功.' . "\n" . '用户名:super_admin' . "\n" . '密码:super_admin' . "\n";
         Db::startTrans();
         try {
             foreach ($data as $item) {

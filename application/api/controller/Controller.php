@@ -54,5 +54,4 @@ class Controller
         $this->limit = $this->limit <= 100 ? $this->limit : 100;
     }
 
-
 }

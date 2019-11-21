@@ -75,7 +75,7 @@ EOF;
     //列表日期筛选
     public static $listSearchDate = <<<EOF
 <div class="form-group">
-    <input value="{\$[FIELD_NAME]|default=''}" readonly name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm" placeholder="[FORM_NAME]">
+    <input value="{\$[FIELD_NAME]|default=''}" readonly name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm indexSearchDateRange" placeholder="[FORM_NAME]">
 </div>
 <script>
     laydate.render({
@@ -88,7 +88,7 @@ EOF;
     //列表日期时间筛选
     public static $listSearchDatatime = <<<EOF
 <div class="form-group">
-    <input value="{\$[FIELD_NAME]|default=''}" readonly name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm" placeholder="[FORM_NAME]">
+    <input value="{\$[FIELD_NAME]|default=''}" readonly name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm indexSearchDatetimeRange" placeholder="[FORM_NAME]">
 </div>
 <script>
     laydate.render({

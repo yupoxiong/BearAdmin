@@ -33,7 +33,7 @@ php think migrate:run
 具体可参考[ThinkPHP5.1完全开发手册](https://www.kancloud.cn/manual/thinkphp5_1/353955)
 
 #### 访问后台
-访问`/admin`，默认超级管理员的账号密码都为`super-admin`。
+访问`/admin`，默认超级管理员的账号密码都为`super_admin`。
 
 
 ## 其他说明

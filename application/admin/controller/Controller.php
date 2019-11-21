@@ -83,6 +83,7 @@ class Controller extends \think\Controller
 
         $this->admin['per_page'] = cookie('admin_per_page') ?? 10;
         $this->admin['per_page'] = $this->admin['per_page'] < 100 ? $this->admin['per_page'] : 100;
+
     }
 
 

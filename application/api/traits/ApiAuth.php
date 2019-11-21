@@ -50,7 +50,7 @@ trait ApiAuth
     public function checkToken()
     {
         $config = $this->config;
-        if (!in_array($this->request->action(true), $this->authExcept)) {
+        if (!in_array($this->request->action(), $this->authExcept, true)) {
 
             $token = $this->request->header($config['name']);
             //缺少token
