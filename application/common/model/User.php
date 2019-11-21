@@ -70,4 +70,11 @@ class User extends Model
         }
         return $user;
     }
+
+    //加密字符串，用在登录的时候加密处理
+    protected function getSignStrAttr($value, $data)
+    {
+        $ua = request()->header('user-agent');
+        return sha1($data['id'] . $data['username'] . $ua);
+    }
 }
