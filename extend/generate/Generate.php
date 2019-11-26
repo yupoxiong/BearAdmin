@@ -786,6 +786,9 @@ class Generate
                 } else if ($value['form_type'] === 'multi_image') {
                     //多图显示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listMultiImgHtml);
+                }else if ($value['form_type'] === 'multi_file') {
+                    //多文件展示
+                    $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listMultiFileHtml);
                 } else if ($value['form_type'] === 'switch' && $value['getter_setter'] === 'switch') {
                     //status switch显示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listSwitchHtml);
@@ -943,6 +946,9 @@ class Generate
         $form_rules    = '';
         $form_messages = '';
 
+        //日期控件类的字段名
+        $date_field = ['date','datetime'];
+
         foreach ($this->data['data'] as $key => $value) {
 
             if ($value['is_form'] == 1) {
@@ -957,6 +963,11 @@ class Generate
                             $list_name              = str_replace('_id', '', $value['field_name']) . '_list';
                             $list_code              = str_replace(array('[DATA_LIST]', '[FIELD_NAME]', '[RELATION_SHOW]'), array($list_name, $value['field_name'], $value['relation_show']), $list_code);
                             $value['relation_data'] = $list_code;
+                        }
+                    }else if(in_array($value['form_type'],$date_field)){
+                        //如果是日期控件类字段，默认值各式不符的一律修改成''
+                        if(is_numeric($value['field_default'])){
+                            $value['field_default'] = '';
                         }
                     }
 

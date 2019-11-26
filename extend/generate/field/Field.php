@@ -108,19 +108,28 @@ EOF;
 
 
     public static $listMultiImgHtml = <<<EOF
-<td class="dataListMultiImg" id="[FIELD_NAME]ImgViewer">
+<td class="dataListMultiImg" id="[FIELD_NAME]ImgViewer{\$data_key}">
 {foreach name='item.[FIELD_NAME]' id='item_[FIELD_NAME]'}
 <img class="dataListImg" data-img="{\$item_[FIELD_NAME]}" src="{\$item_[FIELD_NAME]}">
 {/foreach}
 </td>
 <script>
     $(function () {
-        $('#[FIELD_NAME]ImgViewer').viewer({
+        $('#[FIELD_NAME]ImgViewer{\$data_key}').viewer({
             url:'data-img',
         });
     });
 </script>\n
 EOF;
+
+    public static $listMultiFileHtml = <<<EOF
+<td class="dataListMultiFile">
+{foreach name='item.[FIELD_NAME]' id='item_[FIELD_NAME]'}
+<a target="_blank" href="{\$item_[FIELD_NAME]}">查看文件</a>
+{/foreach}
+</td>
+EOF;
+
 
     //status字段获取器为switch的时候自动显示为field_name_text
     public static $listSwitchHtml = <<<EOF
