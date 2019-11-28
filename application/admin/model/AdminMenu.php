@@ -6,6 +6,11 @@
 
 namespace app\admin\model;
 
+/**
+ * Class AdminMenu
+ * @package app\admin\model
+ * @property int $id
+ */
 class AdminMenu extends Model
 {
     protected $name = 'admin_menu';

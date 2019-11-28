@@ -122,6 +122,7 @@ class GenerateController extends Controller
                 'delete'       => $param['list_delete'] ?? 0,
                 'create'       => $param['list_create'] ?? 0,
                 'export'       => $param['list_export'] ?? 0,
+                'refresh'      => $param['list_refresh'] ?? 0,
             ],
         ];
 

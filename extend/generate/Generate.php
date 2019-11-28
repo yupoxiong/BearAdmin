@@ -867,6 +867,13 @@ class Generate
         //列表刷新
         $refresh = '';
 
+        //如果有删除或者启用/禁用，开启选择
+        if($this->data['view']['delete'] || $this->data['view']['enable']){
+            $select1 = file_get_contents($this->config['template']['view']['index_select1']);
+            $select2 = file_get_contents($this->config['template']['view']['index_select2']);
+        }
+
+        //删除按钮处理
         if ($this->data['view']['delete']) {
             $del1    = file_get_contents($this->config['template']['view']['index_del1']);
             $del2    = file_get_contents($this->config['template']['view']['index_del2']);
@@ -877,10 +884,15 @@ class Generate
                 $operation_del_icon = '';
             }
             $del2 = str_replace(array('[OPERATION_DEL_ICON]', '[OPERATION_DEL_TEXT]'), array($operation_del_icon, $operation_del_text), $del2);
+        }
 
-            $select1 = file_get_contents($this->config['template']['view']['index_select1']);
-            $select2 = file_get_contents($this->config['template']['view']['index_select2']);
+        //添加按钮处理
+        if($this->data['view']['create']){
             $create  = file_get_contents($this->config['template']['view']['index_path'] . 'create.stub');
+        }
+
+        //刷新按钮处理
+        if($this->data['view']['refresh']){
             $refresh = file_get_contents($this->config['template']['view']['index_path'] . 'refresh.stub');
         }
 
