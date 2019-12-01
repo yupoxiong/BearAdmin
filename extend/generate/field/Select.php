@@ -25,14 +25,14 @@ class Select extends Field
 EOF;
 
     public static $rules = [
-        'required'   => '非空',
-        'regular'    => '自定义正则'
+        'required' => '非空',
+        'regular'  => '自定义正则'
     ];
 
     public static function create($data)
     {
         $html = self::$html;
-        $html = str_replace(array('[FORM_NAME]', '[FIELD_NAME]', '[RELATION_DATA]'), array($data['form_name'], $data['field_name']??'', $data['relation_data']), $html);
+        $html = str_replace(array('[FORM_NAME]', '[FIELD_NAME]', '[RELATION_DATA]'), array($data['form_name'], $data['field_name'] ?? '', $data['relation_data'] ?? ''), $html);
         return $html;
     }
 
