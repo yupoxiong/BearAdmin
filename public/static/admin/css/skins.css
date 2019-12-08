@@ -1,7 +1,7 @@
+/* 皮肤css样式文件 */
 /*.skin-blue*/
-
-.skin-blue .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-blue .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
 }
 
 .skin-blue .form-control:focus {
@@ -13,8 +13,8 @@
 }
 
 /*skin-black*/
-.skin-black .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-black .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #222d32;
 }
 
 .skin-black .form-control:focus {
@@ -26,20 +26,23 @@
 }
 
 /*skin-purple*/
-.skin-purple .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-purple .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #605ca8;
 }
+
 .skin-purple .form-control:focus {
   border: 1px solid #605ca8;
 }
+
 .skin-purple .box {
   border-top: 3px solid #605ca8;
 }
 
 /*skin-green*/
-.skin-green .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-green .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #00a65a;
 }
+
 .skin-green .form-control:focus {
   border: 1px solid #00a65a;
 }
@@ -49,9 +52,10 @@
 }
 
 /*skin-red*/
-.skin-red .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-red .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #dd4b39;
 }
+
 .skin-red .form-control:focus {
   border: 1px solid #dd4b39;
 }
@@ -61,8 +65,8 @@
 }
 
 /*skin-yellow*/
-.skin-yellow .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-yellow .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #f39c12;
 }
 
 .skin-yellow .form-control:focus {
@@ -74,8 +78,8 @@
 }
 
 /*skin-blue*/
-.skin-blue-light .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-blue-light .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
 }
 
 .skin-blue-light .form-control:focus {
@@ -87,8 +91,8 @@
 }
 
 /*skin-black*/
-.skin-black-light .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-black-light .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #222d32;
 }
 
 .skin-black-light .form-control:focus {
@@ -101,19 +105,21 @@
 
 
 /*skin-purple*/
-.skin-purple-light .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-purple-light .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #605ca8;
 }
+
 .skin-purple-light .form-control:focus {
   border: 1px solid #605ca8;
 }
+
 .skin-purple-light .box {
   border-top: 3px solid #605ca8;
 }
 
 /*skin-green*/
-.skin-green-light .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-green-light .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #00a65a;
 }
 
 .skin-green-light .form-control:focus {
@@ -125,8 +131,8 @@
 }
 
 /*skin-red*/
-.skin-red-light .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-red-light .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #dd4b39;
 }
 
 .skin-red-light .form-control:focus {
@@ -138,8 +144,8 @@
 }
 
 /*skin-yellow*/
-.skin-yellow-light .nav-tabs-custom > .nav-tabs > li.active{
-  border-top-color:#ccc;
+.skin-yellow-light .nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #f39c12;
 }
 
 .skin-yellow-light .form-control:focus {
