@@ -30,6 +30,7 @@ class Generate
     //主数据
     protected $data = [];
 
+    protected $error;
 
     /**
      * 控制器和模型名、验证器名黑名单
@@ -1102,6 +1103,11 @@ class Generate
         $name_show = $this->data['cn_name'];
         Db::startTrans();
         try {
+
+            if(AdminMenu::where('url',$url_prefix . '/index')->find()){
+                exception('菜单已存在');
+            }
+
             $parent = [
                 'parent_id'  => $this->data['menu']['create'],
                 'name'       => $name_show . '管理',
