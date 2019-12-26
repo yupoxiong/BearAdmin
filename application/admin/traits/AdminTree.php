@@ -7,6 +7,7 @@
 namespace app\admin\traits;
 
 use app\admin\model\AdminUser;
+use think\Model;
 
 trait AdminTree
 {
@@ -310,7 +311,7 @@ trait AdminTree
 
     /**
      * 获取树形数据列表
-     * @param $model
+     * @param Model $model
      * @return string
      */
     protected function getTreeList($model)
@@ -359,7 +360,7 @@ trait AdminTree
 
     /**
      * 获取树形选择列表
-     * @param $model
+     * @param Model $model
      * @param int $selected
      * @return string
      */

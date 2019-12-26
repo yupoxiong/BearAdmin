@@ -44,14 +44,10 @@ class Controller extends \think\Controller
      * 无需验证权限的url
      * @var array
      */
-    protected $authExcept = [
-        'admin/auth/login',
-        'admin/auth/logout',
-        'admin/editor/server',
-    ];
+    protected $authExcept = [];
 
     //初始化基础控制器
-    protected function initialize()
+    protected function initialize(): void
     {
         $request = $this->request;
         //获取当前访问url
@@ -60,7 +56,7 @@ class Controller extends \think\Controller
             parse_name($request->action());
 
         //验证权限
-        if (!in_array($this->url, $this->authExcept)) {
+        if (!in_array($this->url, $this->authExcept, true)) {
             if (!$this->isLogin()) {
                 error('未登录', 'auth/login');
             } else if ($this->user->id !== 1 && !$this->authCheck($this->user)) {
@@ -93,7 +89,7 @@ class Controller extends \think\Controller
         $this->admin['pjax'] = $this->request->isPjax();
         $this->admin['user'] = $this->user;
         $this->setAdminInfo();
-        if (!$this->admin['pjax'] && 'admin/auth/login' !== $this->url) {
+        if ('admin/auth/login' !== $this->url && !$this->admin['pjax']) {
             $this->admin['menu'] = $this->getLeftMenu($this->user);
         }
 
@@ -115,7 +111,7 @@ class Controller extends \think\Controller
 
 
     //设置前台显示的后台信息
-    protected function setAdminInfo()
+    protected function setAdminInfo(): void
     {
         $admin_config = config('admin.base');
 

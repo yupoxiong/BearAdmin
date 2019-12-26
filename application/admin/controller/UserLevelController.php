@@ -5,6 +5,7 @@
 
 namespace app\admin\controller;
 
+use app\common\model\Attachment;
 use think\Request;
 use app\common\model\UserLevel;
 
@@ -57,7 +58,7 @@ class UserLevelController extends Controller
                 return error($validate->getError());
             }
             //处理图片上传
-            $attachment_img = new \app\common\model\Attachment;
+            $attachment_img = new Attachment;
             $file_img       = $attachment_img->upload('img');
             if ($file_img) {
                 $param['img'] = $file_img->url;
@@ -93,7 +94,7 @@ class UserLevelController extends Controller
             }
             //处理图片上传
             if (!empty($_FILES['img']['name'])) {
-                $attachment_img = new \app\common\model\Attachment;
+                $attachment_img = new Attachment;
                 $file_img       = $attachment_img->upload('img');
                 if ($file_img) {
                     $param['img'] = $file_img->url;

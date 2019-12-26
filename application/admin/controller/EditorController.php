@@ -11,6 +11,9 @@ use tools\UEditor;
 
 class EditorController extends Controller
 {
+    protected $authExcept = [
+        'admin/editor/server',
+    ];
 
     //编辑器上传等url
     public function server(Request $request)

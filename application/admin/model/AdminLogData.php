@@ -6,6 +6,7 @@
 
 namespace app\admin\model;
 
+use think\model\relation\BelongsTo;
 use tools\Crypt;
 
 class AdminLogData extends Model
@@ -15,9 +16,9 @@ class AdminLogData extends Model
     public $softDelete = false;
 
     //关联log
-    public function adminLog()
+    public function adminLog(): BelongsTo
     {
-        return $this->belongsTo('app\admin\AdminLog','admin_log_id','id');
+        return $this->belongsTo(AdminLog::class,'admin_log_id','id');
     }
 
     public function getDataAttr($value)

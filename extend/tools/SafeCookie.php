@@ -12,7 +12,7 @@ class SafeCookie
 {
     static $key;
 
-    function __construct()
+    public function __construct()
     {
         self::$key = config('app.app_key') ?? md5('Tao-qi,I love you.');
     }
@@ -40,7 +40,8 @@ class SafeCookie
         return $value;
     }
 
-    public static function delete($name, $prefix = null)
+
+    public static function delete($name, $prefix = null): void
     {
         return Cookie::delete($name, $prefix);
     }

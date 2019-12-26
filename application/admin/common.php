@@ -3,6 +3,7 @@ const URL_CURRENT = 'url://current';
 const URL_RELOAD  = 'url://reload';
 const URL_BACK    = 'url://back';
 
+use app\admin\controller\SettingController;
 use app\admin\model\AdminMenu;
 use app\common\model\SettingGroup;
 use think\exception\HttpResponseException;
@@ -130,7 +131,7 @@ EOF;
                 $result     = $menu->save();
             }
 
-            $setting = new \app\admin\controller\SettingController();
+            $setting = new SettingController();
             if (!method_exists($setting, $data->code)) {
 
                 $function = str_replace(array('[GROUP_COED]', '[GROUP_ID]'), array($data->code, $data->id), $function);

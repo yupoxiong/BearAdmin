@@ -16,7 +16,7 @@ class UEditor
     {
         $this->config  = $config;
         $this->request = request();
-        $this->param   = $this->request->param();
+        $this->param   = request()->param();
     }
 
     public function server($action)
@@ -207,7 +207,7 @@ class UEditor
 
 
     /*遍历获取目录下的指定类型的文件*/
-    private function getFiles($path, $allowFiles, &$files = array())
+    private function getFiles($path, $allowFiles, &$files = array()): ?array
     {
         $public_path = app()->getRootPath().'public';
 
@@ -260,7 +260,7 @@ class UEditor
         }
         //获取请求头并检测死链
         $heads = get_headers($imgUrl);
-        if (!(stristr($heads[0], '200') && stristr($heads[0], 'OK'))) {
+        if (!(false !== strpos($heads[0], '200') && false !== stripos($heads[0], 'OK'))) {
             $data = array(
                 'state' => '链接不可用',
             );
@@ -268,7 +268,7 @@ class UEditor
         }
         //格式验证(扩展名验证和Content-Type验证)
         $fileType = strtolower(strrchr($imgUrl, '.'));
-        if (!in_array($fileType, $config['allowFiles']) || false !== stripos($heads['Content-Type'], 'image')) {
+        if (!in_array($fileType, $config['allowFiles'], true) || false !== stripos($heads['Content-Type'], 'image')) {
             $data = array(
                 'state' => '链接contentType不正确',
             );

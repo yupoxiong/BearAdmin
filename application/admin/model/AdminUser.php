@@ -6,6 +6,7 @@
 
 namespace app\admin\model;
 
+use Exception;
 use think\model\concern\SoftDelete;
 
 /**
@@ -122,7 +123,7 @@ class AdminUser extends Model
      * 用户登录
      * @param $param
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public static function login($param)
     {

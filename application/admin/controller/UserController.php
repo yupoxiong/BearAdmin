@@ -5,6 +5,7 @@
 
 namespace app\admin\controller;
 
+use app\common\model\Attachment;
 use think\Request;
 use app\common\model\User;
 use app\common\model\UserLevel;
@@ -60,7 +61,7 @@ class UserController extends Controller
                 return error($validate->getError());
             }
             //处理头像上传
-            $attachment_avatar = new \app\common\model\Attachment;
+            $attachment_avatar = new Attachment;
             $file_avatar       = $attachment_avatar->upload('avatar');
             if ($file_avatar) {
                 $param['avatar'] = $file_avatar->url;
@@ -101,7 +102,7 @@ class UserController extends Controller
             }
             //处理头像上传
             if (!empty($_FILES['avatar']['name'])) {
-                $attachment_avatar = new \app\common\model\Attachment;
+                $attachment_avatar = new Attachment;
                 $file_avatar       = $attachment_avatar->upload('avatar');
                 if ($file_avatar) {
                     $param['avatar'] = $file_avatar->url;

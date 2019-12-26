@@ -11,7 +11,7 @@ use think\db\Query;
 class Model extends \think\Model
 {
     //是否字段，使用场景：用户的是否冻结，文章是否为热门等等。
-    const BOOLEAN_TEXT = [0 => '否', 1 => '是'];
+    public const BOOLEAN_TEXT = [0 => '否', 1 => '是'];
 
     //是否为软删除
     public $softDelete = true;
@@ -36,11 +36,11 @@ class Model extends \think\Model
      * @var Query $query
      * @var array $param
      */
-    public function scopeWhere($query, $param)
+    public function scopeWhere($query, $param): void
     {
         //关键词like搜索
         $keywords = $param['_keywords'] ?? '';
-        if (count($this->searchField) > 0 && $keywords !== '') {
+        if ('' !== $keywords && count($this->searchField) > 0) {
             $this->searchField = implode('|', $this->searchField);
             $query->where($this->searchField, 'like', '%' . $keywords . '%');
         }
@@ -48,7 +48,7 @@ class Model extends \think\Model
         //字段条件查询
         if (count($this->whereField) > 0 && count($param) > 0) {
             foreach ($param as $key => $value) {
-                if ($value !== '' && in_array($key, $this->whereField)) {
+                if ($value !== '' && in_array((string)$key, $this->whereField, true)) {
                     $query->where($key, $value);
                 }
             }
@@ -57,21 +57,19 @@ class Model extends \think\Model
         //时间范围查询
         if (count($this->timeField) > 0 && count($param) > 0) {
             foreach ($param as $key => $value) {
-                if ($value !== '' && in_array($key, $this->timeField)) {
-                    $field_type = $this->getFieldsType($this->name,$key);
-                    $time_range = explode(' - ',$value);
-                    $start_time = $time_range[0];
-                    $end_time = $time_range[1];
+                if ($value !== '' && in_array((string)$key, $this->timeField, true)) {
+                    $field_type = $this->getFieldsType($this->table, $key);
+                    $time_range = explode(' - ', $value);
+                    [$start_time,$end_time] = $time_range;
                     //如果是int，进行转换
-                    if(false!==strpos($field_type,'int')){
+                    if (false !== strpos($field_type, 'int')) {
                         $start_time = strtotime($start_time);
-                        if(strlen($end_time)==10){
-                            $end_time = $end_time.'23:59:59';
+                        if (strlen($end_time) === 10) {
+                            $end_time .= '23:59:59';
                         }
                         $end_time = strtotime($end_time);
                     }
-
-                    $query->where($key, 'between',[$start_time,$end_time]);
+                    $query->where($key, 'between', [$start_time, $end_time]);
                 }
             }
         }

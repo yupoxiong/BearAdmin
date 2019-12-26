@@ -21,7 +21,9 @@
         "topthink/think-migration": "^2.0",
         "topthink/think-captcha": "^2.0",
         "lcobucci/jwt": "^3.3",
-        "phpoffice/phpspreadsheet": "^1.8"
+        "phpoffice/phpspreadsheet": "^1.8",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

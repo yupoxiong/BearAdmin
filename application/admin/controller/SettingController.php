@@ -5,6 +5,7 @@
 
 namespace app\admin\controller;
 
+use app\common\model\Attachment;
 use think\Request;
 
 use app\common\model\Setting;
@@ -71,7 +72,7 @@ class SettingController extends Controller
             $result = $model::create($param);
 
             $url = URL_BACK;
-            if (isset($param['_create']) && $param['_create'] == 1) {
+            if (isset($param['_create']) && ((int)$param['_create']) === 1) {
                 $url = URL_RELOAD;
             }
 
@@ -152,7 +153,7 @@ class SettingController extends Controller
                 if (array_intersect($model->noDeletionId, $id)) {
                     return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
-            } else if (in_array($id, $model->noDeletionId)) {
+            } else if (in_array((int)$id, $model->noDeletionId, true)) {
                 return error('ID为' . $id . '的数据无法删除');
             }
         }
@@ -215,7 +216,7 @@ class SettingController extends Controller
 
                     //处理图片上传
                     if (!empty($_FILES[$value['field']]['name'])) {
-                        $attachment = new \app\common\model\Attachment;
+                        $attachment = new Attachment;
                         $file       = $attachment->upload($value['field']);
                         if ($file) {
                             $value['content'] = $param[$value['field']] = $file->url;
@@ -227,7 +228,7 @@ class SettingController extends Controller
                 case 'multi_image':
 
                     if (!empty($_FILES[$value['field']]['name'])) {
-                        $attachment = new \app\common\model\Attachment;
+                        $attachment = new Attachment;
                         $file       = $attachment->uploadMulti($value['field']);
                         if ($file) {
                             $value['content'] = $param[$value['field']] = json_encode($file);
@@ -248,7 +249,7 @@ class SettingController extends Controller
 
         //自动更新配置文件
         $group = SettingGroup::get($config->setting_group_id);
-        if ($group->auto_create_file == 1) {
+        if (((int)$group->auto_create_file) === 1) {
             create_setting_file($group);
         }
 

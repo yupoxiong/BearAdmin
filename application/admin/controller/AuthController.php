@@ -11,6 +11,7 @@ use think\captcha\Captcha;
 use think\Request;
 use app\admin\model\AdminUser;
 use app\admin\validate\AdminUserValidate;
+use think\Validate;
 use tools\GeeTest;
 
 class AuthController extends Controller
@@ -70,7 +71,7 @@ class AuthController extends Controller
 
             //如果需要验证登录token
             if ($login_config['token']) {
-                $token_validate        = \think\Validate::make();
+                $token_validate        = Validate::make();
                 $token_validate_result = $token_validate->rule('__token__', 'token')
                     ->check($param);
                 if (!$token_validate_result) {

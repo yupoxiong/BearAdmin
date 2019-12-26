@@ -45,6 +45,7 @@ use think\Db;
 use think\db\Connection;
 use think\Request;
 use generate\Generate;
+use think\response\Json;
 
 class GenerateController extends Controller
 {
@@ -251,7 +252,7 @@ class GenerateController extends Controller
 
     /**
      * @param Request $request
-     * @return \think\response\Json|void
+     * @return Json|void
      */
     public function getValidateSelect(Request $request)
     {

@@ -21,11 +21,11 @@ class AdminRole extends Model
         1
     ];
 
-    public static function init()
+    public static function init(): void
     {
         //添加首页，系统管理，个人资料菜单/权限
         self::event('before_insert', static function ($data) {
-            $data->url = [1,2,18];
+            $data->url = [1, 2, 18];
         });
     }
 

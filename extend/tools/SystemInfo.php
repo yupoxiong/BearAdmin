@@ -11,10 +11,8 @@ use think\Db;
 class SystemInfo
 {
 
-    public static function getSystemInfo()
+    public static function getSystemInfo(): array
     {
-
-        $request  = request();
         $composer = json_decode(file_get_contents(app()->getRootPath() . 'composer.json'), true);
 
         $require_list     = [];
@@ -27,7 +25,7 @@ class SystemInfo
         }
 
 
-        $user_agent = $request->header('user-agent');
+        $user_agent = request()->header('user-agent');
 
         if (false !== stripos($user_agent, 'win')) {
             $user_os = 'Windows';
@@ -63,7 +61,7 @@ class SystemInfo
         }
 
         $user_ip_address = '--';
-        $user_ip         = $request->ip();
+        $user_ip         = request()->ip();
         $ip_json         = @file_get_contents('http://restapi.amap.com/v3/ip?key=36764b698753cbde3ffccda82d040d14&ip=' . $user_ip);
         $ip_arr          = json_decode($ip_json, true);
         if (((int)$ip_arr['status'] === 1) && is_string($ip_arr['province']) && is_string($ip_arr['city'])) {

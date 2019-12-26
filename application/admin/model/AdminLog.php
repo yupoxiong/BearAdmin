@@ -6,6 +6,9 @@
 
 namespace app\admin\model;
 
+use think\model\relation\BelongsTo;
+use think\model\relation\HasOne;
+
 class AdminLog extends Model
 {
     protected $name = 'admin_log';
@@ -37,13 +40,13 @@ class AdminLog extends Model
     ];
 
     //关联用户
-    public function adminUser(): \think\model\relation\BelongsTo
+    public function adminUser(): BelongsTo
     {
         return $this->belongsTo(AdminUser::class);
     }
 
     //关联详情
-    public function adminLogData(): \think\model\relation\HasOne
+    public function adminLogData(): HasOne
     {
         return $this->hasOne(AdminLogData::class);
     }
