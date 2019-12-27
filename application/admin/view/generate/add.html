@@ -577,6 +577,7 @@
 
                         </div>
                     </div>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -709,7 +710,7 @@
 
         //列表操作形式
         let selected = 1;
-        let cookie_button = Cookies.get(cookiePrefix+'index_operation_button');
+        let cookie_button = Cookies.get(cookiePrefix + 'index_operation_button');
         if (cookie_button) {
             selected = cookie_button;
         }
@@ -720,9 +721,9 @@
 
 
     $(function () {
-        $('#index_operation_button').on('change',function (e) {
+        $('#index_operation_button').on('change', function (e) {
             let $this = this;
-            Cookies(cookiePrefix + 'index_operation_button', $('#index_operation_button').val(), {expires:30});
+            Cookies(cookiePrefix + 'index_operation_button', $('#index_operation_button').val(), {expires: 30});
         });
     });
 
