@@ -10,7 +10,7 @@ use think\facade\Cookie;
 
 class SafeCookie
 {
-    static $key;
+    protected static $key;
 
     public function __construct()
     {
@@ -41,9 +41,9 @@ class SafeCookie
     }
 
 
-    public static function delete($name, $prefix = null): void
+    public static function delete($name, $prefix = null)
     {
-        return Cookie::delete($name, $prefix);
+        Cookie::delete($name, $prefix);
     }
 
     static function isJson($string)

@@ -635,7 +635,7 @@ class Generate
                     break;
                 case 'date':
                 case 'datetime':
-                    $time_field .="'" . $value['field_name'] . "',";
+                    $time_field .= "'" . $value['field_name'] . "',";
                     break;
                 default:
                     break;
@@ -787,7 +787,7 @@ class Generate
                 } else if ($value['form_type'] === 'multi_image') {
                     //多图显示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listMultiImgHtml);
-                }else if ($value['form_type'] === 'multi_file') {
+                } else if ($value['form_type'] === 'multi_file') {
                     //多文件展示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listMultiFileHtml);
                 } else if ($value['form_type'] === 'switch' && $value['getter_setter'] === 'switch') {
@@ -823,11 +823,11 @@ class Generate
                     } else {
                         //自定义select
                         $index_search_data = $value['index_search_data'];
-                        $options = explode("\r\n", $index_search_data);
-                        $option_html = '';
+                        $options           = explode("\r\n", $index_search_data);
+                        $option_html       = '';
                         foreach ($options as $item) {
                             $option_key_value = explode('||', $item);
-                            $option_html .= '<option value="' . $option_key_value[0] . '" {if isset($'.$value['field_name'].') && '."''".'!==$'.$value['field_name'].' && $'.$value['field_name'].'=='. $option_key_value[0] .'}selected{/if}>' . $option_key_value[1] . '</option>'."\n";
+                            $option_html      .= '<option value="' . $option_key_value[0] . '" {if isset($' . $value['field_name'] . ') && ' . "''" . '!==$' . $value['field_name'] . ' && $' . $value['field_name'] . '==' . $option_key_value[0] . '}selected{/if}>' . $option_key_value[1] . '</option>' . "\n";
                         }
                         $search_html .= str_replace(array('[FIELD_NAME]', '[FORM_NAME]', '[SELECT_OPTION]'), array($value['field_name'], $value['form_name'], $option_html), Field::$listSearchSelectHtml);
                     }
@@ -869,31 +869,31 @@ class Generate
         $refresh = '';
 
         //如果有删除或者启用/禁用，开启选择
-        if($this->data['view']['delete'] || $this->data['view']['enable']){
+        if ($this->data['view']['delete'] || $this->data['view']['enable']) {
             $select1 = file_get_contents($this->config['template']['view']['index_select1']);
             $select2 = file_get_contents($this->config['template']['view']['index_select2']);
         }
 
         //删除按钮处理
         if ($this->data['view']['delete']) {
-            $del1    = file_get_contents($this->config['template']['view']['index_del1']);
-            $del2    = file_get_contents($this->config['template']['view']['index_del2']);
+            $del1 = file_get_contents($this->config['template']['view']['index_del1']);
+            $del2 = file_get_contents($this->config['template']['view']['index_del2']);
             //操作形式处理
-            if($this->data['view']['index_button']==1){
+            if ($this->data['view']['index_button'] == 1) {
                 $operation_del_text = '';
-            }else if($this->data['view']['index_button']==2){
+            } else if ($this->data['view']['index_button'] == 2) {
                 $operation_del_icon = '';
             }
             $del2 = str_replace(array('[OPERATION_DEL_ICON]', '[OPERATION_DEL_TEXT]'), array($operation_del_icon, $operation_del_text), $del2);
         }
 
         //添加按钮处理
-        if($this->data['view']['create']){
-            $create  = file_get_contents($this->config['template']['view']['index_path'] . 'create.stub');
+        if ($this->data['view']['create']) {
+            $create = file_get_contents($this->config['template']['view']['index_path'] . 'create.stub');
         }
 
         //刷新按钮处理
-        if($this->data['view']['refresh']){
+        if ($this->data['view']['refresh']) {
             $refresh = file_get_contents($this->config['template']['view']['index_path'] . 'refresh.stub');
         }
 
@@ -918,20 +918,20 @@ class Generate
             $enable1 = file_get_contents($this->config['template']['path'] . 'view/index/enable1.stub');
             $enable2 = file_get_contents($this->config['template']['path'] . 'view/index/enable2.stub');
             //操作形式处理
-            if($this->data['view']['index_button']==1){
+            if ($this->data['view']['index_button'] == 1) {
                 $operation_disable_text = '';
-                $operation_enable_text = '';
-            }else if($this->data['view']['index_button']==2){
+                $operation_enable_text  = '';
+            } else if ($this->data['view']['index_button'] == 2) {
                 $operation_disable_icon = '';
-                $operation_enable_icon = '';
+                $operation_enable_icon  = '';
             }
-            $enable2 = str_replace(array('[OPERATION_DISABLE_ICON]', '[OPERATION_DISABLE_TEXT]','[OPERATION_ENABLE_ICON]', '[OPERATION_ENABLE_TEXT]'), array($operation_disable_icon, $operation_disable_text,$operation_enable_icon, $operation_enable_text), $enable2);
+            $enable2 = str_replace(array('[OPERATION_DISABLE_ICON]', '[OPERATION_DISABLE_TEXT]', '[OPERATION_ENABLE_ICON]', '[OPERATION_ENABLE_TEXT]'), array($operation_disable_icon, $operation_disable_text, $operation_enable_icon, $operation_enable_text), $enable2);
         }
 
-        if($this->data['view']['index_button']==1){
-            $operation_edit_text= '';
-        }else if($this->data['view']['index_button']==2){
-            $operation_edit_icon= '';
+        if ($this->data['view']['index_button'] == 1) {
+            $operation_edit_text = '';
+        } else if ($this->data['view']['index_button'] == 2) {
+            $operation_edit_icon = '';
         }
 
         $code = str_replace(array('[OPERATION_EDIT_ICON]', '[OPERATION_EDIT_TEXT]', '[INDEX_ENABLE1]', '[INDEX_ENABLE2]', '[INDEX_EXPORT]', '[NAME_LIST]', '[FIELD_LIST]', '[SEARCH_FIELD]', '[SORT_CODE]', '[SEARCH_HTML]'), array($operation_edit_icon, $operation_edit_text, $enable1, $enable2, $export, $name_list, $field_list, $search_name, $sort_code, $search_html), $code);
@@ -960,7 +960,7 @@ class Generate
         $form_messages = '';
 
         //日期控件类的字段名
-        $date_field = ['date','datetime'];
+        $date_field = ['date', 'datetime'];
 
         foreach ($this->data['data'] as $key => $value) {
 
@@ -977,9 +977,9 @@ class Generate
                             $list_code              = str_replace(array('[DATA_LIST]', '[FIELD_NAME]', '[RELATION_SHOW]'), array($list_name, $value['field_name'], $value['relation_show']), $list_code);
                             $value['relation_data'] = $list_code;
                         }
-                    }else if(in_array($value['form_type'],$date_field)){
+                    } else if (in_array($value['form_type'], $date_field)) {
                         //如果是日期控件类字段，默认值各式不符的一律修改成''
-                        if(is_numeric($value['field_default'])){
+                        if (is_numeric($value['field_default'])) {
                             $value['field_default'] = '';
                         }
                     }
@@ -1104,7 +1104,7 @@ class Generate
         Db::startTrans();
         try {
 
-            if(AdminMenu::where('url',$url_prefix . '/index')->find()){
+            if (AdminMenu::where('url', $url_prefix . '/index')->find()) {
                 exception('菜单已存在');
             }
 
@@ -1172,7 +1172,7 @@ class Generate
 
             Db::commit();
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $this->error = $e->getMessage();
             Db::rollback();
         }
 
