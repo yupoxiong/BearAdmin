@@ -202,7 +202,7 @@ function checkAll(obj) {
 
 /* 表单提交 */
 function formSubmit(form) {
-    let loadT = layer.msg('正在提交，请稍候…', {icon: 16, time: 0, shade: [0.3, "#000"]});
+    let loadT = layer.msg('正在提交，请稍候…', {icon: 16, time: 0, shade: [0.3, "#000"],scrollbar: false,});
     let action = $(form).attr('action');
     let method = $(form).attr('method');
     let data = new FormData($(form)[0]);
@@ -224,7 +224,8 @@ function formSubmit(form) {
             success: function (result) {
                 layer.close(loadT);
                 layer.msg(result.msg, {
-                    icon: result.code ? 1 : 2
+                    icon: result.code ? 1 : 2,
+                    scrollbar: false,
                 });
                 if (adminDebug) {
                     console.log('submit success!');
@@ -246,7 +247,7 @@ function formSubmit(form) {
                     console.log("data:" + data);
                     layer.close(loadT);
                 }
-                layer.msg('访问错误,代码' + xhr.status, {icon: 2});
+                layer.msg('访问错误,代码' + xhr.status, {icon: 2,scrollbar: false,});
             }
         }
     );
@@ -269,6 +270,17 @@ function goUrl(url = 1) {
     } else if (url === 'url://back' || url === 3) {
         console.log('Return to the last page.');
         history.back(1);
+    }else if (url === 4 || url === 'url://close-refresh') {
+        console.log('Close this layer page and refresh parent page.');
+        let indexWindow = parent.layer.getFrameIndex(window.name);
+        //先刷新父级页面
+        parent.goUrl(2);
+        //再关闭当前layer弹窗
+        parent.layer.close(indexWindow);
+    } else if (url === 5 || url === 'url://close-layer') {
+        console.log('Close this layer page.');
+        let indexWindow = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(indexWindow);
     } else {
         console.log('Go to ' + url);
         try {
@@ -330,7 +342,7 @@ $(function () {
         } else {
             if (dataId === 'checked') {
                 if (dataSelectIds.length === 0) {
-                    layer.msg('请选择要操作的数据', {icon: 2});
+                    layer.msg('请选择要操作的数据', {icon: 2,scrollbar: false,});
                     return false;
                 }
                 dataId = dataSelectIds;
@@ -362,7 +374,8 @@ $(function () {
                             title: layerTitle,
                             closeBtn: 1,
                             shift: 0,
-                            content: url + "?request_type=layer_open&" + parseParam(dataData)
+                            content: url + "?request_type=layer_open&" + parseParam(dataData),
+                            scrollbar: false,
                         });
                     }
                 }
@@ -383,7 +396,8 @@ $(function () {
                         title: layerTitle,
                         closeBtn: 1,
                         shift: 0,
-                        content: url + "?request_type=layer_open&" + parseParam(dataData)
+                        content: url + "?request_type=layer_open&" + parseParam(dataData),
+                        scrollbar: false,
                     });
                 }
             }
@@ -400,7 +414,7 @@ $(function () {
  * @param go 要跳转的url
  */
 function ajaxRequest(url, method, data, go) {
-    var loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000']});
+    var loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000'],scrollbar: false,});
     $.ajax({
             url: url,
             dataType: 'json',
@@ -409,7 +423,8 @@ function ajaxRequest(url, method, data, go) {
             success: function (result) {
                 layer.close(loadT);
                 layer.msg(result.msg, {
-                    icon: result.code ? 1 : 2
+                    icon: result.code ? 1 : 2,
+                    scrollbar: false,
                 });
 
                 if (adminDebug) {
@@ -435,7 +450,7 @@ function ajaxRequest(url, method, data, go) {
                     console.log(data);
                     layer.close(loadT);
                 }
-                layer.msg('访问错误,代码' + xhr.status, {icon: 2});
+                layer.msg('访问错误,代码' + xhr.status, {icon: 2,scrollbar: false,});
             }
         }
     );
@@ -456,7 +471,7 @@ function changePerPage(obj) {
  */
 function checkAuth(url) {
     var hasAuth = false;
-    var loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000']});
+    var loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000'],scrollbar: false,});
     $.post({
         url: url,
         data: {"check_auth": 1},
@@ -468,12 +483,13 @@ function checkAuth(url) {
                 hasAuth = true;
             } else {
                 layer.msg(result.msg, {
-                    icon: 2
+                    icon: 2,
+                    scrollbar: false,
                 });
             }
         },
         error: function (xhr, type, errorThrown) {
-            layer.msg('访问错误,代码' + xhr.status, {icon: 2});
+            layer.msg('访问错误,代码' + xhr.status, {icon: 2,scrollbar: false,});
         }
     });
     return hasAuth;

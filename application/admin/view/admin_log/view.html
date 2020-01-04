@@ -1,5 +1,7 @@
-{include file='public/head_css'}
-{include file='public/head_js'}
+<!--空白弹出页面参考模版-->
+{extend name='public/layer_base' /}
+{block name='content'}
+<!-- 这里写内容即可 -->
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -41,7 +43,7 @@
                         <th colspan="2" class="text-bold text-center">数据详情</th>
                     </tr>
                     <tr>
-                        <td colspan="2" >
+                        <td colspan="2">
                             <pre>{$data.adminLogData.data|default=''}</pre>
                         </td>
                     </tr>
@@ -51,3 +53,4 @@
         </div>
     </div>
 </div>
+{/block}

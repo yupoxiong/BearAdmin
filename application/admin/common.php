@@ -1,7 +1,4 @@
 <?php
-const URL_CURRENT = 'url://current';
-const URL_RELOAD  = 'url://reload';
-const URL_BACK    = 'url://back';
 
 use app\admin\controller\SettingController;
 use app\admin\model\AdminMenu;
@@ -9,6 +6,17 @@ use app\common\model\SettingGroup;
 use think\exception\HttpResponseException;
 use think\Response;
 use think\response\Redirect;
+
+/** 不做任何操作 */
+const URL_CURRENT = 'url://current';
+/** 刷新页面 */
+const URL_RELOAD = 'url://reload';
+/** 返回上一个页面 */
+const URL_BACK = 'url://back';
+/** 关闭当前layer弹窗 */
+const URL_CLOSE_LAYER = 'url://close-layer';
+/** 关闭当前弹窗并刷新父级 */
+const URL_CLOSE_REFRESH = 'url://close-refresh';
 
 if (!function_exists('success')) {
 
