@@ -253,7 +253,7 @@ EOF;
             case 'ip':
                 $data = Ip::rule($length);
                 break;
-            case 'texterea':
+            case 'textarea':
                 $data = Textarea::rule($length);
                 break;
             case 'checkbox':
