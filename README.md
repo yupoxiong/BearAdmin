@@ -39,7 +39,7 @@ php think migrate:run
 ## 其他说明
 本项目采用大量的开源代码，包括ThinkPHP，AdminLTE等等。
 部分代码可能署名已被某些前辈去掉，我也没来得及去查找具体的作者，如果有需要修改的地方，可以与我取得联系，i#yupoxiong.com(手动替换#即可)。
-在此，对所有用到的开源代码作者表示由衷的感谢。
+在此，对所有用到的开源代码作者表示由衷的感谢。如果大家需要Laravel版本的后台管理系统，可以使用[LaravelAdmin](https://github.com/yuxingfei/LaravelAdmin)。
 
 交流QQ群：[480018279](//shang.qq.com/wpa/qunwpa?idkey=2e8674491df685dab9f634773b72ce8ed7df033aed7cbf194cda95dd4ad45737)
 
