@@ -157,7 +157,7 @@ class UEditor
             );
         } else {
             $data = array(
-                'state' => $info->getError(),
+                'state' => $file->getError(),
             );
         }
 
