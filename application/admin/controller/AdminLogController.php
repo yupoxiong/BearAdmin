@@ -19,7 +19,7 @@ class AdminLogController extends Controller
         $data  = $model->scope('where', $param)
             ->paginate($this->admin['per_page'], false, ['query' => $request->get()]);
 
-        //关键词，排序等赋值
+        // 关键词，排序等赋值
         $this->assign($request->get());
 
         $this->assign([
@@ -32,7 +32,12 @@ class AdminLogController extends Controller
         return $this->fetch();
     }
 
-    //日志详情
+    /**
+     * 日志详情
+     * @param $id
+     * @param AdminLog $model
+     * @return mixed
+     */
     public function view($id, AdminLog $model)
     {
         $data = $model::get($id);

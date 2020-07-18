@@ -57,7 +57,7 @@ class AdminUserController extends Controller
             $query->column('id,name', 'id');
         });
         $this->assign([
-            'role' => $role
+            'role' => $role,
         ]);
 
         return $this->fetch();
@@ -85,7 +85,7 @@ class AdminUserController extends Controller
 
         $this->assign([
             'data' => $data,
-            'role' => $role
+            'role' => $role,
         ]);
         return $this->fetch('add');
 

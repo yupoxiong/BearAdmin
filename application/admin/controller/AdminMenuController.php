@@ -158,7 +158,7 @@ class AdminMenuController extends Controller
     }
 
     //菜单选择 select树形选择
-    protected function menu($selected = 1, $current_id = 0)
+    protected function menu($selected = 1, $current_id = 0): string
     {
         $result = AdminMenu::where('id', '<>', $current_id)->order('sort_id', 'asc')->order('id', 'asc')->column('id,parent_id,name,sort_id', 'id');
         foreach ($result as $r) {
