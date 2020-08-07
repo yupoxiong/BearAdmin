@@ -36,7 +36,7 @@ trait AdminTree
      * @param array $arr
      * @return bool
      */
-    public function initTree($arr = [])
+    public function initTree($arr = []): bool
     {
         $this->array = $arr;
         $this->ret   = '';
@@ -53,7 +53,7 @@ trait AdminTree
      * @param string $str_group
      * @return string
      */
-    public function getTree($my_id, $str, $sid = 0, $adds = '', $str_group = '')
+    public function getTree($my_id, $str, $sid = 0, $adds = '', $str_group = ''): string
     {
         $parent_id = '';
         $n_str     = '';
@@ -72,7 +72,7 @@ trait AdminTree
                 }
                 $spacer   = $adds ? $adds . $j : '';
                 $selected = $id == $sid ? 'selected' : '';
-                extract($value);
+                extract($value, null);
                 0 == $parent_id && $str_group ? eval("\$n_str = \"$str_group\";") : eval("\$n_str = \"$str\";");
                 $this->ret .= $n_str;
                 $space     = $this->space;
@@ -101,7 +101,7 @@ trait AdminTree
             $text = $this->text[$menu['level']] ?? end($this->text);
 
             foreach ($child as $k => $v) {
-                @extract($v);
+                extract($v, null);
 
                 //如果有下级菜单
                 if ($this->getChild($k)) {
@@ -159,7 +159,7 @@ trait AdminTree
      * @param int $i 所在级别
      * @return int
      */
-    public function getLevel($id, $array, $i = 0)
+    public function getLevel($id, $array, $i = 0): int
     {
         if ($array[$id]['parent_id'] == 0 || empty($array[$array[$id]['parent_id']]) || $array[$id]['parent_id'] == $id) {
             return $i;
@@ -170,7 +170,7 @@ trait AdminTree
     }
 
     //获取权限树
-    public function getAuthTreeAccess($my_id)
+    public function getAuthTreeAccess($my_id): string
     {
         $id    = '';
         $n_str = '';
@@ -181,7 +181,7 @@ trait AdminTree
             $text  = $this->text[$level['level']] ?? end($this->text);
 
             foreach ($child as $k => $v) {
-                @extract($v);
+                extract($v, EXTR_OVERWRITE);
 
                 if ($this->getChild($k)) {
                     eval("\$n_str = \"$text[0]\";");
@@ -275,9 +275,9 @@ trait AdminTree
     }
 
     //获取父级菜单
-    protected function getMenuParent($arr, $my_id, $parent_ids = array())
+    protected function getMenuParent($arr, $my_id, $parent_ids = [])
     {
-        $a = array();
+        $a = [];
         if (is_array($arr)) {
             foreach ($arr as $id => $a) {
                 if (($a['id'] === $my_id) && $a['parent_id'] !== 0) {
@@ -314,7 +314,7 @@ trait AdminTree
      * @param Model $model
      * @return string
      */
-    protected function getTreeList($model)
+    protected function getTreeList($model): string
     {
 
         $data = $model->column('id,name,parent_id', 'id');
@@ -364,7 +364,7 @@ trait AdminTree
      * @param int $selected
      * @return string
      */
-    protected function getSelectList($model, $selected = 0)
+    protected function getSelectList($model, $selected = 0): string
     {
         $data = $model->column('id,parent_id,name', 'id');
 
@@ -374,4 +374,3 @@ trait AdminTree
     }
 
 }
-

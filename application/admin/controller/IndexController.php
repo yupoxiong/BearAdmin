@@ -17,12 +17,11 @@ class IndexController extends Controller
 {
     public function index(Request $request)
     {
-
         $index_config = config('admin.index');
 
         //默认密码修改检测
         $password_danger = 0;
-        if (1 === ((int)$this->user->id) && $index_config['password_warning'] && password_verify('super-admin', base64_decode($this->user->password))) {
+        if (1 === ((int)$this->user->id) && $index_config['password_warning'] && password_verify('super_admin', base64_decode($this->user->password))) {
             $password_danger = 1;
         }
 
