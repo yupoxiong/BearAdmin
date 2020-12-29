@@ -48,7 +48,7 @@ EOF;
 if (\$file) {
     \$param['[FIELD_NAME]'] = \$file;
 } else {
-    return error(\$attachment_[FIELD_NAME]->getError());
+    return admin_error(\$attachment_[FIELD_NAME]->getError());
 }
 \n
 EOF;
@@ -62,7 +62,7 @@ if (!empty(\$_FILES['[FIELD_NAME]']['name'][0])) {
     if (\$file) {
         \$param['[FIELD_NAME]'] = \$file;
     } else {
-        return error(\$attachment_[FIELD_NAME]->getError());
+        return admin_error(\$attachment_[FIELD_NAME]->getError());
     }
 }
 \n
@@ -97,8 +97,7 @@ EOF;
     public static function create($data)
     {
         $html = self::$html;
-        $html = str_replace('[FORM_NAME]', $data['form_name'], $html);
-        $html = str_replace('[FIELD_NAME]', $data['field_name'], $html);
+        $html = str_replace(array('[FORM_NAME]', '[FIELD_NAME]'), array($data['form_name'], $data['field_name']), $html);
         return $html;
     }
 }

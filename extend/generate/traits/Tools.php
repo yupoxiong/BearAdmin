@@ -30,91 +30,91 @@ trait Tools
         //默认小数点后位数
         $digit = 0;
 
-        if (0 === strpos($field_type, "tinyint")) {
+        if (0 === strpos($field_type, 'tinyint')) {
             $type   = 'tinyint';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "smallint")) {
+        } else if (0 === strpos($field_type, 'smallint')) {
             $type   = 'smallint';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "mediumint")) {
+        } else if (0 === strpos($field_type, 'mediumint')) {
             $type   = 'mediumint';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "int")) {
+        } else if (0 === strpos($field_type, 'int')) {
             $type   = 'int';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "bigint")) {
+        } else if (0 === strpos($field_type, 'bigint')) {
             $type   = 'bigint';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "float")) {
+        } else if (0 === strpos($field_type, 'float')) {
             $type   = 'float';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "double")) {
+        } else if (0 === strpos($field_type, 'double')) {
             $type   = 'double';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "decimal")) {
+        } else if (0 === strpos($field_type, 'decimal')) {
             $type   = 'decimal';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "char")) {
+        } else if (0 === strpos($field_type, 'char')) {
             $type   = 'char';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "varchar")) {
+        } else if (0 === strpos($field_type, 'varchar')) {
             $type   = 'varchar';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "tinytext")) {
+        } else if (0 === strpos($field_type, 'tinytext')) {
             $type   = 'tinytext';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "tinyblob")) {
+        } else if (0 === strpos($field_type, 'tinyblob')) {
             $type   = 'tinyblob';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "text")) {
+        } else if (0 === strpos($field_type, 'text')) {
             $type   = 'text';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "blob")) {
+        } else if (0 === strpos($field_type, 'blob')) {
             $type   = 'blob';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "longtext")) {
+        } else if (0 === strpos($field_type, 'longtext')) {
             $type   = 'longtext';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "longblob")) {
+        } else if (0 === strpos($field_type, 'longblob')) {
             $type   = 'longblob';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "date")) {
+        } else if (0 === strpos($field_type, 'date')) {
             $type   = 'date';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "datetime")) {
+        } else if (0 === strpos($field_type, 'datetime')) {
             $type   = 'datetime';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "timestamp")) {
+        } else if (0 === strpos($field_type, 'timestamp')) {
             $type   = 'timestamp';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "time")) {
+        } else if (0 === strpos($field_type, 'time')) {
             $type   = 'time';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "year")) {
+        } else if (0 === strpos($field_type, 'year')) {
             $type   = 'year';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
 
-        } else if (0 === strpos($field_type, "json")) {
+        } else if (0 === strpos($field_type, 'json')) {
             $type   = 'json';
             $length = $this->getMiddleStr($field_type, $type . '(', ')');
         }

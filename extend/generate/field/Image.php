@@ -47,7 +47,7 @@ EOF;
             if (\$file_[FIELD_NAME]) {
                 \$param['[FIELD_NAME]'] = \$file_[FIELD_NAME]->url;
             } else {
-                return error(\$attachment_[FIELD_NAME]->getError());
+                return admin_error(\$attachment_[FIELD_NAME]->getError());
             }
             \n
 EOF;

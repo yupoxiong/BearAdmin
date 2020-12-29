@@ -7,7 +7,7 @@
 namespace generate;
 
 use app\admin\model\AdminMenu;
-use generate\exception\GenerateException;
+use Exception;
 use generate\field\Editor;
 use generate\field\Field;
 use generate\field\File;
@@ -604,7 +604,7 @@ class Generate
                     $field_select_data = $value['field_select_data'];
 
                     if (empty($field_select_data)) {
-                        throw new GenerateException('请完善字段[' . $value['form_name'] . ']的自定义筛选/select数据');
+                        throw new Exception('请完善字段[' . $value['form_name'] . ']的自定义筛选/select数据');
                     }
 
                     $const_name = $this->getSelectFieldFormat($value['field_name'], 3);
@@ -896,7 +896,7 @@ class Generate
                         //自定义select
                         $field_select_data = $value['field_select_data'];
                         if (empty($field_select_data)) {
-                            throw new GenerateException('请完善字段[' . $value['form_name'] . ']的自定义筛选/select数据');
+                            throw new Exception('请完善字段[' . $value['form_name'] . ']的自定义筛选/select数据');
                         }
 
                         $field_name_list = $this->getSelectFieldFormat($value['field_name'], 2);
