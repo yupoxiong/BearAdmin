@@ -9,6 +9,9 @@ namespace app\[MODEL_MODULE]\model;
 
 class [MODEL_NAME] extends Model
 {
+    // 自定义选择数据
+    [SELECT_DATA_LIST]
+
     [SOFT_DELETE_USE2]
     [SOFT_DELETE_USE3]
     protected $name = '[TABLE_NAME]';

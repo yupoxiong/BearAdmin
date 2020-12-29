@@ -43,11 +43,11 @@ class SettingGroupController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('add')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             if (in_array($param['code'], $this->codeBlacklist)) {
-                return error('代码 ' . $param['code'] . ' 在黑名单内，禁止使用');
+                return admin_error('代码 ' . $param['code'] . ' 在黑名单内，禁止使用');
             }
 
             $result = $model::create($param);
@@ -61,7 +61,7 @@ class SettingGroupController extends Controller
             create_setting_menu($data);
             create_setting_file($data);
 
-            return $result ? success('添加成功', $url) : error();
+            return $result ? admin_success('添加成功', $url) : admin_error();
         }
 
         $this->assign([
@@ -80,7 +80,7 @@ class SettingGroupController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('edit')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             $result = $data->save($param);
@@ -88,7 +88,7 @@ class SettingGroupController extends Controller
             create_setting_menu($data);
             create_setting_file($data);
 
-            return $result ? success() : error();
+            return $result ? admin_success() : admin_error();
         }
 
         $this->assign([
@@ -106,10 +106,10 @@ class SettingGroupController extends Controller
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array($id, $model->noDeletionId)) {
-                return error('ID为' . $id . '的数据无法删除');
+                return admin_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -121,13 +121,13 @@ class SettingGroupController extends Controller
             foreach ($id as $item) {
                 $data = $model::get($item);
                 if ($data->$relation_name->count() > 0) {
-                    return error($data->name . $tips);
+                    return admin_error($data->name . $tips);
                 }
             }
         } else {
             $data = $model::get($id);
             if ($data->$relation_name->count() > 0) {
-                return error($data->name . $tips);
+                return admin_error($data->name . $tips);
             }
         }
 
@@ -137,7 +137,7 @@ class SettingGroupController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
 
@@ -157,11 +157,11 @@ class SettingGroupController extends Controller
         if (!$warning && $have) {
 
             cache('create_setting_file_' . $data->code, '1', 5);
-            return error('当前配置文件已存在，如果确认要替换请在5秒内再次点击生成按钮');
+            return admin_error('当前配置文件已存在，如果确认要替换请在5秒内再次点击生成按钮');
         }
 
         $result = create_setting_file($data);
-        return $result ? success('生成成功', URL_RELOAD) : error('生成失败');
+        return $result ? admin_success('生成成功', URL_RELOAD) : admin_error('生成失败');
 
     }
 
@@ -176,11 +176,11 @@ class SettingGroupController extends Controller
         if (!$warning && $have) {
 
             cache('create_setting_menu_' . $data->code, '1', 5);
-            return error('当前配置菜单已存在，如果确认要替换请在5秒内再次点击生成按钮');
+            return admin_error('当前配置菜单已存在，如果确认要替换请在5秒内再次点击生成按钮');
         }
 
         $result = create_setting_menu($data);
-        return $result ? success('生成成功', URL_RELOAD) : error('生成失败');
+        return $result ? admin_success('生成成功', URL_RELOAD) : admin_error('生成失败');
     }
 
     /**

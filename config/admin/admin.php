@@ -2,7 +2,7 @@
 
 /**
 * 后台设置:后台管理方面的设置
-* 此配置文件为自动生成，生成时间2020-04-16 14:52:16
+* 此配置文件为自动生成，生成时间2020-12-28 17:00:00
 */
 
 return [
@@ -22,7 +22,7 @@ return [
     //登录token验证
     'token'=>'0',
     //验证码
-    'captcha'=>'0',
+    'captcha'=>'1',
     //登录背景
     'background'=>'/static/admin/images/login-default-bg.jpg',
 ],
@@ -34,12 +34,5 @@ return [
     'show_notice'=>'1',
     //提示信息内容
     'notice_content'=>'欢迎来到使用本系统，左侧为菜单区域，右侧为功能区。',
-],
-    //已完成:qqq
-    'qqq'=>[
-    //qqqq
-    'qqqq'=>'333111',
-    //test_editor
-    'test'=>'<p>232332sdadsffdsa</p><p><br/></p><p>a</p><p>dsfadsfasdf</p>',
 ],
 ];

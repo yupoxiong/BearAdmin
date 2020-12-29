@@ -45,7 +45,7 @@ class AdminMenuController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('add')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
             $result = $model::create($param);
 
@@ -90,7 +90,7 @@ class AdminMenuController extends Controller
                 $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功', $url) : error();
+            return $result ? admin_success('添加成功', $url) : admin_error();
         }
 
         $parent_id = $request->param('parent_id') ?? 0;
@@ -111,11 +111,11 @@ class AdminMenuController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('edit')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             $result = $data->save($param);
-            return $result ? success() : error();
+            return $result ? admin_success() : admin_error();
         }
 
         $parent_id = $data->parent_id;
@@ -133,16 +133,16 @@ class AdminMenuController extends Controller
         //判断是否有子菜单
         $have_son = $model->whereIn('parent_id', $id)->find();
         if ($have_son) {
-            return error('有子菜单不可删除！');
+            return admin_error('有子菜单不可删除！');
         }
 
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array($id, $model->noDeletionId)) {
-                return error('ID为' . $id . '的数据无法删除');
+                return admin_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -153,7 +153,7 @@ class AdminMenuController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
 
     }
 

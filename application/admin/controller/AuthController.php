@@ -39,7 +39,7 @@ class AuthController extends Controller
 
                 if ($login_config['captcha'] == 1) {
                     if (!captcha_check($param['captcha'])) {
-                        return error('验证码错误');
+                        return admin_error('验证码错误');
                     }
                 } else if ($login_config['captcha'] == 2) {
 
@@ -54,11 +54,11 @@ class AuthController extends Controller
                     if (session('gt_server') == 1) {
                         $gee_test_result = $geeTest->successValidate($param['geetest_challenge'], $param['geetest_validate'], $param['geetest_seccode'], $data);
                         if (!$gee_test_result) {
-                            return error('验证失败');
+                            return admin_error('验证失败');
                         }
                     } else {
                         if (!$geeTest->failValidate($param['geetest_challenge'], $param['geetest_validate'])) {
-                            return error('验证失败');
+                            return admin_error('验证失败');
                         }
                     }
                 }
@@ -66,7 +66,7 @@ class AuthController extends Controller
 
             $validate_result = $validate->scene('login')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             //如果需要验证登录token
@@ -75,14 +75,14 @@ class AuthController extends Controller
                 $token_validate_result = $token_validate->rule('__token__', 'token')
                     ->check($param);
                 if (!$token_validate_result) {
-                    return error($token_validate->getError());
+                    return admin_error($token_validate->getError());
                 }
             }
 
             try {
                 $user = $model::login($param);
             } catch (Exception $e) {
-                return error($e->getMessage());
+                return admin_error($e->getMessage());
             }
 
             $remember = isset($param['remember']) ? true : false;
@@ -90,7 +90,7 @@ class AuthController extends Controller
 
             $redirect = session('redirect') ?? url('admin/index/index');
 
-            return success('登录成功', $redirect);
+            return admin_success('登录成功', $redirect);
         }
         $this->admin['title'] = '登录';
 
@@ -133,7 +133,7 @@ class AuthController extends Controller
         session('gt_server', $status);
         session('gt_uid', $data['gt_uid']);
 
-        return success($status, URL_CURRENT, $geeTest->getResponse());
+        return admin_success($status, URL_CURRENT, $geeTest->getResponse());
     }
 
     //ThinkPHP 图形验证码

@@ -18,24 +18,24 @@ const URL_CLOSE_LAYER = 'url://close-layer';
 /** 关闭当前弹窗并刷新父级 */
 const URL_CLOSE_REFRESH = 'url://close-refresh';
 
-if (!function_exists('success')) {
+if (!function_exists('admin_success')) {
 
-    function success($msg = '操作成功', $url = URL_BACK, $data = '', $wait = 0, array $header = [])
+    function admin_success($msg = '操作成功', $url = URL_BACK, $data = '', $wait = 0, array $header = [])
     {
-        result(1, $msg, $data, $url, $wait, $header);
+        admin_result(1, $msg, $data, $url, $wait, $header);
     }
 }
 
 
-if (!function_exists('error')) {
-    function error($msg = '操作失败', $url = URL_CURRENT, $data = '', $wait = 0, array $header = [])
+if (!function_exists('admin_error')) {
+    function admin_error($msg = '操作失败', $url = URL_CURRENT, $data = '', $wait = 0, array $header = [])
     {
-        result(0, $msg, $data, $url, $wait, $header);
+        admin_result(0, $msg, $data, $url, $wait, $header);
     }
 }
 
-if (!function_exists('result')) {
-    function result($code = 0, $msg = 'unknown', $data = '', $url = null, $wait = 3, array $header = [])
+if (!function_exists('admin_result')) {
+    function admin_result($code = 0, $msg = 'unknown', $data = '', $url = null, $wait = 3, array $header = [])
     {
         if (request()->isPost()) {
             $url      = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : url($url);
@@ -49,7 +49,6 @@ if (!function_exists('result')) {
             $response = Response::create($result, 'json')->header($header);
             throw new HttpResponseException($response);
         }
-
 
         if ($url === null) {
             $url = request()->server('HTTP_REFERER') ?? 'admin/index/index';
@@ -104,7 +103,7 @@ if (!function_exists('create_setting_file')) {
 if (!function_exists('create_setting_menu')) {
     /**
      * 生成配置文件
-     * @param $data SettingGroup
+     * @param SettingGroup $data
      * @return bool
      */
     function create_setting_menu($data)

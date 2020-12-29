@@ -8,24 +8,24 @@ use think\Response;
 use think\response\Redirect;
 
 
-if (!function_exists('success')) {
+if (!function_exists('index_success')) {
 
-    function success($msg = '操作成功', $url = URL_BACK, $data = '', $wait = 0, array $header = [])
+    function index_success($msg = '操作成功', $url = URL_BACK, $data = '', $wait = 0, array $header = [])
     {
-        result(1, $msg, $data, $url, $wait, $header);
+        index_result(1, $msg, $data, $url, $wait, $header);
     }
 }
 
 
-if (!function_exists('error')) {
-    function error($msg = '操作失败', $url = URL_CURRENT, $data = '', $wait = 0, array $header = [])
+if (!function_exists('index_error')) {
+    function index_error($msg = '操作失败', $url = URL_CURRENT, $data = '', $wait = 0, array $header = [])
     {
-        result(0, $msg, $data, $url, $wait, $header);
+        index_result(0, $msg, $data, $url, $wait, $header);
     }
 }
 
-if (!function_exists('result')) {
-    function result($code = 0, $msg = 'unknown', $data = '', $url = null, $wait = 3, array $header = [])
+if (!function_exists('index_result')) {
+    function index_result($code = 0, $msg = 'unknown', $data = '', $url = null, $wait = 3, array $header = [])
     {
         if (request()->isPost()) {
             $url = (strpos($url, '://') || 0 === strpos($url, '/')) ? $url : url($url);

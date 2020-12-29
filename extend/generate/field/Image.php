@@ -41,38 +41,37 @@ EOF;
     //控制器添加上传
     public static $controllerAddCode =
         <<<EOF
-//处理[FORM_NAME]上传
-\$attachment_[FIELD_NAME] = new \app\common\model\Attachment;
-\$file_[FIELD_NAME]       = \$attachment_[FIELD_NAME]->upload('[FIELD_NAME]');
-if (\$file_[FIELD_NAME]) {
-    \$param['[FIELD_NAME]'] = \$file_[FIELD_NAME]->url;
-} else {
-    return error(\$attachment_[FIELD_NAME]->getError());
-}
-\n
+            //处理[FORM_NAME]上传
+            \$attachment_[FIELD_NAME] = new \app\common\model\Attachment;
+            \$file_[FIELD_NAME]       = \$attachment_[FIELD_NAME]->upload('[FIELD_NAME]');
+            if (\$file_[FIELD_NAME]) {
+                \$param['[FIELD_NAME]'] = \$file_[FIELD_NAME]->url;
+            } else {
+                return error(\$attachment_[FIELD_NAME]->getError());
+            }
+            \n
 EOF;
 
 
     //控制器修改上传
     public static $controllerEditCode =
         <<<EOF
-//处理[FORM_NAME]上传
-if (!empty(\$_FILES['[FIELD_NAME]']['name'])) {
-    \$attachment_[FIELD_NAME] = new \app\common\model\Attachment;
-    \$file_[FIELD_NAME]       = \$attachment_[FIELD_NAME]->upload('[FIELD_NAME]');
-    if (\$file_[FIELD_NAME]) {
-        \$param['[FIELD_NAME]'] = \$file_[FIELD_NAME]->url;
-    }
-}
-\n
+            //处理[FORM_NAME]上传
+            if (!empty(\$_FILES['[FIELD_NAME]']['name'])) {
+                \$attachment_[FIELD_NAME] = new \app\common\model\Attachment;
+                \$file_[FIELD_NAME]       = \$attachment_[FIELD_NAME]->upload('[FIELD_NAME]');
+                if (\$file_[FIELD_NAME]) {
+                    \$param['[FIELD_NAME]'] = \$file_[FIELD_NAME]->url;
+                }
+            }
+            \n
 EOF;
 
 
     public static function create($data)
     {
         $html = self::$html;
-        $html = str_replace('[FORM_NAME]', $data['form_name'], $html);
-        $html = str_replace('[FIELD_NAME]', $data['field_name'], $html);
+        $html = str_replace(array('[FORM_NAME]', '[FIELD_NAME]'), array($data['form_name'], $data['field_name']), $html);
         return $html;
     }
 }

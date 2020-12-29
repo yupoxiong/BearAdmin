@@ -1,42 +1,49 @@
 <?php
 /**
+ * 上传单图
  * @author yupoxiong<i@yufuping.com>
  */
 
 namespace generate\field;
 
-class File extends Field
+class Video extends Field
 {
-
     public static $html = <<<EOF
-<div class="form-group">
-    <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-    <div class="col-sm-10 col-md-4"> 
-        <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" type="file" class="form-control field-file" >
+    <div class="form-group">
+        <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
+        <div class="col-sm-10 col-md-4"> 
+            <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" type="file" class="form-control field-video" >
+        </div>
     </div>
-</div>
-<script>
+    <script>
     $('#[FIELD_NAME]').fileinput({
         language: 'zh',
+        overwriteInitial: true,
         browseLabel: '浏览',
         initialPreviewAsData: true,
         dropZoneEnabled: false,
         showUpload:false,
         showRemove: false,
-        allowedFileExtensions: ['jpg', 'png', 'gif','bmp','svg','jpeg','mp4','doc','docx','pdf','xls','xlsx','ppt','pptx','txt'],
-        //默认限制10M
-        maxFileSize:10240
+        allowedFileTypes:['video'],
+        allowedPreviewTypes: ['video'],
+         initialPreviewFileType:'video',
+        initialPreviewConfig: [
+        {
+            type:"video",
+            filetype:'video/mp4'
+        }],
+
+        // 限制100MB
+        maxFileSize:1024000,
     });
-</script>\n
+    </script>\n
 EOF;
 
-
-
     public static $rules = [
-        'required'  => '非空',
-        'file_size' => '文件大小限制',
-        'file_ext'  => '文件后缀限制',
-        'regular'   => '自定义正则'
+        'required'   => '非空',
+        'file_size'  => '文件大小限制',
+        'file_video' => '视频类型',
+        'regular'    => '自定义正则'
     ];
 
 
@@ -68,7 +75,6 @@ EOF;
             }
             \n
 EOF;
-
 
 
     public static function create($data)

@@ -2,7 +2,7 @@
 
 use think\response\Json;
 
-if(!function_exists('success')){
+if(!function_exists('api_success')){
     /**
      * 操作成功
      * @param string $msg
@@ -10,13 +10,13 @@ if(!function_exists('success')){
      * @param int $code
      * @return Json
      */
-    function success($data = '', $msg = 'success', $code = 200)
+    function api_success($data = [], $msg = 'success', $code = 200)
     {
-        return result($msg, $data, $code);
+        return api_result($msg, $data, $code);
     }
 }
 
-if(!function_exists('error')){
+if(!function_exists('api_error')){
     /**
      * 操作失败
      * @param string $msg
@@ -24,13 +24,13 @@ if(!function_exists('error')){
      * @param int $code
      * @return Json
      */
-    function error($msg = 'fail', $data = '', $code = 500)
+    function api_error($msg = 'fail', $data = [], $code = 500)
     {
-        return result($msg, $data, $code);
+        return api_result($msg, $data, $code);
     }
 }
 
-if(!function_exists('result')){
+if(!function_exists('api_result')){
     /**
      * 返回json结果
      * @param string $msg
@@ -38,7 +38,7 @@ if(!function_exists('result')){
      * @param int $code
      * @return Json
      */
-    function result($msg = 'fail', $data = '', $code = 500)
+    function api_result($msg = 'fail', $data =[], $code = 500)
     {
         $header = [];
         //处理跨域请求问题
@@ -58,7 +58,7 @@ if(!function_exists('result')){
     }
 }
 
-if(!function_exists('unauthorized')){
+if(!function_exists('api_unauthorized')){
     /**
      * 未授权
      * @param string $msg
@@ -66,13 +66,13 @@ if(!function_exists('unauthorized')){
      * @param int $code
      * @return Json
      */
-    function unauthorized($msg = 'unauthorized', $data = '', $code = 401)
+    function api_unauthorized($msg = 'unauthorized', $data = '', $code = 401)
     {
-        return result($msg, $data, $code);
+        return api_result($msg, $data, $code);
     }
 }
 
-if(!function_exists('client_error')){
+if(!function_exists('api_client_error')){
     /**
      * 客户端错误
      * @param string $msg
@@ -80,13 +80,13 @@ if(!function_exists('client_error')){
      * @param int $code
      * @return Json
      */
-    function client_error($msg = 'client error', $data = '', $code = 400)
+    function api_client_error($msg = 'client error', $data = '', $code = 400)
     {
-        return result($msg, $data, $code);
+        return api_result($msg, $data, $code);
     }
 }
 
-if(!function_exists('server_error')){
+if(!function_exists('api_server_error')){
     /**
      * 服务端错误
      * @param string $msg
@@ -94,13 +94,13 @@ if(!function_exists('server_error')){
      * @param int $code
      * @return Json
      */
-    function server_error($msg = 'server error', $data = '', $code = 500)
+    function api_server_error($msg = 'server error', $data = '', $code = 500)
     {
-        return result($msg, $data, $code);
+        return api_result($msg, $data, $code);
     }
 }
 
-if(!function_exists('error_404')){
+if(!function_exists('api_error_404')){
     /**
      * 资源或接口不存在
      * @param string $msg
@@ -108,8 +108,8 @@ if(!function_exists('error_404')){
      * @param int $code
      * @return Json
      */
-    function error_404($msg = '404 not found', $data = '', $code = 404)
+    function api_error_404($msg = '404 not found', $data = '', $code = 404)
     {
-        return result($msg, $data, $code);
+        return api_result($msg, $data, $code);
     }
 }

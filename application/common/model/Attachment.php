@@ -101,10 +101,9 @@ class Attachment extends Model
         return $thumbnail;
     }
 
-    public function getFileUrlAttr($value, $data)
+    public function getFileUrlAttr($value, $data): string
     {
-        $request = request();
-        $url_pre = $request->scheme() . '://' . $request->host();
+        $url_pre =  request()->scheme() . '://' .  request()->host();
         return $url_pre . $data['url'];
     }
 

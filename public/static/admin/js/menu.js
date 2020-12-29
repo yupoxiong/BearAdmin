@@ -11,10 +11,13 @@ $(function () {
      * Get access to plugins
      */
 
-    $('[data-toggle="control-sidebar"]').controlSidebar();
-    $('[data-toggle="push-menu"]').pushMenu();
-    var $pushMenu = $('[data-toggle="push-menu"]').data('lte.pushmenu');
-    var $controlSidebar = $('[data-toggle="control-sidebar"]').data('lte.controlsidebar');
+    let $JControlSidebar = $('[data-toggle="control-sidebar"]');
+
+    let $JPushMenu = $('[data-toggle="push-menu"]');
+    $JControlSidebar.controlSidebar();
+    $JPushMenu.pushMenu();
+    var $pushMenu = $JPushMenu.data('lte.pushmenu');
+    var $controlSidebar = $JControlSidebar.data('lte.controlsidebar');
     var $layout = $('body').data('lte.layout');
     $(window).on('load', function () {
         // Reinitialize variables on load
@@ -46,8 +49,8 @@ $(function () {
     /**
      * Get a prestored setting
      *
-     * @param String name Name of of the setting
      * @returns String The value of the setting | null
+     * @param name
      */
     function get(name) {
         if (typeof (Storage) !== 'undefined') {
@@ -60,9 +63,9 @@ $(function () {
     /**
      * Store a new settings in the browser
      *
-     * @param String name Name of the setting
-     * @param String val Value of the setting
      * @returns void
+     * @param name
+     * @param val
      */
     function store(name, val) {
         if (typeof (Storage) !== 'undefined') {
@@ -75,13 +78,14 @@ $(function () {
     /**
      * Toggles layout classes
      *
-     * @param String cls the layout class to toggle
      * @returns void
+     * @param cls
      */
     function changeLayout(cls) {
-        $('body').toggleClass(cls);
+        let $body = $('body');
+        $body.toggleClass(cls);
         $layout.fixSidebar();
-        if ($('body').hasClass('fixed') && cls == 'fixed') {
+        if ($body.hasClass('fixed') && cls === 'fixed') {
             $pushMenu.expandOnHover();
             $layout.activate()
         }
@@ -90,8 +94,8 @@ $(function () {
 
     /**
      * Replaces the old skin with the new skin
-     * @param String cls the new skin class
      * @returns Boolean false to prevent link's default action
+     * @param cls
      */
     function changeSkin(cls) {
         $.each(mySkins, function (i) {
@@ -109,6 +113,7 @@ $(function () {
      * @returns void
      */
     function setup() {
+        let $body = $('body');
         var tmp = get('skin');
         if (tmp && $.inArray(tmp, mySkins))
             changeSkin(tmp);
@@ -154,13 +159,13 @@ $(function () {
         });
 
         //  Reset options
-        if ($('body').hasClass('fixed')) {
+        if ($body.hasClass('fixed')) {
             $('[data-layout="fixed"]').attr('checked', 'checked')
         }
-        if ($('body').hasClass('layout-boxed')) {
+        if ($body.hasClass('layout-boxed')) {
             $('[data-layout="layout-boxed"]').attr('checked', 'checked')
         }
-        if ($('body').hasClass('sidebar-collapse')) {
+        if ($body.hasClass('sidebar-collapse')) {
             $('[data-layout="sidebar-collapse"]').attr('checked', 'checked')
         }
 

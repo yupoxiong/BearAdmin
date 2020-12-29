@@ -28,12 +28,12 @@ class Field
 
     //列表名字
     public static $listNameHtml = <<<EOF
-<th>[FORM_NAME]</th>\n
+            <th>[FORM_NAME]</th>\n
 EOF;
 
     //列表字段
     public static $listFieldHtml = <<<EOF
-<td>{\$item.[FIELD_NAME]}</td>\n
+            <td>{\$item.[FIELD_NAME]}</td>\n
 EOF;
 
     //列表关联筛选
@@ -58,19 +58,22 @@ EOF;
     //列表自定义筛选数据
     public static $listSearchSelectHtml = <<<EOF
 <div class="form-group">
-    <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm index-search">
-        <option value="">[FORM_NAME]</option>
-        [SELECT_OPTION]
-    </select>
-</div>
-<script>
-    $(function () {
-        $('#[FIELD_NAME]').select2({
-        width:'100%'
-        });
-    });
-</script>\n
+                        <select name="[FIELD_NAME]" id="[FIELD_NAME]" class="form-control input-sm index-search">
+                            <option value="">[FORM_NAME]</option>
+                            {foreach \$[FIELD_LIST] as \$key=>\$value}
+                            <option value="{\$key}" {if isset($[FIELD_NAME]) && ''!==$[FIELD_NAME] && $[FIELD_NAME]==\$key}selected{/if}>{\$value}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#[FIELD_NAME]').select2({
+                            width:'100%'
+                            });
+                        });
+                    </script>\n
 EOF;
+
 
     //列表日期筛选
     public static $listSearchDate = <<<EOF

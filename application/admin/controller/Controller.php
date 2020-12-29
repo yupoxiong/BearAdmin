@@ -58,14 +58,14 @@ class Controller extends \think\Controller
         //验证权限
         if (!in_array($this->url, $this->authExcept, true)) {
             if (!$this->isLogin()) {
-                error('未登录', 'auth/login');
+                admin_error('未登录', 'auth/login');
             } else if ($this->user->id !== 1 && !$this->authCheck($this->user)) {
-                error('无权限', $this->request->isGet() ? null : URL_CURRENT);
+                admin_error('无权限', $this->request->isGet() ? null : URL_CURRENT);
             }
         }
 
         if ((int)$request->param('check_auth') === 1) {
-            success();
+            admin_success();
         }
 
         //记录日志

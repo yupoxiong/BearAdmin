@@ -42,7 +42,7 @@ class SettingController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('add')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             foreach ($param['config_name'] as $key => $value) {
@@ -50,11 +50,11 @@ class SettingController extends Controller
                     || ($param['config_field'][$key] == '')
                     || ($param['config_type'][$key] == '')
                 ) {
-                    return error('设置信息不完整');
+                    return admin_error('设置信息不完整');
                 }
 
                 if (in_array($param['config_type'][$key], ['select', 'multi_select', 'radio', 'checkbox']) && ($param['config_option'][$key] == '')) {
-                    return error('设置信息不完整');
+                    return admin_error('设置信息不完整');
                 }
 
                 $content[] = [
@@ -80,7 +80,7 @@ class SettingController extends Controller
             $group = SettingGroup::get($result->setting_group_id);
             create_setting_file($group);
 
-            return $result ? success('添加成功', $url) : error();
+            return $result ? admin_success('添加成功', $url) : admin_error();
         }
 
         $this->assign([
@@ -100,7 +100,7 @@ class SettingController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('edit')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             foreach ($param['config_name'] as $key => $value) {
@@ -108,11 +108,11 @@ class SettingController extends Controller
                     || ($param['config_field'][$key] == '')
                     || ($param['config_type'][$key] == '')
                 ) {
-                    return error('设置信息不完整');
+                    return admin_error('设置信息不完整');
                 }
 
                 if (in_array($param['config_type'][$key], ['select', 'multi_select', 'radio', 'checkbox']) && ($param['config_option'][$key] == '')) {
-                    return error('设置信息不完整');
+                    return admin_error('设置信息不完整');
                 }
 
                 $content[] = [
@@ -133,7 +133,7 @@ class SettingController extends Controller
             $group = SettingGroup::get($data->setting_group_id);
             create_setting_file($group);
 
-            return $result ? success() : error();
+            return $result ? admin_success() : admin_error();
         }
 
         $this->assign([
@@ -151,10 +151,10 @@ class SettingController extends Controller
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array((int)$id, $model->noDeletionId, true)) {
-                return error('ID为' . $id . '的数据无法删除');
+                return admin_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -164,7 +164,7 @@ class SettingController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
 
@@ -253,7 +253,7 @@ class SettingController extends Controller
             create_setting_file($group);
         }
 
-        return $result ? success('修改成功', URL_RELOAD) : error();
+        return $result ? admin_success('修改成功', URL_RELOAD) : admin_error();
 
     }
 

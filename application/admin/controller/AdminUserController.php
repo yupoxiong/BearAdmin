@@ -41,7 +41,7 @@ class AdminUserController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('add')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
             $result = $model::create($param);
 
@@ -50,7 +50,7 @@ class AdminUserController extends Controller
                 $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功', $url) : error();
+            return $result ? admin_success('添加成功', $url) : admin_error();
         }
 
         $role = AdminRole::all(function ($query) {
@@ -72,11 +72,11 @@ class AdminUserController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('edit')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             $result = $data->save($param);
-            return $result ? success() : error();
+            return $result ? admin_success() : admin_error();
         }
 
         $role = AdminRole::all(function ($query) {
@@ -98,10 +98,10 @@ class AdminUserController extends Controller
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array($id, $model->noDeletionId)) {
-                return error('ID为' . $id . '的数据无法删除');
+                return admin_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -111,7 +111,7 @@ class AdminUserController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
 
@@ -119,14 +119,14 @@ class AdminUserController extends Controller
     public function enable($id, AdminUser $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 1]);
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
     //禁用
     public function disable($id, AdminUser $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 0]);
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
     //个人资料
@@ -138,29 +138,29 @@ class AdminUserController extends Controller
 
                 $validate_result = $validate->scene('password')->check($param);
                 if (!$validate_result) {
-                    return error($validate->getError());
+                    return admin_error($validate->getError());
                 }
 
                 if (!password_verify($param['password'], base64_decode($this->user->password))) {
-                    return error('当前密码不正确');
+                    return admin_error('当前密码不正确');
                 }
                 $param['password'] = $param['new_password'];
             } else if ($param['update_type'] === 'avatar') {
                 if (!$request->file('avatar')) {
-                    return error('请上传新头像');
+                    return admin_error('请上传新头像');
                 }
                 $attachment = new Attachment();
                 $file       = $attachment->upload('avatar');
                 if ($file) {
                     $param['avatar'] = $file->url;
                 } else {
-                    return error($attachment->getError());
+                    return admin_error($attachment->getError());
                 }
             }
             if (false !== $this->user->save($param)) {
-                return success('修改成功', URL_RELOAD);
+                return admin_success('修改成功', URL_RELOAD);
             }
-            return error();
+            return admin_error();
         }
 
         return $this->fetch();

@@ -55,7 +55,7 @@ trait ApiAuth
             $token = $this->request->header($config['name']);
             //缺少token
             if (empty($token)) {
-                throw new HttpResponseException(error('缺少token'));
+                throw new HttpResponseException(api_error('缺少token'));
             }
 
             $this->token  = $token;
@@ -91,7 +91,7 @@ trait ApiAuth
 
             //统一处理token相关错误，返回401
             if (!$token_verify) {
-                throw new HttpResponseException(unauthorized('token验证错误,错误信息:'.$token_verify_msg));
+                throw new HttpResponseException(api_unauthorized('token验证错误,错误信息:'.$token_verify_msg));
             }
 
         }

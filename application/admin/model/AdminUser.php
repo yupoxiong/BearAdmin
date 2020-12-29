@@ -84,7 +84,7 @@ class AdminUser extends Model
         $role_urls  = AdminRole::where('id', 'in', $data['role'])->where('status', 1)->column('url');
         $url_id_str = '';
         foreach ($role_urls as $key => $val) {
-            $url_id_str .= $key == 0 ? $val : ',' . $val;
+            $url_id_str .= $key === 0 ? $val : ',' . $val;
         }
         $url_id   = array_unique(explode(',', $url_id_str));
         $auth_url = [];

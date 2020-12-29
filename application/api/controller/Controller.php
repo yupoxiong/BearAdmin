@@ -5,6 +5,7 @@
 
 namespace app\api\controller;
 
+use think\exception\HttpResponseException;
 use think\Request;
 use app\api\traits\ApiAuth;
 
@@ -40,18 +41,17 @@ class Controller
     {
         $this->request = $request;
 
-        //jwt验证
+        // jwt验证
         $this->jwtInit();
         $this->checkToken();
 
-        //初始化基本数据
+        // 初始化基本数据
         $this->param = $request->param();
         $this->page  = $this->param['page'] ?? 1;
         $this->limit = $this->param['limit'] ?? 10;
         $this->id    = $this->param['id'] ?? 0;
 
-        //limit防止过大处理
+        // limit防止过大处理
         $this->limit = $this->limit <= 100 ? $this->limit : 100;
     }
-
 }

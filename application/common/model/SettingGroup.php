@@ -7,6 +7,11 @@ namespace app\common\model;
 
 use think\model\concern\SoftDelete;
 
+/**
+ * Class SettingGroup
+ * @package app\common\model
+ * @property string $name
+ */
 class SettingGroup extends Model
 {
     use SoftDelete;

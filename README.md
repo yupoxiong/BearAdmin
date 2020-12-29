@@ -36,6 +36,37 @@ php think migrate:run
 访问`/admin`，默认超级管理员的账号密码都为`super_admin`。
 
 
+#### api模块路由示例
+```php
+<?php
+use think\facade\Route;
+
+/**
+ * api模块路由，如果不需要路由的直接忽略
+ * 示例的URL为/api/user
+ */
+Route::group('api', function () {
+
+    //登录接口
+    Route::post('auth/login','api/Auth/login');
+
+    //用户操作示例
+    Route::resource('user','api/User') ->only(['index','save', 'read', 'update','delete']);
+
+    //miss路由
+    Route::miss(function (){
+        return json([
+            'code' => 404,
+            'msg'  => '接口不存在',
+            'data' => '',
+        ], 404);
+    });
+
+
+});
+
+```
+
 ## 其他说明
 本项目采用大量的开源代码，包括ThinkPHP，AdminLTE等等。
 部分代码可能署名已被某些前辈去掉，我也没来得及去查找具体的作者，如果有需要修改的地方，可以与我取得联系，i#yupoxiong.com(手动替换#即可)。

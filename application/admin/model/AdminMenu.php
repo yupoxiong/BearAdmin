@@ -10,6 +10,8 @@ namespace app\admin\model;
  * Class AdminMenu
  * @package app\admin\model
  * @property int $id
+ * @property string $name
+ * @property string $log_method
  */
 class AdminMenu extends Model
 {

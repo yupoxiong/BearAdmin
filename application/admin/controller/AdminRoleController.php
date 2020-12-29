@@ -38,7 +38,7 @@ class AdminRoleController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('add')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
             $result = $model::create($param);
 
@@ -47,7 +47,7 @@ class AdminRoleController extends Controller
                 $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功', $url) : error();
+            return $result ? admin_success('添加成功', $url) : admin_error();
         }
 
         return $this->fetch();
@@ -62,11 +62,11 @@ class AdminRoleController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('edit')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
 
             $result = $data->save($param);
-            return $result ? success() : error();
+            return $result ? admin_success() : admin_error();
         }
 
         $this->assign([
@@ -82,10 +82,10 @@ class AdminRoleController extends Controller
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array($id, $model->noDeletionId)) {
-                return error('ID为' . $id . '的数据无法删除');
+                return admin_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -95,7 +95,7 @@ class AdminRoleController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
     //角色授权
@@ -105,18 +105,18 @@ class AdminRoleController extends Controller
         if ($request->isPost()) {
             $param = $request->param();
             if (!isset($param['url'])) {
-                return error('请至少选择一项权限');
+                return admin_error('请至少选择一项权限');
             }
             if (!in_array(1, $param['url'])) {
-                return error('首页权限必选');
+                return admin_error('首页权限必选');
             }
 
             asort( $param['url']);
 
             if (false !== $data->save($param)) {
-                return success();
+                return admin_success();
             }
-            return error();
+            return admin_error();
         }
 
         $menu = AdminMenu::order('sort_id', 'asc')->order('id', 'asc')->column('*', 'id');
@@ -134,14 +134,14 @@ class AdminRoleController extends Controller
     public function enable($id, AdminRole $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 1]);
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
     //禁用
     public function disable($id, AdminRole $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 0]);
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
 

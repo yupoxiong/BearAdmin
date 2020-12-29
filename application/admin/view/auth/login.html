@@ -14,7 +14,7 @@
     <!-- 如果有登录背景 -->
     {if $login_config.background}
     <style>
-        .login-page{
+        .login-page {
             background-color: #ececec;
             background-image: url({$login_config.background});
             background-repeat: no-repeat;
@@ -51,22 +51,24 @@
         <p class="login-box-msg">登录</p>
         <form class="dataForm" id="dataForm" action="" method="post">
             <div class="form-group has-feedback">
-                <input name="username" id="username" autocomplete="off" type="text" class="form-control" placeholder="用户名">
+                <input name="username" id="username" autocomplete="off" type="text" class="form-control"
+                       placeholder="用户名">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input name="password" id="password" autocomplete="off" type="password" class="form-control" placeholder="密码">
+                <input name="password" id="password" autocomplete="off" type="password" class="form-control"
+                       placeholder="密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
-            {if  $login_config.token}
+            {if $login_config.token}
             {:token()}
             {/if}
 
-            {if  $login_config.captcha==1}
+            {if $login_config.captcha==1}
             {include file='auth/captcha' /}
             {else/}
-            {if  $login_config.captcha==2}
+            {if $login_config.captcha==2}
             {include file='auth/gee_test' /}
             {/if}
             {/if}
@@ -122,6 +124,11 @@
                     required: "请输入密码",
                     minlength: "密码长度不能小于6"
                 },
+            },
+            submitHandler: function (form) {
+                console.log(typeof refreshCaptcha === "function");
+                formSubmit(form, false, typeof refreshCaptcha === "function" ? refreshCaptcha : false);
+                return false;
             }
         });
         $('#username').focus();
@@ -133,7 +140,7 @@
     /*检查浏览器*/
     function checkBrowser() {
         if (isIE()) {
-            if(adminDebug){
+            if (adminDebug) {
                 console.log('古代浏览器');
             }
             layer.open({
@@ -147,7 +154,7 @@
                 resize: false
             });
         } else {
-            if(adminDebug){
+            if (adminDebug) {
                 console.log('现代浏览器');
             }
         }

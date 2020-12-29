@@ -55,7 +55,7 @@ class UserLevelController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('add')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
             //处理图片上传
             $attachment_img = new Attachment;
@@ -63,7 +63,7 @@ class UserLevelController extends Controller
             if ($file_img) {
                 $param['img'] = $file_img->url;
             } else {
-                return error($attachment_img->getError());
+                return admin_error($attachment_img->getError());
             }
 
 
@@ -74,7 +74,7 @@ class UserLevelController extends Controller
                 $url = URL_RELOAD;
             }
 
-            return $result ? success('添加成功', $url) : error();
+            return $result ? admin_success('添加成功', $url) : admin_error();
         }
 
 
@@ -90,7 +90,7 @@ class UserLevelController extends Controller
             $param           = $request->param();
             $validate_result = $validate->scene('edit')->check($param);
             if (!$validate_result) {
-                return error($validate->getError());
+                return admin_error($validate->getError());
             }
             //处理图片上传
             if (!empty($_FILES['img']['name'])) {
@@ -103,7 +103,7 @@ class UserLevelController extends Controller
 
 
             $result = $data->save($param);
-            return $result ? success() : error();
+            return $result ? admin_success() : admin_error();
         }
 
         $this->assign([
@@ -120,10 +120,10 @@ class UserLevelController extends Controller
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array($id, $model->noDeletionId)) {
-                return error('ID为' . $id . '的数据无法删除');
+                return admin_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -133,21 +133,20 @@ class UserLevelController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
     //启用
     public function enable($id, UserLevel $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 1]);
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 
-
-//禁用
+    //禁用
     public function disable($id, UserLevel $model)
     {
         $result = $model->whereIn('id', $id)->update(['status' => 0]);
-        return $result ? success('操作成功', URL_RELOAD) : error();
+        return $result ? admin_success('操作成功', URL_RELOAD) : admin_error();
     }
 }

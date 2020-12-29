@@ -43,6 +43,7 @@ use generate\field\DatetimeRange;
 use generate\field\YearMonthRange;
 use think\Db;
 use think\db\Connection;
+use think\facade\Log;
 use think\Request;
 use generate\Generate;
 use think\response\Json;
@@ -73,13 +74,13 @@ class GenerateController extends Controller
     //获取表数据
     public function getTable()
     {
-        return success('success', URL_CURRENT, (new Generate())->getTable());
+        return admin_success('success', URL_CURRENT, (new Generate())->getTable());
     }
 
 
     public function getMenu()
     {
-        return success('success', URL_CURRENT, (new Generate())->getMenu(10000));
+        return admin_success('success', URL_CURRENT, (new Generate())->getMenu(10000));
     }
 
 
@@ -125,6 +126,10 @@ class GenerateController extends Controller
                 'export'       => $param['list_export'] ?? 0,
                 'refresh'      => $param['list_refresh'] ?? 0,
             ],
+            'module'     => [
+                'name_suffix' => $param['module_name_suffix'],
+                'icon'        => $param['module_icon'],
+            ],
         ];
 
 
@@ -158,7 +163,7 @@ class GenerateController extends Controller
                 //筛选字段
                 'index_search'      => $param['index_search'][$key][0] ?? 0,
                 //筛选自定义select
-                'index_search_data' => $param['index_search_data'][$key][0] ?? '',
+                'field_select_data' => $param['field_select_data'][$key][0] ?? '',
                 //验证场景
                 'field_scene'       => $param['field_scene'][$key] ?? 0,
                 //关联
@@ -182,10 +187,11 @@ class GenerateController extends Controller
             $generate->run();
             $result = true;
         } catch (Exception $e) {
-            $msg = $e->getMessage();
+            Log::error($e);
+            $msg = $e->getMessage();//.$e->getFile().$e->getLine();
         }
 
-        return $result ? success($msg, URL_CURRENT) : error($msg);
+        return $result ? admin_success($msg, URL_CURRENT) : admin_error($msg);
     }
 
 
@@ -201,7 +207,7 @@ class GenerateController extends Controller
     {
         $param = $request->param();
         if (empty($param['form_name']) || empty($param['field_name']) || empty($param['form_type'])) {
-            return error('信息不完整');
+            return admin_error('信息不完整');
         }
 
 
@@ -230,7 +236,7 @@ class GenerateController extends Controller
             $msg = $error->getMessage();
         }
 
-        return $result ? success($msg, URL_CURRENT, $data) : error($msg);
+        return $result ? admin_success($msg, URL_CURRENT, $data) : admin_error($msg);
     }
 
 
@@ -243,7 +249,7 @@ class GenerateController extends Controller
 
         $data = (new Generate())->getAll($name);
 
-        return success('success', URL_CURRENT, $data);
+        return admin_success('success', URL_CURRENT, $data);
 
     }
 
@@ -282,7 +288,7 @@ class GenerateController extends Controller
             $msg = $error->getMessage();
         }
 
-        return $result ? success($msg, URL_CURRENT, $data) : error($msg);
+        return $result ? admin_success($msg, URL_CURRENT, $data) : admin_error($msg);
     }
 
 

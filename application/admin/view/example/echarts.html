@@ -1,0 +1,223 @@
+<!--空白页面参考模版-->
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <section class="col-lg-6">
+
+            <div class="box sortable-widget">
+
+                <div class="box-body" style="">
+                    <div id="echarts1" style="min-height: 300px;">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="box sortable-widget">
+
+                <div class="box-body">
+                    <div id="echarts2" style="min-height: 300px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="col-lg-6">
+
+            <div class="box sortable-widget">
+
+                <div class="box-body" style="">
+                    <div id="echarts3" style="min-height: 300px;">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="box sortable-widget">
+
+                <div class="box-body">
+                    <div id="echarts4" style="min-height: 380px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+</section>
+
+<script>
+    echarts1();
+    echarts2();
+    echarts3();
+    echarts4();
+
+    function echarts1() {
+        let myChart = echarts.init(document.getElementById('echarts1'));
+        let option = {
+            title: {
+                text: '柱状图示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: []
+            }]
+        };
+        myChart.setOption(option);
+
+        $.post('echarts',{type:1},function (result){
+            myChart.setOption({
+                xAxis: {
+                    data: result.data.cate
+                },
+                series: [{
+                    // 根据名字对应到相应的系列
+                    name: '销量',
+                    data: result.data.data
+                }]
+            });
+        });
+
+    }
+
+
+    function echarts2()
+    {
+
+        let myChart = echarts.init(document.getElementById('echarts2'));
+        let option = {
+            title: {
+                text: '折线图示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'line',
+                data: []
+            }]
+        };
+        myChart.setOption(option);
+
+        $.post('echarts',{type:2},function (result){
+            myChart.setOption({
+                xAxis: {
+                    data: result.data.cate
+                },
+                series: [{
+                    // 根据名字对应到相应的系列
+                    name: '销量',
+                    data: result.data.data
+                }]
+            });
+        });
+    }
+
+
+    function echarts3()
+    {
+
+        let myChart = echarts.init(document.getElementById('echarts3'));
+        let option = {
+
+            title: {
+                text: '饼图示例',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [{
+                name: '销量',
+                type: 'pie',
+                data: []
+            }]
+        };
+        myChart.setOption(option);
+
+        $.post('echarts',{type:3},function (result){
+            myChart.setOption({
+
+                series: [{
+                    name: '销量',
+                    data: result.data
+                }]
+            });
+        });
+    }
+
+    function echarts4()
+    {
+
+        let myChart = echarts.init(document.getElementById('echarts4'));
+        let option = {
+            title: {
+                text: '雷达图'
+            },
+            tooltip: {},
+            legend: {
+                data: ['销量']
+            },
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+                }
+            },
+            radar: {
+                indicator: [
+                    { name: '裤子', max: 10},
+                    { name: '鞋子', max: 10},
+                    { name: '帽子', max: 10},
+                    { name: '袜子', max: 10},
+                    { name: '衣服', max: 10}
+                ]
+            },
+            series: [{
+                type: 'radar',
+                data: []
+            }]
+        };
+        myChart.setOption(option);
+
+        $.post('echarts',{type:4},function (result){
+            myChart.setOption({
+
+                series: [{
+                    // 根据名字对应到相应的系列
+                    name: '销量',
+                    data: result.data,
+                }]
+            });
+        });
+    }
+
+</script>
+
+{/block}

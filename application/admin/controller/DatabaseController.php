@@ -25,7 +25,7 @@ class DatabaseController extends Controller
     public function view($name)
     {
         if (!$name) {
-            return error('请指定要查看的表');
+            return admin_error('请指定要查看的表');
         }
 
         $field_list = Db::query('SHOW FULL COLUMNS FROM `' . $name . '`');
@@ -56,28 +56,28 @@ class DatabaseController extends Controller
     public function optimize($name)
     {
         if (!$name) {
-            return error('请指定要优化的表');
+            return admin_error('请指定要优化的表');
         }
         $name   = is_array($name) ? implode('`,`', $name) : $name;
         $result = db()->query("OPTIMIZE TABLE `{$name}`");
         if ($result) {
-            return success("数据表`{$name}`优化成功");
+            return admin_success("数据表`{$name}`优化成功");
         }
-        return error("数据表`{$name}`优化失败");
+        return admin_error("数据表`{$name}`优化失败");
     }
 
     //修复表
     public function repair($name)
     {
         if (!$name) {
-            return error('请指定要修复的表');
+            return admin_error('请指定要修复的表');
         }
         $name   = is_array($name) ? implode('`,`', $name) : $name;
         $result = db()->query("REPAIR TABLE `{$name}`");
         if ($result) {
-            return success("数据表`{$name}`修复成功");
+            return admin_success("数据表`{$name}`修复成功");
         }
-        return error("数据表`{$name}`修复失败");
+        return admin_error("数据表`{$name}`修复失败");
     }
 
 }

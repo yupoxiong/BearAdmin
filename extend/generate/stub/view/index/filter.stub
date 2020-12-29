@@ -11,7 +11,6 @@
                     </div>
                     [SEARCH_HTML]
                     [SORT_CODE]
-
                     <div class="form-group">
                         <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
                         </button>

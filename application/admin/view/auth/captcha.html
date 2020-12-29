@@ -5,14 +5,14 @@
     </div>
 
     <div class="col-sm-4" style="padding-left: 0">
-        <img style="width: 100%;max-width: 120px;" src="{:url('auth/captcha')}" alt="图形验证码" id="captchaImg" height="34" onclick="refreshCaptcha('captchaImg')">
+        <img style="width: 100%;max-width: 120px;" src="{:url('auth/captcha')}" alt="图形验证码" id="captchaImg" height="34" onclick="refreshCaptcha()">
     </div>
 </div>
 
 <script>
 
-    function refreshCaptcha(dom) {
-        let $dom = $('#'+dom);
+    function refreshCaptcha() {
+        let $dom = $('#captchaImg');
         $dom.attr('src','{:url("auth/captcha")}?'+img_name_random());
     }
 

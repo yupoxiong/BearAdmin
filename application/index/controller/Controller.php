@@ -42,14 +42,14 @@ class Controller extends \think\Controller
         $request = $this->request;
         if (!in_array($request->action(true), $this->authExcept)) {
             if (!$this->isLogin()) {
-                error('未登录', 'auth/login');
+                index_error('未登录', 'auth/login');
             } else if ($this->user->id !== 1 && !$this->isLogin()) {
-                error('无权限');
+                index_error('无权限');
             }
         }
 
         if ((int)$request->param('check_auth') === 1) {
-            success();
+            index_success();
         }
     }
 
