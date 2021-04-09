@@ -15,7 +15,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        return success('index');
+        return api_success('index');
     }
 
 }

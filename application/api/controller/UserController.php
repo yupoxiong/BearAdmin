@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index(User $model)
     {
         $data = $model->field('id,nickname,avatar')->page($this->page, $this->limit)->select();
-        return admin_success($data);
+        return api_success($data);
     }
 
     //新增
@@ -22,10 +22,10 @@ class UserController extends Controller
         $param           = $request->param();
         $validate_result = $validate->scene('add')->check($param);
         if (!$validate_result) {
-            return admin_error($validate->getError());
+            return api_error($validate->getError());
         }
         $result = $model::create($param);
-        return $result ? admin_success() : admin_error();
+        return $result ? api_success() : api_error();
     }
 
 
@@ -36,7 +36,7 @@ class UserController extends Controller
             $query->where('id', $id)->field('id,nickname,avatar');
         });
 
-        return admin_success($data);
+        return api_success($data);
     }
 
 
@@ -47,11 +47,11 @@ class UserController extends Controller
         $param           = $request->param();
         $validate_result = $validate->scene('edit')->check($param);
         if (!$validate_result) {
-            return admin_error($validate->getError());
+            return api_error($validate->getError());
         }
 
         $result = $data->save($param);
-        return $result ? admin_success() : admin_error();
+        return $result ? api_success() : api_error();
     }
 
 
@@ -61,10 +61,10 @@ class UserController extends Controller
         if (count($model->noDeletionId) > 0) {
             if (is_array($id)) {
                 if (array_intersect($model->noDeletionId, $id)) {
-                    return admin_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
+                    return api_error('ID为' . implode(',', $model->noDeletionId) . '的数据无法删除');
                 }
             } else if (in_array($id, $model->noDeletionId)) {
-                return admin_error('ID为' . $id . '的数据无法删除');
+                return api_error('ID为' . $id . '的数据无法删除');
             }
         }
 
@@ -74,6 +74,6 @@ class UserController extends Controller
             $result = $model->whereIn('id', $id)->delete();
         }
 
-        return $result ? admin_success('删除成功') : admin_error('删除失败');
+        return $result ? api_success('删除成功') : api_error('删除失败');
     }
 }

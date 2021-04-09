@@ -29,7 +29,7 @@ class AuthController extends Controller
         //数据验证
         $validate_result = $validate->scene('api_login')->check($param);
         if (!$validate_result) {
-            return error($validate->getError());
+            return api_error($validate->getError());
         }
 
         //登录逻辑
@@ -37,11 +37,11 @@ class AuthController extends Controller
             $user  = $model::login($param);
             $token = $this->getToken($user->id);
         } catch (Exception $e) {
-            return error($e->getMessage());
+            return api_error($e->getMessage());
         }
 
         //返回数据
-        return success(['token' => $token], '登录成功');
+        return api_success(['token' => $token], '登录成功');
     }
 
 }
