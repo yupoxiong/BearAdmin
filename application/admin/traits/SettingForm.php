@@ -66,7 +66,7 @@ EOF;
 EOF;
 
 
-    public $datatimeHtml = <<<EOF
+    public $datetimeHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -115,7 +115,7 @@ EOF;
 EOF;
 
 
-    public $emailhtml = <<<EOF
+    public $emailHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
@@ -207,7 +207,7 @@ EOF;
 EOF;
 
 
-    public $ampHtml = <<<EOF
+    public $mapHtml = <<<EOF
     
 <div class="form-group">
     <label class="col-sm-2 control-label">[FORM_NAME]</label>

@@ -22,9 +22,9 @@
                         <div class="form-group">
                             <label for="avatar" class="col-sm-2 control-label">头像</label>
                             <div class="col-sm-10 col-md-4">
-                                <input id="avatar" name="avatar" placeholder="请上传头像" {if
-                                       isset($data.avatar)}data-initial-preview="{$data.avatar}" {/if} type="file"
-                                class="form-control field-image" >
+                                <input id="avatar" name="avatar" placeholder="请上传头像"
+                                       data-initial-preview="{$data.avatar|default=''}" type="file"
+                                       class="form-control field-image">
                             </div>
                         </div>
                         <script>
@@ -40,6 +40,27 @@
                                 maxFileSize: 10240,
                             });
                         </script>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="username" name="username" value="{$data.username|default=''}"
+                                       placeholder="请输入用户名" type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nickname" class="col-sm-2 control-label">昵称</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="nickname" name="nickname" value="{$data.nickname|default=''}"
+                                       placeholder="请输入昵称" type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">手机号</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="mobile" name="mobile" value="{$data.mobile|default=''}" placeholder="请输入手机号"
+                                       type="tel" maxlength="11" class="form-control field-mobile">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="user_level_id" class="col-sm-2 control-label">用户等级</label>
                             <div class="col-sm-10 col-md-4">
@@ -59,31 +80,10 @@
                             $('#user_level_id').select2();
                         </script>
                         <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label">用户名</label>
-                            <div class="col-sm-10 col-md-4">
-                                <input id="username" name="username" value="{$data.username|default=''}"
-                                       placeholder="请输入用户名" type="text" class="form-control field-text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="mobile" class="col-sm-2 control-label">手机号</label>
-                            <div class="col-sm-10 col-md-4">
-                                <input id="mobile" name="mobile" value="{$data.mobile|default=''}" placeholder="请输入手机号"
-                                       type="tel" maxlength="11" class="form-control field-mobile">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="nickname" class="col-sm-2 control-label">昵称</label>
-                            <div class="col-sm-10 col-md-4">
-                                <input id="nickname" name="nickname" value="{$data.nickname|default=''}"
-                                       placeholder="请输入昵称" type="text" class="form-control field-text">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="password" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-10 col-md-4">
                                 <input id="password" name="password"
-                                       value="{$data.password|default='$2y$10$HU5eKkvynPi0iP/eQqSrmuwUMQhDB18QLLNCwtAvc09KKoLuv3I16'}"
+                                       value="{$data.password|default='JDJ5JDEwJFhwanQ5ZGZGV1ZBMkhRaXVjTzk3b2VrV3BlUW03MTZUajkvOWhGcGpSdVhQM1ZtM3gxQWsy'}"
                                        placeholder="请输入密码" type="password" class="form-control field-password">
                             </div>
                         </div>
@@ -143,16 +143,16 @@
     /** 表单验证 **/
     $('#dataForm').validate({
         rules: {
-            'user_level_id': {
+            'username': {
                 required: true,
             },
-            'username': {
+            'nickname': {
                 required: true,
             },
             'mobile': {
                 required: true,
             },
-            'nickname': {
+            'user_level_id': {
                 required: true,
             },
             'password': {
@@ -164,17 +164,17 @@
 
         },
         messages: {
-            'user_level_id': {
-                required: "用户等级不能为空",
-            },
             'username': {
                 required: "用户名不能为空",
+            },
+            'nickname': {
+                required: "昵称不能为空",
             },
             'mobile': {
                 required: "手机号不能为空",
             },
-            'nickname': {
-                required: "昵称不能为空",
+            'user_level_id': {
+                required: "用户等级不能为空",
             },
             'password': {
                 required: "密码不能为空",
