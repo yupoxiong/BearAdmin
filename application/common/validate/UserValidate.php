@@ -28,8 +28,9 @@ class UserValidate extends Validate
     ];
 
     protected $scene = [
-        'add'  => ['username', 'nickname', 'mobile', 'user_level_id', 'password', 'status',],
-        'edit' => ['username', 'nickname', 'mobile', 'user_level_id', 'password', 'status',],
+        'add'       => ['username', 'nickname', 'mobile', 'user_level_id', 'password', 'status',],
+        'edit'      => ['username', 'nickname', 'mobile', 'user_level_id', 'password', 'status',],
+        'api_login' => ['username', 'password'],
 
     ];
 

@@ -20,7 +20,7 @@
         "topthink/framework": "5.1.*",
         "topthink/think-migration": "^2.0",
         "topthink/think-captcha": "^2.0",
-        "lcobucci/jwt": "^3.3",
+        "lcobucci/jwt": "=3.3.2",
         "phpoffice/phpspreadsheet": "^1.8",
         "ext-curl": "*",
         "ext-json": "*"
