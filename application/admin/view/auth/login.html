@@ -61,10 +61,6 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
-            {if $login_config.token}
-            {:token()}
-            {/if}
-
             {if $login_config.captcha==1}
             {include file='auth/captcha' /}
             {else/}
