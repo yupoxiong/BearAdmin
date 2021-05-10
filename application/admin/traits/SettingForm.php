@@ -370,11 +370,14 @@ EOF;
 EOF;
 
     public $radioHtml = <<<EOF
-<div class="radio">
-    <label>
-        <input type="radio" name="[FIELD_NAME]" value="" checked="">
-        [FORM_NAME]
-    </label>
+
+<div class="form-group">
+    <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
+    <div class="col-sm-10 col-md-4">
+        <div class="radio">
+            [OPTION_DATA]
+        </div>
+    </div>
 </div>\n
 EOF;
 
@@ -545,6 +548,15 @@ EOF;
 </script>\n
 EOF;
 
+    public $radioList = <<<EOF
+
+    <label class="radioLabel">
+        <input type="radio" name="[FIELD_NAME]" value="[OPTION_VALUE]" [OPTION_CHECKED]>
+        [OPTION_NAME]
+    </label>
+EOF;
+
+
 
     protected function getFieldForm($type, $name, $field, $content, $option)
     {
@@ -575,6 +587,29 @@ EOF;
                 }
 
                 $form = str_replace('[OPTION_DATA]', $option_html, $form);
+                break;
+            case 'radio':
+
+                $option_html = '';
+                $option      = explode("\r\n", $option);
+                foreach ($option as $item) {
+                    $option_key_value = explode('||', $item);
+
+                    $checked = '';
+
+                    if ($content == $option_key_value[0]) {
+                        $checked = 'checked';
+                    }
+
+                    $html_tmp = $this->radioList;
+
+                    $html_tmp = str_replace(array('[OPTION_VALUE]', '[OPTION_NAME]', '[OPTION_CHECKED]'), array($option_key_value[0], $option_key_value[1], $checked), $html_tmp);
+
+                    $option_html.=$html_tmp;
+                }
+
+                $form = str_replace('[OPTION_DATA]', $option_html, $form);
+
                 break;
             default:
                 //$form = '';
