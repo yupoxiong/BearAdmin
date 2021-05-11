@@ -5,7 +5,6 @@
 
 namespace app\common\model;
 
-use Exception;
 use think\model\concern\SoftDelete;
 
 class User extends Model
@@ -20,10 +19,10 @@ class User extends Model
     protected $autoWriteTimestamp = true;
 
     //可搜索字段
-    protected $searchField = [];
+    protected $searchField = ['username', 'nickname', 'mobile',];
 
     //可作为条件的字段
-    protected $whereField = [];
+    protected $whereField = ['user_level_id',];
 
     //可做为时间
     protected $timeField = [];
@@ -40,28 +39,5 @@ class User extends Model
         return $this->belongsTo(UserLevel::class);
     }
 
-    /**
-     * 用户登录
-     * @param $param
-     * @return mixed
-     * @throws Exception
-     */
-    public static function login($param)
-    {
-        $username = $param['username'];
-        $password = $param['password'];
-        $user     = self::get(['username' => $username]);
-        if (!$user) {
-            exception('用户不存在');
-        }
 
-        if (!password_verify($password, base64_decode($user->password))) {
-            exception('密码错误');
-        }
-
-        if ((int)$user->status !== 1) {
-            exception('用户被冻结');
-        }
-        return $user;
-    }
 }

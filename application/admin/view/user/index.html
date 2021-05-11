@@ -13,8 +13,24 @@
 
                         <div class="form-group">
                             <input value="{$_keywords ? $_keywords : '' ;}"
-                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="">
+                                   name="_keywords" id="_keywords" class="form-control input-sm"
+                                   placeholder="用户名/昵称/手机号">
                         </div>
+                        <div class="form-group">
+                            <select name="user_level_id" id="user_level_id" class="form-control input-sm index-search">
+                                <option value="">用户等级</option>
+                                {foreach name='user_level_list' id='item'}
+                                <option value="{$item.id}" {if isset($user_level_id) &&''!==$user_level_id && $user_level_id==$item.id}selected{/if}>{$item.name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#user_level_id').select2({
+                                    width: '100%'
+                                });
+                            });
+                        </script>
 
 
                         <div class="form-group">

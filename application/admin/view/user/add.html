@@ -68,8 +68,7 @@
                                         data-placeholder="请选择用户等级">
                                     <option value=""></option>
                                     {foreach name='user_level_list' id='item'}
-                                    <option value="{$item.id}" {if isset($data) &&
-                                            $data.user_level_id==$item.id}selected{/if}>
+                                    <option value="{$item.id}" {if isset($data) && $data.user_level_id==$item.id}selected{/if}>
                                         {$item.name}
                                     </option>
                                     {/foreach}
@@ -90,8 +89,7 @@
                         <div class="form-group">
                             <label for="status" class="col-sm-2 control-label">是否启用</label>
                             <div class="col-sm-10 col-md-4">
-                                <input class="input-switch" id="status" value="1" {if(!isset($data)
-                                       ||$data.status==1)}checked{/if} type="checkbox"/>
+                                <input class="input-switch" id="status" value="1" {if(!isset($data) ||$data.status==1)}checked{/if} type="checkbox"/>
                                 <input class="switch field-switch" placeholder="是否启用" name="status"
                                        value="{$data.status|default='1'}" hidden/>
                             </div>
