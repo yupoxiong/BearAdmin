@@ -36,7 +36,7 @@ class UEditor
                 break;
             /* 上传涂鸦 */
             case 'uploadscrawl':
-                $config    = array(
+                $config = array(
                     'pathFormat' => $config['scrawlPathFormat'],
                     'maxSize'    => $config['scrawlMaxSize'],
                     'allowFiles' => $config['scrawlAllowFiles'],
@@ -121,8 +121,9 @@ class UEditor
     //上传文件
     private function upFile($fieldName)
     {
-        $file = request()->file($fieldName);
-        $info = $file->move(app()->getRootPath() . 'public/uploads/ueditor');
+        $file     = request()->file($fieldName);
+        $validate = config('attachment.validate');
+        $info     = $file->validate($validate)->move(app()->getRootPath() . 'public/uploads/ueditor');
         if ($info) {//上传成功
             $fname = '/uploads/ueditor/' . str_replace('\\', '/', $info->getSaveName());
 
@@ -209,7 +210,7 @@ class UEditor
     /*遍历获取目录下的指定类型的文件*/
     private function getFiles($path, $allowFiles, &$files = array()): ?array
     {
-        $public_path = app()->getRootPath().'public';
+        $public_path = app()->getRootPath() . 'public';
 
 
         if (substr($path, strlen($path) - 1) !== '/') {
@@ -344,13 +345,13 @@ class UEditor
         $base64Data = $this->param[$fieldName];
         $img        = base64_decode($base64Data);
 
-        $dirname          = app()->getRootPath() .'public/'. 'uploads/ueditor/scrawl/';
+        $dirname          = app()->getRootPath() . 'public/' . 'uploads/ueditor/scrawl/';
         $file['filesize'] = strlen($img);
         $file['oriName']  = $config['oriName'];
         $file['ext']      = '.png';
         $file['name']     = md5(uniqid('ue', true)) . $file['ext'];
         $file['fullName'] = $dirname . $file['name'];
-        $file['urlName'] = '/uploads/ueditor/scrawl/' . $file['name'];
+        $file['urlName']  = '/uploads/ueditor/scrawl/' . $file['name'];
         $fullName         = $file['fullName'];
 
         //检查文件大小是否超出限制
