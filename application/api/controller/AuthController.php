@@ -9,7 +9,7 @@ use Exception;
 use think\Request;
 use think\response\Json;
 
-class AuthController extends Controller
+class AuthController extends ApiBaseController
 {
 
     protected $authExcept = [

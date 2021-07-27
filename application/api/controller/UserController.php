@@ -6,7 +6,7 @@ use app\common\model\User;
 use app\common\validate\UserValidate;
 use think\Request;
 
-class UserController extends Controller
+class UserController extends ApiBaseController
 {
 
     //列表

@@ -9,7 +9,7 @@ use think\exception\HttpResponseException;
 use think\Request;
 use app\api\traits\ApiAuth;
 
-class Controller
+class ApiBaseController
 {
     use ApiAuth;
 

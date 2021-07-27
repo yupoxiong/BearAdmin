@@ -13,11 +13,11 @@ namespace app\api\controller;
 use app\common\model\Attachment;
 use think\response\Json;
 
-class PubController extends Controller
+class PubController extends ApiBaseController
 {
 
     protected $authExcept = [
-        'upload',
+        //'upload',
     ];
 
     /**

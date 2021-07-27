@@ -6,11 +6,11 @@
 
 namespace app\api\controller;
 
-class IndexController extends Controller
+class IndexController extends ApiBaseController
 {
 
     protected $authExcept = [
-        'index'
+        //'index'
     ];
 
     public function index()

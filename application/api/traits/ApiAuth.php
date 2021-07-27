@@ -58,6 +58,8 @@ trait ApiAuth
                 throw new HttpResponseException(api_error('缺少token'));
             }
 
+            $token = strpos($token, 'Bearer ') === 0 ? str_replace('Bearer ', '', $token) : $token;
+
             $this->token  = $token;
             $token_verify = true;
             $signer       = new Sha256();
@@ -91,7 +93,7 @@ trait ApiAuth
 
             //统一处理token相关错误，返回401
             if (!$token_verify) {
-                throw new HttpResponseException(api_unauthorized('token验证错误,错误信息:'.$token_verify_msg));
+                throw new HttpResponseException(api_unauthorized('token验证错误,错误信息:' . $token_verify_msg));
             }
 
         }
