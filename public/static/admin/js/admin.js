@@ -252,6 +252,7 @@ function formSubmit(form, successCallback, failCallback, errorCallback, showMsg 
                 }
             },
             error: function (xhr, type, errorThrown) {
+                layer.close(loadT);
                 //异常处理；
                 if (adminDebug) {
                     console.log('%csubmit fail!', ';color:#dd4b39');
@@ -259,7 +260,6 @@ function formSubmit(form, successCallback, failCallback, errorCallback, showMsg 
                     console.log("type:" + type + ",readyState:" + xhr.readyState + ",status:" + xhr.status);
                     console.log("url:" + action);
                     console.log("data:" + data);
-                    layer.close(loadT);
                 }
                 if(showMsg){
                     layer.msg('访问错误,代码' + xhr.status, {icon: 2, scrollbar: false,});
