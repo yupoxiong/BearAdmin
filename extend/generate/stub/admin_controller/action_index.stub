@@ -1,0 +1,27 @@
+    /**
+     * 列表
+     * @param Request $request
+     * @param [MODEL_NAME] $model
+     * @return string
+     * @throws Exception
+     */
+    public function index(Request $request, [MODEL_NAME] $model): string
+    {
+        $param = $request->param();
+        $data  = $model[RELATION_WITH]->scope('where', $param)
+            ->paginate([
+                'list_rows' => $this->admin['admin_list_rows'],
+                'var_page'  => 'page',
+                'query'     => $request->get(),
+            ]);
+        // 关键词，排序等赋值
+        $this->assign($request->get());
+
+        $this->assign([
+            'data'  => $data,
+            'page'  => $data->render(),
+            'total' => $data->total(),
+            [SEARCH_DATA_LIST]
+        ]);
+        return $this->fetch();
+    }

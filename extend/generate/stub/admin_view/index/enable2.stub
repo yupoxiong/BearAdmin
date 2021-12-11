@@ -1,0 +1,11 @@
+{if $item.status==1}
+<button class="btn btn-warning btn-xs AjaxButton" data-toggle="tooltip" title="禁用"  data-id="{$item.id}" data-confirm-title="禁用确认" data-confirm-content='您确定要禁用ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('disable')}">
+    [OPERATION_DISABLE_ICON]
+    [OPERATION_DISABLE_TEXT]
+</button>
+{else/}
+<button class="btn btn-success btn-xs AjaxButton" data-toggle="tooltip" title="启用"  data-id="{$item.id}" data-confirm-title="启用确认" data-confirm-content='您确定要启用ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('enable')}">
+    [OPERATION_ENABLE_ICON]
+    [OPERATION_ENABLE_TEXT]
+</button>
+{/if}

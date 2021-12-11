@@ -1,0 +1,29 @@
+<!--顶部搜索筛选-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header dataSearch">
+                <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+
+                    <div class="input-group input-group-sm searchGroup">
+                        <input value="{$_keywords ? $_keywords : '' ;}"
+                               name="_keywords" id="_keywords" class="form-control input-sm" placeholder="[SEARCH_FIELD]">
+                    </div>
+                    [SEARCH_HTML]
+                    [SORT_CODE]
+
+                    <div class="form-group searchGroup">
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                    [INDEX_EXPORT]
+                    <div class="form-group searchGroup">
+                        <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                class="fa  fa-eraser"></i> 清空查询
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

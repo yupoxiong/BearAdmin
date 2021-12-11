@@ -1,0 +1,13 @@
+<!-- 如果有登录背景 -->
+{if $login_config.background}
+<style>
+    .login-page {
+        background-color: #ececec;
+        background-image: url({$login_config.background});
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: 50% 50%;
+    }
+</style>
+{/if}

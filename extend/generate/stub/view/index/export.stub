@@ -1,4 +1,0 @@
-<div class="form-group">
-    <button onclick="exportData()" class="btn btn-sm btn-warning exportData" type="button"><i class="fa fa-search"></i> 导出
-    </button>
-</div>

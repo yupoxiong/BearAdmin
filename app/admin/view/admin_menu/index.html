@@ -1,0 +1,57 @@
+<!-- 空白页面参考模版 -->
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <a title="添加新数据" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{:url('add')}">
+                            <i class="fa fa-plus"></i> 添加
+                        </a>
+                        <button class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据"
+                                data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？"
+                                data-id="checked" data-url="{:url('del')}">
+                            <i class="fa fa-trash"></i> 删除
+                        </button>
+
+                        <button class="btn btn-default btn-sm ReloadButton" data-toggle="tooltip" title="刷新列表数据">
+                            <i class="fas fa-redo"></i> 刷新
+                        </button>
+                    </div>
+
+                    <div class="card-body table-responsive p-0" >
+                        <table class="table table-hover table-bordered dataTable text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <label for="dataCheckAll" class="dataCheckLabel"></label>
+                                    <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox"
+                                           placeholder="全选/取消">
+                                </th>
+                                <th>ID</th>
+                                <th>菜单名称</th>
+                                <th>url</th>
+                                <th>父级ID</th>
+                                <th>图标</th>
+                                <th>排序</th>
+                                <th>状态</th>
+                                <th>日志记录方式</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {$data|raw}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{/block}

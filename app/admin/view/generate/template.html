@@ -1,0 +1,178 @@
+<table>
+    <tbody id="data-template" style="display: none">
+    <tr>
+        <td>
+            <label>
+                <input class="form-control form-control-sm" name="field_nameFORM_INDEX"
+                       title="字段名，默认为数据库字段名，如非必要，请勿修改" data-toggle="tooltip" value="" placeholder="字段">
+            </label>
+            <br>
+            <label>
+                <input class="form-control form-control-sm field-type" value="" name="field_typeFORM_INDEX"
+                       title="默认为数据库字段类型，如非必要，请勿修改；修改格式：varchar(255),int(10),decimal(12,2)" data-toggle="tooltip"
+                       placeholder="字段类型">
+            </label>
+        </td>
+        <td>
+            <label>
+                <input class="form-control form-control-sm" name="form_nameFORM_INDEX"
+                       title="显示中文名称，默认为数据库字段备注" data-toggle="tooltip" placeholder="名称">
+            </label>
+            <br/>
+            <label>
+                <input class="form-control form-control-sm" name="field_defaultFORM_INDEX"
+                       title="表单内字段默认值，默认为数据库默认值，可自行修改" data-toggle="tooltip" placeholder="默认值">
+            </label>
+        </td>
+
+        <td>
+            <label class="bodyFormCheckbox">
+                <input type="checkbox" value="1" id="is_listFORM_INDEX" name="is_listFORM_INDEX">列表展示
+            </label>
+            <br/>
+            <label class="bodyFormCheckbox">
+                <input type="checkbox" value="1" id="list_sortFORM_INDEX" name="list_sortFORM_INDEX">参与排序
+            </label>
+        </td>
+
+        <td>
+            <label class="form-type-label">
+                <select class="form-control form-control-sm select2 form-type-select" data-validate="form_validateINDEX_ID" name="form_typeFORM_INDEX"
+                        onchange="selectField(this)">
+                    <option value="none">非表单字段</option>
+                    <option value="text">文本[text]</option>
+                    <option value="number">数字[number]</option>
+                    <option value="password">密码[password]</option>
+                    <option value="mobile">手机号[mobile]</option>
+                    <option value="email">邮箱[email]</option>
+                    <option value="id_card">身份证号[id_card]</option>
+                    <option value="url">网址[url]</option>
+                    <option value="ip">IP地址[ip]</option>
+                    <option value="textarea">文本域[textarea]</option>
+                    <option value="switch">开关[switch]</option>
+                    <option value="select">选择列表[select]</option>
+                    <option value="multi_select">多项选择列表[multi-select]</option>
+                    <option value="image">图片上传[image]</option>
+                    <option value="video">视频上传[video]</option>
+                    <option value="multi_image">多图上传[multi-image]</option>
+                    <option value="file">文件上传[file]</option>
+                    <option value="multi_file">多文件上传[multi-file]</option>
+                    <option value="date">日期[date]</option>
+                    <option value="date_range">日期范围[date-range]</option>
+                    <option value="datetime">日期时间[datetime]</option>
+                    <option value="datetime_range">日期时间范围[datetime-range]</option>
+                    <option value="year">年[year]</option>
+                    <option value="year_range">年范围[year-range]</option>
+                    <option value="year_month">年月[year-month]</option>
+                    <option value="year_month_range">年月范围[year-month-range]</option>
+                    <option value="map">地图选点[map]</option>
+                    <option value="color">颜色选择[color]</option>
+                    <option value="icon">图标选择[icon]</option>
+                    <option value="editor">富文本编辑器[editor]</option>
+                </select>
+            </label>
+            <br/>
+            <label class="form-validate-label">
+                <select class="form-control form-control-sm form-validate-select select2" multiple="multiple"
+                        name="form_validateFORM_INDEX[]" id="form_validateINDEX_ID">
+                    <option value="required">非空</option>
+                </select>
+            </label>
+        </td>
+
+        <td>
+            <label>
+                <select name="field_sceneFORM_INDEX[]"
+                        class="select2 form-control form-control-sm validateScene min-width-250"
+                        id="field_sceneINDEX_ID" multiple="multiple"
+                        data-placeholder="验证场景选择">
+                    <option value="admin_add">admin_add</option>
+                    <option value="admin_edit">admin_edit</option>
+                    <option value="api_add">api_add</option>
+                    <option value="api_edit">api_edit</option>
+                </select>
+            </label>
+        </td>
+
+        <td>
+            <label>
+                <input  name="custom_validateFORM_INDEX"
+                       class="form-control form-control-sm relation-input min-width-250"
+                       id="custom_validateINDEX_ID"
+                       title="自定义验证规则"
+                       data-toggle="tooltip" placeholder="自定义验证规则">
+            </label>
+
+            <br/>
+            <label>
+                <select name="index_searchFORM_INDEX"
+                        class="select2 form-control form-control-sm width-160"
+                        id="index_searchFORM_INDEX" data-placeholder="列表页筛选">
+                    <option value="0">不参与列表页筛选</option>
+                    <option value="search">关键词搜索</option>
+                    <option value="select">下拉列表筛选</option>
+                    <option value="date">日期范围筛选</option>
+                    <option value="datetime">日期时间范围筛选</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <textarea class="form-control form-control-sm" id="field_select_dataFORM_INDEX"
+                          name="field_select_dataFORM_INDEX"
+                          placeholder="自定义筛选/select数据，字段为[列表选择]生效。格式：value||name，多个选项换行"
+                          title="例如[性别]字段，表单[select]形式，数据内容为：0||保密  1||男  2||女。注意value和name的分割竖线为英文竖线，不同的选项要换行"
+                          data-toggle="tooltip"></textarea>
+            </label>
+        </td>
+
+        <td>
+            <label>
+                <select name="getter_setterFORM_INDEX"
+                        class="select2 form-control form-control-sm width-150"
+                        id="getter_setterFORM_INDEX" data-placeholder="获取/修改器">
+                    <option value="0">无需获取/修改器</option>
+                    <option value="switch">开关</option>
+                    <option value="date">日期</option>
+                    <option value="datetime">日期时间</option>
+                </select>
+            </label>
+            <br/>
+
+            <div class="form-inline relation-div">
+                <div class="form-group">
+                    <label>
+                        <select data-index="FORM_INDEX"  name="relation_typeFORM_INDEX"
+                                class="select2 form-control form-control-sm min-width-125"
+                                id="relation_typeFORM_INDEX" data-placeholder="是否关联字段"
+                                onchange="selectRelation(this)"
+                                data-relation-table="relation_tableFORM_INDEX"
+                                data-relation-show="relation_showFORM_INDEX"
+                        >
+                            <option value="0">非关联字段</option>
+                            <option value="1">外键一对一</option>
+                            <option value="2">外键一对多</option>
+                            <option value="3">主键一对一</option>
+                            <option value="4">主键一对多</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <input name="relation_showFORM_INDEX"
+                           class="form-control form-control-sm relation-input"
+                           id="relation_showINDEX_ID"
+                           title="belongsTo填写，例如文章发布人user_id要显示成User模型的nickname，填写nickname即可"
+                           data-toggle="tooltip" placeholder="关联显示字段">
+
+                    <input name="relation_tableFORM_INDEX"
+                           class="form-control form-control-sm relation-input"
+                           id="relation_tableINDEX_ID"
+                           title="一般此字段为表名，belongsTo的无须填写，hasOne/hasMany填写此字段，关联多个模型务必使用英文逗号隔开，例如用户关联多篇文章，多个积分记录，可以写成article,integral_log"
+                           data-toggle="tooltip" placeholder="关联表/模型">
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

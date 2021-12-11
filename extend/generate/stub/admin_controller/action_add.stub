@@ -1,0 +1,28 @@
+    /**
+     * 添加
+     * @param Request $request
+     * @param [MODEL_NAME] $model
+     * @param [VALIDATE_NAME]Validate $validate
+     * @return string|Json
+     * @throws Exception
+     */
+    public function add(Request $request, [MODEL_NAME] $model, [VALIDATE_NAME]Validate $validate)
+    {
+        if ($request->isPost()) {
+            $param           = $request->param();
+            $validate_result = $validate->scene('admin_add')->check($param);
+            if (!$validate_result) {
+                return admin_error($validate->getError());
+            }
+            [ADD_FIELD_CODE]
+            $result = $model::create($param);
+
+            $url = URL_BACK;
+            if (isset($param['_create']) && (int)$param['_create'] === 1) {
+               $url = URL_RELOAD;
+            }
+            return $result ? admin_success('添加成功', [], $url) : admin_error();
+        }
+        [RELATION_2]
+        return $this->fetch();
+    }

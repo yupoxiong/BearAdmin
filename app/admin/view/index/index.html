@@ -1,0 +1,21 @@
+<!-- 空白页面参考模版 -->
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+
+<section class="content">
+    <!-- 这里写内容即可 -->
+    <!--数据概览参考1-->
+    {include file='index/top_widget1' /}
+    <!--数据概览参考2-->
+    {include file='index/top_widget2' /}
+    <!--图标统计参考1-->
+    {include file='index/chart1' /}
+    <!--图标统计参考2-->
+    {include file='index/chart2' /}
+    <!--图标统计参考3-->
+    {include file='index/chart3' /}
+
+</section>
+
+{/block}

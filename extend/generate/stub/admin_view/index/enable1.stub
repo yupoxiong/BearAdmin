@@ -1,0 +1,7 @@
+<button class="btn btn-success btn-sm AjaxButton" data-toggle="tooltip" title="启用选中数据" data-confirm-title="启用确认" data-confirm-content="您确定要启用选中的数据吗？" data-id="checked" data-url="{:url('enable')}">
+    <i class="far fa-circle"></i> 启用
+</button>
+
+<button class="btn btn-warning btn-sm AjaxButton" data-toggle="tooltip" title="禁用选中数据" data-confirm-title="禁用确认" data-confirm-content="您确定要禁用选中的数据吗？" data-id="checked" data-url="{:url('disable')}">
+    <i class="fas fa-ban"></i> 禁用
+</button>

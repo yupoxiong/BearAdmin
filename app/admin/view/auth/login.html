@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{$admin.base.name|default='后台系统'}</title>
+    <link rel="icon" href="{$admin.base.logo|default='__ADMIN_IMAGES__/logo.png'}">
+    <link rel="apple-touch-icon" href="{$admin.base.logo|default='__ADMIN_IMAGES__/logo.png'}">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {include file='public/head_css' /}
+    {include file='public/head_js' /}
+    <!-- 登录背景相关 -->
+    {include file='auth/login_bg' /}
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a class="adminTitle"><b>{$admin.base.name|default='登录'}</b></a>
+    </div>
+
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">请输入账号密码进行登录</p>
+
+            <form action="" method="post" id="dataForm" class="dataForm">
+                <div class="input-group mb-3">
+                    <input name="username" id="username" type="text" class="form-control" placeholder="账号">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input name="password" id="password" type="password" class="form-control" placeholder="密码">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                {if $login_config.captcha==1}
+                {include file='auth/captcha' /}
+                {else/}
+                {if $login_config.captcha==2}
+                {include file='auth/gee_test' /}
+                {/if}
+                {/if}
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">
+                                记住我
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        {:token_field()}
+                        <button type="submit" class="btn btn-primary btn-block" id="loginButton">登录</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#dataForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 2
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名",
+                    minlength: "用户名长度不能小于2"
+                },
+                password: {
+                    required: "请输入密码",
+                    minlength: "密码长度不能小于6"
+                },
+            },
+            submitHandler: function (form) {
+                return  submitForm(form, false, typeof refreshCaptcha === "function" ? refreshCaptcha : false);
+            }
+        });
+        $('#username').focus();
+    });
+
+
+    checkBrowser();
+
+    /*检查浏览器*/
+    function checkBrowser() {
+        if (isIE()) {
+            if (adminDebug) {
+                console.log('古代浏览器');
+            }
+            layer.open({
+                type: 1,
+                content: $('#browser_warning').html(),
+                icon: 5,
+                title: '警告',
+                area: ['500px', '300px'],
+                closeBtn: 0,
+                moveType: 1,
+                resize: false
+            });
+        } else {
+            if (adminDebug) {
+                console.log('现代浏览器');
+            }
+        }
+    }
+
+    function isIE() {
+        return !!window.ActiveXObject || "ActiveXObject" in window;
+    }
+
+</script>
+</body>
+</html>

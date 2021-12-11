@@ -1,0 +1,28 @@
+<?php
+/**
+ * [NAME]控制器
+ */
+
+namespace app\[CONTROLLER_MODULE]\controller;
+
+use think\response\Json;
+use app\api\service\[CONTROLLER_NAME]Service;
+use app\common\validate\[VALIDATE_NAME]Validate;
+use app\api\exception\ApiServiceException;
+
+class [CONTROLLER_NAME]Controller extends ApiBaseController
+{
+    [ACTION_INDEX]
+
+    [ACTION_ADD]
+
+    [ACTION_INFO]
+
+    [ACTION_EDIT]
+
+    [ACTION_DEL]
+
+    [ACTION_DISABLE]
+
+    [ACTION_ENABLE]
+}

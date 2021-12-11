@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">柱状图统计</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+
+                    <div id="chart21" style="width: 100%;min-height: 380px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">带背景柱状图</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+
+                    <div id="chart22" style="width: 100%;min-height: 380px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    $(function (){
+        let chartDom = document.getElementById('chart21');
+        let myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            xAxis: {
+                type: 'category',
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: [120, 200, 150, 80, 70, 110, 130],
+                    type: 'bar'
+                }
+            ]
+        };
+
+
+        option && myChart.setOption(option);
+    });
+
+    $(function (){
+        let chartDom = document.getElementById('chart22');
+        let myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            xAxis: {
+                type: 'category',
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: [120, 200, 150, 80, 70, 110, 130],
+                    type: 'bar',
+                    showBackground: true,
+                    backgroundStyle: {
+                        color: 'rgba(180, 180, 180, 0.2)'
+                    }
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    });
+</script>

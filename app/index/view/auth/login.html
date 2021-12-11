@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>登录</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="__INDEX_PLUGINS__/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="__INDEX_PLUGINS__/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="__INDEX_CSS__/adminlte.min.css">
+    <link rel="stylesheet" href="__INDEX_PLUGINS__/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="__INDEX_PLUGINS__/sweetalert2/sweetalert2.min.css">
+    <!-- jQuery -->
+    <script src="__INDEX_PLUGINS__/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="__INDEX_PLUGINS__/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="__INDEX_PLUGINS__/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="__INDEX_PLUGINS__/jquery-validation/jquery.validate.min.js"></script>
+    <script src="__INDEX_PLUGINS__/jquery-validation/localization/messages_zh.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="__INDEX_JS__/adminlte.min.js"></script>
+    <script src="__INDEX_JS__/index.js"></script>
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a class="h1"><b>XX</b>网站</a>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">请输入账号密码登录</p>
+
+            <form action="" method="post" id="dataForm">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="账号">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user-alt"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" name="remember" value="1" id="remember">
+                            <label for="remember">
+                                记住我
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">登录</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center mt-2 mb-3">
+                <a href="#" class="btn btn-block btn-success">
+                    <i class="fab fa-weixin mr-2"></i> 使用微信登录
+                </a>
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-qq mr-2"></i> 使用QQ登录
+                </a>
+            </div>
+            <p class="mb-1">
+                <a href="{:url('auth/forget')}">忘记密码？</a>
+            </p>
+            <p class="mb-0">
+                <a href="{:url('auth/register')}" class="text-center">注册新账号</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $('#dataForm').validate({
+        rules: {
+            'username': {
+                required: true,
+            },
+            'password': {
+                required: true,
+            },
+        },
+        messages: {
+
+            'username': {
+                required: "用户名不能为空",
+            },
+            'password': {
+                required: "密码不能为空",
+            },
+        }
+    });
+
+
+</script>
+</body>
+</html>

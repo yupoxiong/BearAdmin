@@ -1,0 +1,60 @@
+{if !$admin.is_pjax}
+<!DOCTYPE html>
+<html lang="{$admin.locale|default='zh-CN'}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="csrf-token" content="{:token()}">
+    <link rel="icon" href="{$admin.base.logo|default='__ADMIN_IMAGES__/logo.png'}">
+    <link rel="apple-touch-icon" href="{$admin.base.logo|default='__ADMIN_IMAGES__/logo.png'}">
+    {/if}
+
+    {block name='title'}
+    <title>{$admin.title|default='Admin'} | {$admin.base.name|default='Admin'}</title>
+    {/block}
+
+    {if !$admin.is_pjax}
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {include file='public/head_css' /}
+    {include file='public/head_js' /}
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    {/if}
+
+    <!-- navbar(顶部) -->
+    {block name='navbar'}
+    {include file='public/navbar/navbar' /}
+    {/block}
+
+    <!-- 边栏(左侧) -->
+    {block name='sidebar'}
+    {include file='public/sidebar' /}
+    {/block}
+
+    <!-- 内容 -->
+    <div class="content-wrapper" id="pjaxContainer">
+        {block name='content'}
+        {/block}
+    </div>
+
+    <!-- 页脚(底部) -->
+    {block name='footer'}
+    {include file='public/footer' /}
+    {/block}
+
+    <!-- 控制边栏(右侧) -->
+    {block name='control_sidebar'}
+    {include file='public/control_sidebar' /}
+    {/block}
+
+    {if !$admin.is_pjax}
+</div>
+{/if}
+
+{if !$admin.is_pjax}
+
+</body>
+</html>
+{/if}

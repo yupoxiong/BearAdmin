@@ -1,0 +1,35 @@
+<?php
+/**
+ * [NAME]控制器
+ */
+
+namespace app\[CONTROLLER_MODULE]\controller;
+
+use Exception;
+use think\Request;
+use think\db\Query;
+use think\response\Json;
+use app\[MODEL_MODULE]\model\[MODEL_NAME];
+[RELATION_1]
+use app\[VALIDATE_MODULE]\validate\[VALIDATE_NAME]Validate;
+
+class [CONTROLLER_NAME]Controller extends AdminBaseController
+{
+
+[ACTION_INDEX]
+
+[ACTION_ADD]
+
+[ACTION_EDIT]
+
+[ACTION_DEL]
+
+[ACTION_ENABLE]
+
+[ACTION_DISABLE]
+
+[ACTION_IMPORT]
+
+[ACTION_EXPORT]
+
+}

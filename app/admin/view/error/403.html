@@ -1,0 +1,15 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-warning"> 403</h2>
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> 抱歉! 没有权限。</h3>
+            <p>
+                您访问的页面没有权限，您可以 <a href="{:url('index/index')}">点此去首页</a>
+            </p>
+        </div>
+    </div>
+</section>
+{/block}

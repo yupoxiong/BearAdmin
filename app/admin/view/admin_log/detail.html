@@ -1,0 +1,89 @@
+<!--空白弹出页面参考模版-->
+{extend name='public/layer_base' /}
+{block name='content'}
+<!-- 这里写内容即可 -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <th  colspan="4" class="text-bold text-center">日志摘要</th>
+                            </tr>
+                            <tr>
+                                <th class="text-bold">日志ID</th>
+                                <td>{$data.id}</td>
+                                <td class="text-bold">操作用户</td>
+                                <td>{$data->adminUser->nickname|default=''}</td>
+                            </tr>
+
+                            <tr>
+                                <th class="text-bold">操作</th>
+                                <td>{$data.name}</td>
+                                <th class="text-bold">访问URL</th>
+                                <td>{$data.url}</td>
+                            </tr>
+
+                            <tr>
+                                <th class="text-bold">请求方式</th>
+                                <td>{$data.log_method}</td>
+                                <td class="text-bold">操作时间</td>
+                                <td>{$data.create_time}</td>
+                            </tr>
+
+                            <tr>
+                                <th class="text-bold">IP地址</th>
+                                <td>{$data.log_ip}</td>
+                                <th class="text-bold">IP定位</th>
+                                <td><span id="position">正在查询，请稍候……</span></td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" class="text-bold text-center">数据详情</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <th colspan="4" class="text-bold text-center">数据详情</th>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <pre>{$data.adminLogData.data_format|default=''}</pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function (){
+        $.ajax({
+            url:'{:url("admin/adminLog/position")}',
+            method:'POST',
+            data:{id:'{$data.id}'},
+            type:'JSON',
+            success:function (result){
+                console.log(result);
+                if(result.code===200){
+                    $('#position').html(result.data.city);
+                }else{
+                    $('#position').html(result.msg);
+                }
+            }
+        });
+    });
+</script>
+{/block}

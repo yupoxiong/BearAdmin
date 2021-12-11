@@ -1,0 +1,201 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" alt="头像"
+                                 src="{$data.avatar|default='__ADMIN_IMAGES__/avatar.png'}">
+                        </div>
+
+                        <h3 class="profile-username text-center">{$data.nickname|default=''}</h3>
+
+                        <p class="text-muted text-center">{$data.username|default=''}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs NavTab" id="profileTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" id="userInfo" data-toggle="tab"
+                                   href="#userInfoTab" role="tab" aria-controls="userInfoTab"
+                                   aria-selected="true">
+                                    个人信息
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="userPassword" data-toggle="tab"
+                                   href="#userPasswordTab" role="tab" aria-controls="userPasswordTab"
+                                   aria-selected="false">
+                                    修改密码
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="userAvatar" data-toggle="tab"
+                                   href="#userAvatarTab" role="tab"
+                                   aria-controls="userAvatarTab" aria-selected="false">
+                                    修改头像
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="profileTabContent">
+                            <div class="tab-pane" id="userInfoTab" role="tabpanel" aria-labelledby="userInfo">
+
+                                <form class="form-horizontal" role="form" id="dataForm1" action="" method="post"
+                                      enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label for="nickname" class="col-sm-2 col-form-label ">昵称</label>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <input type="text" class="form-control"
+                                                       id="nickname" name="nickname" value="{$data.nickname|default=''}"
+                                                       placeholder="请输入昵称">
+                                                <input type="hidden" value="profile" name="update_type"
+                                                       placeholder="请勿修改">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                            </div>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn btn-sm btn-primary dataFormSubmit">
+                                                        保 存
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="reset" class="btn btn-sm btn-default dataFormReset">
+                                                        重 置
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <script>
+                                    /** 表单验证 **/
+                                    $('#dataForm1').validate({});
+                                </script>
+
+                            </div>
+                            <div class="tab-pane" id="userPasswordTab" role="tabpanel"
+                                 aria-labelledby="userPassword">
+                                <form class="form-horizontal" role="form" id="dataForm2" action="" method="post"
+                                      enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label for="current_password" class="col-sm-2 col-form-label ">当前密码</label>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <input type="password" class="form-control"
+                                                       id="current_password" name="current_password"
+                                                       placeholder="请输入当前密码">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="new_password" class="col-sm-2 col-form-label ">新密码</label>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <input type="password" class="form-control"
+                                                       id="new_password" name="new_password"
+                                                       placeholder="请输入新密码">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="re_new_password" class="col-sm-2 col-form-label ">重复新密码</label>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <input type="password" class="form-control"
+                                                       id="re_new_password" name="re_new_password"
+                                                       placeholder="请输入重复新密码">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="password" name="update_type" placeholder="请勿修改">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                            </div>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn btn-sm btn-primary dataFormSubmit">
+                                                        保 存
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="reset" class="btn btn-sm btn-default dataFormReset">
+                                                        重 置
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <script>
+                                    /** 表单验证 **/
+                                    $('#dataForm2').validate({});
+                                </script>
+                            </div>
+                            <div class="tab-pane" id="userAvatarTab" role="tabpanel" aria-labelledby="userAvatar">
+                                <form class="form-horizontal" role="form" id="dataForm3" action="" method="post"
+                                      enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label for="avatar" class="col-sm-2 col-form-label ">头像</label>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+
+                                                <div class="input-group">
+                                                    <input id="avatar_file" name="avatar_file" type="file" class="file-loading " data-initial-preview="{if isset($data)}{$data.avatar}{/if}">
+                                                    <input name="avatar" id="avatar" value="{$data.avatar|default=''}" hidden placeholder="请上传图片" class="fieldImage">
+                                                    <script>
+                                                        initUploadImg('avatar');
+                                                    </script>
+                                                </div>
+                                                <input type="hidden" value="avatar" name="update_type" placeholder="请勿修改">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                            </div>
+                                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn btn-sm btn-primary dataFormSubmit">
+                                                        保 存
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="reset" class="btn btn-sm btn-default dataFormReset">
+                                                        重 置
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <script>
+                                    /** 表单验证 **/
+                                    $('#dataForm3').validate({});
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{/block}

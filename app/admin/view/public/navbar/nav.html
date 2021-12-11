@@ -1,0 +1,17 @@
+
+<ul class="navbar-nav">
+
+    <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+
+
+    {if $admin.top_nav===1 && isset($admin.top_menu)}
+    {foreach $admin.top_menu as $key=>$nav}
+
+    <li class="nav-item d-none d-sm-inline-block">
+        <a href="{:url($nav.url)}" class="nav-link">{$nav.name}</a>
+    </li>
+    {/foreach}
+    {/if}
+</ul>

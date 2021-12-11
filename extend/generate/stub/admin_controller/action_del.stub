@@ -1,0 +1,20 @@
+    /**
+     * 删除
+     * @param mixed $id
+     * @param [MODEL_NAME] $model
+     * @return Json
+     */
+    public function del($id, [MODEL_NAME] $model): Json
+    {
+        $check = $model->inNoDeletionIds($id);
+        if (false !== $check) {
+            return admin_error('ID为' . $check . '的数据不能被删除');
+        }
+
+        $result = $model::destroy(static function ($query) use ($id) {
+            /** @var Query $query */
+            $query->whereIn('id', $id);
+        });
+
+        return $result ? admin_success('删除成功', [], URL_RELOAD) : admin_error('删除失败');
+    }

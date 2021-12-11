@@ -3,14 +3,14 @@
  * 设置分组
  */
 
-use think\Db;
+use think\facade\Db;
 use think\migration\Migrator;
 use think\migration\db\Column;
 
 class SettingGroup extends Migrator
 {
 
-    public function change()
+    public function change(): void
     {
         $table = $this->table('setting_group', ['comment' => '设置分组', 'engine' => 'InnoDB', 'encoding' => 'utf8mb4', 'collation' => 'utf8mb4_unicode_ci']);
         $table
@@ -30,19 +30,23 @@ class SettingGroup extends Migrator
         $this->insertData();
     }
 
-    protected function insertData()
+    protected function insertData(): void
     {
         $data = '[{"id":1,"module":"admin","name":"\u540e\u53f0\u8bbe\u7f6e","description":"\u540e\u53f0\u7ba1\u7406\u65b9\u9762\u7684\u8bbe\u7f6e","code":"admin","sort_number":1000,"icon":"fa-adjust","auto_create_menu":1,"auto_create_file":1}]';
 
         $msg = '配置分组导入成功.' . "\n";
         Db::startTrans();
-        $data = json_decode($data, true);
+        try {
+            $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            print ('配置分组数据解析错误，信息：'.$e->getMessage());
+        }
         try {
             foreach ($data as $item) {
                 \app\common\model\SettingGroup::create($item);
             }
             Db::commit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Db::rollback();
             $msg = $e->getMessage();
         }

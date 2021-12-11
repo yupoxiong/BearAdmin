@@ -1,0 +1,21 @@
+    /**
+     * 修改
+     * @param $id
+     * @param $param
+     * @return bool
+     * @throws ApiServiceException
+     */
+    public function updateData($id, $param): bool
+    {
+        $data = $this->model->where('id', '=', $id)->findOrEmpty();
+        if ($data->isEmpty()) {
+            throw new ApiServiceException('数据不存在');
+        }
+        $result = $data->save($param);
+
+        if (!$result) {
+            throw new ApiServiceException('更新失败');
+        }
+
+        return true;
+    }

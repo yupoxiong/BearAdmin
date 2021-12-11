@@ -1,0 +1,24 @@
+/**
+     * 详情
+     * @param [VALIDATE_NAME]Validate $validate
+     * @param [SERVICE_NAME]Service $service
+     * @return Json
+     */
+    public function info([SERVICE_NAME]Validate $validate, [VALIDATE_NAME]Service $service): Json
+    {
+        $check = $validate->scene('api_info')->check($this->param);
+        if (!$check) {
+            return api_error($validate->getError());
+        }
+
+        try {
+
+            $result = $service->getDataInfo($this->id);
+            return api_success([
+                'user_level' => $result,
+            ]);
+
+        } catch (ApiServiceException $e) {
+            return api_error($e->getMessage());
+        }
+    }

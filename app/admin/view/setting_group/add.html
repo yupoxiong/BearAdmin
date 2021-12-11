@@ -1,0 +1,228 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- 表单头部 -->
+                <div class="card-header">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fas fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+                <!-- 表单 -->
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post" enctype="multipart/form-data">
+                    <!-- 表单字段区域 -->
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="module" class="col-sm-2 col-form-label">作用模块</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <select name="module" id="module" class="form-control field-select"
+                                        data-placeholder="请选择作用模块，默认整个项目">
+                                    <option value=""></option>
+                                    <option value="app" {if isset($data) &&  $data.module=='app'}selected{/if}>app(整个项目)</option>
+                                    {foreach name='module_list' id='item'}
+                                    <option value="{$item}" {if isset($data) &&  $data.module==$item}selected{/if}>
+                                        {$item}
+                                    </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#module').select2();
+                        </script>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label">名称</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入名称"
+                                       type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-2 col-form-label">描述</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input id="description" name="description" value="{$data.description|default=''}"
+                                       placeholder="请输入描述" type="text" class="form-control field-text">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="code" class="col-sm-2 col-form-label">代码</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input id="code" name="code" value="{$data.code|default=''}" placeholder="请输入代码"
+                                       type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sort_number" class="col-sm-2 col-form-label">排序</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <div class="input-group">
+                                    <input id="sort_number" name="sort_number"
+                                           value="{$data.sort_number|default='1000'}" placeholder="请输入排序" type="number"
+                                           class="form-control field-number">
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('#sort_number')
+                                .bootstrapNumber({
+                                    upClass: 'success',
+                                    downClass: 'primary',
+                                    center: true
+                                });
+                        </script>
+
+                        <div class="form-group row">
+                            <label for="icon" class="col-sm-2 col-form-label">图标</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text iconpicker-component">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" maxlength="30" id="icon" name="icon"
+                                           value="{$data.icon|default='fas fa-list'}" class="form-control "
+                                           placeholder="请输入图标class">
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('#icon').iconpicker({
+                                placement: 'bottomLeft',
+                                title: '请选择一个图标',
+                                animation:false,
+                            });
+                        </script>
+
+                        <div class="form-group row">
+                            <label for="auto_create_menu" class="col-sm-2 col-form-label">自动生成菜单</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input class="input-switch" id="auto_create_menu" value="1" {if(isset($data) && $data.auto_create_menu==1)}checked{/if} type="checkbox"/>
+                                <input class="switch field-switch" placeholder="自动生成菜单" name="auto_create_menu"
+                                       value="{$data.auto_create_menu|default='0'}" hidden/>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('#auto_create_menu').bootstrapSwitch({
+                                onText: "是",
+                                offText: "否",
+                                onColor: "success",
+                                offColor: "danger",
+                                onSwitchChange: function (event, state) {
+                                    $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
+                                }
+                            });
+                        </script>
+                        <div class="form-group row">
+                            <label for="auto_create_file" class="col-sm-2 col-form-label">自动生成配置文件</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input class="input-switch" id="auto_create_file" value="1" {if(isset($data) && $data.auto_create_file==1)}checked{/if} type="checkbox"/>
+                                <input class="switch field-switch" placeholder="自动生成配置文件" name="auto_create_file"
+                                       value="{$data.auto_create_file|default='0'}" hidden/>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('#auto_create_file').bootstrapSwitch({
+                                onText: "是",
+                                offText: "否",
+                                onColor: "success",
+                                offColor: "danger",
+                                onSwitchChange: function (event, state) {
+                                    $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
+                                }
+                            });
+                        </script>
+
+                    </div>
+                    <!-- 表单底部 -->
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-sm btn-primary dataFormSubmit">
+                                        保 存
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="reset" class="btn btn-sm btn-default dataFormReset">
+                                        重 置
+                                    </button>
+                                </div>
+                                {if !isset($data)}
+                                <div class="btn-group float-right createContinueDiv">
+                                    <input type="checkbox" class="form-check-input" value="1" id="_create" name="_create" title="继续添加数据">
+                                    <label class="form-check-label" for="_create">继续添加</label>
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    /** 表单验证 **/
+    $('#dataForm').validate({
+        rules: {
+            'name': {
+                required: true,
+            },
+            'description': {
+                required: true,
+            },
+            'module': {
+                required: true,
+            },
+            'code': {
+                required: true,
+            },
+            'sort_number': {
+                required: true,
+            },
+            'auto_create_menu': {
+                required: true,
+            },
+            'auto_create_file': {
+                required: true,
+            },
+
+        },
+        messages: {
+            'name': {
+                required: "名称不能为空",
+            },
+            'description': {
+                required: "描述不能为空",
+            },
+            'module': {
+                required: "作用模块不能为空",
+            },
+            'code': {
+                required: "代码不能为空",
+            },
+            'sort_number': {
+                required: "排序不能为空",
+            },
+            'auto_create_menu': {
+                required: "自动生成菜单不能为空",
+            },
+            'auto_create_file': {
+                required: "自动生成配置文件不能为空",
+            },
+
+        }
+    });
+</script>
+{/block}

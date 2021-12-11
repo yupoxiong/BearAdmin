@@ -1,0 +1,20 @@
+/**
+     * 修改
+     * @param [SERVICE_NAME]Service $service
+     * @param [VALIDATE_NAME]Validate $validate
+     * @return Json
+     */
+    public function edit([SERVICE_NAME]Service $service, [VALIDATE_NAME]Validate $validate): Json
+    {
+        $check = $validate->scene('api_edit')->check($this->param);
+        if (!$check) {
+            return api_error($validate->getError());
+        }
+
+        try {
+            $service->updateData($this->id, $this->param);
+            return api_success();
+        } catch (ApiServiceException $e) {
+            return api_error($e->getMessage());
+        }
+    }

@@ -1,0 +1,11 @@
+    /**
+     * 启用
+     * @param mixed $id
+     * @param [MODEL_NAME] $model
+     * @return Json
+     */
+    public function enable($id, [MODEL_NAME] $model): Json
+    {
+        $result = $model->whereIn('id', $id)->update(['status' => 1]);
+        return $result ? admin_success('操作成功', [], URL_RELOAD) : admin_error();
+    }

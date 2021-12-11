@@ -1,0 +1,100 @@
+<!--空白弹出页面参考模版-->
+{extend name='public/layer_base' /}
+{block name='content'}
+<script>
+    var indexWindow = parent.layer.getFrameIndex(window.name);
+    var minFileCount = {$min_file_count};
+    var maxFileCount = {$max_file_count};
+    var fileType = '{$file_type}';
+    var domId = '{$dom_id}';
+    var uploadResult = '';
+
+</script>
+
+<input id="file" name="file" type="file" {$multiple} class="file-loading">
+<input name="uploadResult" id="uploadResult" hidden placeholder="上传结果">
+
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" onclick="uploadCancel()">取消</button>
+    <button type="button" class="btn btn-primary" onclick="uploadOk()">确定</button>
+</div>
+
+<script>
+    var $fileDom = $("#file");
+
+    $fileDom.fileinput({
+        theme: 'fas',
+        language: 'zh',
+        showDrag: true,
+        showClose: false,
+        showBrowse: false,
+        showUpload: false,
+        showRemove: false,
+        uploadAsync: true,
+        showCaption: false,
+        showCancel: false,
+        showDownload: false,
+        browseOnZoneClick: true,
+        overwriteInitial: false,
+        initialPreviewAsData: true,
+        uploadUrl: uploadUrl,
+        minFileCount: minFileCount,
+        maxFileCount: maxFileCount,
+        initialPreviewFileType: fileType,
+        uploadExtraData: {
+            min_file_count: minFileCount,
+            max_file_count: maxFileCount,
+            file_type: fileType,
+        },
+    }).on("filebatchselected", function (event, files) {
+        console.log(event);
+        console.log(files);
+        $fileDom.fileinput("upload");
+    }).on('fileuploaded', function (event, data, previewId, index) {
+        console.log(event);
+        console.log(data);
+        console.log(previewId);
+        console.log(index);
+        let response = data.response;
+        if (response.code === 200 && response.initialPreview !== undefined) {
+            if (uploadResult.length === 0) {
+                uploadResult = response.initialPreview[0];
+            } else {
+                uploadResult += (',' + response.initialPreview[0]);
+            }
+
+        }
+    }).on('filedeleted', function (event, key, data) {
+        console.log(event);
+        console.log(key);
+        console.log(data);
+    }).on('filesorted', function (event, params) {
+        console.log(event);
+        console.log(params);
+    });
+
+
+    /**
+     * 文件上传确定
+     */
+    function uploadOk() {
+        console.log(uploadResult);
+        // 把相关的URL返回给调用的input框，单文件返回一个URL，多文件返回逗号隔开的URL。
+
+        if (uploadResult.length > 0) {
+            parent.$('#' + domId).val(uploadResult);
+        }
+        parent.layer.close(indexWindow);
+        parent.inputImgShow(parent.$('#' + domId));
+    }
+
+    /**
+     * 文件上传退出
+     */
+    function uploadCancel() {
+        parent.layer.close(indexWindow);
+    }
+
+</script>
+{/block}
+

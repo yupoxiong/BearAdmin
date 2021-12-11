@@ -1,0 +1,3 @@
+<td>
+    <input type="checkbox" onclick="checkThis(this)" name="dataCheckbox" data-id="{$item.id}" class="checkbox dataListCheck" value="{$item.id}" placeholder="选择/取消">
+</td>

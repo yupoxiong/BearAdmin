@@ -1,0 +1,18 @@
+    /**
+     * 删除
+     * @param mixed $id
+     * @return bool
+     * @throws ApiServiceException
+     */
+    public function deleteData($id): bool
+    {
+        $result = $this->model::destroy(function ($query) use ($id) {
+            $query->whereIn('id', $id);
+        });
+
+        if (!$result) {
+            throw new ApiServiceException('更新失败');
+        }
+
+        return  true;
+    }

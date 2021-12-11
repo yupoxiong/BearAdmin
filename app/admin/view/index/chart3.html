@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">饼图统计</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+
+                    <div id="chart31" style="width: 100%;min-height: 380px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">南丁格尔玫瑰图</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+
+                    <div id="chart32" style="width: 100%;min-height: 380px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+        let chartDom = document.getElementById('chart31');
+        let myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            title: {
+                text: '站点访问统计',
+                subtext: '虚拟数据',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                    name: '来源',
+                    type: 'pie',
+                    radius: '50%',
+                    data: [
+                        {value: 1048, name: '搜索引擎'},
+                        {value: 735, name: '外站跳转'},
+                        {value: 580, name: '邮箱链接'},
+                        {value: 484, name: '联合广告'},
+                        {value: 300, name: '视频广告'}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    });
+
+
+    $(function () {
+        let chartDom = document.getElementById('chart32');
+        let myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            legend: {
+                top: 'bottom'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series: [
+                {
+                    name: '南丁格尔玫瑰图',
+                    type: 'pie',
+                    radius: [50, 250],
+                    center: ['50%', '50%'],
+                    roseType: 'area',
+                    itemStyle: {
+                        borderRadius: 8
+                    },
+                    data: [
+                        {value: 5, name: '玫瑰 1'},
+                        {value: 9, name: '玫瑰 2'},
+                        {value: 8, name: '玫瑰 3'},
+                        {value: 2, name: '玫瑰 4'},
+                        {value: 3, name: '玫瑰 5'},
+                        {value: 6, name: '玫瑰 6'},
+                        {value: 5, name: '玫瑰 7'},
+                        {value: 1, name: '玫瑰 8'}
+                    ]
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    });
+
+</script>

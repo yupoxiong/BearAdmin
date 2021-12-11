@@ -1,7 +1,10 @@
-.idea
-.env
-runtime
-thinkphp
 vendor
-backup
+runtime
+.ENV
+composer.phar
+composer.lock
+Thumbs.db
 *.DS_Store
+.idea
+.vscode
+import

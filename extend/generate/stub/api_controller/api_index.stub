@@ -1,0 +1,18 @@
+/**
+     * 列表
+     * @param [SERVICE_NAME]Service $service
+     * @return Json
+     */
+    public function index([SERVICE_NAME]Service $service): Json
+    {
+        try {
+            $data   = $service->getList($this->param, $this->page, $this->limit);
+            $result = [
+                '[TABLE_NAME]' => $data,
+            ];
+
+            return api_success($result);
+        } catch (ApiServiceException $e) {
+            return api_error($e->getMessage());
+        }
+    }

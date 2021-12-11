@@ -1,0 +1,14 @@
+<label class="control-label float-right" style="margin: 3px 20px;">
+    <small>共{$total}条记录</small>&nbsp;
+    <small>每页显示</small>
+
+    <select class="input-sm" onchange="changePerPage(this)">
+        <option value="10" {if $admin.admin_list_rows==10}selected{/if}>10</option>
+        <option value="20" {if $admin.admin_list_rows==20}selected{/if}>20</option>
+        <option value="30" {if $admin.admin_list_rows==30}selected{/if}>30</option>
+        <option value="50" {if $admin.admin_list_rows==50}selected{/if}>50</option>
+        <option value="100" {if $admin.admin_list_rows==100}selected{/if}>100</option>
+    </select>
+
+    <small>条记录</small>
+</label>

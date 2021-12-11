@@ -1,0 +1,3 @@
+<button class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
+    <i class="fa fa-trash"></i> 删除
+</button>

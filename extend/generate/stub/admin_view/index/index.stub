@@ -1,0 +1,64 @@
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<!--数据列表页面-->
+<section class="content">
+
+    [INDEX_FILTER]
+
+    [INDEX_IMPORT]
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <!--数据列表顶部-->
+                <div class="card-header">
+                    <div>
+                        [INDEX_CREATE]
+                        [INDEX_DEL1]
+                        [INDEX_ENABLE1]
+                        [INDEX_REFRESH]
+                    </div>
+                </div>
+
+                <div class="card-body table-responsive p-0" >
+                    <table class="table table-hover table-bordered dataTable text-nowrap">
+                        <thead>
+                        <tr>
+                            [INDEX_SELECT1]
+                            [NAME_LIST]
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name='data' id='item' key='data_key'}
+                        <tr>
+                            [INDEX_SELECT2]
+                            [FIELD_LIST]
+                            <td class="td-do">
+                                <a href="{:url('edit',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                                    [OPERATION_EDIT_ICON]
+                                    [OPERATION_EDIT_TEXT]
+                                </a>
+                                [INDEX_DEL2]
+                                [INDEX_ENABLE2]
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="card-footer">
+                    {$page|raw}
+                    {include file='public/change_page' /}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{/block}

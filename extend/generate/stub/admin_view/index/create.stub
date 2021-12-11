@@ -1,0 +1,3 @@
+<a title="添加新数据" data-toggle="tooltip" class="btn btn-primary btn-sm "  href="{:url('add')}">
+    <i class="fa fa-plus"></i> 添加
+</a>

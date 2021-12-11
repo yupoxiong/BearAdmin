@@ -1,0 +1,26 @@
+    /**
+     * 列表
+     * @param $param
+     * @param $page
+     * @param $limit
+     * @return array
+     * @throws ApiServiceException
+     */
+    public function getList($param, $page, $limit): array
+    {
+        try {
+            $field = '[FIELD_LIST]';
+            $data  = $this->model
+                ->scope('ApiWhere', $param)
+                ->page($page, $limit)
+                ->field($field)
+                ->select()
+                ->toArray();
+        } catch (DataNotFoundException | ModelNotFoundException $e) {
+            $data = [];
+        } catch (DbException $e) {
+            throw new ApiServiceException('查询列表失败，信息' . $e->getMessage());
+        }
+
+        return $data;
+    }

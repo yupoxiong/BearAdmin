@@ -1,4 +1,0 @@
-$this->assign([
-    [RELATION_LIST]
-]);
-

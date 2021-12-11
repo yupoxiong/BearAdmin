@@ -1,0 +1,18 @@
+    /**
+     * 禁用
+     * @param mixed $id
+     * @return bool
+     * @throws ApiServiceException
+     */
+    public function disableData($id): bool
+    {
+        $result = $this->model
+            ->whereIn('id', $id)
+            ->save(['status' => 0]);
+
+        if (!$result) {
+            throw new ApiServiceException('禁用失败');
+        }
+
+        return true;
+    }

@@ -1,0 +1,104 @@
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<!--数据列表页面-->
+<section class="content">
+
+    <!--顶部搜索筛选-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+
+                        <div class="form-group">
+                            <input value="{$_keywords ? $_keywords : '' ;}"
+                                   name="_keywords" id="_keywords" class="form-control form-control-sm " placeholder="名称/描述/代码">
+                        </div>
+
+
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                    class="fa  fa-eraser"></i> 清空查询
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <!--数据列表顶部-->
+                <div class="card-header">
+                    <div>
+                        <button class="btn btn-default btn-sm ReloadButton" data-toggle="tooltip" title="刷新列表数据">
+                            <i class="fas fa-redo"></i> 刷新
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body table-responsive p-0" >
+                    <table class="table table-hover table-bordered dataTable text-nowrap">
+                        <thead>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>名称</th>
+                            <th>描述</th>
+                            <th>作用模块</th>
+                            <th>代码</th>
+                            <th>排序</th>
+                            <th>创建时间</th>
+                            <th>更新时间</th>
+
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name="data" id="item"}
+                        <tr>
+
+                            <td>{$item.id}</td>
+                            <td>{$item.name}</td>
+                            <td>{$item.description}</td>
+                            <td>{$item.module}</td>
+                            <td>{$item.code}</td>
+                            <td>{$item.sort_number}</td>
+                            <td>{$item.create_time}</td>
+                            <td>{$item.update_time}</td>
+
+                            <td class="dataListTdAction">
+                                <a href="{:url('info',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                                    <i class="fas fa-pen"></i>
+                                    修改
+                                </a>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="card-footer">
+                    {$page|raw}
+                    {include file='public/change_page' /}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{/block}
+

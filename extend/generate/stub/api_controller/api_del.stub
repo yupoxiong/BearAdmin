@@ -1,0 +1,20 @@
+/**
+     * 删除
+     * @param [SERVICE_NAME]Service $service
+     * @param [VALIDATE_NAME]Validate $validate
+     * @return Json
+     */
+    public function del([SERVICE_NAME]Service $service, [VALIDATE_NAME]Validate $validate): Json
+    {
+        $check = $validate->scene('api_del')->check($this->param);
+        if (!$check) {
+            return api_error($validate->getError());
+        }
+
+        try {
+            $service->deleteData($this->id);
+            return api_success();
+        } catch (ApiServiceException $e) {
+            return api_error($e->getMessage());
+        }
+    }

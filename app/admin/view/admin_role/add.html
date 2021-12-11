@@ -1,0 +1,120 @@
+<!-- 空白页面参考模版 -->
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- 表单头部 -->
+                <div class="card-header">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fas fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+
+                <form class="form-horizontal dataForm" role="form" id="dataForm" action="" method="post"
+                      enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label ">名称</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input type="text" class="form-control"
+                                       id="name" name="name" value="{$data.name|default=''}"
+                                       placeholder="请输入名称">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-2 col-form-label ">介绍</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input type="text" class="form-control"
+                                       id="description" name="description" value="{$data.description|default=''}"
+                                       placeholder="请输入介绍">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="status" class="col-sm-2 col-form-label ">是否启用</label>
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+                                <input class="switch fieldSwitch" id="status" name="status"
+                                       value="{$data.status|default='1'}" hidden/>
+                                <input type="checkbox" class="input-switch" id="statusSwitch" value="1"
+                                       {if(!isset($data) ||$data.status==1)}checked{/if}/>
+                            </div>
+
+                        </div>
+                        <script>
+                            $('#statusSwitch').bootstrapSwitch({
+                                onColor : 'success',
+                                offColor : 'danger',
+                                onText : '是',
+                                offText : '否',
+                                onSwitchChange: function (event, state) {
+                                    $('#status').val(state ? '1' : '0');
+                                }
+                            });
+                        </script>
+
+                    </div>
+                    <div class="card-footer">
+                        {:token_field()}
+                        <div class="row">
+                            <div class="col-sm-2">
+                            </div>
+
+                            <div class="col-sm-10 col-md-4 formInputDiv">
+
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-sm btn-primary dataFormSubmit">
+                                        保 存
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="reset" class="btn btn-sm btn-default dataFormReset">
+                                        重 置
+                                    </button>
+                                </div>
+                                {if !isset($data)}
+                                <div class="btn-group float-right createContinueDiv">
+                                    <input type="checkbox" class="form-check-input" value="1" id="_create" name="_create" title="继续添加数据">
+                                    <label class="form-check-label" for="_create">继续添加</label>
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    /** 表单验证 **/
+    $('#dataForm').validate({
+        rules: {
+            'name': {
+                required: true,
+            },
+            'description': {
+                required: true,
+            },
+        },
+        messages: {
+            'name': {
+                required: "名称不能为空",
+            },
+            'description': {
+                required: "介绍不能为空",
+            },
+        }
+    });
+</script>
+
+{/block}

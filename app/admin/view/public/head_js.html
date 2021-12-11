@@ -1,0 +1,81 @@
+<script>
+    // 是否为调试模式
+    var adminDebug = Boolean('{$admin.debug}');
+    // 退出url
+    var logoutUrl = '{$admin.logout_url}';
+    // cookie前缀
+    var cookiePrefix = "{$cookie_prefix|default=''}";
+    // UEditor server地址
+    var UEServer = "{:url('editor/server')}";
+    // 列表页当前选择的ID
+    var dataSelectIds = [];
+    // 上传文件url
+    var uploadUrl = "{:url('file/upload')}";
+    // 删除文件url
+    var fileDelUrl = "{:url('file/del')}";
+    // 刷新token url
+    var tokenUrl = "{:url('auth/token')}";
+    var csrfToken = '{:token()}';
+</script>
+
+<!-- js-cookie -->
+{js href="__ADMIN_PLUGINS__/js-cookie/js.cookie-2.2.0.min.js" /}
+<!-- jQuery -->
+{js href="__ADMIN_PLUGINS__/jquery/jquery.min.js" /}
+<!-- Bootstrap 4 -->
+{js href="__ADMIN_PLUGINS__/bootstrap/js/bootstrap.bundle.min.js" /}
+<!-- pjax -->
+{js href="__ADMIN_PLUGINS__/pjax/jquery.pjax.js" /}
+<!-- nprogress -->
+{js href="__ADMIN_PLUGINS__/nprogress/nprogress.js" /}
+<!-- select2 -->
+{js href="__ADMIN_PLUGINS__/select2/js/select2.min.js" /}
+{js href="__ADMIN_PLUGINS__/bootstrap-switch/js/bootstrap-switch.min.js" /}
+<!-- fileinput -->
+{js href="__ADMIN_PLUGINS__/fileinput/js/fileinput.min.js" /}
+<!-- fileinput themes -->
+{js href="__ADMIN_PLUGINS__/fileinput/themes/fas/theme.min.js" /}
+{js href="__ADMIN_PLUGINS__/fileinput/js/locales/zh.js" /}
+{js href="__ADMIN_PLUGINS__/fileinput/js/plugins/sortable.min.js" /}
+
+<!-- 数字输入插件 -->
+{js href="__ADMIN_PLUGINS__/bootstrap-number/bootstrap-number.min.js" /}
+<!--文件选择美化-->
+{js href="__ADMIN_PLUGINS__/bs-custom-file-input/bs-custom-file-input.min.js" /}
+<!-- color picker -->
+{js href="__ADMIN_PLUGINS__/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js" /}
+<!-- icon picker -->
+{js href="__ADMIN_PLUGINS__/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js" /}
+<!-- layer -->
+{js href="__ADMIN_PLUGINS__/layer/layer.js" /}
+<!-- laydate -->
+{js href="__ADMIN_PLUGINS__/laydate/laydate.js" /}
+<!-- echarts -->
+{js href="__ADMIN_PLUGINS__/echarts/echarts.simple.min.js" /}
+<!-- jquery-validation -->
+{js href="__ADMIN_PLUGINS__/jquery-validation/jquery.validate.min.js" /}
+<!-- jquery-input-file-text -->
+{js href="__ADMIN_PLUGINS__/jquery-input-file-text/jquery-input-file-text.js" /}
+<!-- 图片预览插件 -->
+{js href="__ADMIN_PLUGINS__/viewer/viewer.min.js" /}
+{js href="__ADMIN_PLUGINS__/jquery-viewer/jquery-viewer.min.js" /}
+<!-- 剪切板 -->
+{js href="__ADMIN_PLUGINS__/clipboard/clipboard.min.js" /}
+<!-- wangEditor编辑器 -->
+{js href="__ADMIN_PLUGINS__/wangEditor/wangEditor.min.js" /}
+
+<!-- 高德地图js -->
+<script src="//webapi.amap.com/maps?v=1.4.15&key={$admin.map.amap.js_api_key|default=''}&plugin=AMap.ToolBar,AMap.Autocomplete,AMap.PlaceSearch"></script>
+<!-- UI组件库 1.0 -->
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+
+<!-- AdminLTE -->
+{js href="__ADMIN_JS__/adminlte.min.js" /}
+<!-- 后台主要js -->
+{js href="__ADMIN_JS__/admin.js" /}
+<!-- 文件上传js -->
+{js href="__ADMIN_JS__/upload.js" /}
+<!-- 自定义前端验证js -->
+{js href="__ADMIN_JS__/validate.js" /}
+
+

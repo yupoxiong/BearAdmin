@@ -1,0 +1,21 @@
+<?php
+/**
+ * [NAME]验证器
+ */
+
+namespace app\[VALIDATE_MODULE]\validate;
+
+class [VALIDATE_NAME]Validate extends CommonBaseValidate
+{
+    protected $rule = [
+        [VALIDATE_RULE]
+    ];
+
+    protected $message = [
+        [VALIDATE_MSG]
+    ];
+
+    protected $scene = [
+        [VALIDATE_SCENE]
+    ];
+}

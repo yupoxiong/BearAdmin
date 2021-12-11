@@ -1,0 +1,36 @@
+<?php
+/**
+ * [NAME]Service
+ */
+
+declare (strict_types=1);
+
+namespace app\api\service;
+
+use app\common\model\[MODEL_NAME];
+use app\api\exception\ApiServiceException;
+use think\db\exception\{DbException, ModelNotFoundException, DataNotFoundException};
+
+class [SERVICE_NAME]Service extends ApiBaseService
+{
+    protected [MODEL_NAME] $model;
+
+    public function __construct()
+    {
+        $this->model = new [MODEL_NAME]();
+    }
+
+    [SERVICE_INDEX]
+    
+    [SERVICE_ADD]
+    
+    [SERVICE_INFO]
+    
+    [SERVICE_EDIT]
+    
+    [SERVICE_DEL]
+    
+    [SERVICE_DISABLE]
+    
+    [SERVICE_ENABLE]
+}

@@ -1,0 +1,18 @@
+    /**
+     * 导入
+     * @param Request $request
+     * @return Json
+     */
+    public function import(Request $request): Json
+    {
+        $param           = $request->param();
+        $field_name_list = [[FILED_NAME_LIST]];
+        if (isset($param['action']) && $param['action'] === 'download_example') {
+            $this->downloadExample($field_name_list);
+        }
+
+        $field_list = [[FILED_LIST]];
+        $result = $this->importData('file','[TABLE_NAME]',$field_list);
+
+        return true === $result ? admin_success('操作成功', [], URL_RELOAD) : admin_error($result);
+    }

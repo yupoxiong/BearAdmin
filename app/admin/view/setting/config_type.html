@@ -1,0 +1,82 @@
+<select name="config_type[]" class="form-control">
+    <option value="text" {if $item.type=='text'}selected{/if}>
+        文本[text]
+    </option>
+    <option value="number" {if $item.type=='number'}selected{/if}>
+        数字[number]
+    </option>
+    <option value="password" {if
+            $item.type=='password'}selected{/if}>密码[password]
+    </option>
+    <option value="mobile" {if $item.type=='mobile'}selected{/if}>
+        手机号[mobile]
+    </option>
+    <option value="email" {if $item.type=='email'}selected{/if}>
+        邮箱[email]
+    </option>
+    <option value="id_card" {if $item.type=='id_card'}selected{/if}>
+        身份证号[id_card]
+    </option>
+    <option value="url" {if $item.type=='url'}selected{/if}>
+        网址[url]
+    </option>
+    <option value="ip" {if $item.type=='ip'}selected{/if}>IP地址[ip]
+    </option>
+    <option value="textarea" {if
+            $item.type=='textarea'}selected{/if}>文本域[textarea]
+    </option>
+    <option value="switch" {if $item.type=='switch'}selected{/if}>
+        开关[switch]
+    </option>
+    <option value="select" {if $item.type=='select'}selected{/if}>
+        选择列表[select]
+    </option>
+    <option value="multi_select" {if $item.type=='multi_select'}selected{/if}>
+        多项选择列表[multi-select]
+    </option>
+    <option value="image" {if $item.type=='image'}selected{/if}>
+        图片上传[image]
+    </option>
+    <option value="multi_image" {if
+            $item.type=='multi_image'}selected{/if}>
+        多图上传[multi-image]
+    </option>
+    <option value="date" {if $item.type=='date'}selected{/if}>
+        日期[date]
+    </option>
+    <option value="date_range" {if
+            $item.type=='date_range'}selected{/if}>日期范围[date-range]
+    </option>
+    <option value="datetime" {if
+            $item.type=='datetime'}selected{/if}>日期时间[datetime]
+    </option>
+    <option value="datetime_range" {if
+            $item.type=='datetime_range'}selected{/if}>
+        日期时间范围[datetime-range]
+    </option>
+    <option value="year" {if $item.type=='year'}selected{/if}>
+        年[year]
+    </option>
+    <option value="year_range" {if
+            $item.type=='year_range'}selected{/if}>年范围[year-range]
+    </option>
+    <option value="year_month" {if
+            $item.type=='year_month'}selected{/if}>年月[year-month]
+    </option>
+    <option value="year_month_range" {if
+            $item.type=='year_month_range'}selected{/if}>
+        年月范围[year-month-range]
+    </option>
+    <option value="map" {if $item.type=='map'}selected{/if}>
+        地图选点[map]
+    </option>
+    <option value="color" {if $item.type=='color'}selected{/if}>
+        颜色选择[color]
+    </option>
+    <option value="icon" {if $item.type=='icon'}selected{/if}>
+        图标选择[icon]
+    </option>
+    <option value="editor" {if $item.type=='editor'}selected{/if}>
+        富文本编辑器[editor]
+    </option>
+</select>

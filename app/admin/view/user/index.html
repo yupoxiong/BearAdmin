@@ -1,0 +1,238 @@
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<!--数据列表页面-->
+<section class="content">
+
+    <!--顶部搜索筛选-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header dataSearch">
+                <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+
+                    <div class="input-group input-group-sm searchGroup">
+                        <input value="{$_keywords ? $_keywords : '' ;}"
+                               name="_keywords" id="_keywords" class="form-control input-sm" placeholder="账号/手机号/昵称">
+                    </div>
+                    <div class="input-group input-group-sm searchGroup smallSelect">
+    <select name="user_level_id" id="user_level_id" class="form-control input-sm index-search">
+        <option value="">用户等级</option>
+        {foreach name='user_level_list' id='item'}
+        <option value="{$item.id}" {if isset($user_level_id) && ''!==$user_level_id && $user_level_id==$item.id}selected{/if}>{$item.name}</option>
+        {/foreach}
+    </select>
+</div>
+<script>
+    $(function () {
+        $('#user_level_id').select2({
+        width:'100%'
+        });
+    });
+</script>
+<div class="input-group input-group-sm searchGroup smallSelect">
+                        <select name="status" id="status" class="form-control input-sm index-search">
+                            <option value="">是否启用</option>
+                            {foreach $status_list as $key=>$value}
+                            <option value="{$key}" {if isset($status) && ''!==$status && $status==$key}selected{/if}>{$value}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#status').select2({
+                            width:'100%'
+                            });
+                        });
+                    </script>
+
+                    <div class="form-group smallSelect">
+    <select name="_order" id="_order" class="form-control input-sm index-order">
+        <option value="">排序字段</option>
+        <option value="id" {if isset($_order) && $_order=='id'}selected{/if}>ID</option><option value="create_time" {if isset($_order) && $_order=='create_time'}selected{/if}>创建时间</option>
+    </select>
+</div>
+
+<div class="form-group smallSelect">
+    <select name="_by" id="_by" class="form-control input-sm index-order">
+        <option value="">排序方式</option>
+        <option value="desc" {if isset($_by) && $_by=='desc'}selected{/if}>倒序</option>
+        <option value="asc" {if isset($_by) && $_by=='asc'}selected{/if}>正序</option>
+    </select>
+</div>
+<script>
+    $('#_order').select2();
+    $('#_by').select2();
+</script>
+
+                    <div class="form-group searchGroup">
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                    <div class="form-group searchGroup">
+    <button onclick="exportData()" class="btn btn-sm btn-info exportData" type="button"><i class="fas fa-file-export"></i> 导出
+    </button>
+</div>
+                    <div class="form-group searchGroup">
+                        <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                class="fa  fa-eraser"></i> 清空查询
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!--顶部导入功能-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header dataImport">
+                <form class="form-inline importForm" id="importForm" action="{:url('import')}" method="POST"  enctype="multipart/form-data">
+
+                    <div class="input-group input-group-sm importGroup">
+                        <div class="custom-file importContainer">
+                            <input type="file" class="custom-file-input importFileInput" name="file" id="file" accept=".xlsx">
+                            <label class="custom-file-label importFileLabel" for="file">选择文件</label>
+                        </div>
+                    </div>
+                    <script>
+                    $(function () {
+                        bsCustomFileInput.init();
+                    });
+                    </script>
+
+                    <div class="form-group importGroup">
+                        <button class="btn btn-sm btn-warning" type="submit"><i class="fas fa-file-upload"></i> 导入
+                        </button>
+                    </div>
+
+                    <div class="form-group importGroup">
+                        <a href="{:url('import',['action'=>'download_example'])}" target="_blank" class="btn btn-sm btn-default" type="button">
+                        <i class="fas fa-download"></i> 下载模版文件
+                        </a>
+                    </div>
+                </form>
+                <script>
+                    $("#importForm").validate({
+                        rules: {
+                            file: {
+                                required: true,
+                            },
+                        },
+                        messages: {
+                            file: {
+                                required: "请选择要导入的文件",
+                            },
+                        },
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <!--数据列表顶部-->
+                <div class="card-header">
+                    <div>
+                        <a title="添加新数据" data-toggle="tooltip" class="btn btn-primary btn-sm "  href="{:url('add')}">
+    <i class="fa fa-plus"></i> 添加
+</a>
+                        <button class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
+    <i class="fa fa-trash"></i> 删除
+</button>
+                        <button class="btn btn-success btn-sm AjaxButton" data-toggle="tooltip" title="启用选中数据" data-confirm-title="启用确认" data-confirm-content="您确定要启用选中的数据吗？" data-id="checked" data-url="{:url('enable')}">
+    <i class="far fa-circle"></i> 启用
+</button>
+
+<button class="btn btn-warning btn-sm AjaxButton" data-toggle="tooltip" title="禁用选中数据" data-confirm-title="禁用确认" data-confirm-content="您确定要禁用选中的数据吗？" data-id="checked" data-url="{:url('disable')}">
+    <i class="fas fa-ban"></i> 禁用
+</button>
+
+                        <button class="btn btn-default btn-sm ReloadButton" data-toggle="tooltip" title="刷新列表数据">
+    <i class="fas fa-redo"></i> 刷新
+</button>
+                    </div>
+                </div>
+
+                <div class="card-body table-responsive p-0" >
+                    <table class="table table-hover table-bordered dataTable text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>
+    <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox" placeholder="全选/取消">
+</th>
+                                        <th>ID</th>
+            <th>用户等级</th>
+            <th>账号</th>
+            <th>手机号</th>
+            <th>昵称</th>
+            <th>头像</th>
+            <th>是否启用</th>
+            <th>创建时间</th>
+
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name='data' id='item' key='data_key'}
+                        <tr>
+                            <td>
+    <input type="checkbox" onclick="checkThis(this)" name="dataCheckbox" data-id="{$item.id}" class="checkbox dataListCheck" value="{$item.id}" placeholder="选择/取消">
+</td>
+                                        <td>{$item.id}</td>
+            <td>{$item.user_level.name|default=''}</td>
+            <td>{$item.username}</td>
+            <td>{$item.mobile}</td>
+            <td>{$item.nickname}</td>
+<td class="imgViewer"><img class="dataListImg" src="{$item.avatar}"></td>
+<td>{$item.status_text}</td>
+            <td>{$item.create_time}</td>
+
+                            <td class="td-do">
+                                <a href="{:url('edit',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                                    <i class="fas fa-pen"></i>
+                                    修改
+                                </a>
+                                <button class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"  data-id="{$item.id}" data-confirm-title="删除确认" data-confirm-content='您确定要删除ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('del')}">
+    <i class="fas fa-trash-alt"></i>
+    删除
+</button>
+                                {if $item.status==1}
+<button class="btn btn-warning btn-xs AjaxButton" data-toggle="tooltip" title="禁用"  data-id="{$item.id}" data-confirm-title="禁用确认" data-confirm-content='您确定要禁用ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('disable')}">
+    <i class="fas fa-ban"></i>
+    禁用
+</button>
+{else/}
+<button class="btn btn-success btn-xs AjaxButton" data-toggle="tooltip" title="启用"  data-id="{$item.id}" data-confirm-title="启用确认" data-confirm-content='您确定要启用ID为 <span class="text-red">{$item.id}</span> 的数据吗' data-url="{:url('enable')}">
+    <i class="far fa-circle"></i>
+    启用
+</button>
+{/if}
+
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="card-footer">
+                    {$page|raw}
+                    {include file='public/change_page' /}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{/block}
+

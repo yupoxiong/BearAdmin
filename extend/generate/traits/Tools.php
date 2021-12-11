@@ -1,4 +1,7 @@
 <?php
+/**
+ * 工具trait
+ */
 namespace generate\traits;
 
 trait Tools
@@ -7,21 +10,23 @@ trait Tools
     {
         $left  = strpos($str, $leftStr);
         $right = strpos($str, $rightStr, $left);
-        if ($left < 0 or $right < $left) return '';
+        if ($left < 0 || $right < $left) {
+            return '';
+        }
         return substr($str, $left + strlen($leftStr), $right - $left - strlen($leftStr));
     }
 
-
     /**
+     * 获取字段信息
      * @param $field_name
      * @param $field_type
-     * @return mixed
+     * @return array
      * 常用类型
      * tinyint,smallint,mediumint,int,bigint,float,double,decimal
      * char,varchar,tinytext/tinyblob,text/blob,longtext/longblob
      * date,datetime,timestamp,time,year
      */
-    public function getFieldInfo($field_name, $field_type)
+    public function getFieldInfo($field_name, $field_type): array
     {
         //默认类型
         $type = 'tinyint';

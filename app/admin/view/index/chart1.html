@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">折线图统计</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+
+                    <div id="chart11" style="width: 100%;min-height: 380px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">平滑折线统计</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+
+                    <div id="chart12" style="width: 100%;min-height: 380px;">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function (){
+        let chartDom = document.getElementById('chart11');
+        let myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            xAxis: {
+                type: 'category',
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: [150, 230, 224, 218, 135, 147, 260],
+                    type: 'line'
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    });
+
+    $(function (){
+
+        let chartDom = document.getElementById('chart12');
+        let myChart = echarts.init(chartDom);
+        let option;
+
+        option = {
+            xAxis: {
+                type: 'category',
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: [820, 932, 901, 934, 1290, 1330, 1320],
+                    type: 'line',
+                    smooth: true
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    });
+
+
+
+
+</script>

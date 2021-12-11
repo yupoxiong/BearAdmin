@@ -1,0 +1,665 @@
+<aside id="ControlSidebar" class="control-sidebar control-sidebar-dark" style="display: none;">
+
+    <div class="p-3 control-sidebar-content"><h5>自定义后台主题配置</h5>
+        <hr class="mb-2">
+        <div class="mb-4">
+            <label class="controlSidebarCheckLabel">
+                <input id="DarkMode" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="dark-mode">
+                <span>深色模式</span>
+            </label>
+        </div>
+
+        <h6>头部选项</h6>
+
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="HeaderFixed" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="layout-navbar-fixed">
+                <span>固定</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="DropdownLegacyOffset" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".main-header" data-class="dropdown-legacy">
+                <span>下拉列表传统偏移</span>
+            </label>
+        </div>
+        <div class="mb-4">
+            <label class="controlSidebarCheckLabel">
+                <input id="NoBorder" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom=".main-header"
+                       data-class="border-bottom-0">
+                <span>无边框</span>
+            </label>
+        </div>
+        <h6>侧边栏选项</h6>
+
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="SidebarCollapsed" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="sidebar-collapse">
+                <span>折叠</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input type="checkbox" id="SidebarFixed" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="layout-fixed">
+                <span>固定</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="SidebarMini" type="checkbox" value="1" checked="checked" class="mr-1 themeSettingCheckbox"
+                       data-dom="body" data-class="sidebar-mini">
+                <span>折叠后显示图标</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="SidebarMiniMd" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="sidebar-mini-md">
+                <span>中等屏折叠显示图标</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="SidebarMiniXs" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="sidebar-mini-xs">
+                <span>超小屏折叠显示图标</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="FlatSidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".nav-sidebar" data-class="nav-flat">
+                <span>导航平面样式</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="LegacySidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".nav-sidebar" data-class="nav-legacy">
+                <span>导航传统样式</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="CompactSidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".nav-sidebar" data-class="nav-compact">
+                <span>导航压缩</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="ChildIndentSidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".nav-sidebar" data-class="nav-child-indent">
+                <span>导航子项缩进</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="ChildHideSidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".nav-sidebar" data-class="nav-collapse-hide-child">
+                <span>导航子项折叠时隐藏</span>
+            </label>
+        </div>
+        <div class="mb-4">
+            <label class="controlSidebarCheckLabel">
+                <input id="NoExpandSidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".main-sidebar" data-class="sidebar-no-expand">
+                <span>禁用悬停/焦点自动展开</span>
+            </label>
+        </div>
+        <h6>页脚选项</h6>
+        <div class="mb-4">
+            <label class="controlSidebarCheckLabel">
+                <input id="FootFixed" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="layout-footer-fixed">
+                <span>固定</span>
+            </label>
+        </div>
+        <h6>小文本选项</h6>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="TextSmBody" type="checkbox" value="1" class="mr-1 themeSettingCheckbox" data-dom="body"
+                       data-class="text-sm">
+                <span>正文</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="TextSmHeader" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".main-header" data-class="text-sm">
+                <span>头部</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="TextSmBrand" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".brand-link" data-class="text-sm">
+                <span>品牌</span>
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="controlSidebarCheckLabel">
+                <input id="TextSmSidebar" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".nav-sidebar" data-class="text-sm">
+                <span>侧边栏导航</span>
+            </label>
+        </div>
+        <div class="mb-4">
+            <label class="controlSidebarCheckLabel">
+                <input id="TextSmFooter" type="checkbox" value="1" class="mr-1 themeSettingCheckbox"
+                       data-dom=".main-footer" data-class="text-sm">
+                <span>页脚</span>
+            </label>
+        </div>
+
+
+        <h6>皮肤</h6>
+        <div class="mb-1">
+            <ul class="list-unstyled clearfix skinUl">
+
+                <li class="skinLi">
+                    <a data-skin="dark-white-dark" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-dark">
+                            </span>
+                            <span class="skinNavbarSpan bg-white">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">默认</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-primary-primary" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-primary">
+                            </span>
+                            <span class="skinNavbarSpan bg-primary">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">主蓝色</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-warning-warning" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-warning">
+                            </span>
+                            <span class="skinNavbarSpan bg-warning">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">警告色</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-info-info" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-info">
+                            </span>
+                            <span class="skinNavbarSpan bg-info">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">信息色</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-danger-danger" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-danger">
+                            </span>
+                            <span class="skinNavbarSpan bg-danger">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">红 色</p>
+                </li>
+                <li class="skinLi">
+                    <a data-skin="dark-success-success" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-success">
+                            </span>
+                            <span class="skinNavbarSpan bg-success">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">成功色</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-indigo-indigo" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-indigo">
+                            </span>
+                            <span class="skinNavbarSpan bg-indigo">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">靛 蓝</p>
+                </li>
+
+
+                <li class="skinLi">
+                    <a data-skin="dark-lightblue-lightblue" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-lightblue">
+                            </span>
+                            <span class="skinNavbarSpan bg-lightblue">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">浅 蓝</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-navy-navy" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-navy">
+                            </span>
+                            <span class="skinNavbarSpan bg-navy">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">海军蓝</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-purple-purple" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-purple">
+                            </span>
+                            <span class="skinNavbarSpan bg-purple">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">紫 色</p>
+                </li>
+
+
+                <li class="skinLi">
+                    <a data-skin="dark-pink-pink" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-pink">
+                            </span>
+                            <span class="skinNavbarSpan bg-pink">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">粉 色</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-maroon-maroon" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-maroon">
+                            </span>
+                            <span class="skinNavbarSpan bg-maroon">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">褐 红</p>
+                </li>
+                <li class="skinLi">
+                    <a data-skin="dark-orange-orange" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-orange">
+                            </span>
+                            <span class="skinNavbarSpan bg-orange">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">橙 色</p>
+                </li>
+
+                <li class="skinLi">
+                    <a data-skin="dark-teal-teal" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-teal">
+                            </span>
+                            <span class="skinNavbarSpan bg-teal">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">蓝 绿</p>
+                </li>
+                <li class="skinLi">
+                    <a data-skin="dark-olive-olive" class="clearfix full-opacity-hover skinA">
+                        <div>
+                            <span class="skinLogoSpan bg-olive">
+                            </span>
+                            <span class="skinNavbarSpan bg-olive">
+                            </span>
+                        </div>
+                        <div>
+                            <span class="skinSidebarSpan control-sidebar-dark">
+                            </span>
+                            <span class="skinContentSpan control-sidebar-light">
+                             </span>
+                        </div>
+                    </a>
+                    <p class="text-center no-margin">橄榄绿</p>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</aside>
+<div id="sidebar-overlay"></div>
+<script>
+    $(function () {
+        $(document).on('collapsed.lte.pushmenu', '[data-widget="pushmenu"]', function () {
+            $('#SidebarCollapsed').prop('checked', true)
+        })
+        $(document).on('shown.lte.pushmenu', '[data-widget="pushmenu"]', function () {
+            $('#SidebarCollapsed').prop('checked', false)
+        })
+
+        // 初始设置
+        let $themeSettingCheckbox = $('.themeSettingCheckbox');
+        $themeSettingCheckbox.each(function (index) {
+            let CookieKey = $(this).attr('id');
+            let isTrue = getSettingContent(CookieKey);
+            isTrue ? $(this).prop("checked", true) : $(this).prop("checked", false);
+            setSettingContent(this);
+        })
+
+        $themeSettingCheckbox.on('click', function () {
+            // 这里先统一加上吧
+            $(window).trigger('resize');
+            if (adminDebug) {
+                console.log('点击checkbox设置');
+            }
+            setSettingContent(this);
+        });
+
+        let $skinA = $('.skinA');
+
+        $skinA.on('click', function () {
+            // 这里先统一加上吧
+            $(window).trigger('resize');
+            changeSkin($(this).data('skin'));
+        });
+
+        initThemes();
+
+    });
+
+    function initThemes() {
+        let cookieKey = 'BackendTheme';
+        let $cookie = Cookies.get(cookieKey);
+        if($cookie!==undefined && $cookie!==null){
+            changeSkin($cookie);
+        }
+    }
+
+    function getSettingContent(CookieKey) {
+        return parseInt(Cookies.get(CookieKey));
+    }
+
+    function setSettingContent(dom) {
+
+        let CookieKey = $(dom).attr('id');
+        let isTrue = $(dom).is(':checked');
+        let $class = $(dom).data('class');
+        let $dom = $(dom).data('dom');
+
+        Cookies.set(CookieKey, isTrue ? 1 : 0);
+        isTrue ? $($dom).addClass($class) : $($dom).removeClass($class);
+    }
+
+
+    var navbar_dark_skins = [
+        'bg-primary',
+        'bg-secondary',
+        'bg-info',
+        'bg-success',
+        'bg-danger',
+        'bg-indigo',
+        'bg-purple',
+        'bg-pink',
+        'bg-navy',
+        'bg-lightblue',
+        'bg-teal',
+        'bg-cyan',
+        'bg-dark',
+        'bg-gray-dark',
+        'bg-gray',
+        // 后期添加的
+        'bg-warning',
+        'bg-fuchsia',
+        'bg-maroon',
+        'bg-olive',
+        //'bg-lime',
+    ]
+
+    var navbar_light_skins = [
+        'bg-light',
+        'bg-warning',
+        'bg-white',
+        'bg-orange',
+    ]
+
+
+    var sidebar_colors = [
+        'bg-primary',
+        'bg-warning',
+        'bg-info',
+        'bg-danger',
+        'bg-success',
+        'bg-indigo',
+        'bg-lightblue',
+        'bg-navy',
+        'bg-purple',
+        'bg-fuchsia',
+        'bg-pink',
+        'bg-maroon',
+        'bg-orange',
+        'bg-lime',
+        'bg-teal',
+        'bg-olive'
+    ]
+
+    var sidebar_skins = [
+        'sidebar-dark-primary',
+        'sidebar-dark-warning',
+        'sidebar-dark-info',
+        'sidebar-dark-danger',
+        'sidebar-dark-success',
+        'sidebar-dark-indigo',
+        'sidebar-dark-lightblue',
+        'sidebar-dark-navy',
+        'sidebar-dark-purple',
+        'sidebar-dark-fuchsia',
+        'sidebar-dark-pink',
+        'sidebar-dark-maroon',
+        'sidebar-dark-orange',
+        'sidebar-dark-lime',
+        'sidebar-dark-teal',
+        'sidebar-dark-olive',
+        'sidebar-light-primary',
+        'sidebar-light-warning',
+        'sidebar-light-info',
+        'sidebar-light-danger',
+        'sidebar-light-success',
+        'sidebar-light-indigo',
+        'sidebar-light-lightblue',
+        'sidebar-light-navy',
+        'sidebar-light-purple',
+        'sidebar-light-fuchsia',
+        'sidebar-light-pink',
+        'sidebar-light-maroon',
+        'sidebar-light-orange',
+        'sidebar-light-lime',
+        'sidebar-light-teal',
+        'sidebar-light-olive'
+    ]
+
+    var navbar_all_colors = navbar_dark_skins.concat(navbar_light_skins)
+
+    var logo_skins = navbar_all_colors;
+
+    function changeNavbar(colors) {
+
+        let color = 'bg-' + colors[1];
+        let $dom = $('.main-header');
+
+        $dom.removeClass('navbar-dark').removeClass('navbar-light').removeClass('navbar-white');
+        navbar_all_colors.forEach(function (color) {
+            $dom.removeClass(color);
+        })
+
+        $dom.addClass(color);
+
+        if (navbar_dark_skins.indexOf(color) > -1) {
+            $dom.addClass('navbar-dark')
+        } else {
+            $dom.addClass('navbar-light')
+        }
+    }
+
+
+    function changeSidebar(colors) {
+        let mode = colors[0];
+        let $dom = $('.main-sidebar');
+        let color = 'sidebar-' + mode + '-' + colors[1];
+
+        sidebar_skins.forEach(function (skin) {
+            $dom.removeClass(skin)
+        })
+        $dom.addClass(color);
+
+        if (mode === 'dark') {
+            $('.sidebar').removeClass('os-theme-dark').addClass('os-theme-light')
+        } else {
+            $('.sidebar').removeClass('os-theme-light').addClass('os-theme-dark')
+        }
+    }
+
+
+    /**
+     * 改变品牌logo
+     * @param colors
+     */
+    function changeBrandLogo(colors) {
+        let colorPrefix = 'bg-';
+        let color = colorPrefix + colors[2];
+        let $dom = $('.brand-link');
+
+        if (color === colorPrefix + 'light' || color === colorPrefix + 'white') {
+            $dom.addClass('text-black')
+        } else {
+            $dom.removeClass('text-black')
+        }
+
+        logo_skins.forEach(function (skin) {
+            $dom.removeClass(skin)
+        })
+
+        $dom.addClass(color);
+    }
+
+    function changeSkin(skin) {
+        if (adminDebug) {
+            console.log('改变皮肤：' + skin);
+        }
+        let colors = skin.split('-');
+        changeBrandLogo(colors);
+        changeSidebar(colors);
+        changeNavbar(colors);
+        let cookieKey = 'BackendTheme';
+        Cookies.set(cookieKey,skin)
+    }
+
+</script>

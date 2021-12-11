@@ -1,32 +1,31 @@
 try {
     /** pjax相关 */
-    //超时3秒(可选)
     $.pjax.defaults.timeout = 3000;
     $.pjax.defaults.type = 'GET';
-    //存储容器id
-    $.pjax.defaults.container = '#pjax-container';
-    //目标id
-    $.pjax.defaults.fragment = '#pjax-container';
-    //最大缓存长度(可选)
+    $.pjax.defaults.container = '#pjaxContainer';
+    $.pjax.defaults.fragment = '#pjaxContainer';
     $.pjax.defaults.maxCacheLength = 0;
-    $(document).pjax('a:not(a[target="_blank"])', {
-        //存储容器id
-        container: '#pjax-container',
-        //目标id
-        fragment: '#pjax-container'
+    $(document).pjax('a:not(a[target="_blank"])', {	//
+        container: '#pjaxContainer',
+        fragment: '#pjaxContainer'
     });
-    //ajax请求开始时执行
     $(document).ajaxStart(function () {
-        //启动进度条
+        console.log(this);
+        // ajax请求的时候显示顶部进度条
+        if (adminDebug) {
+            console.log('ajax请求开始');
+        }
         NProgress.start();
     }).ajaxStop(function () {
-        //ajax请求结束后执行
-        //关闭进度条
+        // ajax停止的时候结束进度条
+        if (adminDebug) {
+            console.log('ajax请求停止');
+        }
         NProgress.done();
     });
 } catch (e) {
     if (adminDebug) {
-        console.log(e.message);
+        console.log('初始化pjax报错，信息：' + e.message);
     }
 }
 
@@ -37,121 +36,56 @@ $(document).on('pjax:send', function (xhr) {
     NProgress.start();
 });
 $(document).on('pjax:complete', function (xhr) {
-    $('[data-toggle="tooltip"]').tooltip();
+    initToolTip();
+    initImgViewer();
+    setNavTab();
     NProgress.done();
 });
 //列表页搜索pjax
 $(document).on('submit', '.searchForm', function (event) {
-    $.pjax.submit(event, '#pjax-container');
+    $.pjax.submit(event, '#pjaxContainer');
 });
 
-
-//菜单搜索
-$(function () {
-    $('#sidebar-form').on('submit', function (e) {
-        e.preventDefault();
-    });
-
-    $('.sidebar-menu li.active').data('lte.pushmenu.active', true);
-
-    $('#search-input').on('keyup', function () {
-        let term = $('#search-input').val().trim();
-
-        if (term.length === 0) {
-            $('.sidebar-menu li').each(function () {
-                $(this).show(0);
-                $(this).removeClass('active');
-                if ($(this).data('lte.pushmenu.active')) {
-                    $(this).addClass('active');
-                }
-            });
-            return;
-        }
-
-        $('.sidebar-menu li').each(function () {
-            if ($(this).text().toLowerCase().indexOf(term.toLowerCase()) === -1) {
-                $(this).hide(0);
-                $(this).removeClass('pushmenu-search-found', false);
-
-                if ($(this).is('.treeview')) {
-                    $(this).removeClass('active');
-                }
-            } else {
-                $(this).show(0);
-                $(this).addClass('pushmenu-search-found');
-
-                if ($(this).is('.treeview')) {
-                    $(this).addClass('active');
-                }
-
-                var parent = $(this).parents('li').first();
-                if (parent.is('.treeview')) {
-                    parent.show(0);
-                }
-            }
-
-            if ($(this).is('.header')) {
-                $(this).show();
-            }
-        });
-
-        $('.sidebar-menu li.pushmenu-search-found.treeview').each(function () {
-            $(this).find('.pushmenu-search-found').show(0);
-        });
-    });
-});
-
-//点击菜单高亮
-$(function () {
-    $('.sidebar-menu li:not(.treeview) > a').on('click', function () {
-        let $parent = $(this).parent().addClass('active');
-        $parent.siblings('.treeview.active').find('> a').trigger('click');
-        $parent.siblings().removeClass('active').find('li').removeClass('active');
-    });
-
-    $('[data-toggle="popover"]').popover();
-});
-
-// bootstrap提示
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
-
-/** 表单验证错误展示 */
+/** 表单验证 */
 $.validator.setDefaults({
     errorElement: "span",
     errorClass: "help-block error",
+
+    errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.input-group').append(error);
+        element.closest('.formInputDiv').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+    },
     submitHandler: function (form) {
-        formSubmit(form);
+        if (adminDebug) {
+            console.log('前端验证成功，开始提交表单');
+        }
+        submitForm(form);
         return false;
     }
 });
 
-/** 边栏菜单 */
-try {
-    $('.sidebar-menu').tree();
-} catch (e) {
-    if (adminDebug) {
-        console.log(e.message);
-    }
-}
-
-
-/* 清除搜索表单 */
-function clearSearchForm() {
-    let url_all = window.location.href;
-    let arr = url_all.split('?');
-    let url = arr[0];
-    $.pjax({url: url, container: '#pjax-container'});
-}
-
-
+/* 初始化 */
 $(function () {
+    setNavTab();
+    // 初始化提示
+    initToolTip();
+    // 初始化菜单点击高亮
+    initMenuClick();
+    // 初始化图片预览
+    initImgViewer();
+
     let $body = $('body');
     /* 返回按钮 */
     $body.on('click', '.BackButton', function (event) {
         event.preventDefault();
-        history.back(1);
+        history.back();
     });
 
     /* 刷新按钮 */
@@ -160,8 +94,92 @@ $(function () {
         $.pjax.reload();
     });
 
+
+    /* 全屏按钮 */
+    $body.on('click', '.FullScreenButton', function (event) {
+        event.preventDefault();
+        fullScreen();
+        $('.FullScreenButton').hide();
+        $('.ExitFullScreenButton').show();
+    });
+
+    /* 退出全屏按钮 */
+    $body.on('click', '.ExitFullScreenButton', function (event) {
+        event.preventDefault();
+        exitFullscreen();
+        $('.ExitFullScreenButton').hide();
+        $('.FullScreenButton').show();
+    });
+
 });
 
+// 设置tab激活选项卡
+function setNavTab() {
+    if ($('.NavTab').length === 1) {
+        if (adminDebug) {
+            console.log('选项卡初始化');
+        }
+        let hash = document.location.hash;
+        if (hash) {
+            $('.NavTab a[href="' + hash + '"]').tab('show');
+        } else {
+            $('.NavTab a:first').tab('show');
+        }
+        $('.NavTab .nav-item .nav-link').on('click', function () {
+            document.location.hash = $(this).attr('href');
+        })
+    }
+}
+
+/* 清除搜索表单 */
+function clearSearchForm() {
+    let url_all = window.location.href;
+    let arr = url_all.split('?');
+    let url = arr[0];
+    $.pjax({url: url, container: '#pjaxContainer'});
+}
+
+/**
+ * 点击菜单高亮
+ */
+function initMenuClick() {
+    $('.nav-sidebar li:not(.has-treeview) > a').on('click', function () {
+        if (adminDebug) {
+            console.log('点击了菜单');
+        }
+        $(this).addClass('active');
+        let $parents = $(this).parents('li');
+        $parents.find('a:first').addClass('active');
+        $parents.siblings().find('a').removeClass('active');
+        $parents.siblings().removeClass('active');
+    });
+
+    $('[data-toggle="popover"]').popover();
+}
+
+/**
+ * 图片预览
+ */
+function initImgViewer() {
+    $('.imgViewer').viewer({
+        url: 'src',
+        title: function (obj) {
+            return obj.alt;
+        }
+    });
+}
+
+
+/**
+ * 初始化提示
+ */
+function initToolTip() {
+    // 提示泡
+    $('[data-toggle="tooltip"]').tooltip({
+        container: '#pjaxContainer',
+        trigger: 'hover',
+    });
+}
 
 /*列表中单个选择和取消*/
 function checkThis(obj) {
@@ -176,20 +194,22 @@ function checkThis(obj) {
         }
     }
 
-    let all_length = $("input[name='data-checkbox']").length;
-    let checked_length = $("input[name='data-checkbox']:checked").length;
+    let all_length = $("input[name='dataCheckbox']").length;
+    let checked_length = $("input[name='dataCheckbox']:checked").length;
     if (all_length === checked_length) {
         $("#dataCheckAll").prop("checked", true);
     } else {
         $("#dataCheckAll").prop("checked", false);
     }
-    console.log(dataSelectIds);
+    if (adminDebug) {
+        console.log('当前选中的ID：' + JSON.stringify(dataSelectIds));
+    }
 }
 
 /*全部选择/取消*/
 function checkAll(obj) {
     dataSelectIds = [];
-    let all_check = $("input[name='data-checkbox']");
+    var all_check = $("input[name='dataCheckbox']");
     if ($(obj).is(':checked')) {
         all_check.prop("checked", true);
         $(all_check).each(function () {
@@ -198,23 +218,36 @@ function checkAll(obj) {
     } else {
         all_check.prop("checked", false);
     }
+    if (adminDebug) {
+        console.log('当前选中的ID：' + JSON.stringify(dataSelectIds));
+    }
 }
 
 
 /**
  * 表单提交
+ * @param form 表单dom
+ * @param successCallback 成功回调
+ * @param failCallback 失败回调
+ * @param errorCallback 错误回调
+ * @param showMsg 是否显示弹出信息
+ * @returns {boolean}
  */
-function formSubmit(form, successCallback, failCallback, errorCallback, showMsg = true) {
+function submitForm(form, successCallback, failCallback, errorCallback, showMsg = true) {
+    refreshCsrfToken();
     let loadT = layer.msg('正在提交，请稍候…', {icon: 16, time: 0, shade: [0.3, "#000"], scrollbar: false,});
     let action = $(form).attr('action');
     let method = $(form).attr('method');
     let data = new FormData($(form)[0]);
-
+    // 操作token
+    if(!data.has('__token__')){
+        data.append('__token__',csrfToken);
+    }
     if (adminDebug) {
-        console.log('%cajax submit start!', ';color:#333333');
-        console.log('action:' + action);
-        console.log('method:' + method);
-        console.log('data:' + data);
+        console.log('%c开始提交表单!', ';color:#333333');
+        console.log('action:', action);
+        console.log('method:', method);
+        console.log('data:', data);
     }
 
     $.ajax({
@@ -224,51 +257,63 @@ function formSubmit(form, successCallback, failCallback, errorCallback, showMsg 
             data: data,
             contentType: false,
             processData: false,
+            complete: function () {
+                if (adminDebug) {
+                    console.log('表单ajax执行完毕');
+                }
+            },
             success: function (result) {
                 layer.close(loadT);
                 if (showMsg) {
                     layer.msg(result.msg, {
-                        icon: result.code ? 1 : 2,
+                        icon: result.code === 200 ? 1 : 2,
                         scrollbar: false,
                     });
                 }
+
                 // 调试信息
                 if (adminDebug) {
-                    console.log('submit success!');
-                    result.code === 1 ? console.log('%cresult success', ';color:#00a65a') : console.log('%cresult fail', ';color:#f39c12');
+                    console.log('ajax请求成功!');
+                    result.code === 200 ? console.log('%c业务返回成功', ';color:#00a65a') : console.log('%c业务返回失败', ';color:#f39c12');
                 }
-                if(result.code === 1){
+                if (result.code === 200) {
                     if (successCallback) {
+                        // 如果有成功回调函数就走回调函数
                         successCallback(result);
                     } else {
+                        // 没有回调函数跳转url
                         goUrl(result.url);
                     }
-                }else{
+                } else {
                     if (failCallback) {
+                        // 如果有失败回调函数就走回调函数
                         failCallback(result);
                     } else {
+                        // 没有回调函数跳转url
                         goUrl(result.url);
                     }
                 }
             },
+
             error: function (xhr, type, errorThrown) {
                 layer.close(loadT);
-                //异常处理；
+                // 调试信息
                 if (adminDebug) {
                     console.log('%csubmit fail!', ';color:#dd4b39');
-                    console.log();
                     console.log("type:" + type + ",readyState:" + xhr.readyState + ",status:" + xhr.status);
-                    console.log("url:" + action);
-                    console.log("data:" + data);
-                }
-                if(showMsg){
-                    layer.msg('访问错误,代码' + xhr.status, {icon: 2, scrollbar: false,});
+                    console.log("errorThrown:" + errorThrown);
+                    console.log("data:",data);
                 }
 
-                if(errorCallback){
+                if (showMsg) {
+                    showAjaxError(xhr, type, errorThrown);
+                }
+
+                if (errorCallback) {
                     errorCallback(xhr)
                 }
-            }
+
+            },
         }
     );
     return false;
@@ -289,7 +334,7 @@ function goUrl(url = 1) {
         $.pjax.reload();
     } else if (url === 'url://back' || url === 3) {
         console.log('Return to the last page.');
-        history.back(1);
+        window.history.go(-1);
     } else if (url === 4 || url === 'url://close-refresh') {
         console.log('Close this layer page and refresh parent page.');
         let indexWindow = parent.layer.getFrameIndex(window.name);
@@ -306,7 +351,7 @@ function goUrl(url = 1) {
         try {
             $.pjax({
                 url: url,
-                container: '#pjax-container'
+                container: '#pjaxContainer'
             });
         } catch (e) {
             window.location.href = url;
@@ -331,12 +376,15 @@ function goUrl(url = 1) {
 $(function () {
     $('body').on('click', '.AjaxButton', function (event) {
         event.preventDefault();
-
+        refreshCsrfToken();
         if (adminDebug) {
-            console.log('AjaxButton clicked.');
+            console.log('点击Ajax请求按钮');
         }
-        //是否弹出提示
-        let layerConfirm = $(this).data("confirm") || 1;
+
+        let dataData = {};
+
+        // 是否弹出提示
+        let layerConfirm = parseInt($(this).data("confirm") || 1);
         //访问方式，1为直接访问，2为layer窗口显示
         let layerType = parseInt($(this).data("type") || 1);
         //访问的url
@@ -356,7 +404,6 @@ $(function () {
         //当前操作数据的ID
         let dataId = $(this).data("id");
 
-        let dataData;
         //如果没有定义ID去查询data-data属性
         if (dataId === undefined) {
             dataData = $(this).data("data") || {};
@@ -375,8 +422,11 @@ $(function () {
             dataData = JSON.parse(dataData);
         }
 
+        // 操作token
+        dataData.__token__ = csrfToken;
+
         /*需要确认操作*/
-        if (parseInt(layerConfirm) === 1) {
+        if (layerConfirm === 1) {
             //提示窗口的标题
             let confirmTitle = $(this).data("confirmTitle") || '操作确认';
             //提示窗口的内容
@@ -401,34 +451,30 @@ $(function () {
                     }
                 }
             });
-        } else {
-            //不需要操作确认
-            if (layerType === 1) {
-                //直接请求
-                ajaxRequest(url, layerMethod, dataData, go);
-            } else if (layerType === 2) {
-                //弹出窗口
-                //检查权限
-                if (checkAuth(url)) {
-                    //用窗口打开
-                    layer.open({
-                        type: 2,
-                        area: [layerWith, layerHeight],
-                        title: layerTitle,
-                        closeBtn: 1,
-                        shift: 0,
-                        content: url + "?request_type=layer_open&" + parseParam(dataData),
-                        scrollbar: false,
-                    });
-                }
+        } else if (layerType === 1) {
+            //直接请求
+            ajaxRequest(url, layerMethod, dataData, go);
+        } else if (layerType === 2) {
+            //弹出窗口
+            //检查权限
+            if (checkAuth(url)) {
+                //用窗口打开
+                layer.open({
+                    type: 2,
+                    area: [layerWith, layerHeight],
+                    title: layerTitle,
+                    closeBtn: 1,
+                    shift: 0,
+                    content: url + "?request_type=layer_open&" + parseParam(dataData),
+                    scrollbar: false,
+                });
             }
         }
     });
 });
 
-//ajax请求封装
 /**
- *
+ * ajax请求封装
  * @param url 访问的url
  * @param method  访问方式
  * @param data  data数据
@@ -441,16 +487,19 @@ function ajaxRequest(url, method, data, go) {
             dataType: 'json',
             type: method,
             data: data,
+            complete: function () {
+
+            },
             success: function (result) {
                 layer.close(loadT);
                 layer.msg(result.msg, {
-                    icon: result.code ? 1 : 2,
+                    icon: result.code === 200 ? 1 : 2,
                     scrollbar: false,
                 });
 
                 if (adminDebug) {
                     console.log('request success!');
-                    if (result.code === 1) {
+                    if (result.code === 200) {
                         console.log('%cresult success', ';color:#00a65a');
                     } else {
                         go = 'url://current';
@@ -461,28 +510,47 @@ function ajaxRequest(url, method, data, go) {
                 goUrl(go);
             },
             error: function (xhr, type, errorThrown) {
-                //异常处理；
-                if (adminDebug) {
+
+                layer.close(loadT);
+                if(adminDebug){
                     console.log('%crequest fail!', ';color:#dd4b39');
-                    console.log();
-                    console.log("type:" + type + ",readyState:" + xhr.readyState + ",status:" + xhr.status);
                     console.log("url:" + url);
-                    console.log("data:");
-                    console.log(data);
-                    layer.close(loadT);
+                    console.log("data:",data);
                 }
-                layer.msg('访问错误,代码' + xhr.status, {icon: 2, scrollbar: false,});
+
+                showAjaxError(xhr, type, errorThrown);
+
             }
         }
     );
 }
 
+
+function showAjaxError(xhr, type, errorThrown){
+    let errorTitle = '';
+    // 调试信息
+    if (adminDebug) {
+        console.log('xhr',xhr);
+        console.log('errorThrown',errorThrown);
+        console.log("type:" + type + ",readyState:" + xhr.readyState + ",status:" + xhr.status);
+    }
+
+    if (xhr.responseJSON.code !== undefined && xhr.responseJSON.code === 500) {
+        errorTitle = xhr.responseJSON.msg;
+    } else {
+        errorTitle = '系统繁忙,状态码：' + xhr.status + ',参考信息：' + (xhr.responseJSON.message || xhr.responseJSON.msg || '');
+    }
+
+    layer.msg(errorTitle, {icon: 2, scrollbar: false,});
+}
+
+
 //改变每页数量
 function changePerPage(obj) {
     if (adminDebug) {
-        console.log('当前每页数量' + Cookies.get(cookiePrefix + 'admin_per_page'));
+        console.log('当前每页数量' + Cookies.get(cookiePrefix + 'admin_list_rows'));
     }
-    Cookies.set(cookiePrefix + 'admin_per_page', obj.value, {expires: 30});
+    Cookies.set(cookiePrefix + 'admin_list_rows', obj.value, {expires: 30});
     $.pjax.reload();
 }
 
@@ -491,8 +559,8 @@ function changePerPage(obj) {
  * 检查授权
  */
 function checkAuth(url) {
-    let hasAuth = false;
-    let loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000'], scrollbar: false,});
+    var hasAuth = false;
+    var loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000'], scrollbar: false,});
     $.post({
         url: url,
         data: {"check_auth": 1},
@@ -500,14 +568,7 @@ function checkAuth(url) {
         async: false,
         success: function (result) {
             layer.close(loadT);
-            if (result.code === 1) {
-                hasAuth = true;
-            } else {
-                layer.msg(result.msg, {
-                    icon: 2,
-                    scrollbar: false,
-                });
-            }
+            hasAuth = true;
         },
         error: function (xhr, type, errorThrown) {
             layer.msg('访问错误,代码' + xhr.status, {icon: 2, scrollbar: false,});
@@ -532,10 +593,102 @@ function parseParam(param, key) {
 
 /** 导出excel **/
 function exportData(url) {
-    let exportUrl = url || 'index.html';
-    let openUrl = exportUrl + '?export_data=1&' + $("#searchForm").serialize();
+    let exportUrl = url || 'export.html';
+    let openUrl = exportUrl + '?' + $("#searchForm").serialize();
     window.open(openUrl);
 
 }
 
+/** 全屏 **/
+function fullScreen() {
+    var element = document.documentElement;
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    }
 
+}
+
+/** 退出全屏 **/
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+
+}
+
+/**
+ * 退出
+ */
+function logout() {
+    $.ajax({
+            url: logoutUrl,
+            dataType: 'json',
+            type: 'POST',
+            data: {},
+            success: function (result) {
+                if (adminDebug) {
+                    console.log('退出成功', result);
+                }
+                goUrl(result.data.redirect);
+            }
+        }
+    );
+}
+
+/**
+ * 刷新token
+ */
+function refreshCsrfToken() {
+    $.ajax({
+            url: tokenUrl,
+            dataType: 'json',
+            type: 'POST',
+            data: {},
+            async: false,
+            global: false,
+            success: function (result) {
+                if (adminDebug) {
+                    console.log('获取新token', result);
+                }
+                csrfToken = result.data.token;
+                $("input[name='__token__']").val(csrfToken);
+            }
+        }
+    );
+}
+
+/**
+ * 地图输入组建防止回车提交
+ */
+$(function () {
+    let $mapKey = $(".mapKeywords");
+    $mapKey.keyup(function (e) {
+        if (e.keyCode === 13) {
+            return false;
+        }
+    })
+    $mapKey.keydown(function (e) {
+        if (e.keyCode === 13) {
+            return false;
+        }
+    })
+    $mapKey.keypress(function (e) {
+        if (e.keyCode === 13) {
+            return false;
+        }
+    })
+
+
+});

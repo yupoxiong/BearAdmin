@@ -1,0 +1,813 @@
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+
+{include file='generate/css' /}
+
+<script>
+    //收起左侧菜单，留出更大空间
+    $(function () {
+        let $body = $('body');
+        if (!$body.hasClass('sidebar-collapse')) {
+            $body.addClass('sidebar-collapse');
+        }
+    });
+
+</script>
+<section class="content">
+    <form id="dataForm" class="dataForm" action="{:url('generate/create')}" enctype="multipart/form-data" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header with-border">
+                        <h3 class="card-title">代码自动生成</h3>
+                    </div>
+
+                    <!-- 表和菜单 -->
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="table_name">选择表</label>
+                                <select data-id="table_name" name="table_name"
+                                        class="select2 form-control form-control-sm selectTable"
+                                        id="table_name" data-placeholder="请选择表">
+                                    <option value=""></option>
+                                    {foreach name='table' id='item'}
+                                    <option value="{$item}">{$item}</option>
+                                    {/foreach}
+                                </select>
+                                <button onclick="refreshTable()" type="button" class="btn btn-flat btn-success btn-sm"
+                                        data-toggle="tooltip" title="刷新表数据">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cn_name">中文名</label>
+                                <input name="cn_name" id="cn_name" class="form-control form-control-sm"
+                                       placeholder="请填写中文名"
+                                       title="表及功能的中文名字，例如用户表，就填写[用户]" data-toggle="tooltip">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="module_name_suffix">模块名称后缀</label>
+                                <input name="module_name_suffix" id="module_name_suffix"
+                                       class="form-control form-control-sm"
+                                       placeholder="模块名称后缀，可空"
+                                       title="默认为[管理]，例如前面的中文名叫[用户]，这里填写的是[管理]，那生成的菜单名称就叫[用户管理]" value="管理"
+                                       data-toggle="tooltip">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend iconpicker-container">
+                                        <span class="input-group-addon input-group-text">
+                                            <i class="fas fa-bars"></i></span>
+                                    </div>
+                                    <input maxlength="50" id="module_icon" name="module_icon"
+                                           value="fas fa-bars" class="form-control form-control-sm"
+                                           placeholder="请输入图标class"
+                                           title="模块图标，比如用户模块，可以选择[fas fa-user]作为图标，默认为[fas fa-bars]"
+                                           data-toggle="tooltip">
+                                </div>
+
+                            </div>
+                            <script>
+                                $('#module_icon').iconpicker({placement: 'bottomLeft'});
+                            </script>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input checked type="checkbox" value="1" id="auto_class_name"
+                                           name="auto_class_name"
+                                           title="自动生成控制器|模型|验证器类名" data-toggle="tooltip">
+                                    自动生成类名
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 控制器 -->
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+
+                            <div class="form-group">
+                                <label for="create_menu">菜 单</label>
+                                <select data-id="create_menu" name="create_menu"
+                                        class="select2 form-control form-control-sm"
+                                        id="create_menu" data-placeholder="不选择为不生成菜单">
+                                    <option value="-1">不生成</option>
+                                    <option value="0">顶级菜单</option>
+                                    {$menus|raw}
+                                </select>
+                                <button onclick="refreshMenu()" type="button" class="btn btn-flat btn-sm btn-success"
+                                        data-toggle="tooltip" title="刷新菜单">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="create_menu_list">菜单选择</label>
+                                <select name="create_menu_list[]"
+                                        class="select2 form-control form-control-sm min-width-400"
+                                        id="create_menu_list" multiple="multiple" data-placeholder="默认生成增删改菜单">
+                                    <option value="index" disabled selected>列表</option>
+                                    <option value="add" selected>添加</option>
+                                    <option value="edit" selected>修改</option>
+                                    <option value="del" selected>删除</option>
+                                    <option value="enable">启用</option>
+                                    <option value="disable">禁用</option>
+                                    <option value="export">导出</option>
+                                    <option value="import">导入</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+
+                            <div class="form-group">
+                                <label for="create_admin_controller">Admin控制器</label>
+                                <select data-id="create_admin_controller" name="create_admin_controller"
+                                        class="select2 form-control form-control-sm is-create"
+                                        id="create_admin_controller" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="admin_controller_name">控制器名</label>
+                                <input name="admin_controller_name" id="admin_controller_name"
+                                       class="form-control form-control-sm" title="默认会根据表名自动生成" placeholder="请填写控制器名"
+                                       data-toggle="tooltip">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="admin_controller_action_list">控制器方法</label>
+                                <select name="admin_controller_action_list[]"
+                                        class="select2 form-control form-control-sm min-width-560"
+                                        id="admin_controller_action_list" multiple="multiple"
+                                        data-placeholder="默认生成增删改方法">
+                                    <option value="index" selected>列表</option>
+                                    <option value="add" selected>添加</option>
+                                    <option value="edit" selected>修改</option>
+                                    <option value="del" selected>删除</option>
+                                    <option value="enable">启用</option>
+                                    <option value="disable">禁用</option>
+                                    <option value="export">导出</option>
+                                    <option value="import">导入</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+
+                            <div class="form-group">
+                                <label for="create_api_controller">Api控制器</label>
+                                <select data-id="create_api_controller" name="create_api_controller"
+                                        class="select2 form-control form-control-sm is-create"
+                                        id="create_api_controller" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="api_controller_name">控制器名</label>
+                                <input name="api_controller_name" id="api_controller_name"
+                                       class="form-control form-control-sm" title="默认会根据表名自动生成" placeholder="请填写控制器名"
+                                       data-toggle="tooltip">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="api_controller_action_list">控制器方法</label>
+                                <select name="api_controller_action_list[]"
+                                        class="select2 form-control form-control-sm min-width-560"
+                                        id="api_controller_action_list" multiple="multiple"
+                                        data-placeholder="默认生成增删改方法">
+                                    <option value="index" selected>列表</option>
+                                    <option value="add" selected>添加</option>
+                                    <option value="info" selected>详情</option>
+                                    <option value="edit" selected>修改</option>
+                                    <option value="del" selected>删除</option>
+                                    <option value="disable">禁用</option>
+                                    <option value="enable">启用</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="create_model">模 型</label>
+                                <select data-id="create_model" name="create_model"
+                                        class="select2 form-control form-control-sm is-create"
+                                        id="create_model" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="model_name">模型名</label>
+                                <input name="model_name" id="model_name" class="form-control form-control-sm"
+                                       placeholder="模型名" title="默认会根据表名自动生成" data-toggle="tooltip">
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label><input checked type="checkbox" value="1" name="auto_timestamp"
+                                              title="自动添加create_time和update_time字段" data-toggle="tooltip">自动时间戳</label>
+
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label><input checked type="checkbox" value="1" name="soft_delete"
+                                              title="自动添加delete_time字段，默认为0" data-toggle="tooltip">软删除</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="create_validate">验证器</label>
+                                <select data-id="create_validate" name="create_validate"
+                                        class="select2 form-control form-control-sm is-create"
+                                        id="create_validate" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="validate_name">验证器名</label>
+                                <input name="validate_name" id="validate_name" class="form-control form-control-sm"
+                                       placeholder="验证器名" title="默认会根据表名自动生成" data-toggle="tooltip">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="create_view_index">列表视图</label>
+                                <select data-id="create_view_index" name="create_view_index"
+                                        class="select2 form-control form-control-sm is-create"
+                                        id="create_view_index" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="index_operation_button">操作按钮形式</label>
+                                <select data-id="index_operation_button" name="index_operation_button"
+                                        class="select2 form-control form-control-sm iconOption"
+                                        id="index_operation_button" data-placeholder="默认纯图标">
+                                    <option value="1">图标</option>
+                                    <option value="2">文字</option>
+                                    <option value="3">图标+文字</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input checked type="checkbox" value="1" id="list_delete"
+                                           name="list_delete"
+                                           title="列表删除功能" data-toggle="tooltip">
+                                    列表删除
+                                </label>
+                            </div>
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input checked type="checkbox" value="1" id="list_create"
+                                           name="list_create"
+                                           title="列表添加功能" data-toggle="tooltip">
+                                    列表添加
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input checked type="checkbox" value="1" id="list_refresh"
+                                           name="list_refresh"
+                                           title="列表刷新功能" data-toggle="tooltip">
+                                    列表刷新
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input type="checkbox" value="1" id="list_export"
+                                           name="list_export"
+                                           title="列表导出功能" data-toggle="tooltip">
+                                    列表导出
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input type="checkbox" value="1" id="list_import"
+                                           name="list_import"
+                                           title="列表导入功能" data-toggle="tooltip">
+                                    列表导入
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input type="checkbox" value="1" id="list_enable"
+                                           name="list_enable"
+                                           title="列表启用/禁用功能" data-toggle="tooltip">
+                                    列表启用/禁用
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-header with-border">
+                        <div class="form-inline">
+
+                            <div class="form-group">
+                                <label for="create_view_add">表单视图</label>
+                                <select data-id="create_view_add" name="create_view_add"
+                                        class="select2 form-control form-control-sm is-create"
+                                        id="create_view_add" data-placeholder="默认生成">
+                                    <option value="1">生成</option>
+                                    <option value="0">不生成</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table id="dataList" class="table table-hover table-bordered datatable">
+                            <thead>
+                            <tr class="input-type">
+                                <th class="min-width-155">
+                                    <span data-toggle="tooltip" title="字段名为小写下划线形式">
+                                        字段
+                                    </span>
+                                    |
+                                    <span data-toggle="tooltip" title="字段类型，例如varchar(255),int(10),decimal(12,2)">
+                                        类型
+                                    </span>
+                                </th>
+
+                                <th class="min-width-155">
+                                    <span data-toggle="tooltip" title="中文显示名称">
+                                        名称
+                                    </span>
+                                    |
+                                    <span data-toggle="tooltip" title="表单内字段默认值，默认为数据库默认值，可自行修改">
+                                        默认值
+                                    </span>
+                                </th>
+                                <th class="min-width-105">
+                                     <span data-toggle="tooltip" title="是否在后台列表展示">
+                                        列表
+                                    </span>
+                                    |
+                                    <span data-toggle="tooltip" title="是否参与后台列表排序">
+                                        排序
+                                    </span>
+                                </th>
+                                <th class="min-width-255">
+
+                                    <span data-toggle="tooltip" title="勾选表单后有效，台添加/修改页表单字段的输入类型">
+                                        表单类型
+                                    </span>
+                                    |
+                                    <span data-toggle="tooltip" title="后台(api)添加/修改时的表单验证规则">
+                                        验证规则
+                                    </span>
+                                </th>
+                                <th class="min-width-255">
+                                    <span data-toggle="tooltip"
+                                          title="参与验证的场景，包括[admin_add,admin_edit,api_add,api_edit]">
+                                        验证场景
+                                    </span>
+                                </th>
+
+
+                                <th class="min-width-155">
+                                    <span data-toggle="tooltip" title="填写自定义验证规则内容，形式跟TP一样即可">
+                                        自定义验证规则
+                                    </span>
+                                    |
+                                    <span data-toggle="tooltip"
+                                          title="是否参与列表筛选，可选择的有关键词搜索，下拉列表选择，时间范围筛等">
+                                        列表筛选
+                                    </span>
+                                </th>
+
+                                <th class="min-width-155">
+                                    <span data-toggle="tooltip"
+                                          title="自定义筛选/select数据，当前字段为 列表选择 的时候生效。格式为：value||name，多个选项换行即可。例如[性别]字段，表单是[select]形式的，数据内容为：0||保密  1||男  2||女。一定要注意value和name的分割竖线为英文竖线，非中文竖线，不同的选项一定要换行">
+                                        自定义列表
+                                    </span>
+                                </th>
+
+                                <th class="min-width-255">
+                                    <span data-toggle="tooltip" title="该字段是否使用修改器，可选择的有开关，日期，日期时间等">
+                                        修改器
+                                    </span>
+                                    |
+                                    <span data-toggle="tooltip" title="选择字段是否为关联字段以及关联的类型">
+                                        关联
+                                    </span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="dataBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm pull-right" type="submit">生成代码</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    {include file='generate/template' /}
+
+</section>
+<script>
+    // 刷新数据库表
+    function refreshTable() {
+        $.post('{:url("admin/generate/getTable")}', function (result) {
+            let html = '<option value=""></option>';
+            $.each(result.data.table_list, function (index, item) {
+                html += '<option value="' + item + '">' + item + '</option>';
+            });
+            $('#table_name').html(html).select2();
+        });
+    }
+
+    // 表单索引
+    var formIndex = 0;
+
+    $(function () {
+
+        // 获取表信息和字段等，进行页面填充
+        $("#table_name").on('change', function () {
+            getField($(this).val());
+        });
+
+        // 列表启用/禁止关联菜单和控制器
+        $('#list_enable').change(function () {
+            let checked = $(this).is(':checked');
+            if(adminDebug){
+                console.log('列表启用/禁用'+checked);
+            }
+
+            let $menu_list = $('#create_menu_list');
+            let $action_list = $('#admin_controller_action_list');
+            $menu_list.find("option[value='enable']").attr("selected", checked);
+            $menu_list.find("option[value='disable']").attr("selected", checked);
+            $action_list.find("option[value='enable']").attr("selected", checked);
+            $action_list.find("option[value='disable']").attr("selected", checked);
+            $menu_list.select2();
+            $action_list.select2();
+        });
+
+        // 列表导出关联控制器
+        $('#list_export').change(function () {
+            let checked = $(this).is(':checked');
+            if(adminDebug){
+                console.log('列表导出'+checked);
+            }
+            let $menu_list = $('#create_menu_list');
+            let $action_list = $('#admin_controller_action_list');
+            $menu_list.find("option[value='export']").attr("selected", checked);
+            $action_list.find("option[value='export']").attr("selected", checked);
+            $menu_list.select2();
+            $action_list.select2();
+        });
+
+        // 列表导入关联控制器
+        $('#list_import').change(function () {
+            let checked = $(this).is(':checked');
+            if(adminDebug){
+                console.log('列表导入'+checked);
+            }
+            let $menu_list = $('#create_menu_list');
+            let $action_list = $('#admin_controller_action_list');
+            $menu_list.find("option[value='import']").attr("selected", checked);
+            $action_list.find("option[value='import']").attr("selected", checked);
+            $menu_list.select2();
+            $action_list.select2();
+        });
+
+        // 默认添加一行空的字段
+        addNewField(null, 1);
+    });
+
+    // 提交验证
+    $("#dataForm").validate({
+        rules: {
+            table_name: {
+                required: true,
+            },
+            cn_name: {
+                required: true,
+            },
+        },
+        messages: {
+            table_name: {
+                required: "表名不能为空",
+            },
+            cn_name: {
+                required: "中文名不能为空",
+            },
+        },
+    });
+
+    // 选择表
+    $('#table_name').select2();
+    // 生成菜单列表
+    $('#create_menu_list').select2();
+    // 是否生成控制器
+    $('#create_admin_controller').select2();
+    // 是否生成api控制器
+    $('#create_api_controller').select2();
+
+    // 是否生成模型
+    $('#create_model').select2();
+    // 是否生成验证器
+    $('#create_validate').select2();
+
+    // 是否生成列表视图
+    $('#create_view_index').select2();
+
+    // 是否生成表单视图
+    $('#create_view_add').select2();
+
+    // 控制器方法表
+    $('#admin_controller_action_list').select2();
+
+    // api控制器方法表
+    $('#api_controller_action_list').select2();
+    // 选择父级菜单
+    $('#create_menu').select2();
+
+    // 列表视图操作按钮形式
+    initIndexOperationButton();
+
+    // 初始化列表操作按钮形式
+    function initIndexOperationButton() {
+        let $button = $('#index_operation_button');
+
+        // 列表操作形式
+        let selected = 1;
+        let cookie_button = Cookies.get(cookiePrefix + 'index_operation_button');
+        if (cookie_button) {
+            selected = cookie_button;
+        }
+
+        $button.val(selected);
+        $button.select2();
+    }
+
+    $(function () {
+        $('#index_operation_button').on('change', function () {
+            Cookies(cookiePrefix + 'index_operation_button', $('#index_operation_button').val(), {expires: 300});
+        });
+    });
+
+    // 获取表信息
+    function getField(name) {
+        $.post('getField', {name: name}, function (result) {
+            if (result.code === 200) {
+
+                let $dataBody = $("#dataBody");
+
+                if (adminDebug) {
+                    console.time('表信息与相关DOM操作耗时');
+                }
+                let controller = result.data.controller;
+                let model = result.data.model;
+                let validate = result.data.validate;
+                let field = result.data.field;
+                if (adminDebug) {
+                    console.log('字段数量：' + field.length);
+                }
+                let table = result.data.table;
+                // 中文名
+                $('#cn_name').val(table.cn_name);
+                // 如果是自动生成类名
+                if ($('#auto_class_name').is(':checked')) {
+                    $("#admin_controller_name").val(controller.name);
+                    $("#api_controller_name").val(controller.name);
+                    $("#model_name").val(model.name);
+                    $("#validate_name").val(validate.name);
+                }
+                $dataBody.html('');
+                // 字段名
+                let field_name = "#data-template input[name='field_nameFORM_INDEX']";
+                // 字段类型
+                let field_type = "#data-template input[name='field_typeFORM_INDEX']";
+                // 是否为列表字段
+                let field_list = "#data-template [name='is_listFORM_INDEX']";
+                // 中文名称
+                let form_name = "#data-template [name='form_nameFORM_INDEX']";
+                // 表单类型
+                let form_type = "#data-template [name='form_typeFORM_INDEX']";
+                // 表单验证
+                let form_validate = "#data-template [name='form_validateFORM_INDEX[]']";
+                // 字段默认值
+                let field_form_default = "#data-template [name='field_defaultFORM_INDEX']";
+                // 获取器/修改器
+                let getter_setter = "#data-template [name='getter_setterFORM_INDEX']";
+                // 列表排序
+                let list_sort = "#data-template [name='list_sortFORM_INDEX']";
+                let relation_type = "#data-template [name='relation_typeFORM_INDEX']";
+                let relation_show = "#data-template [name='relation_showFORM_INDEX']";
+                let relation_table = "#data-template [name='relation_tableFORM_INDEX']";
+                // 列表筛选
+                let index_search = "#data-template [name='index_searchFORM_INDEX']";
+                formIndex = 0;
+
+                let listHtml = '';
+                $.each(field, function (index, item) {
+                    // 字段名
+                    $(field_name).attr('value', item.name);
+                    // 字段类型
+                    $(field_type).attr('value', item.field_type);
+                    // 中文名称
+                    $(form_name).attr('value', item.cn_name);
+                    // 默认值
+                    $(field_form_default).attr('value', item.default);
+                    // 表单类型
+                    $(form_type).val(item.form_type);
+
+                    // 是否为列表字段
+                    if (item.is_list === 1) {
+                        $(field_list).attr('checked', true);
+                    } else {
+                        $(field_list).attr('checked', false);
+                    }
+
+                    // 表单类型
+                    $(form_type).find("option[value='" + item.form_type + "']").attr("selected", true);
+                    // 表单验证内容
+                    $(form_validate).html(item.validate_html);
+                    // 表单选项
+                    $(form_validate).find("option[value='required']").attr("selected", true);
+                    // 获取器/修改器
+                    if (item.getter_setter !== false) {
+                        $(getter_setter).find("option[value='" + item.getter_setter + "']").attr("selected", true);
+                    }
+
+                    if (item.list_sort !== 0) {
+                        $(list_sort).attr('checked', true);
+                    }
+
+                    $(relation_type).find("option[value='" + item.relation_type + "']").attr("selected", true);
+                    if (item.relation_type === 2) {
+                        // 这里处理显示
+                        $(relation_show).attr('value', item.relation_show);
+                        $(relation_show).show();
+
+                    } else if (item.relation_type === 4) {
+                        $(relation_table).show();
+                        $(relation_table).attr('value', item.relation_table);
+                    }
+
+                    $(index_search).find("option[value='" + item.index_search + "']").attr("selected", true);
+
+                    // 优化生成DOM慢的问题
+                    listHtml += $("#data-template").html().replace(/FORM_INDEX/g, '[' + formIndex + ']').replace(/INDEX_ID/g, formIndex);
+
+                    if (getter_setter !== false) {
+                        $(getter_setter).find("option[value='" + item.getter_setter + "']").attr("selected", false);
+                    }
+
+                    $(list_sort).attr('checked', false);
+                    $(form_type).find("option[value='" + item.form_type + "']").attr("selected", false);
+                    $(relation_type).find("option[value='" + item.relation_type + "']").attr("selected", false);
+                    $(index_search).find("option[value='" + item.index_search + "']").attr("selected", false);
+                    $(field_name).attr('value', '');
+                    $(field_type).attr('value', '');
+                    $(form_validate).empty();
+                    $(relation_show).attr('value', '');
+                    $(relation_table).attr('value', '');
+                    $(relation_show).hide();
+                    $(relation_table).hide();
+                    formIndex++;
+                });
+
+                $dataBody.append(listHtml);
+                dataBodyRefreshed();
+
+                if (adminDebug) {
+                    console.timeEnd('表信息与相关DOM操作耗时');
+                }
+            }
+        });
+    }
+
+    // 表单元素类型改变
+    function selectField(field) {
+        let $field = $(field);
+        let form_type = $field.val();
+        let validateId = $field.data('validate');
+        let $validate = $('#' + validateId);
+        console.log($validate);
+        $.post('getValidateSelect', {form_type: form_type}, function (result) {
+            if (200 === result.code) {
+                $validate.html(result.data);
+                $validate.select2();
+            } else {
+                layer.msg(result.msg);
+            }
+        });
+    }
+
+    // 刷新菜单
+    function refreshMenu() {
+        $.post('{:url("admin/generate/getMenu")}', function (result) {
+            let html = '<option value="-1">不生成</option><option value="0">顶级菜单</option>';
+            html += result.data;
+            $('#create_menu').html(html).select2();
+        });
+    }
+
+    // 选择关联类型
+    function selectRelation(obj) {
+        let $obj = $(obj);
+        let index = $obj.data('index');
+        let relation_type = parseInt($obj.val());
+        let relation_show = $obj.data('relationShow');
+        let relation_table = $obj.data('relationTable');
+
+        if (relation_type === 1 || relation_type === 2) {
+            $('input[name="' + relation_table + '"]').hide();
+            $('input[name="' + relation_show + '"]').show();
+            let filedName = 'field_name[' + index + ']';
+            let field = $('input[name="' + filedName + '"]').val();
+
+            $.post('{:url("admin/generate/getRelationShowField")}', {field: field}, function (result) {
+                $('input[name="' + relation_show + '"]').val(result.data.name);
+            });
+        } else if (relation_type === 3 || relation_type === 4) {
+            $('input[name="' + relation_show + '"]').hide();
+            $('input[name="' + relation_table + '"]').show();
+
+            $.post('{:url("admin/generate/getRelationTable")}', {field: field}, function (result) {
+                $('input[name="' + relation_table + '"]').val(result.data.name);
+            });
+        } else {
+            $('input[name="' + relation_table + '"]').hide();
+            $('input[name="' + relation_show + '"]').hide();
+        }
+    }
+
+    // 列表刷新后的操作
+    function dataBodyRefreshed() {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#dataBody .select2').select2();
+    }
+
+
+    // 添加新的字段
+    function addNewField(obj, type) {
+
+        formIndex++;
+        let template = $("#data-template").html().replace(/FORM_INDEX/g, '[' + formIndex + ']').replace(/INDEX_ID/g, formIndex);
+
+        if (obj == null) {
+            $("#dataBody").append(template);
+        } else {
+            if (type === 1) {
+                $(obj).parent().parent().before(template);
+            } else {
+                $(obj).parent().parent().after(template);
+            }
+        }
+
+        //刷新 dataBody DOM后的操作
+        dataBodyRefreshed();
+    }
+
+</script>
+
+{/block}

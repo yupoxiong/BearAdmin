@@ -1,0 +1,14 @@
+    /**
+     * 数据详情
+     * @param $id
+     * @return array
+     * @throws ApiServiceException
+     */
+    public function getDataInfo($id): array
+    {
+        $data = $this->model->where('id', '=', $id)->findOrEmpty();
+        if ($data->isEmpty()) {
+            throw new ApiServiceException('数据不存在');
+        }
+        return $data->toArray();
+    }

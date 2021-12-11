@@ -1,0 +1,106 @@
+<!-- 空白页面参考模版 -->
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header dataSearch">
+                        <form class="searchForm form-inline" id="searchForm" action="{:url('index')}" method="get">
+                            <div class="input-group input-group-sm searchGroup">
+                                <input value="{$_keywords|default=''}" name="_keywords" id="_keywords"
+                                       class="form-control input-sm"
+                                       placeholder="操作/URL">
+                            </div>
+
+                            <div class="input-group input-group-sm searchGroup smallSelect" style="min-width: 150px;">
+                                <select name="admin_user_id" id="admin_user_id"
+                                        class="form-control input-sm index-search" >
+                                    <option value="">操作用户</option>
+                                    {foreach name='admin_user_list' id='item'}
+                                    <option value="{$item.id}" {if isset($admin_user_id) &&''!==$admin_user_id && $admin_user_id==$item.id}selected{/if}>{$item.nickname}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <script>
+                                $(function () {
+                                    $('#admin_user_id').select2({
+                                        width: '100%'
+                                    });
+                                });
+                            </script>
+
+                            <div class="input-group input-group-sm searchGroup">
+                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i>
+                                    查询
+                                </button>
+                            </div>
+
+                            <div class="form-group searchGroup">
+                                <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                        class="fa  fa-eraser"></i> 清空查询
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-default btn-sm ReloadButton" data-toggle="tooltip" title="刷新列表数据">
+                            <i class="fas fa-redo"></i> 刷新
+                        </button>
+                    </div>
+                    <div class="card-body table-responsive p-0" >
+                        <table class="table table-hover table-bordered dataTable text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户</th>
+                                <th>操作</th>
+                                <th>URL</th>
+                                <th>请求方式</th>
+                                <th>IP</th>
+                                <th>日期</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {foreach name='data' id='item'}
+                            <tr>
+                                <td>{$item.id}</td>
+                                <td>{$item->adminUser->nickname}</td>
+                                <td>{$item.name}</td>
+                                <td>{$item.url}</td>
+                                <td>{$item.log_method}</td>
+                                <td>{$item.log_ip}</td>
+                                <td>{$item.create_time}</td>
+                                <td class="td-do">
+                                    <a data-id="{$item.id}" data-url="detail" data-confirm="2" data-type="2"
+                                       class="btn btn-default btn-xs AjaxButton" data-title="日志详情" title="查看详情"
+                                       data-toggle="tooltip">
+                                        <i class="fas fa-info-circle"></i>
+                                        详情
+                                    </a>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer clearfix">
+                        {$page|raw}
+                        {include file='public/change_page' /}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{/block}

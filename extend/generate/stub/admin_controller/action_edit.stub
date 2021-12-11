@@ -1,0 +1,31 @@
+    /**
+     * 修改
+     * @param $id
+     * @param Request $request
+     * @param [MODEL_NAME] $model
+     * @param [VALIDATE_NAME]Validate $validate
+     * @return string|Json
+     * @throws Exception
+     */
+    public function edit($id, Request $request, [MODEL_NAME] $model, [VALIDATE_NAME]Validate $validate)
+    {
+        $data = $model->findOrEmpty($id);
+        if ($request->isPost()) {
+            $param = $request->param();
+            $check = $validate->scene('admin_edit')->check($param);
+            if (!$check) {
+                return admin_error($validate->getError());
+            }
+            [EDIT_FIELD_CODE]
+            $result = $data->save($param);
+
+            return $result ? admin_success('修改成功', [], URL_BACK) : admin_error('修改失败');
+        }
+
+        $this->assign([
+            'data' => $data,
+            [RELATION_3]
+        ]);
+
+        return $this->fetch('add');
+    }

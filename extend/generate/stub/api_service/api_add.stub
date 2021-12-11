@@ -1,0 +1,10 @@
+    /**
+     * 添加
+     * @param $param
+     * @return bool
+     */
+    public function createData($param): bool
+    {
+        $result = $this->model::create($param);
+        return (bool)$result;
+    }

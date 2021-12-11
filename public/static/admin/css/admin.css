@@ -1,51 +1,182 @@
+/*后台主css*/
+
 /** 表单验证错误 **/
 .dataForm .error {
     color: #ff0000;
     border-color: #dd4b39;
 }
 
-/** 列表页排序select **/
-.index-order {
-    min-width: 100px;
+/*数据列表页选择全部*/
+.dataCheckAllLabel {
+    margin-bottom: 0;
 }
 
-/** 表单页保存 **/
-.dataFormSubmit {
-    margin-right: 20px;
-}
-
-/** 表单页重置 **/
+/*重置表单*/
 .dataFormReset {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
-/** 继续添加 **/
-.createContinue, .bodyFormCheckbox {
-    margin-top: 5px;
+/*添加数据页面继续添加div*/
+.createContinueDiv {
+    margin-top: 4px;
 }
 
-/** 列表页缩略图 **/
+/*数据列表筛选表单*/
+.dataSearch .searchGroup {
+    margin-right: 5px;
+}
+
+
+/*数据列表导入表单*/
+.dataImport .importGroup {
+    margin-right: 5px;
+}
+
+.th-nowrap th {
+    white-space: nowrap !important;
+}
+
+
 .dataListImg {
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 32px;
+    max-height: 32px;
 }
 
-/*列表页日期范围搜索*/
-.indexSearchDateRange {
-    min-width: 160px;
+.login-logo a {
+    color: #fbfcfc;
 }
 
-/*列表页日期时间范围搜索*/
-.indexSearchDatetimeRange {
-    min-width: 260px;
+.searchForm .form-group {
+    margin-left: 5px;
 }
 
-/*数据列表页底部切换数量*/
-.pageControl {
-    margin-right: 10px;
-    font-weight: 100;
+.searchGroup .indexSearchDateRange {
+    min-width: 190px;
 }
 
-.radioLabel{
-    margin-right: 20px;
+.searchGroup .indexSearchDatetimeRange {
+    min-width: 320px;
+}
+
+#ControlSidebar .controlSidebarCheckLabel {
+    color: #c2c7d0;
+    font-weight: normal;
+}
+
+.skinUl .skinLi {
+    float: left;
+    width: 33.33333%;
+    padding: 5px;
+}
+
+.skinLi .skinA {
+    display: block;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+
+.skinLi .skinA:hover {
+    box-shadow: 0 0 6px rgb(255 255 255);
+    transition: all .2s ease-in-out;
+}
+
+
+.skinA .skinLogoSpan {
+    display: block;
+    width: 20%;
+    float: left;
+    height: 7px;
+}
+
+.skinA .skinNavbarSpan {
+    display: block;
+    width: 80%;
+    float: left;
+    height: 7px;
+}
+
+
+.skinA .skinSidebarSpan {
+    display: block;
+    width: 20%;
+    float: left;
+    height: 20px;
+}
+
+.skinA .skinContentSpan {
+    display: block;
+    width: 80%;
+    float: left;
+    height: 20px;
+}
+
+/*地图搜索框容器*/
+.mapInputContainer {
+    z-index: 20;
+    position: absolute;
+    min-width: 200px;
+    width: 50%;
+    text-align: center;
+    top: 15px;
+    left: 25%;
+}
+
+.mapTipsContainer {
+    z-index: 20;
+    position: absolute;
+    min-width: 200px;
+    height: 25px;
+    width: 80%;
+    bottom: 8px;
+    left: 10%;
+    opacity: 0.65;
+    background: #0c525d;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.mapTipsContainer span{
+    font-size: 10px;
+    background: black;
+    height: 25px;
+    color: white;
+    padding-top: 4px;
+}
+
+/**
+地图容器
+ */
+.mapContainer {
+    width: 100%;
+    height: 350px;
+    position: relative;
+}
+
+.importContainer{
+    height: 100%;
+    padding: .05rem;
+}
+
+.importFileInput{
+    height: 100%;
+}
+
+
+.importFileLabel{
+    height: 100%;
+}
+
+.importFileLabel::after {
+    padding: 4px 10px 2px 10px;
+    content: "浏览";
+
+}
+
+.smallSelect .select2-container--default .select2-selection--single{
+    height: 1.95rem;
+}
+
+.smallSelect .select2-container--default .select2-selection--single .select2-selection__rendered {
+    margin-top: -7px;
 }
