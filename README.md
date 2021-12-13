@@ -3,7 +3,7 @@
 
 
  [开发文档](https://www.kancloud.cn/codebear/admin_tp6) |
-  [在线DEMO](https://demo.bearadmin.com/) |  [DEMO源码](https://github.com/yupoxiong/BearAdminDemo) 
+  [在线DEMO](https://demo.bearadmin.com/) |  [DEMO源码](https://github.com/yupoxiong/bearadmin-demo) 
 
 ## 安装步骤
 ### clone 项目到本地
