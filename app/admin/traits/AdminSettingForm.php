@@ -13,7 +13,7 @@ trait AdminSettingForm
     protected function getFieldForm($type, $name, $field, $content, $option)
     {
         /** @var Field $fieldClass */
-        $fieldClass = '\\generate\\field\\' . parse_name($type === 'switch' ? 'switch_field' : $type, 1, 0);
+        $fieldClass = '\\generate\\field\\' . parse_name($type === 'switch' ? 'switch_field' : $type, 1, true);
         $form       = $fieldClass::$html;
         switch ($type) {
             case 'switch':
