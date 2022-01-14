@@ -35,6 +35,10 @@ class AdminMenu extends AdminBaseModel
      */
     public static array $logMethodList = [
         [
+            'id'   => '不记录',
+            'name' => '不记录',
+        ],
+        [
             'id'   => 'GET',
             'name' => 'GET',
         ],
@@ -53,10 +57,6 @@ class AdminMenu extends AdminBaseModel
         [
             'id'   => 'PATCH',
             'name' => 'PATCH',
-        ],
-        [
-            'id'   => '不记录',
-            'name' => '不记录',
         ],
     ];
 }

@@ -120,7 +120,6 @@
                             <div class="col-sm-10 col-md-4 formInputDiv">
                                 <select class="form-control select2bs4" id="log_method" name="log_method"
                                         data-placeholder="请选择日志记录方式">
-                                    <option value="">请选择日志记录方式</option>
                                     {foreach name='log_method_list' id='item'}
                                     <option value="{$item.id}" {if isset($data)&&$data.log_method==$item.id}selected{/if}>{$item.name}</option>
                                     {/foreach}
