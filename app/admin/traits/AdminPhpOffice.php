@@ -133,7 +133,7 @@ trait AdminPhpOffice
             $result = '导入失败，信息：' . $exception->getMessage();
         }
         if ($del) {
-            unlink($file);
+            unlink($path);
         }
         return $result;
     }
@@ -148,7 +148,7 @@ trait AdminPhpOffice
         try {
 
             if (empty($name)) {
-                $name = date('导入模版');
+                $name = '导入模版' . date('Y-m-d');
             }
 
             $spreadsheet = new Spreadsheet();
