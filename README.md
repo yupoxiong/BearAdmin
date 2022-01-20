@@ -25,21 +25,18 @@ composer install
 ~~~sql
 create database `数据库名` default character set utf8mb4 collate utf8mb4_unicode_ci;
 ~~~
-### 复制环境变量文件
-复制`.example.env`文件为`.env`
-
-### 配置数据库
-复制`.example.env`文件为`.env`，更改 `.env` 文件内的数据库配置选项，参考如下：
+### 修改环境变量文件
+更改 `.env` 文件内的数据库配置选项，参考如下：
 ```ini
 [DATABASE]
-TYPE = mysql
-HOSTNAME = 127.0.0.1
-DATABASE = 数据库名称
-USERNAME = 数据库用户名
-PASSWORD = 数据库密码
-HOSTPORT = 3306
-CHARSET = utf8mb4
-DEBUG = false
+TYPE=mysql
+HOSTNAME=127.0.0.1
+DATABASE=数据库名称
+USERNAME=数据库用户名
+PASSWORD=数据库密码
+HOSTPORT=3306
+CHARSET=utf8mb4
+DEBUG=false
 ```
 ### 运行数据库迁移命令
 ```shell
@@ -53,7 +50,7 @@ php think migrate:run
 将`public`目录配置为web根目录，然后配置URL重写规则，具体可参考 [ThinkPHP6.0完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/1037488) URL访问模块
 
 ### 访问后台
-访问`/admin`，默认开发管理员的账号为`develop_admin`，超级管理员的账号为`super_admin`，对应密码查看迁移命令行输出内容。
+访问`/admin`，默认开发管理员的账号为`develop_admin`，超级管理员的账号为`super_admin`，**对应密码查看迁移命令行输出内容**。
 
 
 ## 其他说明

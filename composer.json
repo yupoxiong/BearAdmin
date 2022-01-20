@@ -51,7 +51,8 @@
     "scripts": {
         "post-autoload-dump": [
             "@php think service:discover",
-            "@php think vendor:publish"
+            "@php think vendor:publish",
+            "@php think init:env"
         ]
     }
 }

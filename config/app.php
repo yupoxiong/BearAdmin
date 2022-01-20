@@ -36,4 +36,5 @@ return [
     'error_message'    => '系统繁忙，请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => false,
+    'app_key'          => env('app.app_key', ''),
 ];
