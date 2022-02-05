@@ -22,15 +22,11 @@ class TestController extends ApiBaseController
     /**
      * 列表
      * @param TestService $service
+     * @return Json
      */
-    public function index(TestService $service)
+    public function index(TestService $service): Json
     {
-        $a = SafeCookie::encrypt('123456','1234');
-        dump($a);
-        $b = SafeCookie::decrypt($a,'1234');
-        dump($b);
-        //(new Example())->testHSToken();
-        //(new Example())->testRSToken();
+        return api_success();
     }
 
     /**

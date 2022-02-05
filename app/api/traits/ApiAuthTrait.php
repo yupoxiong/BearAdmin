@@ -9,25 +9,12 @@ declare (strict_types=1);
 namespace app\api\traits;
 
 use app\api\exception\ApiServiceException;
+use think\exception\HttpResponseException;
 use app\api\service\TokenService;
 use app\common\model\User;
-use think\exception\HttpResponseException;
-use think\facade\Log;
 
 trait ApiAuthTrait
 {
-
-    /**
-     * 处理跨域
-     */
-    protected function crossDomain(): void
-    {
-        if (request()->isOptions()) {
-            $header = config('api.cross_domain.header');
-            throw new HttpResponseException(json('', 200, $header));
-        }
-    }
-
     /**
      * 检查登录
      */

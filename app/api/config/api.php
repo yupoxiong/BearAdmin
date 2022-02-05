@@ -14,8 +14,8 @@ return [
         'header' => [
             'Access-Control-Allow-Origin'    => '*',
             'Access-Control-Allow-Methods'   => '*',
-            'Access-Control-Allow-Headers'   => 'content-type,' . (env('api.token_position') === 'header' ? env('api.token_field') : 'token'),
-            'Access-Control-Request-Headers' => 'Origin, content-Type, Accept, ' . (env('api.token_position') === 'header' ? env('api.token_field') : 'token'),
+            'Access-Control-Allow-Headers'   => 'Content-Type,' . (env('api.token_position') === 'header' ? env('api.token_field') : 'token'),
+            'Access-Control-Request-Headers' => 'Origin, Content-Type, Accept, ' . (env('api.token_position') === 'header' ? env('api.token_field') : 'token'),
         ],
     ],
     // api响应配置
