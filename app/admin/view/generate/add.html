@@ -758,13 +758,12 @@
         let relation_type = parseInt($obj.val());
         let relation_show = $obj.data('relationShow');
         let relation_table = $obj.data('relationTable');
+        let filedName = 'field_name[' + index + ']';
+        let field = $('input[name="' + filedName + '"]').val();
 
         if (relation_type === 1 || relation_type === 2) {
             $('input[name="' + relation_table + '"]').hide();
             $('input[name="' + relation_show + '"]').show();
-            let filedName = 'field_name[' + index + ']';
-            let field = $('input[name="' + filedName + '"]').val();
-
             $.post('{:url("admin/generate/getRelationShowField")}', {field: field}, function (result) {
                 $('input[name="' + relation_show + '"]').val(result.data.name);
             });

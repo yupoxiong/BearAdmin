@@ -306,4 +306,26 @@ class GenerateController extends AdminBaseController
             'name' => $name,
         ]);
     }
+
+    /**
+     * 获取关联显示字段
+     * @param Request $request
+     * @return Json
+     */
+    public function getRelationTable(Request $request): Json
+    {
+        $param = $request->param();
+        $field = $param['field'];
+        $name  = '';
+        if (strrchr($field, '_id') === '_id') {
+            $table      = str_replace('_id', '', $field);
+            $table_info = Db::query('SHOW TABLE STATUS LIKE ' . "'" . $table . "'");
+            if ($table_info) {
+                $name = $table;
+            }
+        }
+        return admin_success('', [
+            'name' => $name,
+        ]);
+    }
 }
