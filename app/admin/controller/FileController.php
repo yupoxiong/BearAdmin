@@ -47,6 +47,7 @@ class FileController extends AdminBaseController
             $name = Filesystem::putFile($dir, $file);
 
             $url = $config['url'] . '/' . $name;
+            $url = str_replace("\\", '/', $url);
 
             return json([
                 'code'                 => 200,
@@ -56,8 +57,8 @@ class FileController extends AdminBaseController
                 'initialPreviewConfig' => [
                     [
                         'downloadUrl' => $url,
-                        'key'         => $file->getOriginalName(),
-                        'caption'     => $file->getOriginalName(),
+                        'key'         => str_replace("\\", '/', $file->getOriginalName()),
+                        'caption'     => str_replace("\\", '/', $file->getOriginalName()),
                         'url'         => url('admin/file/del', ['file' => $url])->build(),
                         'size'        => $file->getSize(),
                     ]
@@ -101,6 +102,7 @@ class FileController extends AdminBaseController
             $name = Filesystem::putFile($dir, $file);
 
             $url = $config['url'] . '/' . $name;
+            $url = str_replace("\\", '/', $url);
 
             return json([
                 'errno' => 0,
@@ -108,7 +110,7 @@ class FileController extends AdminBaseController
                     [
                         'url'  => $url,
                         'href' => '',
-                        'alt'  => $file->getOriginalName(),
+                        'alt'  => str_replace("\\", '/', $file->getOriginalName()),
                         'size' => $file->getSize(),
                     ],
                 ]
