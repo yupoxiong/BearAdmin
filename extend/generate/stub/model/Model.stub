@@ -22,6 +22,9 @@ class [MODEL_NAME] extends CommonBaseModel
     // 可作为条件的字段
     public array $whereField = [[WHERE_FIELD]];
 
+    // 可作为多选条件的字段
+    public array $multiWhereField = [[MULTI_WHERE_FIELD]];
+
     // 可做为时间
     public array $timeField = [[TIME_FIELD]];
 

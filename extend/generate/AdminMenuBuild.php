@@ -75,7 +75,7 @@ class AdminMenuBuild extends Build
         Db::startTrans();
         try {
 
-            $parent = AdminMenu::where('url', $url_prefix . '/index')->find();
+            $parent = (new AdminMenu)->where('url', $url_prefix . '/index')->find();
             if (!$parent) {
                 $parent_data = [
                     'parent_id'  => $this->data['menu']['create'],
@@ -91,7 +91,7 @@ class AdminMenuBuild extends Build
             $menu_list = $this->data['menu']['menu_list'];
             foreach ($menu_list as $item) {
                 if ($item !== 'index') {
-                    $have = AdminMenu::where('url', $url_prefix . '/' . $item)->find();
+                    $have = (new AdminMenu)->where('url', $url_prefix . '/' . $item)->find();
                     if (!$have) {
                         AdminMenu::create([
                             'parent_id'  => $parent->id,

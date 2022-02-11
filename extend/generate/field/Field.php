@@ -74,6 +74,25 @@ EOF;
                     </script>\n
 EOF;
 
+    //列表自定义多选筛选数据
+    public static string $listSearchMultiSelectHtml = <<<EOF
+<div class="input-group input-group-sm searchGroup smallSelect">
+                        <select name="[FIELD_NAME][]" id="[FIELD_NAME]" multiple class="form-control input-sm index-search">
+                            <option value="">[FORM_NAME]</option>
+                            {foreach \$[FIELD_LIST] as \$key=>\$value}
+                            <option value="{\$key}" {if isset($[FIELD_NAME]) && !empty($[FIELD_NAME]) && in_array(\$key,$[FIELD_NAME])}selected{/if}>{\$value}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#[FIELD_NAME]').select2({
+                            width:'100%'
+                            });
+                        });
+                    </script>\n
+EOF;
+
 
     //列表日期筛选
     public static string $listSearchDate = <<<EOF
@@ -105,14 +124,14 @@ EOF;
 
     //图片字段显示
     public static string $listImgHtml = <<<EOF
-<td class="imgViewer"><img class="dataListImg" src="{\$item.[FIELD_NAME]}"></td>\n
+<td class="imgViewer"><img alt="" class="dataListImg" src="{\$item.[FIELD_NAME]}"></td>\n
 EOF;
 
 
     public static string $listMultiImgHtml = <<<EOF
 <td class="imgViewer" id="[FIELD_NAME]dataListImg{\$data_key}">
 {foreach :explode(',', \$item.[FIELD_NAME]) as \$item_[FIELD_NAME]}
-<img class="dataListImg" data-img="{\$item_[FIELD_NAME]}" src="{\$item_[FIELD_NAME]}">
+<img alt="" class="dataListImg" data-img="{\$item_[FIELD_NAME]}" src="{\$item_[FIELD_NAME]}">
 {/foreach}
 </td>
 EOF;
@@ -193,7 +212,7 @@ EOF;
                 $result[0] = 'text';
                 break;
         }
-        $result[1] = $this->getValidateOption($result[0], $field_info['length']);
+        $result[1] = $this->getValidateOption($result[0], (string)$field_info['length']);
         return $result;
     }
 
@@ -291,10 +310,10 @@ EOF;
 
     /**
      * 规则
-     * @param  $length
+     * @param string $length
      * @return string
      */
-    public static function rule( $length = ''): string
+    public static function rule(string $length = ''): string
     {
 
         $html  = '';

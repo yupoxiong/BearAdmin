@@ -60,11 +60,11 @@ class ValidateBuild extends Build
         $msg_code       = '';
         $scene_code     = Field::$validateSceneCode;
         $scene_code_tmp = '';
-        foreach ($this->data['data'] as $key => $value) {
+        foreach ($this->data['data'] as $value) {
 
             if ($value['form_type'] !== 'none') {
                 $temp_rule_code = '';
-                foreach ($value['form_validate'] as $rule_key => $value_name) {
+                foreach ($value['form_validate'] as $value_name) {
                     $class_name = '\\generate\\validate\\' . parse_name($value_name, 1);
                     if (class_exists($class_name)) {
                         /** @var Rule $class */

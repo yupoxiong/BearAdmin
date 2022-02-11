@@ -6,14 +6,13 @@
 
 namespace generate;
 
-use Exception;
-use think\facade\Db;
-use think\facade\Env;
+use generate\exception\GenerateException;
+use app\admin\model\AdminMenu;
+use generate\traits\Tools;
 use generate\field\Field;
 use generate\traits\Tree;
-use generate\traits\Tools;
-use app\admin\model\AdminMenu;
-use generate\exception\GenerateException;
+use think\facade\Db;
+use Exception;
 
 class Generate
 {
@@ -114,33 +113,35 @@ class Generate
                 ],
 
                 'model'      => [
-                    'model'                  => $model_path . 'Model.stub',
-                    'relation'               => $model_path . 'relation.stub',
-                    'getter_setter_select'   => $model_path . 'getter_setter_select.stub',
-                    'getter_setter_switch'   => $model_path . 'getter_setter_switch.stub',
-                    'getter_setter_date'     => $model_path . 'getter_setter_date.stub',
-                    'getter_setter_datetime' => $model_path . 'getter_setter_datetime.stub',
+                    'model'                      => $model_path . 'Model.stub',
+                    'relation'                   => $model_path . 'relation.stub',
+                    'getter_setter_select'       => $model_path . 'getter_setter_select.stub',
+                    'getter_setter_multi_select' => $model_path . 'getter_setter_multi_select.stub',
+                    'getter_setter_switch'       => $model_path . 'getter_setter_switch.stub',
+                    'getter_setter_date'         => $model_path . 'getter_setter_date.stub',
+                    'getter_setter_datetime'     => $model_path . 'getter_setter_datetime.stub',
                 ],
                 'validate'   => [
                     'validate' => $validate_path . 'Validate.stub',
                 ],
                 'admin_view' => [
-                    'index'                    => $admin_view_path . 'index/index.stub',
-                    'index_create'             => $admin_view_path . 'index/create.stub',
-                    'index_refresh'            => $admin_view_path . 'index/refresh.stub',
-                    'index_del1'               => $admin_view_path . 'index/del1.stub',
-                    'index_del2'               => $admin_view_path . 'index/del2.stub',
-                    'index_filter'             => $admin_view_path . 'index/filter.stub',
-                    'index_export'             => $admin_view_path . 'index/export.stub',
-                    'index_import'             => $admin_view_path . 'index/import.stub',
-                    'index_select1'            => $admin_view_path . 'index/select1.stub',
-                    'index_select2'            => $admin_view_path . 'index/select2.stub',
-                    'index_sort'               => $admin_view_path . 'index/sort.stub',
-                    'index_enable1'            => $admin_view_path . 'index/enable1.stub',
-                    'index_enable2'            => $admin_view_path . 'index/enable2.stub',
-                    'add'                      => $admin_view_path . 'add/add.stub',
-                    'add_relation_select_data' => $admin_view_path . 'add/relation_select_data.stub',
-                    'add_customer_select_data' => $admin_view_path . 'add/customer_select_data.stub',
+                    'index'                          => $admin_view_path . 'index/index.stub',
+                    'index_create'                   => $admin_view_path . 'index/create.stub',
+                    'index_refresh'                  => $admin_view_path . 'index/refresh.stub',
+                    'index_del1'                     => $admin_view_path . 'index/del1.stub',
+                    'index_del2'                     => $admin_view_path . 'index/del2.stub',
+                    'index_filter'                   => $admin_view_path . 'index/filter.stub',
+                    'index_export'                   => $admin_view_path . 'index/export.stub',
+                    'index_import'                   => $admin_view_path . 'index/import.stub',
+                    'index_select1'                  => $admin_view_path . 'index/select1.stub',
+                    'index_select2'                  => $admin_view_path . 'index/select2.stub',
+                    'index_sort'                     => $admin_view_path . 'index/sort.stub',
+                    'index_enable1'                  => $admin_view_path . 'index/enable1.stub',
+                    'index_enable2'                  => $admin_view_path . 'index/enable2.stub',
+                    'add'                            => $admin_view_path . 'add/add.stub',
+                    'add_relation_select_data'       => $admin_view_path . 'add/relation_select_data.stub',
+                    'add_customer_select_data'       => $admin_view_path . 'add/customer_select_data.stub',
+                    'add_customer_multi_select_data' => $admin_view_path . 'add/customer_multi_select_data.stub',
                 ],
             ],
             // 生成文件目录
@@ -189,7 +190,7 @@ class Generate
         $table_data = Db::query('SHOW TABLES');
         $table      = [];
 
-        foreach ($table_data as $key => $value) {
+        foreach ($table_data as $value) {
             $current = current($value);
             if (!in_array($current, $this->blacklistTable, true)) {
                 $table[] = $current;
@@ -204,7 +205,7 @@ class Generate
      * @param int $current_id
      * @return string
      */
-    public function getMenu($selected = 1, $current_id = 0): string
+    public function getMenu(int $selected = 1, int $current_id = 0): string
     {
         $result = (new AdminMenu)->where('id', '<>', $current_id)
             ->order('sort_number', 'asc')
@@ -218,22 +219,6 @@ class Generate
         return $this->getTree(0, $str, $selected);
     }
 
-    /**
-     * 获取所有模块
-     * @return array|false
-     */
-    protected function getModule()
-    {
-        $module = [];
-        $path   = Env::get('app_path');
-        $dir    = scandir($path);
-        foreach ($dir as $item) {
-            if ($item !== '.' && $item !== '..' && is_dir($path . $item)) {
-                $module[] = $item;
-            }
-        }
-        return count($module) > 0 ? $module : false;
-    }
 
     /**
      * 检查目录（是否可写）
@@ -410,30 +395,6 @@ class Generate
         }
     }
 
-    /**
-     * 获取目录下的所有类名
-     * @param $dir
-     * @param array $except
-     * @return array
-     */
-    public function getClassList($dir, array $except = []): array
-    {
-        $files   = [];
-        $handler = opendir($dir);
-        while (($filename = readdir($handler)) !== false) {
-            if ($filename !== '.' && $filename !== '..') {
-                $filename = str_replace('.php', '', $filename);
-
-                if (!in_array($filename, $except, true)) {
-                    $files[] = $filename;
-                }
-            }
-        }
-        closedir($handler);
-
-        return $files;
-    }
-
 
     /**
      * 获取表内字段列表
@@ -443,7 +404,7 @@ class Generate
     public function getAllField($table_name): array
     {
         $parse_name = parse_name($table_name, 1);
-        $data = [
+        $data       = [
             // 表
             'table'      => [
                 'name'    => $table_name,
@@ -528,12 +489,12 @@ class Generate
         $search_show_field = ['id', 'mobile', 'keywords', 'id_card', 'name', 'title', 'username', 'nickname', 'true_name', 'description'];
         $search_show_type  = ['char', 'varchar'];
 
-        $multi_image_field = ['slide','img_list','image_list',];
-        $multi_image_type = ['varchar','text'];
+        $multi_image_field = ['slide', 'img_list', 'image_list',];
+        $multi_image_type  = ['varchar', 'text'];
 
         // 导出隐藏字段，和列表隐藏字段差不多
-        $export_hide_field = ['update_time', 'delete_time'];
-        $export_hide_type  = ['tinytext', 'tinyblob', 'text', 'blob', 'longtext', 'longblob'];
+        //$export_hide_field = ['update_time', 'delete_time'];
+        //$export_hide_type  = ['tinytext', 'tinyblob', 'text', 'blob', 'longtext', 'longblob'];
 
         // 表单显示字段
         // $form_show_field = ['id','create_time','update_time','delete_time'];
@@ -545,7 +506,7 @@ class Generate
         $list_sort_field = ['id', 'create_time', 'money', 'integral',];
         $list_sort_type  = ['tinyint', 'int', 'smallint', 'mediumint', 'bigint', 'decimal', 'float', 'double', 'date', 'datetime', 'timestamp',];
 
-        foreach ($field_list as $key => $value) {
+        foreach ($field_list as $value) {
 
             // 处理关联展示
             $relation_table = '';
@@ -642,7 +603,7 @@ class Generate
                 $field_data['list_sort'] = 1;
             }
             // 多图上传
-            if(in_array($field_info['name'],$multi_image_field,true) && in_array($field_info['type'],$multi_image_type,true)){
+            if (in_array($field_info['name'], $multi_image_field, true) && in_array($field_info['type'], $multi_image_type, true)) {
                 $field_data['form_type'] = 'multi_image';
             }
 

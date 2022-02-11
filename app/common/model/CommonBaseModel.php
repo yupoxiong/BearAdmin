@@ -28,6 +28,8 @@ class CommonBaseModel extends Model
     public array $searchField = [];
     // 可作为条件查询的字段
     public array $whereField = [];
+    // 可作为多选查询的字段
+    public array $multiWhereField = [];
     // 可作为时间范围查询的字段
     public array $timeField = [];
     // 不可删除的数据ID
@@ -52,6 +54,20 @@ class CommonBaseModel extends Model
             foreach ($param as $key => $value) {
                 if ($value !== '' && in_array($key, $this->whereField, true)) {
                     $query->where($key, $value);
+                }
+            }
+        }
+
+        //字段条件查询
+        if (count($this->multiWhereField) > 0 && count($param) > 0) {
+            foreach ($param as $key => $value) {
+                if (is_array($value) && !empty($value) && in_array($key, $this->multiWhereField, true)) {
+                    $where = '';
+                    foreach ($value as $item) {
+                        $str   = "FIND_IN_SET('" . $item . "'," . $key . ") ";
+                        $where .= empty($where) ? $str : ' OR ' . $str;
+                        $query->where($where);
+                    }
                 }
             }
         }
@@ -88,7 +104,7 @@ class CommonBaseModel extends Model
      */
     public function scopeApiWhere(Query $query, array $param): void
     {
-        $this->scopeWhere($query,$param);
+        $this->scopeWhere($query, $param);
     }
 
     /**

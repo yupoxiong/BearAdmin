@@ -73,7 +73,7 @@ class AdminControllerBuild extends Build
         // 列表页关联查询
         $index_select = '';
 
-        foreach ($this->data['data'] as $key => $value) {
+        foreach ($this->data['data'] as $value) {
             if ($value['form_type'] !== 'none') {
                 $add_field_code_tmp  = '';
                 $edit_field_code_tmp = '';
@@ -97,7 +97,7 @@ class AdminControllerBuild extends Build
                 $edit_field_code .= $edit_field_code_tmp;
 
                 // 自定义select处理
-                if ($value['form_type'] === 'select' && $value['relation_type'] === 0) {
+                if ($value['relation_type'] === 0 && in_array($value['form_type'], ['select', 'multi_select'])) {
 
                     $list_name  = $this->getSelectFieldFormat($value['field_name'], 2);
                     $const_name = $this->getSelectFieldFormat($value['field_name'], 3);

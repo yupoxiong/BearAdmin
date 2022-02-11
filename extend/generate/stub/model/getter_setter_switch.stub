@@ -1,7 +1,7 @@
 /**
- * [FORM_NAME]获取器
-*/
-public function get[FIELD_NAME]TextAttr($value, $data): string
-{
-    return self::BOOLEAN_TEXT[$data['[FORM_NAME_LOWER]']];
-}
+     * [FORM_NAME]获取器
+    */
+    public function get[FIELD_NAME]TextAttr($value, $data): string
+    {
+        return self::BOOLEAN_TEXT[$data['[FORM_NAME_LOWER]']];
+    }

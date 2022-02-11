@@ -1,0 +1,30 @@
+
+    /**
+    * [FORM_NAME]列表显示获取器
+    */
+    public function get[FIELD_NAME5]Attr($value ,$data): string
+    {
+        $arr    = explode(',',$data['[FIELD_NAME]']);
+        $result = '';
+        foreach ($arr as $item){
+            $result .= empty($result) ? self::[FIELD_NAME4][$item] : ',' . self::[FIELD_NAME4][$item];
+        }
+
+        return $result;
+    }
+
+    /**
+    * [FORM_NAME]修改器
+    */
+    public function set[FIELD_NAME2]Attr($value): string
+    {
+        return implode(',' ,$value);
+    }
+
+    /**
+    * [FORM_NAME]获取器
+    */
+    public function get[FIELD_NAME2]Attr($value): array
+    {
+        return explode(',' ,$value);
+    }

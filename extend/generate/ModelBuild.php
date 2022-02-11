@@ -8,9 +8,9 @@ declare (strict_types=1);
 
 namespace generate;
 
-use Exception;
-use think\facade\Db;
 use generate\exception\GenerateException;
+use think\facade\Db;
+use Exception;
 
 class ModelBuild extends Build
 {
@@ -20,7 +20,7 @@ class ModelBuild extends Build
         $this->config = $config;
 
         $this->template = $this->config['template']['model'];
-        $this->code = file_get_contents($this->template['model']);
+        $this->code     = file_get_contents($this->template['model']);
     }
 
     /**
@@ -50,12 +50,18 @@ class ModelBuild extends Build
 
             if ($value['relation_type'] > 0) {
                 $relation_code .= $this->getRelationCode($value);
-            } else {
-                if ($value['form_type'] === 'select' || $value['index_search']==='select') {
-                    $code_result        = $this->getSelectCode($value);
-                    $select_data_code   .= $code_result[0];
-                    $getter_setter_code .= $code_result[1];
-                }
+            } else if ($value['form_type'] === 'select') {
+                $code_result        = $this->getSelectCode($value);
+                $select_data_code   .= $code_result[0];
+                $getter_setter_code .= $code_result[1];
+            } else if ($value['form_type'] === 'multi_select') {
+                $code_result        = $this->getSelectCode($value, true);
+                $select_data_code   .= $code_result[0];
+                $getter_setter_code .= $code_result[1];
+            } else if ($value['index_search'] === 'select') {
+                $code_result        = $this->getSelectCode($value);
+                $select_data_code   .= $code_result[0];
+                $getter_setter_code .= $code_result[1];
             }
             if ($value['getter_setter']) {
                 $getter_setter_code .= $this->getGetterSetterCode($value);
@@ -68,6 +74,8 @@ class ModelBuild extends Build
         $search_field = '';
         // 条件字段
         $where_field = '';
+        // 多选条件字段
+        $multi_where_field = '';
         //日期/时间范围查询字段
         $time_field = '';
         foreach ($this->data['data'] as $value) {
@@ -79,6 +87,9 @@ class ModelBuild extends Build
                 case 'select':
                     $where_field .= "'" . $value['field_name'] . "',";
                     break;
+                case 'multi_select':
+                    $multi_where_field .= "'" . $value['field_name'] . "',";
+                    break;
                 case 'date':
                 case 'datetime':
                     $time_field .= "'" . $value['field_name'] . "',";
@@ -89,7 +100,7 @@ class ModelBuild extends Build
         }
 
         // 搜索筛选字段替换
-        $code = str_replace(array('[SEARCH_FIELD]', '[WHERE_FIELD]', '[TIME_FIELD]'), array($search_field, $where_field, $time_field), $code);
+        $code = str_replace(array('[SEARCH_FIELD]', '[WHERE_FIELD]', '[MULTI_WHERE_FIELD]', '[TIME_FIELD]'), array($search_field, $multi_where_field, $where_field, $time_field), $code);
         try {
             file_put_contents($this->config['file_dir']['model'] . $this->data['model']['name'] . '.php', $code);
         } catch (Exception $e) {
@@ -110,7 +121,7 @@ class ModelBuild extends Build
         if ($value['relation_type'] === 1 || $value['relation_type'] === 2) {
             // 外键
             $relation_type = 'belongsTo';
-            $table_name    = $this->getSelectFieldFormat($value['field_name'], 1);
+            $table_name    = $this->getSelectFieldFormat($value['field_name']);
             // 表中文名
             $cn_name    = '';
             $table_info = Db::query('SHOW TABLE STATUS LIKE ' . "'" . $table_name . "'");
@@ -124,7 +135,7 @@ class ModelBuild extends Build
 
         $result = '';
         // 主键
-        $relation_type = $value['relation_type'] === 3 ? $relation_type = 'hasOne' : 'hasMany';
+        $relation_type = $value['relation_type'] === 3 ? 'hasOne' : 'hasMany';
 
         $table_tmp = explode(',', $value['relation_table']);
         foreach ($table_tmp as $item) {
@@ -149,10 +160,11 @@ class ModelBuild extends Build
     /**
      * 获取自定义筛选代码
      * @param $value
+     * @param bool $multi
      * @return array
      * @throws GenerateException
      */
-    public function getSelectCode($value): array
+    public function getSelectCode($value, bool $multi = false): array
     {
         // 如果是select，同时非关联
         $field_select_data = $value['field_select_data'];
@@ -180,8 +192,8 @@ class ModelBuild extends Build
         // 处理select自定义数据的获取器
         $field5             = $this->getSelectFieldFormat($value['field_name'], 5);
         $field4             = $this->getSelectFieldFormat($value['field_name'], 3);
-        $getter_setter_code = file_get_contents($this->template['getter_setter_select']);
-        $getter_setter_code = str_replace(array('[FIELD_NAME5]', '[FIELD_NAME4]', '[FIELD_NAME]'), array($field5, $field4, $value['field_name']), $getter_setter_code);
+        $getter_setter_code = file_get_contents($this->template[$multi ? 'getter_setter_multi_select' : 'getter_setter_select']);
+        $getter_setter_code = str_replace(array('[FORM_NAME]', '[FIELD_NAME5]', '[FIELD_NAME4]', '[FIELD_NAME]', '[FIELD_NAME2]'), array($value['form_name'], $field5, $field4, $value['field_name'], parse_name($value['field_name'], 1)), $getter_setter_code);
 
         return [$option_code, $getter_setter_code];
 

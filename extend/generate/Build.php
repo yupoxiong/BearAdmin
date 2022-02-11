@@ -21,15 +21,16 @@ class Build
 
     /**
      * @param $field_name
-     * @param $type 1返回去掉_id的字段名，如果没有_id的话就返回原字段；
+     * @param int $type 1返回去掉_id的字段名，如果没有_id的话就返回原字段；
      * 2返回list，例如type字段的type_list，channel_id的channel_list;
      * 3为常量LIST，例如TYPE_LIST，CHANNEL_LIST；
      * 4为显示字段name,例如type_name，channel_name；
+     * 5为4的获取器使用，例如type_name变成TypeName
      * 这里要注意，如果原字段是_id结尾的，会干掉_id，例如channel_id_list不仅长，而且容易产生歧义，
      * 实际channel_list的话就非常明确，这是渠道列表,是一个二维数组。
      * @return false|string
      */
-    public function getSelectFieldFormat($field_name, $type = 1)
+    public function getSelectFieldFormat($field_name, int $type = 1)
     {
         $_id_suffix   = '_id';
         $_list_suffix = '_list';

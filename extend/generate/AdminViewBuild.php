@@ -6,14 +6,12 @@
 
 declare (strict_types=1);
 
-
 namespace generate;
 
-
-use Exception;
 use generate\exception\GenerateException;
-use generate\field\Field;
 use generate\validate\Rule;
+use generate\field\Field;
+use Exception;
 
 class AdminViewBuild extends Build
 {
@@ -36,7 +34,6 @@ class AdminViewBuild extends Build
 
         $this->indexCode = file_get_contents($this->template['index']);
         $this->addCode   = file_get_contents($this->template['add']);
-
     }
 
 
@@ -58,7 +55,7 @@ class AdminViewBuild extends Build
         //日期控件类的字段名
         $date_field = ['date', 'datetime'];
 
-        foreach ($this->data['data'] as $key => $value) {
+        foreach ($this->data['data'] as $value) {
 
             if ($value['form_type'] !== 'none') {
                 if ($value['form_type'] === 'switch') {
@@ -67,25 +64,31 @@ class AdminViewBuild extends Build
                     $value['option_data'] = '';
                     // 这里是关联的
                     if ($value['relation_type'] === 1 || $value['relation_type'] === 2) {
-                        $list_code              = file_get_contents($this->template['add_relation_select_data']);
-                        $list_name              = $this->getSelectFieldFormat($value['field_name'], 2);
-                        $list_code              = str_replace(array('[DATA_LIST]', '[FIELD_NAME]', '[RELATION_SHOW]'), array($list_name, $value['field_name'], $value['relation_show']), $list_code);
+                        $list_code            = file_get_contents($this->template['add_relation_select_data']);
+                        $list_name            = $this->getSelectFieldFormat($value['field_name'], 2);
+                        $list_code            = str_replace(array('[DATA_LIST]', '[FIELD_NAME]', '[RELATION_SHOW]'), array($list_name, $value['field_name'], $value['relation_show']), $list_code);
                         $value['option_data'] = $list_code;
                     } else if ($value['relation_type'] === 0) {
                         // 这里是非关联的
-                        $list_code              = file_get_contents($this->template['add_customer_select_data']);
-                        $list_name              = $this->getSelectFieldFormat($value['field_name'], 2);
-                        $list_code              = str_replace(array('[FIELD_LIST]', '[FIELD_NAME]'), array($list_name, $value['field_name']), $list_code);
+                        $list_code            = file_get_contents($this->template['add_customer_select_data']);
+                        $list_name            = $this->getSelectFieldFormat($value['field_name'], 2);
+                        $list_code            = str_replace(array('[FIELD_LIST]', '[FIELD_NAME]'), array($list_name, $value['field_name']), $list_code);
                         $value['option_data'] = $list_code;
                     }
-                } else if (in_array($value['form_type'], $date_field, true)) {
+                } else if (is_numeric($value['field_default']) && in_array($value['form_type'], $date_field, true)) {
                     //如果是日期控件类字段，默认值各式不符的一律修改成''
-                    if (is_numeric($value['field_default'])) {
-                        $value['field_default'] = '';
-                    }
+                    $value['field_default'] = '';
+                } else if ($value['form_type'] === 'multi_select') {
+                    $value['option_data'] = '';
+
+                    $list_code            = file_get_contents($this->template['add_customer_multi_select_data']);
+                    $list_name            = $this->getSelectFieldFormat($value['field_name'], 2);
+                    $list_code            = str_replace(array('[FIELD_LIST]', '[FIELD_NAME]'), array($list_name, $value['field_name']), $list_code);
+                    $value['option_data'] = $list_code;
                 }
 
                 $class_name = parse_name($value['form_type'], 1);
+                /** @var Field $class */
                 $class      = '\\generate\\field\\' . $class_name;
                 $form_body  .= $class::create($value);
 
@@ -109,17 +112,15 @@ class AdminViewBuild extends Build
                     //如果是多选select，验证字段使用[]后缀
                     $validate_field = $value['field_name'];
                     $multi_field    = ['multi_select', 'multi_image', 'multi_file'];
-                    if (in_array($value['form_type'], $multi_field)) {
+                    if (in_array($value['form_type'], $multi_field, true)) {
                         $validate_field .= '[]';
                     }
 
                     $form_rules    .= str_replace(array('[FIELD_NAME]', '[RULE_LIST]'), array($validate_field, $rule_html), $formRule::$ruleList);
                     $form_messages .= str_replace(array('[FIELD_NAME]', '[MSG_LIST]'), array($validate_field, $msg_html), $formRule::$msgList);
-
                 }
             }
         }
-
 
         $this->addCode = str_replace(
             array('[FORM_BODY]', '[FORM_RULES]', '[FORM_MESSAGES]'),
@@ -170,7 +171,7 @@ class AdminViewBuild extends Build
         $operation_enable_text = '启用';
 
 
-        foreach ($this->data['data'] as $key => $value) {
+        foreach ($this->data['data'] as $value) {
 
             // 排序处理
             if ($value['list_sort']) {
@@ -203,13 +204,16 @@ class AdminViewBuild extends Build
 
                     if ($value['relation_type'] === 1 || $value['relation_type'] === 2) {
                         // 关联字段显示
-                        $field_name = $this->getSelectFieldFormat($value['field_name'], 1) . '.' . $value['relation_show'] . '|default=' . "''";
+                        $field_name = $this->getSelectFieldFormat($value['field_name']) . '.' . $value['relation_show'] . '|default=' . "''";
                         $field_list .= str_replace('[FIELD_NAME]', $field_name, Field::$listFieldHtml);
                     } else if ($value['relation_type'] === 0) {
                         $field_name = $this->getSelectFieldFormat($value['field_name'], 4);
                         $field_list .= str_replace('[FIELD_NAME]', $field_name, Field::$listFieldHtml);
                     }
-                } else {
+                }else if ($value['form_type'] === 'multi_select') {
+                    $field_name = $this->getSelectFieldFormat($value['field_name'], 4);
+                    $field_list .= str_replace('[FIELD_NAME]', $field_name, Field::$listFieldHtml);
+                }  else {
                     // 普通字段显示
                     $field_list .= str_replace('[FIELD_NAME]', $value['field_name'], Field::$listFieldHtml);
                 }
@@ -240,11 +244,13 @@ class AdminViewBuild extends Build
                         }
 
                         $field_name_list = $this->getSelectFieldFormat($value['field_name'], 2);
-
-                        $search_html .= str_replace(array('[FORM_NAME]', '[FIELD_NAME]', '[FIELD_LIST]'), array($value['form_name'], $value['field_name'], $field_name_list), Field::$listSearchSelectHtml);
+                        if($value['form_type']==='multi_select'){
+                            $search_html .= str_replace(array('[FORM_NAME]', '[FIELD_NAME]', '[FIELD_LIST]'), array($value['form_name'], $value['field_name'], $field_name_list), Field::$listSearchMultiSelectHtml);
+                        }else{
+                            $search_html .= str_replace(array('[FORM_NAME]', '[FIELD_NAME]', '[FIELD_LIST]'), array($value['form_name'], $value['field_name'], $field_name_list), Field::$listSearchSelectHtml);
+                        }
                     }
                     break;
-
                 case 'date':
                     $search_html .= str_replace(array('[FIELD_NAME]', '[FORM_NAME]'), array($value['field_name'], $value['form_name']), Field::$listSearchDate);
                     break;
@@ -258,7 +264,7 @@ class AdminViewBuild extends Build
         }
 
         if ($sort_code !== '') {
-            $sort_code = str_replace('[SORT_FIELD_LIST]',$sort_code,file_get_contents($this->template['index_sort']));
+            $sort_code = str_replace('[SORT_FIELD_LIST]', $sort_code, file_get_contents($this->template['index_sort']));
         }
 
         $code = $this->indexCode;

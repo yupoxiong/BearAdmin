@@ -96,7 +96,7 @@ class ApiServiceBuild
     public function getShowFieldList(): string
     {
         $field_list = '';
-        foreach ($this->data['data'] as $key => $value) {
+        foreach ($this->data['data'] as $value) {
             if ((int)$value['is_list'] === 1) {
                 $field_list .= empty($field_list) ? $value['field_name'] : ',' . $value['field_name'];
             }
