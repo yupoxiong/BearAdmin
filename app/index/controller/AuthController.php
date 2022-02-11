@@ -5,11 +5,12 @@
 
 namespace app\index\controller;
 
-use app\common\model\User;
-use app\common\validate\UserValidate;
 use app\index\exception\IndexServiceException;
+use app\common\validate\UserValidate;
 use app\index\service\AuthService;
+use think\response\Redirect;
 use think\Request;
+use Exception;
 
 class AuthController extends IndexBaseController
 {
@@ -17,9 +18,11 @@ class AuthController extends IndexBaseController
         'index/auth/login'
     ];
 
-
-    //登录
-    public function login(Request $request,AuthService $service,UserValidate $validate)
+    /**
+     * 登录
+     * @throws Exception
+     */
+    public function login(Request $request, AuthService $service, UserValidate $validate)
     {
         $param = $request->param();
 
@@ -35,17 +38,19 @@ class AuthController extends IndexBaseController
                 self::authLogin($user,(bool)($param['remember']??false));
                 return  index_success('登录成功','index/index',$user);
             } catch (IndexServiceException $e) {
-                return  index_error($e->getMessage(),URL_RELOAD);
+                return  index_error($e->getMessage());
             }
         }
-
 
         return $this->fetch();
     }
 
 
-    //退出
-    public function logout()
+    /**
+     * 退出
+     * @return Redirect
+     */
+    public function logout(): Redirect
     {
         self::authLogout();
 

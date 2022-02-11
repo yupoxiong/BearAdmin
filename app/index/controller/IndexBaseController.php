@@ -1,20 +1,18 @@
 <?php
 /**
- *
+ * 前台基类
  * @author yupoxiong<i@yupoxiong.com>
  */
 
 declare (strict_types=1);
 
-
 namespace app\index\controller;
 
-
-use app\common\model\User;
-use app\index\traits\IndexAuthTrait;
-use Exception;
 use think\exception\HttpResponseException;
+use app\index\traits\IndexAuthTrait;
+use app\common\model\User;
 use think\View;
+use Exception;
 
 class IndexBaseController
 {
@@ -54,7 +52,7 @@ class IndexBaseController
         $this->init();
     }
 
-    protected function init()
+    protected function init(): void
     {
         $request = request();
 
@@ -77,7 +75,6 @@ class IndexBaseController
         if ((int)$request->param('check_auth') === 1) {
             throw new HttpResponseException(index_success());
         }
-
 
         // 初始化view
         $this->view = app()->make(View::class);
@@ -110,6 +107,4 @@ class IndexBaseController
     {
         return $this->view->assign($name, $value);
     }
-
-
 }

@@ -8,12 +8,12 @@ declare (strict_types=1);
 
 namespace app\admin\controller;
 
-use Exception;
-use think\View;
-use think\facade\Env;
-use think\response\Json;
-use app\admin\model\{AdminMenu, AdminUser};
 use app\admin\traits\{AdminAuthTrait, AdminPhpOffice, AdminTreeTrait};
+use app\admin\model\{AdminMenu, AdminUser};
+use think\response\Json;
+use think\facade\Env;
+use think\View;
+use Exception;
 
 class AdminBaseController
 {
@@ -107,7 +107,6 @@ class AdminBaseController
             $this->createLog($this->user, $this->menu->name);
         }
     }
-
 
     /**
      * 模板赋值

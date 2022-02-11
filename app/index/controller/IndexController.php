@@ -12,7 +12,6 @@ use Exception;
 
 class IndexController extends IndexBaseController
 {
-
     /**
      * @throws Exception
      */
