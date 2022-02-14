@@ -252,4 +252,26 @@ class AuthService extends AdminBaseService
         return $device_id;
     }
 
+    /**
+     * 在视图中检查指定url是否有权限
+     * @param string $url url形式参考：user/edit，admin/user/edit，前缀"admin/"可以去掉
+     * @return string
+     * @throws AdminServiceException
+     */
+    public function viewCheckAuth(string $url): string
+    {
+        $user = $this->getAdminUserAuthInfo();
+
+        $prefix = parse_name(app('http')->getName()).'/';
+        if (strpos(parse_name($url), $prefix) !== 0) {
+            $url    = $prefix . $url;
+        }
+
+        if (($user->id) === 1) {
+            $result = '1';
+        } else {
+            $result = in_array(parse_name($url), array_map('parse_name', $user->auth_url), true) ? '1' : '0';
+        }
+        return $result;
+    }
 }

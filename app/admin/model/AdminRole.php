@@ -26,18 +26,18 @@ class AdminRole extends AdminBaseModel
      * @param AdminRole $data
      * @return void
      */
-    public static function onBeforeInsert($data):void
+    public static function onBeforeInsert($data): void
     {
         $data->url = empty($data->url) ? [1, 2, 18] : $data->url;
     }
 
     protected function getUrlAttr($value)
     {
-        return $value !== '' ? explode(',', $value) : [];
+        return !empty($value) ? explode(',', $value) : [];
     }
 
     protected function setUrlAttr($value): string
     {
-        return $value !== '' ? implode(',', $value) : '';
+        return !empty($value) ? implode(',', $value) : '';
     }
 }

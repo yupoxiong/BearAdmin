@@ -39,6 +39,7 @@ $(document).on('pjax:complete', function (xhr) {
     initToolTip();
     initImgViewer();
     setNavTab();
+    viewCheckAuth();
     NProgress.done();
 });
 //列表页搜索pjax
@@ -73,6 +74,7 @@ $.validator.setDefaults({
 
 /* 初始化 */
 $(function () {
+    viewCheckAuth();
     setNavTab();
     // 初始化提示
     initToolTip();
@@ -209,7 +211,7 @@ function checkThis(obj) {
 /*全部选择/取消*/
 function checkAll(obj) {
     dataSelectIds = [];
-    var all_check = $("input[name='dataCheckbox']");
+    let all_check = $("input[name='dataCheckbox']");
     if ($(obj).is(':checked')) {
         all_check.prop("checked", true);
         $(all_check).each(function () {
@@ -240,8 +242,8 @@ function submitForm(form, successCallback, failCallback, errorCallback, showMsg 
     let method = $(form).attr('method');
     let data = new FormData($(form)[0]);
     // 操作token
-    if(!data.has('__token__')){
-        data.append('__token__',csrfToken);
+    if (!data.has('__token__')) {
+        data.append('__token__', csrfToken);
     }
     if (adminDebug) {
         console.log('%c开始提交表单!', ';color:#333333');
@@ -299,10 +301,10 @@ function submitForm(form, successCallback, failCallback, errorCallback, showMsg 
                 layer.close(loadT);
                 // 调试信息
                 if (adminDebug) {
-                    console.log('%csubmit fail!', ';color:#dd4b39');
+                    console.log('%c submit fail!', ';color:#dd4b39');
                     console.log("type:" + type + ",readyState:" + xhr.readyState + ",status:" + xhr.status);
                     console.log("errorThrown:" + errorThrown);
-                    console.log("data:",data);
+                    console.log("data:", data);
                 }
 
                 if (showMsg) {
@@ -321,8 +323,12 @@ function submitForm(form, successCallback, failCallback, errorCallback, showMsg 
 
 
 /** 跳转到指定url */
-function goUrl(url = 1) {
-    console.log(url);
+function goUrl(url) {
+
+    if (url === '' || url === undefined) {
+        return;
+    }
+
     //清除列表页选择的ID
     if (url !== 'url://current' && url !== 1) {
         dataSelectIds = [];
@@ -500,10 +506,10 @@ function ajaxRequest(url, method, data, go) {
                 if (adminDebug) {
                     console.log('request success!');
                     if (result.code === 200) {
-                        console.log('%cresult success', ';color:#00a65a');
+                        console.log('%c result success', ';color:#00a65a');
                     } else {
                         go = 'url://current';
-                        console.log('%cresult fail', ';color:#f39c12');
+                        console.log('%c result fail', ';color:#f39c12');
                     }
                 }
 
@@ -512,10 +518,10 @@ function ajaxRequest(url, method, data, go) {
             error: function (xhr, type, errorThrown) {
 
                 layer.close(loadT);
-                if(adminDebug){
-                    console.log('%crequest fail!', ';color:#dd4b39');
+                if (adminDebug) {
+                    console.log('%c request fail!', ';color:#dd4b39');
                     console.log("url:" + url);
-                    console.log("data:",data);
+                    console.log("data:", data);
                 }
 
                 showAjaxError(xhr, type, errorThrown);
@@ -526,12 +532,12 @@ function ajaxRequest(url, method, data, go) {
 }
 
 
-function showAjaxError(xhr, type, errorThrown){
-    let errorTitle = '';
+function showAjaxError(xhr, type, errorThrown) {
+    let errorTitle;
     // 调试信息
     if (adminDebug) {
-        console.log('xhr',xhr);
-        console.log('errorThrown',errorThrown);
+        console.log('xhr', xhr);
+        console.log('errorThrown', errorThrown);
         console.log("type:" + type + ",readyState:" + xhr.readyState + ",status:" + xhr.status);
     }
 
@@ -559,18 +565,24 @@ function changePerPage(obj) {
  * 检查授权
  */
 function checkAuth(url) {
-    var hasAuth = false;
-    var loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000'], scrollbar: false,});
+    let hasAuth = false;
+    let loadT = layer.msg('正在请求,请稍候…', {icon: 16, time: 0, shade: [0.3, '#000'], scrollbar: false,});
     $.post({
         url: url,
         data: {"check_auth": 1},
         dataType: 'json',
         async: false,
         success: function (result) {
+            if (adminDebug) {
+                console.log('验证权限结果', result);
+            }
             layer.close(loadT);
             hasAuth = true;
         },
         error: function (xhr, type, errorThrown) {
+            if (adminDebug) {
+                console.log('验证权限报错', type, errorThrown)
+            }
             layer.msg('访问错误,代码' + xhr.status, {icon: 2, scrollbar: false,});
         }
     });
@@ -601,7 +613,7 @@ function exportData(url) {
 
 /** 全屏 **/
 function fullScreen() {
-    var element = document.documentElement;
+    let element = document.documentElement;
     if (element.requestFullscreen) {
         element.requestFullscreen();
     } else if (element.msRequestFullscreen) {
@@ -689,6 +701,15 @@ $(function () {
             return false;
         }
     })
-
-
 });
+
+/** 检查视图内权限 */
+function viewCheckAuth() {
+    $('.viewCheckAuth').each(function () {
+        let $obj = $(this);
+        let haveAuth = parseInt($obj.data('auth'));
+        if (haveAuth !== 1) {
+            $obj.hide();
+        }
+    });
+}

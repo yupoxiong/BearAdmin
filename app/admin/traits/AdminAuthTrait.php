@@ -40,8 +40,8 @@ trait AdminAuthTrait
             $this->user = (new AuthService)->getAdminUserAuthInfo();
 
         } catch (AdminServiceException $exception) {
-            if(app()->isDebug()){
-                Log::record('验证登录失败，信息：'.$exception->getMessage());
+            if (app()->isDebug()) {
+                Log::record('验证登录失败，信息：' . $exception->getMessage());
             }
 
             $redirect  = url($url)->build();
@@ -60,7 +60,7 @@ trait AdminAuthTrait
      */
     public function checkAuth(): bool
     {
-        $url = $this->url;
+        $url     = parse_name($this->url);
         $request = request();
 
         $login_except = !empty($this->loginExcept) ? array_map('parse_name', $this->loginExcept) : $this->loginExcept;
@@ -115,7 +115,8 @@ trait AdminAuthTrait
      */
     public function checkPermission(AdminUser $user, string $url): bool
     {
-        return in_array($url, $this->authExcept, true) || in_array($url, $user->auth_url, true);
+        $auth_except = !empty($this->authExcept) ? array_map('parse_name', $this->authExcept) : $this->authExcept;
+        return in_array($url, $auth_except, true) || in_array($url, array_map('parse_name', $user->auth_url), true);
     }
 
     /**
@@ -187,11 +188,11 @@ trait AdminAuthTrait
         return Cache::delete($cache_key);
     }
 
-    public function createLog($user,$name): bool
+    public function createLog($user, $name): bool
     {
         try {
             (new AdminLogService())->create($user, $name);
-            return  true;
+            return true;
         } catch (AdminServiceException $e) {
             return false;
         }

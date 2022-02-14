@@ -4,6 +4,8 @@
  * @author yupoxiong<i@yupoxiong.com>
  */
 
+use app\admin\exception\AdminServiceException;
+use app\admin\service\AuthService;
 use think\response\Json;
 use app\admin\model\AdminMenu;
 use app\common\model\SettingGroup;
@@ -192,5 +194,25 @@ if (!function_exists('get_setting_menu_url')) {
     function get_setting_menu_url($data): string
     {
         return 'admin/setting/' . $data->code;
+    }
+}
+
+
+if (!function_exists('view_check_auth')) {
+    /**
+     * 前端检查权限，，主要用在元素的显示上，使用方法，在需要判断权限的元素上添加class"viewCheckAuth"和data-auth属性
+     * 例如：  data-auth="{:view_check_auth('question_library/add')}"，
+     * 当有权限的时候会自动显示该元素，没有权限的时候不会显示该元素
+     *  url形式参考：user/edit，admin/user/edit，前缀"admin/"可以去掉
+     * @param $url
+     * @return string
+     */
+    function view_check_auth($url): string
+    {
+        try {
+            return (new AuthService())->viewCheckAuth($url);
+        } catch (AdminServiceException $e) {
+            return '0';
+        }
     }
 }
