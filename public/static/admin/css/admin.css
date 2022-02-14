@@ -180,3 +180,7 @@
 .smallSelect .select2-container--default .select2-selection--single .select2-selection__rendered {
     margin-top: -7px;
 }
+
+.viewCheckAuth{
+    display: none;
+}

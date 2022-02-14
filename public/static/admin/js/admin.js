@@ -708,7 +708,12 @@ function viewCheckAuth() {
     $('.viewCheckAuth').each(function () {
         let $obj = $(this);
         let haveAuth = parseInt($obj.data('auth'));
-        if (haveAuth !== 1) {
+        if (adminDebug) {
+            console.log('检查元素权限', haveAuth);
+        }
+        if (haveAuth === 1 && !$obj.is(":visible")) {
+            $obj.show();
+        } else {
             $obj.hide();
         }
     });

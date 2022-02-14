@@ -262,9 +262,9 @@ class AuthService extends AdminBaseService
     {
         $user = $this->getAdminUserAuthInfo();
 
-        $prefix = parse_name(app('http')->getName()).'/';
+        $prefix = parse_name(app('http')->getName()) . '/';
         if (strpos(parse_name($url), $prefix) !== 0) {
-            $url    = $prefix . $url;
+            $url = $prefix . $url;
         }
 
         if (($user->id) === 1) {
