@@ -11,7 +11,7 @@ namespace app\admin\validate;
 class AdminRoleValidate extends AdminBaseValidate
 {
     protected $rule = [
-        'name|名称'        => 'require|unique:admin_role',
+        'name|名称'        => 'require',
         'description|介绍' => 'require',
         'rules|权限'       => 'require',
     ];
