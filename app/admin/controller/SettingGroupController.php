@@ -25,7 +25,7 @@ class SettingGroupController extends AdminBaseController
         'include', 'include_once', 'instanceof', 'insteadof', 'interface', 'isset', 'list', 'namespace', 'new',
         'or', 'print', 'private', 'protected', 'public', 'require', 'require_once', 'return', 'static', 'switch',
         'throw', 'trait', 'try', 'unset', 'use', 'var', 'while', 'xor', 'yield', 'int', 'float', 'bool', 'string', 'true',
-        'false', 'null','index',
+        'false', 'null', 'index',
 
     ];
 
@@ -77,9 +77,14 @@ class SettingGroupController extends AdminBaseController
             }
 
             $result = $model::create($param);
-            $data = $model->find($result->id);
-            create_setting_menu($data);
-            create_setting_file($data);
+            $data   = $model->find($result->id);
+            if ($data->auto_create_menu === 1) {
+                create_setting_menu($data);
+            }
+            if ($data->auto_create_file === 1) {
+                create_setting_file($data);
+            }
+
 
             $redirect = isset($param['_create']) && (int)$param['_create'] === 1 ? URL_RELOAD : URL_BACK;
 
@@ -113,9 +118,13 @@ class SettingGroupController extends AdminBaseController
             }
 
             $result = $data->save($param);
-
-            create_setting_menu($data);
-            create_setting_file($data);
+            $data   = $model->find($data->id);
+            if ($data->auto_create_menu === 1) {
+                create_setting_menu($data);
+            }
+            if ($data->auto_create_file === 1) {
+                create_setting_file($data);
+            }
 
             return $result ? admin_success('修改成功', [], URL_BACK) : admin_error('修改失败');
         }
@@ -210,8 +219,8 @@ class SettingGroupController extends AdminBaseController
     {
         /** @var SettingGroup $data */
         $data = $model->findOrEmpty($id);
-        if($data->isEmpty()){
-            return  admin_error('数据不存在');
+        if ($data->isEmpty()) {
+            return admin_error('数据不存在');
         }
 
         $have    = (new AdminMenu)->where('url', get_setting_menu_url($data))->findOrEmpty();
@@ -232,7 +241,7 @@ class SettingGroupController extends AdminBaseController
      */
     protected function getModuleList(): array
     {
-        $app_path    = app()->getRootPath().'app/';
+        $app_path    = app()->getRootPath() . 'app/';
         $module_list = [];
         $all_list    = scandir($app_path);
 

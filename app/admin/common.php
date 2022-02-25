@@ -5,11 +5,11 @@
  */
 
 use app\admin\exception\AdminServiceException;
-use app\admin\service\AuthService;
-use think\response\Json;
-use app\admin\model\AdminMenu;
-use app\common\model\SettingGroup;
 use app\admin\controller\SettingController;
+use app\admin\service\AuthService;
+use app\common\model\SettingGroup;
+use app\admin\model\AdminMenu;
+use think\response\Json;
 
 /** 不做任何操作 */
 const URL_CURRENT = 'url://current';
@@ -40,7 +40,6 @@ if (!function_exists('admin_success')) {
     }
 }
 
-
 if (!function_exists('admin_error')) {
     /**
      * 后台返回错误
@@ -59,8 +58,6 @@ if (!function_exists('admin_error')) {
 }
 
 if (!function_exists('admin_result')) {
-
-
     /**
      * 后台返回结果
      * @param mixed $data ,
@@ -73,7 +70,6 @@ if (!function_exists('admin_result')) {
      */
     function admin_result(string $msg = '', $data = [], string $url = URL_CURRENT, int $code = 500, array $header = [], array $options = []): Json
     {
-
         $data = [
             'msg'  => $msg,
             'code' => $code,
@@ -82,10 +78,8 @@ if (!function_exists('admin_result')) {
         ];
 
         return json($data, 200, $header, $options);
-
     }
 }
-
 
 if (!function_exists('create_setting_file')) {
     /**
@@ -95,39 +89,36 @@ if (!function_exists('create_setting_file')) {
      */
     function create_setting_file(SettingGroup $data): bool
     {
-        $result = true;
-        if ($data->auto_create_file === 1) {
-            $file = 'config/' . $data->code . '.php';
-            if ($data->module !== 'app') {
-                $file = 'app/' . $data->module . '/' . $file;
-            }
+        $file = 'config/' . $data->code . '.php';
+        if ($data->module !== 'app') {
+            $file = 'app/' . $data->module . '/' . $file;
+        }
 
-            $setting   = $data->setting;
-            $path      = app()->getRootPath() . $file;
-            $file_code = "<?php\r\n/**\r\n* " .
-                $data->name . ':' . $data->description .
-                "\r\n* 此配置文件为自动生成，生成时间" . date('Y-m-d H:i:s') .
-                "\r\n*/\r\n\r\nreturn [";
-            foreach ($setting as $value) {
-                $file_code .= "\r\n    // " . $value['name'] . ':' . $value['description'] . "\r\n    '" . $value['code'] . "'=>[";
-                foreach ($value->content as $content) {
-                    if (is_array($content['content'])) {
-                        $content['content'] = implode(',', $content['content']);
-
-                    }
-                    $file_code .= "\r\n    // " . $content['name'] . "\r\n    '" .
-                        $content['field'] . "'=>'" . $content['content'] . "',";
+        $setting   = $data->setting;
+        $path      = app()->getRootPath() . $file;
+        $file_code = "<?php\r\n/**\r\n* " .
+            $data->name . ':' . $data->description .
+            "\r\n* 此配置文件为自动生成，生成时间" . date('Y-m-d H:i:s') .
+            "\r\n*/\r\n\r\nreturn [";
+        foreach ($setting as $value) {
+            $file_code .= "\r\n    // " . $value['name'] . ':' . $value['description'] . "\r\n    '" . $value['code'] . "'=>[";
+            foreach ($value->content as $content) {
+                if (is_array($content['content'])) {
+                    $content['content'] = implode(',', $content['content']);
 
                 }
-                $file_code .= "\r\n],";
+                $file_code .= "\r\n    // " . $content['name'] . "\r\n    '" .
+                    $content['field'] . "'=>'" . $content['content'] . "',";
+
             }
-            $file_code .= "\r\n];";
-            $result    = file_put_contents($path, $file_code);
+            $file_code .= "\r\n],";
         }
+        $file_code .= "\r\n];";
+        $result    = file_put_contents($path, $file_code);
+
         return (bool)$result;
     }
 }
-
 
 if (!function_exists('create_setting_menu')) {
     /**
@@ -150,35 +141,32 @@ if (!function_exists('create_setting_menu')) {
 }//append_menu
 EOF;
 
-        $result = true;
-        if ($data->auto_create_menu === 1) {
-            $url = get_setting_menu_url($data);
-            /** @var AdminMenu $menu */
-            $menu = (new app\admin\model\AdminMenu)->where('url', $url)->findOrEmpty();
-            if ($menu->isEmpty()) {
-                $result = AdminMenu::create([
-                    'parent_id' => 43,
-                    'name'      => $data->name,
-                    'icon'      => $data->icon,
-                    'is_show'   => 1,
-                    'url'       => $url
-                ]);
-            } else {
-                $menu->name = $data->name;
-                $menu->icon = $data->icon;
-                $menu->url  = $url;
-                $result     = $menu->save();
-            }
+        $url = get_setting_menu_url($data);
+        /** @var AdminMenu $menu */
+        $menu = (new app\admin\model\AdminMenu)->where('url', $url)->findOrEmpty();
+        if ($menu->isEmpty()) {
+            $result = AdminMenu::create([
+                'parent_id' => 43,
+                'name'      => $data->name,
+                'icon'      => $data->icon,
+                'is_show'   => 1,
+                'url'       => $url
+            ]);
+        } else {
+            $menu->name = $data->name;
+            $menu->icon = $data->icon;
+            $menu->url  = $url;
+            $result     = $menu->save();
+        }
 
-            if (!method_exists(SettingController::class, $data->code)) {
+        if (!method_exists(SettingController::class, $data->code)) {
 
-                $function = str_replace(array('[GROUP_CODE]', '[GROUP_ID]','[GROUP_NAME]'), array($data->code, $data->id,$data->name), $function);
+            $function = str_replace(array('[GROUP_CODE]', '[GROUP_ID]', '[GROUP_NAME]'), array($data->code, $data->id, $data->name), $function);
 
-                $file_path = app()->getAppPath() . 'controller/SettingController.php';
-                $file      = file_get_contents($file_path);
-                $file      = str_replace('}//append_menu', $function, $file);
-                file_put_contents($file_path, $file);
-            }
+            $file_path = app()->getAppPath() . 'controller/SettingController.php';
+            $file      = file_get_contents($file_path);
+            $file      = str_replace('}//append_menu', $function, $file);
+            file_put_contents($file_path, $file);
         }
 
         return (bool)$result;

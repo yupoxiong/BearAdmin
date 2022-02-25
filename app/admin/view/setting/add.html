@@ -41,20 +41,20 @@
                             <label for="name" class="col-sm-2 col-form-label ">名称</label>
                             <div class="col-sm-10 col-md-4 formInputDiv">
                                 <input id="name" name="name" value="{$data.name|default=''}" placeholder="请输入名称"
-                                       type="text" class="form-control field-text">
+                                       type="text" maxlength="50" class="form-control field-text">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="description" class="col-sm-2 col-form-label ">描述</label>
                             <div class="col-sm-10 col-md-4 formInputDiv">
                                 <input id="description" name="description" value="{$data.description|default=''}"
-                                       placeholder="请输入描述" type="text" class="form-control field-text">
+                                       placeholder="请输入描述" maxlength="100" type="text" class="form-control field-text">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="code" class="col-sm-2 col-form-label ">代码</label>
                             <div class="col-sm-10 col-md-4 formInputDiv">
-                                <input id="code" name="code" value="{$data.code|default=''}" placeholder="请输入代码"
+                                <input id="code" name="code"  maxlength="50" value="{$data.code|default=''}" placeholder="请输入代码"
                                        type="text" class="form-control field-text">
                             </div>
                         </div>
@@ -90,22 +90,22 @@
 
                                         <td>
                                             <input class="form-control" placeholder="名称" value="{$item.name}"
-                                                   name="config_name[]">
+                                                   maxlength="50"   name="config_name[]">
 
                                         </td>
                                         <td>
                                             <input class="form-control" placeholder="字段" value="{$item.field}"
-                                                   name="config_field[]">
+                                                   maxlength="50"   name="config_field[]">
 
                                         </td>
 
                                         <td>
                                             <input class="form-control" name="config_content[]"
-                                                   value="{$item.content}" placeholder="选项/默认值(默认值为内容或者第一个选项)"/>
+                                                   maxlength="1000"  value="{$item.content}" placeholder="选项/默认值(默认值为内容或者第一个选项)"/>
                                         </td>
                                         <td>
                                                     <textarea class="form-control" name="config_option[]"
-                                                              placeholder="设置选项(单选，复选，选择列表等需要填写此项。格式为 字段||中文名称+换行符)">{$item.option}</textarea>
+                                                              maxlength="500"   placeholder="设置选项(单选，复选，选择列表等需要填写此项。格式为 字段||中文名称+换行符)">{$item.option}</textarea>
                                         </td>
                                     </tr>
                                     {/foreach}
@@ -120,7 +120,7 @@
                             <div class="col-sm-10 col-md-4 formInputDiv">
                                 <div class="input-group">
                                     <input id="sort_number" name="sort_number"
-                                           value="{$data.sort_number|default='1000'}" placeholder="请输入排序" type="number"
+                                           maxlength="10" value="{$data.sort_number|default='1000'}" placeholder="请输入排序" type="number"
                                            class="form-control field-number">
                                 </div>
                             </div>

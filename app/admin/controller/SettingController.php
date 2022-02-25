@@ -13,6 +13,7 @@ use RuntimeException;
 use think\response\Json;
 use app\common\model\Setting;
 use app\common\model\SettingGroup;
+use app\admin\traits\SettingContent;
 use app\admin\traits\AdminSettingForm;
 use app\common\validate\SettingValidate;
 
@@ -20,6 +21,7 @@ class SettingController extends AdminBaseController
 {
     // 引入form相关trait
     use AdminSettingForm;
+    use SettingContent;
 
     /**
      * 设置列表
@@ -185,38 +187,6 @@ class SettingController extends AdminBaseController
 
         return $this->fetch('show');
     }
-
-    /**
-     * 获取配置内容
-     * @param $param
-     * @return array
-     */
-    protected function getContent($param): array
-    {
-        $content = [];
-        foreach ($param['config_name'] as $key => $value) {
-            if (($param['config_name'][$key]) === ''
-                || ($param['config_field'][$key] === '')
-                || ($param['config_type'][$key] === '')
-            ) {
-                throw new RuntimeException('设置信息不完整');
-            }
-
-            if ($param['config_option'][$key] === '' && in_array($param['config_type'][$key], ['select', 'multi_select'])) {
-                throw new RuntimeException('设置信息不完整');
-            }
-
-            $content[] = [
-                'name'    => $value,
-                'field'   => $param['config_field'][$key],
-                'type'    => $param['config_type'][$key],
-                'content' => $param['config_content'][$key],
-                'option'  => $param['config_option'][$key],
-            ];
-        }
-        return $content;
-    }
-
 
     /**
      * 更新配置
