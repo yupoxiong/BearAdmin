@@ -23,7 +23,7 @@ class Editor extends Field
     }
     var editor_[FIELD_NAME] = new E('#[FIELD_NAME]Editor');
     editor_[FIELD_NAME].config.zIndex=1000;
-    editor_[FIELD_NAME].config.uploadImgServer = '{:url("admin/file/editor")}';
+    editor_[FIELD_NAME].config.uploadImgServer = editorUploadUrl;
     editor_[FIELD_NAME].config.uploadFileName = 'file';
     editor_[FIELD_NAME].create();
     editor_[FIELD_NAME].config.onchange = function (newHtml) {
