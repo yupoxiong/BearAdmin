@@ -38,7 +38,7 @@ class FileController extends AdminBaseController
                 validate([$field => $config['validate'][$file_type]])->check($files);
             } catch (ValidateException $e) {
                 return json([
-                    'message' => $e->getMessage()
+                    'error' => $e->getMessage()
                 ], 500);
             }
 
