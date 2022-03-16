@@ -35,7 +35,7 @@ function initUploadMultiImg(field, fileId = '') {
  * @param fileType
  */
 
-function initUploadMultiFile(field, fileId = '', fileType='') {
+function initUploadMultiFile(field, fileId = '', fileType = '') {
     let $field = $('#' + field);
     fileId = fileId || field + '_file';
     let $fileDom = $("#" + fileId);
@@ -135,6 +135,8 @@ function initUploadFile(field, fileId = '', fileType = 'image') {
         console.log('初始化上传文件');
     }
     fileId = fileId || field + '_file';
+    let allowedFileTypes = fileType === 'file' ? ['image', 'html', 'text', 'video', 'audio', 'flash', 'object'] : [fileType]
+    let initialPreviewFileType =  fileType;
     let $fileDom = $("#" + fileId);
     let typeCn = '文件';
     switch (fileType) {
@@ -147,7 +149,9 @@ function initUploadFile(field, fileId = '', fileType = 'image') {
             typeCn = '视频';
             break;
     }
-
+    if (adminDebug) {
+        console.log(allowedFileTypes,initialPreviewFileType,$fileDom,typeCn);
+    }
     $fileDom.fileinput({
         theme: 'fas',
         language: 'zh',
@@ -174,8 +178,8 @@ function initUploadFile(field, fileId = '', fileType = 'image') {
             showDrag: false,
             showDownload: false,
         },
-        allowedFileTypes: [fileType],
-        initialPreviewFileType: fileType,
+        allowedFileTypes: allowedFileTypes,
+        initialPreviewFileType: initialPreviewFileType,
         uploadExtraData: {
             file_field: fileId,
             file_type: fileType,

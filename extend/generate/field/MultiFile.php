@@ -11,11 +11,12 @@ class MultiFile extends Field
     public static string $html = <<<EOF
 <div class="form-group row">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
-    <div class="col-sm-8"> 
-        <input id="[FIELD_NAME]" name="[FIELD_NAME][]"  placeholder="请上传[FORM_NAME]" multiple="multiple" type="file" class="form-control fieldMultiFile" >
-        <script>
-            initUploadMultiFile('[FIELD_NAME]');
-        </script>   
+    <div class="col-sm-8">
+        <input id="[FIELD_NAME]_file" name="[FIELD_NAME]_file" type="file" class="file-loading " multiple>
+            <input name="[FIELD_NAME]" id="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default=''}" hidden placeholder="请上传[FORM_NAME]" class="fieldMultiFile">
+            <script>
+                initUploadMultiFile('[FIELD_NAME]','','file');
+            </script> 
     </div>
 </div>
 EOF;

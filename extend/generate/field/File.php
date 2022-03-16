@@ -12,11 +12,12 @@ class File extends Field
 <div class="form-group row">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4 formInputDiv"> 
-        <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" type="file" class="form-control fieldFile" >
+        <input id="[FIELD_NAME]_file" name="[FIELD_NAME]_file" type="file" class="file-loading " data-initial-preview="{if isset(\$data)}{\$data.[FIELD_NAME]}{/if}">
+        <input name="[FIELD_NAME]" id="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default='[FIELD_DEFAULT]'}" hidden placeholder="请上传[FORM_NAME]" class="fieldFile">
     </div>
 </div>
 <script>
-    initUploadFile('[FIELD_NAME]');
+    initUploadFile('[FIELD_NAME]','','file');
 </script>   
 EOF;
 
