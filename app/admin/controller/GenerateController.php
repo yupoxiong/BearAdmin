@@ -217,11 +217,13 @@ class GenerateController extends AdminBaseController
         $data   = [];
         try {
 
+            $param['field_default'] = '';
+
             if ($param['form_type'] === 'switch') {
                 $param['form_type'] = 'switch_field';
+                // 此处默认为1，可自行修改
+                $param['field_default'] = '1';
             }
-
-            $param['field_default'] = '';
 
             $class_name = parse_name($param['form_type'], 1);
 
