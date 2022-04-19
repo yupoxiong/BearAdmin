@@ -138,7 +138,11 @@ class AuthController extends AdminBaseController
             'ip_address'  => $ip,
         );
 
-        $status = $geeTest->preProcess($data);
+        try {
+            $status = $geeTest->preProcess($data);
+        } catch (Exception $e) {
+            $status = 0;
+        }
 
         session('gt_server', $status);
         session('gt_uid', $data['gt_uid']);

@@ -16,6 +16,7 @@ use think\db\exception\ModelNotFoundException;
  * Class AdminUser
  * @package app\admin\model
  * @property int $id
+ * @property string $nickname
  * @property string $username
  * @property string $password
  * @property array $auth_url
