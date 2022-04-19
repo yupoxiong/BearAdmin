@@ -1,5 +1,5 @@
 # BearAdmin
-基于ThinkPHP6.0+AdminLTE3.1的后台管理系统。TP5.1版本[点击这里](https://github.com/yupoxiong/BearAdmin/tree/thinkphp5.1), TP5.0版本[点击这里](https://github.com/yupoxiong/BearAdmin/tree/thinkphp5.0)
+基于ThinkPHP6.0+AdminLTE3.2的后台管理系统。TP5.1版本[点击这里](https://github.com/yupoxiong/BearAdmin/tree/thinkphp5.1), TP5.0版本[点击这里](https://github.com/yupoxiong/BearAdmin/tree/thinkphp5.0)
 
 
  [开发文档](https://www.kancloud.cn/codebear/admin_tp6) |
@@ -52,6 +52,10 @@ php think migrate:run
 ### 访问后台
 访问`/admin`，默认开发管理员的账号为`develop_admin`，超级管理员的账号为`super_admin`，**对应密码查看迁移命令行输出内容**。
 
+### 重置管理员密码
+```shell
+php think reset:admin_password
+``` 
 
 ## 其他说明
 本项目采用大量的开源代码，包括ThinkPHP，AdminLTE等等。
