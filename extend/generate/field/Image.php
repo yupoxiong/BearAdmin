@@ -9,7 +9,7 @@ namespace generate\field;
 class Image extends Field
 {
     public static string $html = <<<EOF
-    <div class="form-group row">
+    <div class="form-group row rowImage">
         <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
         <div class="col-sm-10 col-md-4 formInputDiv"> 
             <div class="input-group">

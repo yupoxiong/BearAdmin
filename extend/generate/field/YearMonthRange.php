@@ -10,19 +10,19 @@ class YearMonthRange extends Field
 {
 
     public static string $html = <<<EOF
-<div class="form-group row">
+<div class="form-group row rowYearMonthRange">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4 formInputDiv">
         <input id="[FIELD_NAME]" readonly name="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default='[FIELD_DEFAULT]'}" placeholder="请选择[FORM_NAME]" type="text" class="form-control filed-year-month-range">
     </div>
-</div>
-<script>
-    laydate.render({
-        elem: '#[FIELD_NAME]',
-        type: 'month',
-        range: true,
-    });
-</script>\n
+    <script>
+        laydate.render({
+            elem: '#[FIELD_NAME]',
+            type: 'month',
+            range: true,
+        });
+    </script>
+</div>\n
 EOF;
 
     public static array $rules = [

@@ -8,25 +8,26 @@ namespace generate\field;
 class SwitchField extends Field
 {
     public static string $html = <<<EOF
-<div class="form-group row">
+<div class="form-group row rowSwitch">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4 formInputDiv">
     <input {if((!isset(\$data)&&[FIELD_DEFAULT]==1)||(isset(\$data)&&\$data.[FIELD_NAME]==1))}checked{/if}
      class="input-switch"  id="[FIELD_NAME]" value="1" type="checkbox" />
     <input class="switch fieldSwitch" placeholder="[FORM_NAME]" name="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default='[FIELD_DEFAULT]'}" hidden />
     </div>
+
+    <script>
+        $('#[FIELD_NAME]').bootstrapSwitch({
+            onText: "[ON_TEXT]",
+            offText: "[OFF_TEXT]",
+            onColor: "success",
+            offColor: "danger",
+            onSwitchChange: function (event, state) {
+                $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
+            }
+        });
+    </script>
 </div>\n
-<script>
-    $('#[FIELD_NAME]').bootstrapSwitch({
-        onText: "[ON_TEXT]",
-        offText: "[OFF_TEXT]",
-        onColor: "success",
-        offColor: "danger",
-        onSwitchChange: function (event, state) {
-            $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
-        }
-    });
-</script>
 EOF;
 
 

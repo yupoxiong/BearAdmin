@@ -9,7 +9,7 @@ namespace generate\field;
 class Color extends Field
 {
     public static string $html = <<<EOF
-<div class="form-group row">
+<div class="form-group row rowColor">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4 formInputDiv">
         <div class="input-group" id="color-[FIELD_NAME]">
@@ -19,15 +19,16 @@ class Color extends Field
             </div>
         </div>
     </div>
+    <script>
+        $(function (){
+            $('#color-[FIELD_NAME] .fa-square').css('color', $('#[FIELD_NAME]').val());
+        });
+        $('#color-[FIELD_NAME]').colorpicker().on('colorpickerChange', function(event) {
+            $('#color-[FIELD_NAME] .fa-square').css('color', event.color!==null?event.color.toString():'');
+        })
+    </script>
 </div>
-<script>
-    $(function (){
-        $('#color-[FIELD_NAME] .fa-square').css('color', $('#[FIELD_NAME]').val());
-    });
-    $('#color-[FIELD_NAME]').colorpicker().on('colorpickerChange', function(event) {
-      $('#color-[FIELD_NAME] .fa-square').css('color', event.color!==null?event.color.toString():'');
-    })
-</script>\n
+\n
 EOF;
 
     public static array $rules = [

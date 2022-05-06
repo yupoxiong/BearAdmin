@@ -10,7 +10,7 @@ class MultiImage extends Field
 {
     public static string $html = <<<EOF
 
-<div class="form-group row">
+<div class="form-group row rowMultiImage">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-8 formInputDiv">
         <div class="input-group">

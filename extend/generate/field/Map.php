@@ -12,7 +12,7 @@ class Map extends Field
 {
     public static string $html = <<<EOF
     
-<div class="form-group row">
+<div class="form-group row rowMap">
     <label class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-8 ">
         <div class="input-group mb-3 mapInputContainer">
@@ -30,7 +30,7 @@ class Map extends Field
         <input name="[FIELD_NAME_LNG]" hidden id="[FIELD_NAME_LNG]" value="{\$data.[FIELD_NAME_LNG]|default='117'}">
         <input name="[FIELD_NAME_LAT]" hidden id="[FIELD_NAME_LAT]" value="{\$data.[FIELD_NAME_LAT]|default='36'}" >
     </div>
-</div>
+
     
 <script>
     AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
@@ -98,7 +98,8 @@ class Map extends Field
     });
 
    
-</script>\n
+</script>
+</div>\n
 EOF;
 
     public static array $rules = [

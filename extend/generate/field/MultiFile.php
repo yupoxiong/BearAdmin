@@ -9,7 +9,7 @@ namespace generate\field;
 class MultiFile extends Field
 {
     public static string $html = <<<EOF
-<div class="form-group row">
+<div class="form-group row rowMultiFile">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-8">
         <input id="[FIELD_NAME]_file" name="[FIELD_NAME]_file" type="file" class="file-loading " multiple>

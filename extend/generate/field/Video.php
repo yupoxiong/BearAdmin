@@ -9,16 +9,17 @@ namespace generate\field;
 class Video extends Field
 {
     public static string $html = <<<EOF
-    <div class="form-group row">
-        <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
-        <div class="col-sm-10 col-md-4 formInputDiv"> 
+<div class="form-group row rowVideo">
+    <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
+    <div class="col-sm-10 col-md-4 formInputDiv"> 
         <input id="[FIELD_NAME]_file" name="[FIELD_NAME]_file" type="file" class="file-loading" data-initial-preview="{if isset(\$data)}{\$data.[FIELD_NAME]}{/if}">
         <input name="[FIELD_NAME]" id="[FIELD_NAME]" value="{\$data.[FIELD_NAME]|default=''}" hidden placeholder="请上传[FORM_NAME]" class="fieldVideo">
-        </div>
     </div>
+    
     <script>
         initUploadVideo('[FIELD_NAME]');
-    </script>   
+    </script>
+</div>\n  
 EOF;
 
     public static function create($data): string

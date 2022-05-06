@@ -9,7 +9,7 @@ namespace generate\field;
 class MultiSelect extends Field
 {
     public static string $html = <<<EOF
-<div class="form-group row">
+<div class="form-group row rowMultiSelect">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4 formInputDiv">
         <select name="[FIELD_NAME][]" id="[FIELD_NAME]" data-placeholder="请选择[FORM_NAME]" class="form-control fieldMultiSelect" multiple="multiple">
@@ -17,10 +17,11 @@ class MultiSelect extends Field
              [OPTION_DATA]
         </select>
     </div>
-</div>
-<script>
- $('#[FIELD_NAME]').select2();
-</script>\n
+
+    <script>
+        $('#[FIELD_NAME]').select2();
+    </script>
+</div>\n
 EOF;
 
     public static function create($data): string

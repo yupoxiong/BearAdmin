@@ -9,7 +9,7 @@ namespace generate\field;
 class Icon extends Field
 {
     public static string $html = <<<EOF
-<div class="form-group row">
+<div class="form-group row rowIcon">
     <label for="[FIELD_NAME]" class="col-sm-2 col-form-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4 formInputDiv">
         <div class="input-group iconpicker-container">
@@ -23,10 +23,11 @@ class Icon extends Field
                    placeholder="请选择[FORM_NAME]">
         </div>
     </div>
-</div>
-<script>
-    $('#[FIELD_NAME]').iconpicker({placement: 'bottomLeft'});
-</script>\n
+
+    <script>
+        $('#[FIELD_NAME]').iconpicker({placement: 'bottomLeft'});
+    </script>
+</div>\n
 EOF;
 
     public static function create($data): string
