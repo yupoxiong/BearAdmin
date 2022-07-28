@@ -42,7 +42,7 @@ class Build
             default:
                 $result   = $field_name;
                 $_id_post = strpos($field_name, $_id_suffix);
-                if (strlen($field_name) === ($_id_post + 3)) {
+                if ($_id_post !== false && strlen($field_name) === ($_id_post + 3)) {
                     $result = substr($result, 0, $_id_post);
                 }
                 break;
@@ -50,7 +50,7 @@ class Build
 
                 $result   = $field_name;
                 $_id_post = strpos($field_name, $_id_suffix);
-                if (strlen($field_name) === ($_id_post + 3)) {
+                if ($_id_post !== false && strlen($field_name) === ($_id_post + 3)) {
                     $result = substr($result, 0, $_id_post);
                 }
                 $result .= $_list_suffix;
@@ -59,7 +59,7 @@ class Build
             case 3:
                 $result   = $field_name;
                 $_id_post = strpos($field_name, $_id_suffix);
-                if (strlen($field_name) === ($_id_post + 3)) {
+                if ($_id_post !== false && strlen($field_name) === ($_id_post + 3)) {
                     $result = substr($result, 0, $_id_post);
                 }
                 $result = strtoupper($result . $_list_suffix);
@@ -68,7 +68,7 @@ class Build
             case 4:
                 $result   = $field_name;
                 $_id_post = strpos($field_name, $_id_suffix);
-                if (strlen($field_name) === ($_id_post + 3)) {
+                if ($_id_post !== false && strlen($field_name) === ($_id_post + 3)) {
                     $result = substr($result, 0, $_id_post);
 
                 }
@@ -78,7 +78,7 @@ class Build
             case 5:
                 $result   = $field_name;
                 $_id_post = strpos($field_name, $_id_suffix);
-                if (strlen($field_name) === ($_id_post + 3)) {
+                if ($_id_post !== false && strlen($field_name) === ($_id_post + 3)) {
                     $result = substr($result, 0, $_id_post);
                 }
                 $result .= $_name_suffix;
