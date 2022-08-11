@@ -15,7 +15,7 @@
 
             $result = $service->getDataInfo($this->id);
             return api_success([
-                'user_level' => $result,
+                '[TABLE_NAME]' => $result,
             ]);
 
         } catch (ApiServiceException $e) {
