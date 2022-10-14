@@ -12,7 +12,7 @@ return [
     // 指令定义
     'commands' => [
         // 测试指令
-        'test'                 => Test::class,
+        'test'                 => \app\command\Test::class,
         // 初始化env文件
         'init:env'             => InitEnv::class,
         // 生成新的app_key
