@@ -31,7 +31,8 @@
         "mk-j/php_xlsxwriter": "^0.38.0",
         "ext-openssl": "*",
         "ext-json": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "topthink/think-filesystem": "^2.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

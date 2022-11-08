@@ -73,7 +73,7 @@ trait AdminTreeTrait
                 }
                 $spacer   = $adds ? $adds . $j : '';
                 $selected = (int)$id === $sid ? 'selected' : '';
-                extract($value, null);
+                extract($value, EXTR_OVERWRITE);
                 if (0 === $parent_id && $str_group) {
                     eval("\$n_str = \"$str_group\";");
                 } else {
@@ -106,7 +106,7 @@ trait AdminTreeTrait
             $text = $this->text[$menu['level']] ?? end($this->text);
 
             foreach ($child as $k => $v) {
-                extract($v, null);
+                extract($v, EXTR_OVERWRITE);
 
                 //如果有下级菜单
                 if ($this->getChild($k)) {
@@ -183,7 +183,7 @@ trait AdminTreeTrait
             $text  = $this->text[$level['level']] ?? end($this->text);
 
             foreach ($child as $k => $v) {
-                extract($v, null);
+                extract($v, EXTR_OVERWRITE);
 
                 if ($this->getChild($k)) {
                     eval("\$n_str = \"$text[0]\";");
