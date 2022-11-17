@@ -18,9 +18,9 @@ trait AdminSettingForm
         switch ($type) {
             case 'switch':
                 $content_int = (int)$content;
-                $search1     = "{if(!isset(\$data) ||\$data.[FIELD_NAME]==1)}checked{/if}";
+                $search1     = "{if((!isset(\$data)&&[FIELD_DEFAULT]==1)||(isset(\$data)&&\$data.[FIELD_NAME]==1))}checked{/if}";
                 $search2     = "{\$data.[FIELD_NAME]|default='[FIELD_DEFAULT]'}";
-                $form        = str_replace(array($search1, $search2, '[ON_TEXT]', '[OFF_TEXT]'), array($content ? 'checked' : '', $content_int, '是', '否',), $form);
+                $form        = str_replace(array($search1, $search2, '[ON_TEXT]', '[OFF_TEXT]'), array($content_int ? 'checked' : '', $content_int, '是', '否',), $form);
                 break;
             case 'select':
                 $option_html = '';
