@@ -115,3 +115,15 @@ if (!function_exists('format_size')) {
         return round($size, 2) . $delimiter . $units[$i];
     }
 }
+
+if(!function_exists('htmlentities_view')){
+    /**
+     * 封装默认的 htmlentities 函数，避免在php8.1环境中view传入null报错
+     * @param mixed $string
+     * @return string
+     */
+    function htmlentities_view($string): string
+    {
+        return htmlentities((string)$string);
+    }
+}
