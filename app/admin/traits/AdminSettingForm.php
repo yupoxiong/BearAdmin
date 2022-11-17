@@ -68,9 +68,13 @@ trait AdminSettingForm
                 $search1 = "{\$data.[FIELD_NAME]|raw|default='[FIELD_DEFAULT]'}";
 
                 $search2  = "{\$data.[FIELD_NAME]|raw|default='<p>[FIELD_DEFAULT]</p>'}";
-                $replace2 = $content !== '' ? $content : '<p></p>';
+                if($content===''){
+                    $content = '<p></p>';
+                }else if(strpos($content,'<p>')!==0){
+                    $content = '<p>'.$content.'<p/>';
+                }
 
-                $form = str_replace(array($search1, $search2), array($content, $replace2), $form);
+                $form = str_replace(array($search1, $search2), array($content, $content), $form);
 
                 break;
             case 'map':
