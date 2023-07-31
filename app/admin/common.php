@@ -108,7 +108,7 @@ if (!function_exists('create_setting_file')) {
 
                 }
                 $file_code .= "\r\n    // " . $content['name'] . "\r\n    '" .
-                    $content['field'] . "'=>'" . $content['content'] . "',";
+                    $content['field'] . "'=>'" . addslashes($content['content']) . "',";
 
             }
             $file_code .= "\r\n],";

@@ -1,6 +1,6 @@
 <script>
     // 是否为调试模式
-    var adminDebug = Boolean('{$admin.debug}');
+    var adminDebug = parseInt('{$admin.debug}') === 1;
     // 退出url
     var logoutUrl = '{$admin.logout_url}';
     // cookie前缀
