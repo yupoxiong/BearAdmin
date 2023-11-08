@@ -341,14 +341,14 @@ function goUrl(url) {
     } else if (url === 'url://back' || url === 3) {
         console.log('Return to the last page.');
         window.history.go(-1);
-    } else if (url === 4 || url === 'url://close-refresh') {
+    } else if (url === 4 || url === 'url://close_refresh') {
         console.log('Close this layer page and refresh parent page.');
         let indexWindow = parent.layer.getFrameIndex(window.name);
         //先刷新父级页面
         parent.goUrl(2);
         //再关闭当前layer弹窗
         parent.layer.close(indexWindow);
-    } else if (url === 5 || url === 'url://close-layer') {
+    } else if (url === 5 || url === 'url://close_layer') {
         console.log('Close this layer page.');
         let indexWindow = parent.layer.getFrameIndex(window.name);
         parent.layer.close(indexWindow);
