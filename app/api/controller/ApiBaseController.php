@@ -46,8 +46,6 @@ class ApiBaseController
 
     public function __construct()
     {
-        // 处理跨域问题
-        $this->crossDomain();
         // 检查登录
         $this->checkLogin();
         // 检查登录
